@@ -1251,6 +1251,8 @@
   }
 
   .button {
+    background: rgba(0, 0, 0, 0.5);
+    color: $white;
     margin-bottom: rem-calc(3);
     text-decoration: none;
   }
