@@ -397,6 +397,20 @@
         right: 0;
       }
     }
+
+    &.header-single-heading {
+
+      .header-icon {
+
+        @include breakpoint(large) {
+          top: 80px;
+        }
+      }
+
+      &::after {
+        padding-top: $line-height;
+      }
+    }
   }
 }
 
