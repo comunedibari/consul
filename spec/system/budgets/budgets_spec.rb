@@ -270,6 +270,114 @@ describe "Budgets" do
 
       expect(page).to have_link "See results"
     end
+
+    scenario "See results button isn't showed if the budget hasn't finished for all users" do
+      user = create(:user)
+      admin = create(:administrator)
+      budget = create(:budget, :balloting)
+
+      login_as(user)
+      visit budget_path(budget)
+      expect(page).not_to have_link "See results"
+
+      logout
+
+      login_as(admin.user)
+      visit budget_path(budget)
+      expect(page).not_to have_link "See results"
+    end
+
+    scenario "Show link to see all investments" do
+      budget = create(:budget)
+      group = create(:budget_group, budget: budget)
+      heading = create(:budget_heading, group: group)
+
+      create_list(:budget_investment, 3, :selected, heading: heading, price: 999)
+
+      budget.update!(phase: "informing")
+
+      visit budget_path(budget)
+      expect(page).not_to have_link "See all investments"
+
+      %w[accepting reviewing selecting valuating].each do |phase_name|
+        budget.update!(phase: phase_name)
+
+        visit budget_path(budget)
+        expect(page).to have_link "See all investments",
+                                  href: budget_investments_path(budget,
+                                                                heading_id: budget.headings.first.id,
+                                                                filter: "not_unfeasible")
+      end
+
+      %w[publishing_prices balloting reviewing_ballots].each do |phase_name|
+        budget.update!(phase: phase_name)
+
+        visit budget_path(budget)
+        expect(page).to have_link "See all investments",
+                                  href: budget_investments_path(budget,
+                                                                heading_id: budget.headings.first.id,
+                                                                filter: "selected")
+      end
+
+      budget.update!(phase: "finished")
+
+      visit budget_path(budget)
+      expect(page).to have_link "See all investments",
+                                  href: budget_investments_path(budget,
+                                                                heading_id: budget.headings.first.id,
+                                                                filter: "winners")
+    end
+
+    scenario "Show investments list" do
+      budget = create(:budget)
+      group = create(:budget_group, budget: budget)
+      heading = create(:budget_heading, group: group)
+
+      create_list(:budget_investment, 3, :selected, heading: heading, price: 999)
+
+      %w[informing finished].each do |phase_name|
+        budget.update!(phase: phase_name)
+
+        visit budget_path(budget)
+
+        expect(page).not_to have_content "List of investments"
+        expect(page).not_to have_css ".investments-list"
+        expect(page).not_to have_css ".budget-investment"
+      end
+
+      %w[accepting reviewing selecting].each do |phase_name|
+        budget.update!(phase: phase_name)
+
+        visit budget_path(budget)
+
+        within(".investments-list") do
+          expect(page).to have_content "List of investments"
+          expect(page).not_to have_content "Supports"
+          expect(page).not_to have_content "Price"
+        end
+      end
+
+      budget.update!(phase: "valuating")
+
+      visit budget_path(budget)
+
+      within(".investments-list") do
+        expect(page).to have_content "List of investments"
+        expect(page).to have_content("Supports", count: 3)
+        expect(page).not_to have_content "Price"
+      end
+
+      %w[publishing_prices balloting reviewing_ballots].each do |phase_name|
+        budget.update!(phase: phase_name)
+
+        visit budget_path(budget)
+
+        within(".investments-list") do
+          expect(page).to have_content "List of investments"
+          expect(page).to have_content("Price", count: 3)
+        end
+      end
+    end
   end
 
   context "In Drafting phase" do
