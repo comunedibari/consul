@@ -172,6 +172,8 @@ es:
         confirm_group:
           one: "Sólo puedes apoyar proyectos en %{count} distrito. Si sigues adelante no podrás cambiar la elección de este distrito. ¿Estás seguro/a?"
           other: "Sólo puedes apoyar proyectos en %{count} distritos. Si sigues adelante no podrás cambiar la elección de este distrito. ¿Estás seguro/a?"
+        remove_support: "Eliminar apoyo"
+        remove_support_label: "Eliminar tu apoyo a %{investment}"
         support: "Apoyar"
         support_label: "Apoyar %{investment}"
     investments_list:
