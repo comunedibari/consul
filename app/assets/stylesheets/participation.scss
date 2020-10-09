@@ -327,7 +327,7 @@
 .budget-investment-new {
 
   .header {
-    background: $brand;
+    background: $brand-secondary;
     border-bottom-right-radius: rem-calc(12);
     border-top-right-radius: rem-calc(12);
     color: #fff;
@@ -344,8 +344,8 @@
     }
 
     &::before {
-      background: $brand;
-      border: 4px solid $brand;
+      background: $brand-secondary;
+      border: 4px solid $brand-secondary;
       content: "";
       height: 100%;
       position: absolute;
@@ -357,11 +357,11 @@
 
     &::after {
       background: #fff;
-      border: 4px solid $brand;
+      border: 4px solid $brand-secondary;
       border-bottom-right-radius: rem-calc(12);
       border-top-right-radius: rem-calc(12);
       clip-path: polygon(20% 0, 100% 1%, 100% 100%, 20% 100%, 5% 50%);
-      color: $brand;
+      color: $brand-secondary;
       content: "\f1ad";
       display: none;
       font-family: "Font Awesome 5 Free";
@@ -831,6 +831,93 @@
 
   p {
     color: $text;
+  }
+
+  h2 {
+    font-size: $base-font-size;
+  }
+}
+
+.budget-info,
+.budget-investment-index-list {
+
+  h2 {
+    font-size: rem-calc(20);
+    margin: $line-height / 2 0;
+  }
+}
+
+.budget-investment {
+
+  &.index {
+    height: 100%;
+
+    .panel {
+      border-radius: rem-calc(6);
+      height: 100%;
+      padding: 0;
+      position: relative;
+
+      img {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: rem-calc(6);
+        border-top-right-radius: rem-calc(6);
+        width: 100%;
+      }
+
+      .image-container {
+        height: $line-height * 10;
+      }
+
+      .button {
+        font-size: $base-font-size;
+        margin-bottom: 0;
+        min-height: $line-height * 2;
+      }
+
+      .total-supports {
+        display: none;
+      }
+    }
+
+    .budget-investment-content {
+      padding: 0 rem-calc(12);
+    }
+
+    .supports-and-price {
+      background: $light;
+      display: table;
+      table-layout: fixed;
+
+      .price-title,
+      .supports-title {
+        color: #7b7b7b;
+        display: block;
+        font-size: $small-font-size;
+        text-transform: uppercase;
+      }
+
+      .table-cell {
+        padding: $line-height / 4 $line-height / 2;
+
+        &:first-child {
+          border-right: 1px solid $border;
+          position: relative;
+        }
+      }
+    }
+
+    .read-more {
+      bottom: 0;
+      color: $brand;
+      display: block;
+      left: 0;
+      margin-top: 0;
+      padding-right: $line-height / 2;
+      position: absolute;
+      text-align: right;
+      width: 100%;
+    }
   }
 }
 
