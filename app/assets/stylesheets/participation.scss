@@ -1251,7 +1251,6 @@
   }
 
   .button {
-    @extend %brand-background;
     margin-bottom: rem-calc(3);
     text-decoration: none;
   }
