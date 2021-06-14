@@ -1,7 +1,0 @@
-<%= header %>
-
-<%= form_for record, url: update_path, html: { class: "sdg-relations-edit" } do |f| %>
-  <%= render SDG::RelatedListSelectorComponent.new(f) %>
-
-  <%= f.submit %>
-<% end %>
