@@ -1,0 +1,33 @@
+
+<div class="proposal-info">
+  <%= render '/shared/author_info', resource: @process %>
+
+  <span class="bullet">&nbsp;&bull;&nbsp;</span>
+  <%= l @process.created_at.to_date %>
+
+</div>
+
+<br>
+
+<% if @process.description.present? %>
+  <hr>
+  <p class="title"><%= t("legislation.processes.header.description") %></p>
+  <div style=" word-wrap: break-word;"><%= markdown @process.description %></div>
+<% end %>
+
+
+
+<% if @process.additional_info.present? %>
+    <div id="collapseDiv1" class="collapse-div" role="tablist">
+      <div class="collapse-header" id="heading3">
+        <button data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+          <%= t("legislation.processes.header.additional_info") %>
+        </button>
+      </div>
+      <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3">
+        <div class="collapse-body">
+          <%= markdown @process.additional_info if @process.additional_info %>
+        </div>
+      </div>
+    </div>
+<% end %>

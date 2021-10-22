@@ -1,0 +1,51 @@
+<% provide :title do %><%= @event.title %><% end %>
+<% provide :social_media_meta_tags do %>
+<%= render "shared/social_media_meta_tags",
+            social_url: event_url(@event),
+            social_title: @event.title,
+            social_description: @event.description %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: event_url(@event) %>
+<% end %>
+
+<% cache [locale_and_user_status(@event), @event, @event.author, Flag.flagged?(current_user, @event), @event_votes] do %>
+  <div class="event-show">
+    <div id="<%= dom_id(@event) %>" class="row">
+      <div class="small-12 medium-8 column">
+
+        <h1><%= t("events.event.created") %></h1>
+
+        <p>
+          <%= t("events.event.share.edit") %>
+        </p>
+
+        <%= render partial: 'shared/social_share', locals: {
+          title: @event.title,
+          url: event_url(@event),
+          description: @event.description
+        } %>
+
+        <% if @event_improvement_path.present? %>
+          <div class="callout highlight margin-top text-center">
+            <p class="lead"><strong><%= t("events.event.improve_info") %></strong></p>
+            <%= link_to t("events.event.improve_info_link"), @event_improvement_path, class: "button" %>
+          </div>
+        <% end %>
+
+        <div class="small margin-bottom">
+          <%= link_to t("events.event.share.view_event"), event_path(@event) %>
+        </div>
+      </div>
+
+      <div class="small-12 medium-4 column">
+        <div class="callout light">
+          <p>
+            <strong><%= @event.title %></strong><br>
+            <%= t("events.show.code") %> <%= @event.id %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

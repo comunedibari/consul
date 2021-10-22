@@ -1,0 +1,90 @@
+  <% provide :title do %>
+    <%= t("layouts.header.collaborative_works") %>
+  <% end %>
+<% if User.pon_id == 0 %>
+  <%= render "shared/section_header", i18n_namespace: "works.index.section_header", image: "works" %>
+      <div class="row">
+        <div class="column">
+        <%= render "shared/pon_list", resource: "works" %>
+        </div>  
+      </div>
+<% else %>      
+  <% content_for :header_addon do %>
+    <%= render "shared/search_form",
+              search_path: works_path(page: 1),
+              i18n_namespace: "processes.index.search_form" %>
+  <% end %>
+  <% content_for :header_small_addon do %>
+    <%= render "shared/search_form_small",
+              search_path: works_path(page: 1),
+              i18n_namespace: "processes.index.search_form" %>
+  <% end %>
+
+  <%= render "shared/section_header", i18n_namespace: "works.index.section_header", image: "works" %>
+  
+  <%= render "shared/search_results",
+          resources:  @resources,
+          total_resources_num: @tot_resources,
+          search_terms: @search_terms,
+          advanced_search_terms: @advanced_search_terms,
+          tag_filter: @tag_filter
+            %>
+    
+
+
+  <div class="row">
+
+    <div id="legislation" class="legislation-list small-12 medium-12 large-9 column">
+
+
+
+    <div>
+      <%= render "shared/advanced_search", search_path: works_path(page: 1),
+                                          class_name: "Process" %>
+    </div>    
+
+      <%= render 'shared/filter_subnav', i18n_namespace: "legislation.processes.index" %>
+
+
+      <div id="legislation-list">
+        <% if @resources.any? %>
+          <%= render @resources, taggable_name: 'work' %>
+          <%= paginate @resources %>
+        <% else %>
+          <div class="callout primary margin-top">
+            <%= t(".no_#{@current_filter}_processes") %>
+          </div>
+        <% end %>
+
+
+
+
+        <div id="section_help" class="margin" data-magellan-target="section_help">
+          <p class="lead">
+            <strong><%= t("legislation.works.index.section_footer.title") %></strong>
+          </p>
+          <p><%= Setting["service_description.works",User.pon_id] %></p>
+          <p><%= t("works.index.section_footer.help_text_1") %></p>
+          <p><%= t("works.index.section_footer.help_text_2",
+                    org: Setting['org_name',User.pon_id].to_s) %></p>
+          <p><%= t("works.index.section_footer.help_text_3") %></p>
+        </div>
+      </div>
+    </div>
+
+          <div class="small-12 medium-12 large-3 column">
+            <aside class="margin-bottom">
+              <% if params[:retired].blank? %>
+                <div class="sidebar-divider"></div>
+                <h2 class="sidebar-title"><%= t("processes.works.form.geolocation") %></h2>
+                <p><%= render_geolocation(@resources, "legislation_process")  %></p>
+                <%= link_to "Visualizza dettaglio mappa", large_map_works_path %>
+              <% end %>
+            </aside>
+            <%= render 'legislation/processes/categories', taggable: 'work' %>
+            <%= render "shared/tag_cloud", taggable: 'work' %>
+
+
+          </div>
+  </div>
+<% end %>

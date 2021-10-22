@@ -1,0 +1,52 @@
+<table>
+  <thead>
+  <th scope="col"><%= t("st_sectors.show.table.date") %></th>
+  <th scope="col" class="small-6"><%= t("st_sectors.show.table.request") %></th>
+  <th scope="col" class="small-3"><%= t("st_sectors.show.table.state") %></th>
+  <th scope="col" class="small-3"><%= t("st_sectors.show.table.note") %></th>
+  <th scope="col" class="small-3"><%= t("st_sectors.show.table.actions") %></th>
+  </thead>
+  <tbody>
+  <% @st_sectors.each do |st_sector| %>
+    <% if !((st_sector.user_id == current_user.id || current_user.administrator? || current_user.moderator?) && @sector.id == st_sector.id) %>
+      <tr id="<%= dom_id(st_sector) %>">
+        <td>
+          <%= st_sector.created_at.strftime("%d/%m/%Y %H:%M") %>
+        </td>
+        <td>
+          <%= st_sector.request %>
+        </td>
+        <td>
+          <%= st_sector.state %>
+        </td>
+        <td class="text-title-sectors">
+          <%= st_sector.note %>
+        </td>
+        <td>
+          <%= link_to t("st_sectors.show.table.button.views"),
+                      sector_path(st_sector.sector_id, st: st_sector.id),
+                      class: "button" %>
+        </td>
+      </tr>
+    <% else %>
+      <tr id="<%= dom_id(st_sector) %>" style="background-color: #3b94ff;">
+        <td>
+          <%= st_sector.created_at.strftime("%d/%m/%Y %H:%M") %>
+        </td>
+        <td>
+          <%= st_sector.request %>
+        </td>
+        <td>
+          <%= st_sector.state %>
+        </td>
+        <td class="text-title-sectors">
+          <%= st_sector.note %>
+        </td>
+        <td>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  </tbody>
+</table>

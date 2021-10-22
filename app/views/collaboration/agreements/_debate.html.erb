@@ -1,0 +1,17 @@
+<div class="small-12 medium-9 column">
+  <div class="debate-list">
+    <% if agreement.questions.empty? %>
+      <p><%= t("collaboration.agreements.debate.empty_questions") %></p>
+    <% else %>
+      <%= render agreement.questions %>
+    <% end %>
+  </div>
+</div>
+
+<% if agreement.questions.any? %>
+  <div class="small-12 medium-3 column">
+    <div class="callout success">
+      <p><%= t("collaboration.agreements.debate.participate") %></p>
+    </div>
+  </div>
+<% end %>

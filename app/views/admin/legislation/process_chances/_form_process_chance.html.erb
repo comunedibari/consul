@@ -1,0 +1,67 @@
+<%= form.label :process_chance, label %>
+<p class="help-text" id="tag-list-help-text">Informazioni aggiuntive di un lavoro pubblico</p>
+<br></br>
+
+
+<%= form.fields_for :process_chance, process_chance do |field| %>
+
+  <%= field.hidden_field :legislation_process_id,
+                              value: process_chance.legislation_process_id %>
+
+
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :benefit %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :benefit, label: false, placeholder: t('activerecord.attributes.legislation/process.benefit')+'....' %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :addressed_to %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :addressed_to, label: false, placeholder: t('activerecord.attributes.legislation/process.addressed_to')+'....' %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :purpose %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :purpose, label: false, placeholder: t('activerecord.attributes.legislation/process.purpose')+'....' %>
+  </div>
+
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :progress_status %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.number_field :progress_status, label: false, max: 100 ,min: 0 %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :info %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :info, label: false, placeholder: t('activerecord.attributes.legislation/process.info')+'....' %>
+  </div>
+
+ <div class="small-12 medium-4 column">
+    <%= form.label :contacts %>
+    <p class="help-text" id="tag-list-help-text"><%= t('activerecord.attributes.legislation/process.contacts_info') %></p>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :contacts, label: false, placeholder: t('activerecord.attributes.legislation/process.contacts')+'....' %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :address %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :address, label: false, placeholder: t('activerecord.attributes.legislation/process.address')+'....' %>
+  </div>
+
+
+
+<% end %>
+

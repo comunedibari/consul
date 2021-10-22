@@ -1,0 +1,170 @@
+<% provide :title do %><%= @event.title %>
+<% end %>
+<% provide :social_media_meta_tags do %>
+  <%= render "shared/social_media_meta_tags",
+             social_url: event_url(@event),
+             social_title: @event.title %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: event_url(@event) %>
+<% end %>
+
+<% cache [locale_and_user_status(@event), @event, Flag.flagged?(current_user, @event), @event_votes] do %>
+  <div class="event-show">
+    <div id="<%= dom_id(@event) %>" class="row">
+      <div class="small-12 medium-9 column">
+        <%= back_link_to events_path %>
+
+        <h1><%= @event.title %></h1>
+        <% if @event.conflictive? %>
+          <div data-alert class="callout alert margin-top">
+            <strong><%= t("events.show.flag") %></strong>
+          </div>
+        <% end %>
+
+        <div class="event-info">
+          <% if !ceck_author(@event.author_id) %>
+            <%= render '/shared/author_info', resource: @event %>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <% end %>
+
+
+          <%= l @event.created_at.to_date %>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <span class="icon-comments"></span>&nbsp;
+          <%= link_to t("events.show.comments", count: @event.comments_count), "#comments" %>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <span class="js-flag-actions">
+            <%= render 'events/flag_actions', event: @event %>
+          </span>
+
+          <span class="label round " style="background: <%= @event.event_type.event_color %>; " title=" <%= @event.event_type.event_category.to_s %>">
+            <%= @event.event_type.event_category.to_s %>
+          </span>
+        </div>
+
+        <% if @event.images.any? %>
+          <%= render "gallery", event: @event %>
+        <% end %>
+
+
+        <br>
+        <% if @event.event_type.creable > 0 %>
+          <div>
+            <% eventable = EventContent.where(event_id: @event.id).first.eventable %>
+            <br><%= link_to t("layouts.header.more_info") + " " + @event.event_type.event_category, url_for(eventable), class: "button hollow" %>
+          </div>
+        <% end %>
+
+        <div>
+          <strong><%= t("events.form.event_text") %> </strong>
+          <br><%= safe_html_with_links @event.description %>
+        </div>
+        <div class="row">
+          <div class="small-12 medium-8 column">
+            <strong><%= t("events.show.date_event_table") %> </strong>
+            <table>
+              <% @event_slots.each_with_index do |event_slot, index| %>
+                <tr>
+                  <% if @event_slots.count > 1 %>
+                    <td><%= t(index.ordinalize) %> <%= t("events.show.date") %></td>
+                  <% else %>
+                    <td> <%= t("events.show.date_of_event") %></td>
+                  <% end %>
+                  <% if @event.all_day_event %>
+                    <% if event_slot.end_event.to_s.slice(0...10) == event_slot.start_event.to_s.slice(0...10) %>
+                      <td><u><%= event_slot.start_event.strftime("%d/%m/%Y") %></u></td>
+                    <% else %>
+                      <td><%= t("events.show.start_event") %>
+                        <u><%= event_slot.start_event.strftime("%d/%m/%Y") %></u> <%= t("events.show.end_event") %>
+                        <u><%= event_slot.end_event.strftime("%d/%m/%Y") %></u></td>
+                    <% end %>
+                  <% else %>
+                    <td><%= t("events.show.start_event") %>
+                      <u><%= event_slot.start_event.strftime("%d/%m/%Y alle %H:%M") %></u> <%= t("events.show.end_event") %>
+                      <u><%= event_slot.end_event.strftime("%d/%m/%Y alle %H:%M") %></u></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <aside class="small-12 medium-3 column">
+        <% if author_of_event?(@event) || event_current_editable?(@event) || can_destroy_image?(@event) || current_moderable_comments?(@event) %>
+
+          <div class="sidebar-divider"></div>
+          <div class="show-actions-menu">
+            <% if event_current_editable?(@event) %>
+              <%= link_to edit_event_path(@event), class: 'btn btn-outline-primary btn-block' do %>
+                <span class="icon-edit"></span>
+                <%= t("events.show.edit_event_link") %>
+              <% end %>
+            <% end %>
+
+
+            <% if event_current_moderable_comments?(@event) %>
+              <%= link_to moderation_flag_event_path(@event),
+                          class: "btn btn-primary font_size_initial btn-block #{@event.moderation_flag? ? 'btn-alert' : ''}" do %>
+                <span class="icon-comments"></span>
+                <%= t("#{@event.moderation_flag? ? 'events.show.moderation_flag_desactive' : 'events.show.moderation_flag_active'}") %>
+              <% end %>
+            <% end %>
+
+            <% if current_user && (current_user.administrator? || current_user.moderator?) %>
+              <%= link_to social_flag_event_path(@event), class: "btn btn-primary btn-block #{@event.social_content.social_access? ? 'btn-alert' : ''}" do %>
+                <span class="icon-comments"></span>
+                <%= t("#{@event.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+              <% end %>
+            <% end %>
+
+          </div>
+        <% end %>
+
+        <div class="sidebar-divider"></div>
+        <h2><%= t("votes.supports") %></h2>
+        <div id="<%= dom_id(@event) %>_votes">
+          <%= render 'events/votes', event: @event %>
+        </div>
+
+        <%= render partial: 'shared/social_share', locals: {
+          share_title: t("events.show.share"),
+          title: @event.title,
+          url: event_url(@event),
+          description: @event.description
+        } %>
+
+<!--        <%# if current_user %>
+          <div class="sidebar-divider"></div>
+          <p class="sidebar-title"><%#= t("shared.follow") %></p>
+
+          <%#= render 'follows/follow_button', follow: find_or_build_follow(current_user, @event) %>
+        <%# end %>-->
+
+
+<% end %>
+</aside>
+<% if @event.documents.present? %>
+  <% if feature?(:allow_attached_documents) %>
+    <br><%= render 'documents/documents',
+                   documents: @event.documents,
+                   max_documents_allowed: Event.max_documents_allowed %>
+  <% end %>
+<% end %>
+
+
+
+</div>
+</div>
+
+<div class="tabs-content" data-tabs-content="proposals-tabs" role="tablist">
+  <%#= render "events/filter_subnav" %>
+  <%#= render "events/notifications" %>
+
+  <div class="tabs-panel is-active" id="tab-comments">
+    <%= render "events/comments" %>
+  </div>
+</div>
+

@@ -1,0 +1,82 @@
+<%# #moderazione su reporting %>
+
+<h2><%= t("moderation.reportings.index.title") %></h2>
+
+<%= render 'shared/filter_subnav', i18n_namespace: "moderation.reportings.index" %>
+
+<div class="row">
+  <h3 class="small-8 large-8 columns"><%= page_entries_info @reportings %></h3>
+  <div class="small-4 large-4 columns">
+    <div class="float-right">
+      <%= t("moderation.reportings.index.order") %>
+      <%= render 'shared/order_selector', i18n_namespace: "moderation.reportings.index" %>
+    </div>
+  </div>
+</div>
+
+<%= form_tag moderate_moderation_reportings_path(request.query_parameters), method: :put do %>
+  <p class="js-check">
+    <%= t('shared.check') %>:
+    <%= link_to t('shared.check_all'), '#', data: {check_all: "reporting_ids[]"} %>
+    |
+    <%= link_to t('shared.check_none'), '#', data: {check_none: "reporting_ids[]"} %>
+  </p>
+
+  <table class="clear">
+    <tr>
+      <th>
+        <%= t("moderation.reportings.index.headers.reporting") %>
+      </th>
+      <% if @current_filter != "all_moderate" %> 
+        <th>
+        <%= t("moderation.reportings.index.headers.moderate") %>
+        </th>
+      <% end %>
+    </tr>
+    <% @reportings.each do |reporting| %>
+      <tr id="reporting_<%= reporting.id %>">
+        <td>
+          <%= link_to reporting.title, reporting, target: "_blank" %>
+          <br>
+          <span class="date"><%= l reporting.updated_at.to_date %></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= reporting.flags_count > 0 ? reporting.flags_count : 0 %><span class="icon-flag flag-disable"></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= reporting.author.username %>
+          <br>
+          <div class="moderation-description">
+            <%= reporting.description %>
+          </div>
+        </td>
+       <% if @current_filter != "all_moderate" %> 
+        <td class="text-center">
+          <%= check_box_tag "reporting_ids[]", reporting.id, nil, id: "#{dom_id(reporting)}_check" %>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% if @current_filter != "all_moderate" %>
+  <%= submit_tag t('moderation.reportings.index.block_authors'),
+    name: "block_authors",
+    class: "button hollow alert",
+    data: {confirm: t('moderation.reportings.index.confirm')}
+  %>
+
+  <div class="float-right">
+    <%= submit_tag t('moderation.reportings.index.hide_reportings'),
+      name: "hide_reportings",
+      class: "button hollow alert",
+      data: {confirm: t('moderation.reportings.index.confirm')}
+    %>
+    <%= submit_tag t('moderation.reportings.index.ignore_flags'),
+      name: "ignore_flags",
+      class: "button success hollow",
+      data: {confirm: t('moderation.reportings.index.confirm')}
+    %>
+  </div>
+<% end %>
+  <%= paginate @reportings %>
+
+<% end %>
+

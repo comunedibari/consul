@@ -1,0 +1,73 @@
+<%= form.label :process_work, label %>
+<p class="help-text" id="tag-list-help-text"><%= t('admin.legislation.process_work.new.info') %></p>
+<br></br>
+
+
+<%= form.fields_for :process_work, process_work do |field| %>
+
+  <%= field.hidden_field :legislation_process_id,
+                              value: process_work.legislation_process_id %>
+
+ <div class="small-12 medium-4 column">
+    <%= form.label :price %>
+  </div> 
+  <div class="small-12 medium-8 column">
+    <%#= field.number_field :price, label: false, max: 1000000000 %>
+    <%= field.text_field :price, label: false, placeholder: t('activerecord.attributes.legislation/process.price')+'....' %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :financing %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :financing, label: false, placeholder: t('activerecord.attributes.legislation/process.financing')+'....' %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :work_status %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.select :work_status, status_select_options_works, label: false, placeholder: t('activerecord.attributes.legislation/process.work_status') %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :financing_perc %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.number_field :financing_perc, label: false, max: 100 ,min: 0,  placeholder: t('activerecord.attributes.legislation/process.financing_perc')+'....' %>
+  </div>
+  <div class="small-12 medium-4 column">
+    <%= form.label :project_perc %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.number_field :project_perc, label: false, max: 100 ,min: 0,  placeholder: t('activerecord.attributes.legislation/process.financing_perc')+'....' %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :competition_perc %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.number_field :competition_perc, label: false, max: 100 ,min: 0 ,  placeholder: t('activerecord.attributes.legislation/process.financing_perc')+'....' %>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <%= form.label :realizzation_perc %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.number_field :realizzation_perc, label: false, max: 100 ,min: 0 ,  placeholder: t('activerecord.attributes.legislation/process.financing_perc')+'....' %>
+  </div>
+
+
+
+
+  <div class="small-12 medium-4 column">
+      <%= field.label :external_url, t("proposals.form.proposal_external_url") %>
+  </div>
+  <div class="small-12 medium-8 column">
+    <%= field.text_field :external_url, label: false, placeholder: t("activerecord.attributes.legislation/process.external_url") %>
+  </div>
+
+    
+
+<% end %>
+

@@ -1,0 +1,25 @@
+<% @max_slots_allowed = event.max_slots %>
+
+<div class="event-slots-list">
+  <%#= f.label :event_slots, t("events.slots.form.title") %>
+  <p class="help-text"><%= event_slots_note(event,@max_slots_allowed) %></p>
+
+  <div id=<%= "nested-slots" %> data-max-slots-allowed="<%= @max_slots_allowed %>" style="margin-top: 10px">
+    <%= f.fields_for :event_slots do |slots_builder| %>
+      <%= render 'slots_fields', f: slots_builder %>
+    <% end %>
+  </div>
+  
+  <%= link_to_add_association t('events.slots.form.add_new_slots'), f, :event_slots,
+                              partial: "slots_fields",
+                              id: "new_slot_link",
+                              class: "button hollow  #{"hide" if event.event_slots.count >= @max_slots_allowed}",
+                              data: {
+                                association_insertion_node: "#nested-slots",
+                                association_insertion_method: "append"
+                              } %>
+
+  <div id="max-slots-notice" class="max-documents-notice callout primary text-center <%= "hide" unless (max_slots_allowed?(event)) %>">
+    <%= t "events.slots.form.max_slots_allowed_reached_html" %>
+  </div>
+</div>

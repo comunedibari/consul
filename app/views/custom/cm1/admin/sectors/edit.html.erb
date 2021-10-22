@@ -1,0 +1,80 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= @sector.name %>
+<% end %>
+
+<div class="legislation-admin legislation-process-edit row">
+
+  <div class="small-12 column">
+    <%= back_link_to admin_sectors_path %>
+    <div class="small-12 margin-top column">
+      <h4><%= @sector.name %></h4>
+      <% if @sector.address.present? %>
+        <p><span><%= t("admin.third_sector.registered_office") %> <%= @sector.address.presence %></span>
+        <p>
+      <% end %>
+      <% if @sector.vat_code.present? %>
+        <p><span><%= t("admin.third_sector.vat_number") %> <%= @sector.vat_code %></span>
+        <p>
+      <% end %>
+      <% if @sector.phone_number.present? %>
+        <p><span><%= t("admin.third_sector.phone_number") %> <%= @sector.phone_number %></span>
+        <p>
+      <% end %>
+      <% if @sector.email.present? %>
+        <p><span><%= t("admin.third_sector.email") %> <%= @sector.email %></span>
+        <p>
+      <% end %>
+      <% if @sector.cf_rappr_legale.present? %>
+        <p><span><%= t("admin.third_sector.legal_representative") %> <%= @sector.legal_representative %></span>
+        <p>
+        <p><span><%= t("admin.third_sector.cf_rappr_legale") %> <%= @sector.cf_rappr_legale %></span>
+        <p>
+        <p><span><%= t("admin.third_sector.email_legal_representative") %> <%= @sector.user.nil? ? '' : @sector.user.email %></span>
+        <p>
+      <% end %>
+    </div>
+  </div>
+
+  <br><br><hr>
+  <div class="small-12 medium-6">
+    <div class="margin-top"><p><b><%= t("admin.third_sector.subentri") %></b></p></div>
+  </div>
+
+
+  <% if !@sector.editable_by_admin?(@sector.id) %>
+
+            <div class="callout primary">
+              <%= t("admin.third_sector.update.no_modify") %>
+            </div>
+
+  <% else%>
+
+  <%# if !@users.any? and !@sector.legal_representative.present? and !@sector.cf_rappr_legale.present? %>
+    <div class="small-12 medium-6">
+      <%= form_tag admin_sectors_path, method: :get, remote: true do %>
+        <%= hidden_field :sector_id, value: @sector.id? %>
+
+        <div class="input-group">
+          <div class="margin-top"><p><i><%= t("admin.third_sector.search_label") %></i></p></div>
+          <%= text_field_tag :search, '', placeholder: t('admin.users.search.placeholder') %>
+          <div class="input-group-button" style="vertical-align: bottom;">
+            <%= submit_tag t('admin.users.search.search'), class: 'button' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <%# end %>
+  <div id="users">
+    <%= render "users" %>
+  </div>
+  <%# if !@users.any? and !@sector.legal_representative.present? and !@sector.cf_rappr_legale.present? %>
+    <hr>
+    <p class="help-text"> <%= t("admin.third_sector.update.manual_insert") %></p>
+    <div class="small-12 medium-6">
+      <%= render "form", form_url: relation_admin_sector_path %>
+    </div>
+  <%# end %>
+
+  <% end %>
+
+</div>

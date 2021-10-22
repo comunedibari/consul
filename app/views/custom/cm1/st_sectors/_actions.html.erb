@@ -1,0 +1,21 @@
+<% if can? :hide, st_sector %>
+  <%= link_to t("admin.actions.hide").capitalize, hide_moderation_st_sector_path(st_sector),
+              method: :put, remote: true, data: { confirm: t('admin.actions.confirm') } %>
+<% end %>
+
+<% if can? :hide, debate.author %>
+  &nbsp;|&nbsp;
+  <%= link_to t("admin.actions.hide_author").capitalize, hide_moderation_st_sector_path(st_sector.user_id),
+              method: :put, data: { confirm: t('admin.actions.confirm') } %>
+<% end %>
+
+<% if can? :mark_featured, st_sector %>
+  &nbsp;|&nbsp;
+  <% if st_sector.featured? %>
+    <%= link_to t("admin.actions.unmark_featured").capitalize, unmark_featured_st_sector_path(st_sector),
+              method: :put, data: { confirm: t('admin.actions.confirm') } %>
+  <% else %>
+    <%= link_to t("admin.actions.mark_featured").capitalize, mark_featured_st_sector_path(st_sector),
+              method: :put, data: { confirm: t('admin.actions.confirm') } %>
+  <% end %>
+<% end %>

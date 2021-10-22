@@ -1,0 +1,20 @@
+<%= form_for(@question, url: form_url) do |f| %>
+
+  <%= render 'shared/errors', resource: @question %>
+
+    <%= f.text_field :title, label: 'Domanda' %>
+
+    <%= f.hidden_field :poll_id %>
+    <%= f.hidden_field :poll_question_type_id %>
+    <%= f.hidden_field :group_id %>
+    <%= f.hidden_field :group_title %>
+
+    <div class="small-12 medium-6 large-4 margin-top">
+      <%= f.submit(class: "btn btn-primary btn-block", value: t("shared.save")) %>
+    </div>
+  </div>
+
+<% end %>
+
+<script>
+

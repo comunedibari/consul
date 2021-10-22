@@ -1,0 +1,33 @@
+
+<div id="<%= dom_id(process) %>" class="service clear">
+
+
+  <div data-equalizer-watch style="padding:0; border: 1px solid #dcdcdc; border-radius: 3px;" class="card_material panel ">
+    <div class="service-card-content">
+      <div class="card__img">
+
+        <div class="column row legislation-text">
+          <div class="small-12 medium-8 column">
+            <div class="small-12 medium-12 column">
+              <h3><%= link_to process.title.html_safe, process %></h3>
+            </div>
+          </div>
+
+          <div class="small-12 medium-11 column end" style=" word-wrap: break-word;">
+            <%= markdown(process.summary.present? ?  first_paragraph(process.summary) : first_paragraph(sanitize(process.description, tags:[]))) %>
+
+            <%= render "tags", taggable: process, taggable_name: taggable_name, limit: 5 %>
+          </div> 
+
+          <div class="small-12 medium-12 column">
+            <%= link_to process, class: "btn btn-outline-primary btn-block btn", title:  t("legislation.process_chances.process.see_latest_comments_title") do %>
+              <span class="icon-comments"></span>&nbsp; <%= t("legislation.process_chances.process.see_latest_comments") %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

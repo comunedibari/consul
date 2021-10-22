@@ -1,0 +1,20 @@
+<div class="proposal-form row">
+
+  <div class="small-12 medium-9 column">
+    <%= back_link_to proposals_path %>
+
+    <h1><span class="icon-proposals float-left"></span><%= t("proposals.new.start_new") %></h1>
+
+    <%= render "proposals/form", form_url: proposals_url %>
+  </div>
+
+  <div class="small-12 medium-3 column">
+    
+    <h2><%= t("proposals.new.recommendations_title") %></h2>
+    <ul class="recommendations">
+      <li><%= t("proposals.new.recommendation_one") %></li>
+      <li><%= t("proposals.new.recommendation_two") %></li>
+      <li><%= t("proposals.new.recommendation_three") %></li>
+    </ul>
+  </div>
+</div>

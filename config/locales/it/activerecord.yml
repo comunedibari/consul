@@ -1,0 +1,421 @@
+---
+it:
+  activerecord:
+    attributes:
+      budget:
+        currency_symbol: Valuta
+        description_accepting: Descrizione durante la fase della Accettazione
+        description_balloting: Descrizione durante la fase del Voto
+        description_finished: Descrizione durante la fase della Approvazione del Bilancio / Risultati
+        description_reviewing: Descrizione durante la fase della Verifica
+        description_reviewing_ballots: Descrizione durante la fase della Verifica del voto
+        description_selecting: Descrizione durante la fase della Ricerca di appoggi
+        description_valuating: Descrizione durante la fase della Valutazione
+        name: Nome
+        phase: Fase
+      budget/heading:
+        name: Heading name
+        population: Population
+        price: Price
+      budget/investment:
+        administrator_id: Administrator
+        description: Descrizione
+        external_url: Link alla documentazione aggiuntiva
+        heading_id: Heading
+        image: Immagine descrittiva della proposta di investimento
+        image_title: Titolo dell'immagine
+        location: Ubicazione
+        organization_name: Se stai proponendo a nome di una organizzazione o collettivo, scrivine il nome
+        title: Title
+      budget/investment/milestone:
+        description: Descrizione
+        publication_date: Publication date
+        title: Titolo
+      crowdfunding:
+        author: Autore
+        count_investors: Numero investitori
+        description: Descrizione
+        min_price: Cifra minima per il singolo contributo
+        price_goal: Cifra minima da raggiungere
+        question: Domanda
+        terms_of_service: Termini di servizio
+        title: Titolo
+        total_investiment: Somma di tutti i contributi
+        summary: Sommario
+      asset:
+        name: Nome
+        description: Descrizione
+        address: Indirizzo
+        contacts: Contatti
+      booking_manager/moderable_booking:
+        name: Nome
+        note: Note aggiuntive
+        description: Descrizione
+        address: Indirizzo
+        contacts: Contatti
+      comment:
+        body: Commento
+        user: Utente
+      debate:
+        author: Autore
+        description: Opinione
+        terms_of_service: Termini di servizio
+        title: Titolo
+      document:
+        attachment: File allegato
+        title: Titolo
+      image:
+        attachment: File allegato
+        title: Titolo
+      legislation/annotation:
+        text: Commento
+      legislation/draft_version:
+        body: Testo
+        changelog: Modifiche
+        final_version: Versione finale
+        status: Stato
+        title: Titolo della versione
+      collaboration/agreement:
+        draft_publication_date: Data di pubblicazione della bozza
+        result_publication_date: Data di pubblicazione del risultato finale
+        title: Titolo del Patto di Collaborazione
+        summary: Sommario
+        description: In cosa consiste
+        additional_info: Ulteriori info
+        asset_description: Inserimento descrizione Spazio Prenotabile
+      legislation/process:
+        additional_info: Ulteriori info
+        addressed_to: A chi è rivolto
+        allegations_end_date: Data di fine degli allegati
+        allegations_start_date: Data di inizio degli allegati
+        benefit: Benefici
+        price: Costi
+        debate_end_date: Data di fine della discussione
+        debate_start_date: Data di inizio della discussione
+        description: In cosa consiste
+        draft_publication_date: Data di pubblicazione della bozza
+        end_date: Data di fine
+        external_url: Link alla documentazione aggiuntiva
+        financing: Investimento
+        financing_perc: Percentuale finanziamento
+        project_perc: Percentuale progetto
+        competition_perc: Percentuale competizione
+        realizzation_perc: Percentuale realizzazione
+        info_work: Informazioni lavoro pubblico
+        result_publication_date: Data di pubblicazione del risultato finale
+        start_date: Data di inizio
+        work_status: Stato lavori
+        title: Titolo del progetto
+        title_proposal: Titolo della proposta/iniziativa
+        purpose: Obiettivi
+        progress_status: Percentuale stato avanzamento
+        info: Informazioni
+        summary: Sommario
+        contacts: Contatti
+        contacts_info: Separare i contatti dal carattere ';'
+        address: Indirizzo
+      legislation/question:
+        question_options: Risposte
+        title: Titolo
+      legislation/question_option:
+        value: Valore
+      newsletter:
+        body: Contenuto dell'email
+        from: Da (inserire email)
+        segment_recipient: Destinatari
+        subject: Soggetto dell'email
+      organization:
+        name: Nome dell'organizzazione
+        responsible_name: Persona responsabile del collettivo
+      poll:
+        description: Descrizione
+        ends_at: Data di chiusura
+        geozone_restricted: Ristretta per municipi
+        name: Nome
+        starts_at: Data di apertura
+        summary: Sommario
+      poll/question:
+        description: Descrizione
+        external_url: Link alla documentazione aggiuntiva
+        summary: Sommario
+        title: Quesito
+      poll/question/answer:
+        description: Descrizione
+        title: Risposta
+      poll/question/answer/video:
+        title: Titolo
+        url: Video esterno
+      proposal:
+        author: Autore
+        description: Descrizione
+        question: Domanda
+        terms_of_service: Termini di servizio
+        title: Titolo
+      signature_sheet:
+        document_numbers: Numero di documenti
+        signable_id: ID Proposta
+        signable_type: Tipo Foglio firme
+      site_customization/content_block:
+        body: Contenuto
+        locale: Lingua
+        name: Nome
+      site_customization/image:
+        image: Immagine
+        name: Nome
+      site_customization/page:
+        content: Contenuto
+        created_at: Creata
+        locale: Lingua
+        more_info_flag: Mostra in ulteriore pagina informativa
+        print_content_flag: Bottone di stampa
+        slug: Slug
+        status: Stato
+        subtitle: Sottotitolo
+        title: Titolo
+        updated_at: ultimo aggiornamento
+      spending_proposal:
+        administrator_id: Amministratore
+        association_name: Nome dell'associazione
+        description: Descrizione
+        external_url: Link alla documentazione aggiuntiva
+        geozone_id: Ambito di attuazione
+        title: Titolo
+      user:
+        current_password: Password attuale
+        email: Email
+        login: Email o nome utente
+        official_level: Livello dell'incarico
+        official_position: Incarico pubblico
+        password: Password
+        password_confirmation: Ripeti password
+        phone_number: Telefono
+        redeemable_code: Codice di verifica per lettera (facoltativo)
+        username: Nome utente
+    errors:
+      messages:
+        record_invalid: 'La certificazione non è avvenuta: %{errors}'
+        restrict_dependent_destroy:
+          has_many: Non è possibile eliminare il registro per la presenza di %{record} dipendenti
+          has_one: Non è possibile eliminare il registro per la presenza di un %{record} dipendente
+      models:
+        budget/investment:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: i tags devono essere minori o uguali a %{count}
+        comment:
+          attributes:
+            valuation:
+              cannot_comment_valuation: Non puoi commentare una valutazione
+        crowdfunding:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: i tags devono essere minori o uguali a %{count}
+        reporting:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: i tags devono essere minori o uguali a %{count}
+        crowdfunding_notification:
+          attributes:
+            minimum_interval:
+              invalid: Devi aspettare un minimo di %{interval} giorni tra le notifiche
+        debate:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: i tags devono essere minori o uguali a %{count}
+        direct_message:
+          attributes:
+            max_per_day:
+              invalid: Hai raggiunto il numero massimo di messaggi privati giornalieri
+        image:
+          attributes:
+            attachment:
+              min_image_height: L'immagine deve essere di almeno %{required_min_height}px di altezza
+              min_image_width: L'immagine deve essere di almeno %{required_min_width}px di larghezza
+        legislation/process:
+          attributes:
+            description:
+              blank: non può restare in bianco
+            allegations_end_date:
+              invalid_date_range: deve essere uguale o successiva alla data di inizio degli allegati
+            debate_end_date:
+              invalid_date_range: deve essere uguale o successiva alla data di inizio della discussione
+            end_date:
+              invalid_date_range: deve essere uguale o successiva alla data di inizio
+        map_location:
+          attributes:
+            map:
+              invalid: La posizione sulla mappa non può essere vuota. Inserire un marker o selezionare la checkbox se non si desidera utilizzare la geolocalizzazione
+        newsletter:
+          attributes:
+            segment_recipient:
+              invalid: The user recipients segment is invalid
+        poll/voter:
+          attributes:
+            document_number:
+              has_voted: L'utente ha già votato
+              not_in_census: Il documento non è presente negli archivi istituzionali
+        proposal:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: i tags devono essere minori o uguali a %{count}
+        crowdfunding:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: i tags devono essere minori o uguali a %{count}
+        reporting:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: i tags devono essere minori o uguali a %{count}
+        proposal_notification:
+          attributes:
+            minimum_interval:
+              invalid: Devi aspettare un minimo di %{interval} giorni tra le notifiche
+        crowdfunding_notification:
+          attributes:
+            minimum_interval:
+              invalid: Devi aspettare un minimo di %{interval} giorni tra le notifiche
+        signature:
+          attributes:
+            document_number:
+              already_voted: Proposta già votata
+              not_in_census: Il documento non è stato verificato negli archivi istituzionali
+        site_customization/image:
+          attributes:
+            image:
+              image_height: Deve essere di %{required_height}px de altezza
+              image_width: Deve essere di %{required_width}px di larghezza
+        site_customization/page:
+          attributes:
+            slug:
+              slug_format: deve essere lettere, numeri, _ e -
+        user:
+          attributes:
+            email:
+              password_already_set: Questo utente ha già una password
+    models:
+      asset:
+        one: Prenotazione
+        other: Prenotazioni
+      activity:
+        one: attività
+        other: attività
+      administrator:
+        one: Amministratore
+        other: Amministratori
+      budget:
+        one: Bilancio partecipativo
+        other: Bilanci partecipativi
+      budget/investment:
+        one: Investimento
+        other: Investimenti
+      budget/investment/milestone:
+        one: traguardo
+        other: traguardi
+      comment:
+        one: Commento
+        other: Commenti
+      debate:
+        one: Forum
+        other: Forum
+      documents:
+        one: Documento
+        other: Documenti
+      images:
+        one: Immagine
+        other: Immagini
+      legislation/answers:
+        one: Risposta
+        other: Risposte
+      legislation/draft_texts:
+        one: Bozza
+        other: Bozze
+      legislation/draft_versions:
+        one: Versione in bozza
+        other: Versioni in bozza
+      legislation/process:
+        one: Progetto
+        other: Progetti
+      legislation/process_typology:
+        one: Categoria
+        other: Categorie
+      collaboration/agreement:
+        one: Patto di Collaborazione
+        other: Patti di Collaborazione
+      legislation/proposal:
+        one: Proposta
+        other: Proposte
+      booking_manager/moderable_booking:
+        one: Prenotazione
+        other: Prenotazioni
+      legislation/question_options:
+        one: Opzione di risposta chiusa
+        other: Opzioni di risposta chiusa
+      legislation/questions:
+        one: Domanda
+        other: Domande
+      manager:
+        one: Gestore
+        other: Gestori
+      moderator:
+        one: Moderatore
+        other: Moderatori
+      newsletter:
+        one: Newsletter
+        other: Newsletters
+      organization:
+        one: Organizzazione
+        other: Organizzazioni
+      poll:
+        one: Consultazione
+        other: Consultazioni
+      poll/booth:
+        one: urna
+        other: urne
+      poll/officer:
+        one: presidente di seggio
+        other: presidenti di seggio
+      proposal:
+        one: Proposta cittadina
+        other: Proposte cittadine
+      crowdfunding:
+        one: Crowdfunding cittadino
+        other: Crowdfundings cittadini
+      reporting:
+        one: Segnalazione
+        other: Segnalazioni
+      sector:
+        one: Organizzazione
+        other: Organizzazioni
+      st_sector:
+        one: Associazione
+        other: Associazioni
+      site_customization/content_block:
+        one: Blocco di contenuto proprio
+        other: Blocchi di contenuto proprio
+      site_customization/image:
+        one: Immagine personalizzata
+        other: Immagini personalizzate
+      site_customization/page:
+        one: Pagina personalizzata
+        other: Pagine personalizzate
+      spending_proposal:
+        one: Proposta di spesa
+        other: Proposte di spesa
+      tag:
+        one: Tag
+        other: Tag
+      topic:
+        one: Topic
+        other: Topics
+      user:
+        one: Utente
+        other: Utenti
+      valuator:
+        one: Valutatore
+        other: Valutatori
+      valuator_group:
+        one: Gruppo valutatore
+        other: Gruppi valutatore
+      vote:
+        one: Voto
+        other: Voti

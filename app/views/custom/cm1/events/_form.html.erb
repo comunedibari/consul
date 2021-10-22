@@ -1,0 +1,270 @@
+<%= form_for(@event, url: form_url) do |f| %>
+  <%= render 'shared/errors', resource: @event %>
+
+  <div class="row">
+
+    <div class="small-12 column">
+      <%= f.label :title, t("events.form.event_title") %>
+      <%= f.text_field :title, label: false, data: {js_suggest_result: "js_suggest_result", js_suggest: "#js-suggest", js_url: suggest_proposals_path} %>
+    </div>
+    <div id="js-suggest"></div>
+
+    <div class="small-12 medium-6 column">
+      <%= f.label :event_type_id, t("events.form.types") %>
+      <%= f.select :event_type_id, event_types_select_options, label: false %>
+    </div>
+
+      <% if (current_user.provider.present? && current_user.provider == "openam" ) || current_user.administrator? %>
+        <div class="small-12 medium-9 column ">
+          <%= f.fields_for :social_content do |ff| %>
+            <%= ff.label :social_access, t("debates.form.social_access") %>
+            <p class="help-text" id="tag-list-help-text"><%= t("debates.form.social_access_info") %></p>
+            <%= ff.check_box :social_access, checked: social_access?(@event.social_content ? @event.social_content.social_access : false), title: t('debates.form.social_access'), label: false %>
+            <span class="checkbox">
+                <%= t("debates.form.social_access_check") %>
+            </span>
+          <% end %>
+        </div>
+      <% else %>
+        <%= f.fields_for :social_content do |ff| %>
+          <%= ff.hidden_field :social_access, value: false %>
+        <% end %>
+      <% end %>
+
+    <%= f.invisible_captcha :subtitle %>
+
+
+    <div class="ckeditor small-12 column">
+      <%= f.label :description, t("events.form.event_text") %>
+      <%= f.cktext_area :description, maxlength: Crowdfunding.description_max_length, ckeditor: {language: I18n.locale}, label: false %>
+    </div>
+
+    <div class="small-12 column">
+      <%#= f.label :description, t("events.form.date_type") %>
+      <%= f.label :event_slots, t("events.slots.form.title") %>
+
+      <%= f.label :all_day_event do %>
+        <%= f.check_box :all_day_event, checked: @event.all_day_event, title: t('events.new.form.all_day'), label: false, class: "js-data-toggle" %>
+        <span class="checkbox">
+          <%= t('events.new.form.all_day') %>
+        </span>
+      <% end %>
+    </div>
+
+    <div class="event-slots small-12 column">
+      <%= render 'nested_slots', event: @event, f: f %>
+    </div>
+
+    <% if feature?(:allow_images) and Event.max_images_allowed > 0 %>
+      <div class="images small-12 column">
+        <%= render 'images/nested_image', imageable: @event, f: f, isComment: false %>
+      </div>
+    <% end %>
+
+    <% if feature?(:allow_attached_documents) and Event.max_documents_allowed > 0 %>
+      <div class="documents small-12 column">
+        <%= render 'documents/nested_documents', documentable: @event, f: f, isComment: false %>
+      </div>
+    <% end %>
+
+
+    <div class="small-12 column">
+      <hr>
+    </div>
+
+    <% if feature?(:map) %>
+      <div class="small-12 column">
+
+        <%= render 'map_locations/form_fields',
+                   form: f,
+                   map_location: @event.map_location || MapLocation.new,
+                   label: t("events.form.map_location"),
+                   help: t("events.form.map_location_instructions"),
+                   remove_marker_label: t("events.form.map_remove_marker"),
+                   parent_class: "event",
+                   i18n_namespace: "events",
+                   geo_coding_addr: "#event_address" %>
+
+      </div>
+    <% end %>
+
+
+    <div class="small-12 column">
+      <%= f.label :tag_list, t("events.form.tags_label") %>
+      <p class="help-text" id="tag-list-help-text"><%= t("events.form.tags_instructions") %></p>
+
+      <div id="category_tags" class="tags">
+        <%= f.label :category_tag_list, t("debates.form.tag_category_label") %>
+        <% @categories.each do |tag| %>
+          <a class="js-add-tag-link"><%= tag.name %></a>
+        <% end %>
+      </div>
+      <br>
+      <%= f.text_field :tag_list, value: @event.tag_list.to_s,
+                       label: false,
+                       placeholder: t("events.form.tags_placeholder"),
+                       class: 'js-tag-list tag-autocomplete',
+                       aria: {describedby: "tag-list-help-text"},
+                       data: {js_url: suggest_tags_path} %>
+    </div>
+
+
+    <div class="actions small-12 column">
+      <%= f.submit(class: "btn btn-primary mb-3", value: t("events.#{action_name}.form.submit_button")) %>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  jQuery.datetimepicker.setLocale('it');
+
+  jQuery(function () {
+
+    $("input[id^='end_date_']").each(function (index, input) {
+      //jQuery('#end_date').datetimepicker({
+      $(input).datetimepicker({
+        format: 'd-m-Y H:i',
+        step: 30,
+        lang: 'it',
+        onShow: function (ct) {
+          val = input.id.split('_')[2];
+          //console.log(val + " - " + $('#start_date_'+val).val());
+          if ($('#start_date_' + val).val()) {
+            //if (jQuery('#start_date').val()){
+            //val=jQuery('#start_date').val().slice(0, 10).split("-");
+            val = $('#start_date_' + val).val().slice(0, 10).split("-");
+            dat_s = val[2] + "-" + val[1] + "-" + val[0];
+          } else {
+            dat_s = false;
+          }
+          //console.log(dat_s);
+          this.setOptions({
+            minDate: dat_s
+          })
+        },
+        timepicker: true
+      });
+    });
+
+    $("input[id^='start_date_']").each(function (index, input) {
+      //jQuery('#start_date').datetimepicker({
+      $(input).datetimepicker({
+        format: 'd-m-Y H:i',
+        lang: 'it',
+        step: 30,
+        onShow: function (ct) {
+          val = input.id.split('_')[2];
+          //console.log(val + " - " + $('#end_date_'+val).val());
+          if ($('#end_date_' + val).val()) {
+            //if (jQuery('#end_date').val()){
+            //val=jQuery('#end_date').val().slice(0, 10).split("-");
+            val = $('#end_date_' + val).val().slice(0, 10).split("-");
+            dat_s = val[2] + "-" + val[1] + "-" + val[0];
+          } else {
+            dat_s = false;
+          }
+          //console.log(dat_s);
+          this.setOptions({
+            maxDate: dat_s
+          })
+        },
+        timepicker: true
+      });
+    });
+  });
+
+  $('#nested-slots').on('cocoon:after-insert', function (e, insertedItem) {
+
+    if ($("#event_all_day_event").is(':checked')) {
+      time = false;
+      formato = 'd-m-Y';
+    } else {
+      time = true;
+      formato = 'd-m-Y H:i';
+    }
+
+    num_date = $("div[id^='nested-slots']").find("div[id^='event_slot_']").length;
+    hide = $("div[id^='event_slot_']:hidden").length
+    num_date = num_date - hide
+    num_date = num_date + $("div[id^='nested-slots']").find("div[id^='new_event_slot']").length;
+    max_slot = $("div[id^='nested-slots']").data('max-slots-allowed');
+
+    div_element = $(insertedItem).closest("div[id^='nested-slots']");
+    //console.log("insert "+max_slot + " - "+num_date);
+    if (num_date >= max_slot) {
+      App.Event.lockUploads(div_element);
+      App.Event.showNotice(div_element);
+    }
+    //console.log(insertedItem.id);
+    val = Math.floor(Math.random() * 10000000);
+    $(insertedItem).find("input[id^='end_date_']").each(function (index, input) {
+      $(input).prop('id', 'end_date_' + val);
+    });
+    $(insertedItem).find("input[id^='start_date_']").each(function (index, input) {
+      $(input).prop('id', 'start_date_' + val);
+    });
+
+    $(insertedItem).find("input[id^='end_date_']").each(function (index, input) {
+      //jQuery('#end_date').datetimepicker({
+      $(input).datetimepicker({
+        format: 'd-m-Y H:i',
+        step: 30,
+        lang: 'it',
+        onShow: function (ct) {
+          val = input.id.split('_')[2];
+          //console.log(val + " - " + $('#start_date_'+val).val());
+          if ($('#start_date_' + val).val()) {
+            //if (jQuery('#start_date').val()){
+            //val=jQuery('#start_date').val().slice(0, 10).split("-");
+            val = $('#start_date_' + val).val().slice(0, 10).split("-");
+            dat_s = val[2] + "-" + val[1] + "-" + val[0];
+          } else {
+            dat_s = false;
+          }
+          //console.log(dat_s);
+          this.setOptions({
+            minDate: dat_s
+          })
+        },
+        timepicker: true
+      });
+    });
+
+    $(insertedItem).find("input[id^='start_date_']").each(function (index, input) {
+      //jQuery('#start_date').datetimepicker({
+      $(input).datetimepicker({
+        format: 'd-m-Y H:i',
+        lang: 'it',
+        step: 30,
+        onShow: function (ct) {
+          val = input.id.split('_')[2];
+          //console.log(val + " - " + $('#end_date_'+val).val());
+          if ($('#end_date_' + val).val()) {
+            //if (jQuery('#end_date').val()){
+            //val=jQuery('#end_date').val().slice(0, 10).split("-");
+            val = $('#end_date_' + val).val().slice(0, 10).split("-");
+            dat_s = val[2] + "-" + val[1] + "-" + val[0];
+          } else {
+            dat_s = false;
+          }
+          //console.log(dat_s);
+          this.setOptions({
+            maxDate: dat_s
+          })
+        },
+        timepicker: true
+      });
+    });
+
+  })
+
+  $('#nested-slots').on('cocoon:after-remove', function (e, insertedItem) {
+    $("div[id^='nested-slots']").each(function (index, element_d) {
+      if ($.trim($(element_d).html())) {
+        App.Event.unlockUploads(element_d);
+        //console.log("remove")
+      }
+    });
+
+  })
+</script>

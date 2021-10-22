@@ -1,0 +1,24 @@
+    <%= render 'subnav', crowdfunding: @crowdfunding, active: 'investments' %>
+    
+    <div class="small-12  column">
+        <span >
+          <h4><%= t("admin.crowdfundings.investments.status") %>:</h4> 
+          <p><%= status(@crowdfunding) %></p>
+        </span>
+    </div>
+    <div class="small-12  column">
+        <br>
+      <h2><%= t("admin.crowdfundings.investments.all") %></h2>
+      <% if @user_investments.any? %>
+        <h3 class="margin"></h3>
+        <div id="tab_investments">
+          <%= render "tab_investments" %>
+        </div>
+        <%#= paginate @user_investments %>
+      <% else %>
+        <div class="callout primary margin">
+          <%= t("admin.crowdfundings.investments.no_hidden_investments") %>
+        </div>
+      <% end %>
+
+    </div>

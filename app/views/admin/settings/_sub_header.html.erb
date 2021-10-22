@@ -1,0 +1,57 @@
+
+  <div class="row">
+    <div class="small-12 column">
+    
+      <ul class="tabs" data-tabs="c0u7cr-tabs" id="settings-tabs">
+
+        <li class="tabs-title is-active" role="presentation">
+            <h3>
+              <%= t("admin.settings.index.services.home_pages.sub_header.title") %>
+              <span class="js-comments-count"></span>
+            </h3>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 column">
+      <div class="tabs-panel is-active" id="tab-videos" role="tabpanel" aria-hidden="true" aria-labelledby="tab-videos-label">
+      
+        <table>
+          <tbody>
+
+          <% @subheader_images.each  do |image| %>
+            <% if image.editable %>
+              <tr>
+                <td>                  
+                  <%#strong><%= t("settings.#{description.key.to_s.sub("_description","")}") %><%#/strong%>
+                  <strong><%= t("admin.settings.index.services.home_pages.sub_header.tab") %></strong>
+                </td>
+                <td class="small-12 medium-8">
+                  <%= form_for(image, url: admin_setting_path(image), html: { id: "edit_#{dom_id(image)}"}) do |f| %>
+                    <% if feature?(:allow_images) and Setting.max_images_allowed > 0 %>
+                      <div class="small-12 medium-6 large-9 column">
+                        <%= render 'images/nested_image_admin', imageable: image, f: f, isComment: false %>
+                      </div>
+                      <div>
+                         <%= f.hidden_field :value, value: "pending" %>
+                      </div>
+                      <div class="small-12 medium-6 large-3 column">
+                        <%= f.submit(t('admin.settings.index.update_setting'), class: "button hollow expanded") %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </td>
+
+              </tr>
+            <% end %>
+          <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>

@@ -1,0 +1,12 @@
+<%= render "following" if @follows.present? %>
+<%= render "collaboration_agreements" if @collaboration_agreements.present? && service?(:collaboration) %>
+<%= render "moderable_bookings" if @moderable_bookings.present? && service?(:assets) %>
+<%= render "proposals" if @proposals.present? && service?(:proposals) %>
+<%= render "crowdfundings" if @crowdfundings.present? && service?(:crowdfundings) %>
+<%= render "events" if @events.present? && service?(:events) %>
+<%= render "reportings" if @reportings.present? && service?(:reportings) %>
+<%= render "processes" if @processes.present? && service?(:processes) %>
+<%= render "debates" if @debates.present? && service?(:debates) %>
+<%= render "processes_proposals" if @processes_proposals.present? && (service?(:works) or service?(:chances)) %>
+<%#= render "budget_investments" if @budget_investments.present? && feature?(:budgets) %>
+<%= render "comments" if @comments.present? %>

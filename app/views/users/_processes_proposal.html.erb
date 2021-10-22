@@ -1,0 +1,53 @@
+<tr id="proposal_<%= processes_proposal.id %>">
+  <td class="small-9">
+    <% if !processes_proposal.rejected?%>
+      <strong><%= link_to processes_proposal.title,
+      legislation_process_proposal_path(processes_proposal.legislation_process_id, processes_proposal, pon_id: processes_proposal.pon_id),
+      processes_proposal.retired? ? { class: 'retired' } : {} %></strong>
+    <% else %>
+      <strong><%= processes_proposal.title %></strong>
+    <% end %>
+    <br>
+    <%= processes_proposal.summary %>
+  </td>
+
+  <% if processes_proposal.retired? %>
+
+    <td class="text-center" colspan="2">
+      <span class="label alert"><%= t('users.proposals.retired') %></span>
+    </td>
+
+  <% elsif author?(processes_proposal) %>
+  <td>
+    <% if processes_proposal.in_approval?%>
+        <%= t("users.proposals.approval") %>
+    <% elsif processes_proposal.rejected?%>
+        <%= t("users.proposals.rejected") %>
+    <% end %>
+    </td>
+    <td>
+      <% if !processes_proposal.in_approval? && !processes_proposal.rejected?%>
+        <% if processes_proposal.retired? %>
+          <span class="label alert"><%= t('users.proposals.retired') %></span>
+        <% else %>
+          <%= link_to t('users.proposals.retire'),
+          retire_form_legislation_process_proposal_path(processes_proposal.legislation_process_id, processes_proposal),
+                      class: 'btn btn-primary btn-block btn-alert' %>
+        <% end %>
+      <% end %>
+    </td>
+
+  <% else %>
+
+    <td class="text-center" colspan="2">
+      <td class="text-center" colspan="2">
+        <% if !processes_proposal.in_approval? %>
+          <%= link_to t('users.proposals.see'), processes_proposal, class: 'button hollow' %>
+        <% else %>
+          <%= t("users.proposals.in_approval") %>
+        <% end %>
+    </td>
+
+  <% end %>
+
+</tr>

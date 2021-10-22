@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="service-form row">
+
+    <div class="col-sm-12 col-md-9 col">
+      <%= back_link_to %>
+
+      <h2><span class="float-left"></span><%= t("collaboration.agreements.new.start_new") %></h2>
+
+
+      <div class="row margin-top col">
+        <div class="col-sm-12 col-md-12 col">
+          <h4><span class="float-left"></span><%= t("collaboration.agreements.new.detail") %></h4>
+          <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+              <td><%= t("collaboration.agreements.new.title") %>:</td>
+              <td><strong><%= @collaboration_agreement.title.to_s %></strong></td>
+            </tr>
+            <tr>
+              <td><%= t("collaboration.agreements.new.summary") %>:</td>
+              <td><strong><%= @collaboration_agreement.summary.to_s %> </strong></td>
+            </tr>
+            <tr>
+              <td><%= t("collaboration.agreements.new.start_date") %>:</td>
+              <td><strong><%= @collaboration_agreement.start_date.to_s %></strong></td>
+            </tr>
+            <tr>
+              <td><%= t("collaboration.agreements.new.end_date") %>:</td>
+              <td><strong><%= @collaboration_agreement.end_date.to_s %> </strong></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row col">
+        <div class="col-sm-12 col-md-12 col">
+          <h4><span class=" float-left"></span><%= t("collaboration.subscriptions.new.format") %></h4>
+          <h6><span class=" float-left"></span><%= t("collaboration.subscriptions.new.user") %></h6>
+          <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+              <td><%= t("collaboration.agreements.new.name") %>:</td>
+              <td><strong><%= current_user.username.to_s %></strong></td>
+            </tr>
+            <tr>
+              <td><%= t("collaboration.subscriptions.new.cf") %>:</td>
+              <td><strong><%= current_user.cod_fiscale.to_s %></strong></td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row col">
+
+        <div class="col-sm-12 col-md-12 col">
+          <h4><span class=" float-left"></span><%= t("collaboration.subscriptions.new.detail") %></h4>
+          <p><%= t("collaboration.subscriptions.new.detail_info") %></p>
+          <% if @collaboration_agreement.agreement_requirements.count != 0 %>
+            <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+              <thead>
+              <tr>
+                <th><%= t("collaboration.requirements.new.info") %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @collaboration_agreement.agreement_requirements.each do |agreement_requirement| %>
+                <tr id="<%= dom_id(agreement_requirement) %>">
+                  <td>
+                    <%= agreement_requirement.title %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <div data-alert class="callout primary">
+              <p><%= t("collaboration.subscriptions.new.detail_info_no_requirements") %></p>
+            </div>
+          <% end %>
+
+        </div>
+
+      </div>
+
+      <div class="row col">
+        <%= render "form" %>
+      </div>
+    </div>
+
+
+    <div class="col-sm-12 col-md-3 col">
+      <div class="mt-3">
+        <h2><%= t("collaboration.subscriptions.new.recommendations_title") %></h2>
+        <ul class="recommendations">
+          <li><%= t("collaboration.subscriptions.new.recommendation_one") %></li>
+          <li><%= t("collaboration.subscriptions.new.recommendation_two") %></li>
+          <li><%= t("collaboration.subscriptions.new.recommendation_three") %></li>
+        </ul>
+      </div>
+      <% if @collaboration_agreement.documents.count > 0 %>
+        <div class="margin-top">
+          <div class="sidebar-divider"></div>
+          <h2 class="sidebar-title"><%= t('proposals.show.title_external_url') %></h2>
+          <%= render 'documents/additional_documents', documents: @collaboration_agreement.documents %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

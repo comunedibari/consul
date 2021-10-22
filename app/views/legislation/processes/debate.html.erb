@@ -1,0 +1,42 @@
+<% provide :title do %><%= @process.title %><% end %>
+<%= render 'legislation/processes/header', process: @process, header: :full %>
+
+  <div class="row">
+    <% if @process.process_type != 1 %>
+      <%= render 'key_dates', process: @process, phase: :debate_phase %>
+    <% else %>
+      <%= render 'partecipa', process: @process, phase: :debate_phase %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="debate-chooser">
+      <div class="row">
+        
+        <% if @process.questions.empty? %>
+          <div class="small-12 medium-6 column" style="width: 100%;">
+            <div class="debate-list">
+                <div class="callout primary">
+                  <p><%= t("legislation.processes.debate.empty_questions") %></p>
+                </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="small-12 medium-6 column">
+            <div class="debate-list">
+              <%= render @process.questions %>
+            </div>
+          </div>
+        <% end %>
+  
+        <% if @process.questions.any? %>
+          <div class="small-12 medium-6 column">
+            <div class="callout success">
+              <p><%= t("legislation.processes.debate.participate") %></p>
+            </div>
+          </div>
+        <% end %>
+        
+      </div>
+    </div>
+  </div>

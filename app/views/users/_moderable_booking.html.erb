@@ -1,0 +1,95 @@
+<tr id="moderable_booking_<%= moderable_booking.id %>">
+  <td class="small-12 medium-8 large-1">
+     <% if !moderable_booking.deleted? %> <%# mi basta controllare se stato 3 xkè ho messo un'update_attribute che setta a 3 nel caso in cui l'utente vuole ritirarla %>
+      <strong><%= link_to moderable_booking.code, asset_booking_manager_moderable_booking_path(asset_id: moderable_booking.bookable_id,id: moderable_booking.id, pon_id: moderable_booking.asset.pon_id), moderable_booking.retired? ? { class: 'retired' } : {} %></strong>
+    <% else %>
+      <%= moderable_booking.code %>
+    <% end %>
+    <br>
+  </td>
+  <td class="small-12 medium-8 large-1">
+    <%= link_to moderable_booking.asset.name, asset_path(moderable_booking.bookable_id, pon_id: moderable_booking.asset.pon_id) %>
+  </td>
+  <td class="small-12 medium-8 large-1">
+    <%= moderable_booking.time_end.strftime("%d-%m-%Y") %>
+  </td>
+  <td class="small-12 medium-8 large-1">
+    <%= moderable_booking.time_start.to_s(:time) %>
+  </td>
+  <td class="small-12 medium-8 large-1">
+    <%= moderable_booking.time_end.to_s(:time) %>
+  </td>
+  <td class="small-12 medium-8 large-1">
+    <%= moderable_booking.booking_status %>
+  </td>
+
+  <td class="small-12 medium-8 large-1">
+    <%= moderable_booking.note %>
+  </td>
+
+  <%# if moderable_booking.retired? %>
+
+    <%#td class="text-center" colspan="2">
+      <span class="label alert"><%= t('users.moderable_bookings.retired') %><%#/span>
+    </td>
+
+  <% elsif moderable_booking.booker_id == current_user.id && current_user %>
+    <%#td>
+      <% if moderable_booking.pending? || moderable_booking.accepted?  %>
+        <%#= link_to t('users.moderable_bookings.retire'),
+                        retire_form_asset_booking_manager_moderable_booking_path(asset_id: moderable_booking.bookable_id,id: moderable_booking.id),
+                        class: 'button hollow alert expanded' %>
+      <%# elsif moderable_booking.deleted? %>
+        <%#= t("users.moderable_bookings.deleted") %>
+      <%# end %>
+    <%#/td>
+    <td>
+      <% if !moderable_booking.pending? && !moderable_booking.deleted?%>
+        <%# if moderable_booking.retired? %>
+          <%#span class="label alert"><%= t('users.moderable_bookings.retired') %><%#/span>
+        <% else %>
+            <%#= link_to t('users.moderable_bookings.retire'),
+                        retire_form_asset_booking_manager_moderable_booking_path(asset_id: moderable_booking.bookable_id,id: moderable_booking.id),
+                        class: 'button hollow alert expanded' %>
+        <%# end %>
+      <%# end %>
+    <%#/td>
+  <% else %>
+
+    <%#td class="text-center" colspan="2">
+      <% if !moderable_booking.pending? %>
+        <%#= link_to t('users.moderable_bookings.see'), asset_booking_manager_moderable_booking_path(asset_id: moderable_booking.bookable_id,id: moderable_booking.id), class: 'button hollow' %>
+      <%# else %>
+        <%#= t("users.moderable_bookings.pending") %>
+      <%# end %>
+    <%#/td>
+  <% end %>
+
+
+
+
+
+  <% if !moderable_booking.retired? %>
+
+    <% if moderable_booking.pending? || moderable_booking.accepted? %>
+      <td class="small-12 medium-8 large-1">
+        <%= link_to t('users.moderable_bookings.retire'),
+                retire_form_asset_booking_manager_moderable_booking_path(asset_id: moderable_booking.bookable_id,id: moderable_booking.id),
+                class: 'btn btn-primary btn-block btn-alert' %>
+      </td>
+    <% elsif  moderable_booking.deleted? %>
+      <td class="small-12 medium-8 large-1">
+        <%= t("users.moderable_bookings.deleted") %>
+      </td>
+    <% end %>
+
+  <% elsif moderable_booking.retired? %>
+    <td class="text-center" colspan="2">
+      <span class="label alert"><%= t('users.moderable_bookings.retired') %></span>
+    </td>
+  <% else %>
+    <td class="text-center" colspan="2">
+    </td>
+  <% end %>
+
+</tr>

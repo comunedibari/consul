@@ -1,0 +1,10 @@
+<table>
+  <tr id="<%= dom_id(@budget) %>">
+    <td><%= @budget.name %></td>
+    <td><%= @budget.translated_phase %></td>
+    <td align="right">
+      <%= link_to t("management.budgets.print_investments"),
+        print_management_budget_investments_path(@budget) %>
+    </td>
+  </tr>
+</table>

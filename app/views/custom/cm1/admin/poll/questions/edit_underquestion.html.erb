@@ -1,0 +1,10 @@
+<%= back_link_to %>
+
+<ul class="breadcrumbs margin-top">
+  <li><%= @question_group.group_title %></li>
+  <li><%= t('admin.questions.new.new_underquestion') %></li>
+</ul>
+
+<div class="poll-question-answer-form">
+  <%= render "underquestion_form", form_url: update_underquestion_admin_question_path(@question) %>
+</div>

@@ -1,0 +1,28 @@
+<div id="<%= dom_id(reporting) %>" class="reporting-featured clear">
+  <div class="small-12 medium-9 column">
+    <h3><%= link_to reporting.title, reporting %></h3>
+    <div class="info">
+
+      <% if reporting.author.hidden? || reporting.author.erased? %>
+        <%= t("reportings.show.author_deleted") %>
+      <% else %>
+        <%= reporting.author.name %>
+      <% end %>
+
+      &nbsp;&bull;&nbsp;
+
+      <% if reporting.author.display_official_position_badge? %>
+        <span class="label round level-<%= reporting.author.official_level %>">
+          <%= reporting.author.official_position %>
+        </span>
+        &nbsp;&bull;&nbsp;
+      <% end %>
+
+      <strong><%= t("reportings.reporting.supports", count: reporting.total_votes) %></strong>
+    </div>
+  </div>
+
+  <div id="<%= dom_id(reporting) %>_votes" class="small-12 medium-3 column">
+    <%= render 'featured_votes', reporting: reporting %>
+  </div>
+</div>

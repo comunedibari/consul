@@ -1,0 +1,13 @@
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("crowdfundings.index.retired_crowdfundings") %></h2>
+
+<% if params[:retired].blank? %>
+  <p><%= link_to t("crowdfundings.index.retired_crowdfundings_link"), crowdfundings_path(retired: 'all'), class: "small" %></p>
+<% else %>
+  <div class="sidebar-links">
+    <%= link_to t("crowdfundings.index.retired_links.all"), crowdfundings_path(retired: 'all') %>
+    <% Crowdfunding::RETIRE_OPTIONS.each do |option| %>
+      <%= link_to t("crowdfundings.index.retired_links.#{option}"), crowdfundings_path(retired: option) %>
+    <% end %>
+  </div>
+<% end %>

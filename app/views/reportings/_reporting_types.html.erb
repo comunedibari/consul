@@ -1,0 +1,21 @@
+
+
+ <div class="small-12 medium-6  large-12 column text-center">
+          <div class="reporting-content">
+            <% if is_image_present(reporting.reporting_type.imageMarker) == true %>
+             <strong> <p> <%=  reporting.reporting_type.nome %> </p></strong>
+              <%= image_tag "reporting_type/"+reporting_type_verified(reporting.reporting_type.imageMarker), alt: t("welcome.schede.scheda2.title") %>
+            <% end %>
+          </div>
+
+          <div>
+             <strong > <%=  t("reportings.index.status").upcase %> </strong>
+          </div>
+
+          <b> <p class="btn <%= setStyleStatus(reporting.description_status.to_s) %>  btn-sm" style="font-weight: bold;color: #fff;"> <%=  reporting.description_status %> </p></b>
+          <b> <p style="font-weight: bold;"> <%= "Ente responsabile: "%>  <%= reporting.reporting_type.institution.name %> </p></b>
+  </div>
+
+
+
+

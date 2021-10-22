@@ -1,0 +1,69 @@
+<div class="supports text-center">
+  <div class="progress small-12 round">
+    <span class="meter" style="width: <%= progress_bar_percentage(crowdfunding) %>%;"></span>
+    <span class="percentage">
+      <%= supports_percentage(crowdfunding) %>&nbsp;/&nbsp;<%= t("crowdfundings.crowdfunding.total_percent") %>
+    </span>
+  </div>
+
+  <span class="total-supports">
+    <%= t("crowdfundings.crowdfunding.supports", count: crowdfunding.total_votes) %>&nbsp;
+    <span>
+      <abbr title="<%= t("crowdfundings.crowdfunding.reason_for_supports_necessary", count:crowdfunding.total_votes) %>">
+        <%= t("crowdfundings.crowdfunding.supports_necessary", number: number_with_delimiter(Crowdfunding.votes_needed_for_success)) %>
+      </abbr>
+    </span>
+  </span>
+
+  <div class="in-favor">
+    <% if voted_for?(@crowdfunding_votes, crowdfunding) %>
+      <div class="supported callout success">
+        <%= t("crowdfundings.crowdfunding.already_supported") %>
+      </div>
+    <% elsif user_signed_in? && crowdfunding.votable_by?(current_user) %>
+      <%= link_to vote_url,
+          class: "button button-support-service small expanded",
+          title: t('crowdfundings.crowdfunding.support_title'), method: "post", remote: true do %>
+        <%= t("crowdfundings.crowdfunding.support") %>
+      <% end %>
+    <% else %>
+      <div class="button button-support-service small expanded">
+        <%= t("crowdfundings.crowdfunding.support") %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if user_signed_in? && current_user.organization? %>
+    <div class="participation-not-allowed" style='display:none' aria-hidden="false">
+      <p>
+        <%= t("votes.organizations") %>
+      </p>
+    </div>
+  <% elsif user_signed_in? && !crowdfunding.votable_by?(current_user) %>
+    <div tabindex="0">
+      <div class="participation-not-allowed" style='display:none' aria-hidden="false">
+        <p>
+          <%= t("votes.verified_only",
+              verify_account: link_to(t("votes.verify_account"), verification_path )).html_safe %>
+        </p>
+      </div>
+    </div>
+  <% elsif !user_signed_in? %>
+    <div tabindex="0">
+      <div class="participation-not-allowed" style='display:none' aria-hidden="false">
+        <%= t("votes.unauthenticated",
+          signin: link_to(t("votes.signin"), go_to_login)).html_safe %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if voted_for?(@crowdfunding_votes, crowdfunding) && setting['twitter_handle'] %>
+    <div class="share-supported">
+      <%= render partial: 'shared/social_share', locals: {
+          title: crowdfunding.title,
+          url: crowdfunding_url(crowdfunding),
+          description: crowdfunding.summary
+      } %>
+    </div>
+  <% end %>
+</div>

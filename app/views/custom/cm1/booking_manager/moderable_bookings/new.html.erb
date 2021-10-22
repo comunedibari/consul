@@ -1,0 +1,26 @@
+<div class="service-form row">
+
+  <div class="small-12 medium-9 column">
+    <%= back_link_to asset_path(@asset) %>
+
+    <div class="margin-top">
+      <h2><span class="icon-services float-left"></span><%= @asset.name %></h2>
+    </div>  
+
+    <% if user_signed_in? %>
+      <%= render "assets/details" %>
+      <p><h4><%= t("assets.moderable_booking.new") %></h4></p>
+      <%= render "booking_manager/moderable_bookings/form" %>
+    <% end %>
+  </div>
+
+  <div class="small-12 medium-3 column margin-top">
+    
+    <h3><%= t("assets.moderable_bookings.new.recommendations_title") %></h3>
+    <ul class="recommendations">
+      <li><%= t("assets.moderable_bookings.new.recommendation_one") %></li>
+      <li><%= t("assets.moderable_bookings.new.recommendation_two") %></li>
+      <li><%= t("assets.moderable_bookings.new.recommendation_three") %></li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+---
+it:
+  collaboration:
+    agreementss:
+      form:
+        geolocation: Mappa
+      header:
+        additional_info: Informazioni aggiuntive
+        description: Descrizione
+        more_info: Vedi informazione del progetto
+      index:
+        filter: Filtro
+        filters:
+          next: A breve
+          opens: Attivi
+          past: Terminati
+          bis: Importati da BIS
+          sgap: Importati da SGAP
+        no_next_agreements: Non ci sono patti pianificati
+        no_open_agreements: Non ci sono patti attivi
+        no_past_agreements: Non ci sono patti terminati
+        section_footer:
+          description: Partecipa alle discussioni e ai progetti precedenti l'approvazione di una norma, di un'opera o di un progetto comunale. La tua opinione sarà tenuta in considerazione da parte del Comune.
+          help_text_1: Nei progetti il Comune offre alla cittadinanza l'opportunità di partecipare all'elaborazione e alla modifica di una norma, di un'opera o di un progetto che interessa la città e di dare la propria opinione su iniziative che ha in previsione di realizzare.
+          help_text_2: Pertanto le persone registrate su CasaDelCittadino possono dare il proprio contributo.
+          help_text_3: 'I commenti sono analizzati dall''area comunale competente e tenuti in considerazione al momento della loro stesura finale. '
+          title: Aiuto sui Patti
+        section_header:
+          help: Aiuto sui Patti
+          icon_alt: Icona dei Patti
+          title_collaboration: Mappa Patti di Collaborazione
+      agreement:
+        see_latest_comments: Visualizza dettaglio
+        see_latest_comments_title: dettaglio patto
+      shared:
+        allegations_dates: Allegati
+        consultation: Allegato obbligatorio
+        key_dates: Date chiave
+        result_publication_date: Pubblicazione risultati
+    agreement_requirements:
+      comments:
+        comment_button: Pubblica risposta
+        comments_closed: Fase chiusa
+        comments_title: Risposte aperte
+        form:
+          leave_comment: Lascia la tua risposta
+      participation:
+        debate_phase_not_open: La fase della discussione iniziale si è conclusa e in questo momento non si accettano risposte
+        organizations: Le organizzazioni non possono partecipare alla discussione
+        phase_not_open: Questa fase non è aperta
+        signin: iniziare la sessione
+        signup: registrarsie
+        unauthenticated: È necessario %{signin} o %{signup} per partecipare alla discussione.
+        verified_only: Solamente gli utenti verificati possono partecipare alla discussione, %{verify_account}.
+        verify_account: verifica il tuo account
+      question:
+        comments:
+          one: "%{count} commento"
+          other: "%{count} commenti"
+          zero: Senza commenti
+        debate: Discussione
+      show:
+        first_agreement_requirement: Primo documento obbligatorio
+        next_agreement_requirement: Documento obbligatorio successivo
+        share: Condividi
+        title: Patto
+    shared:
+      share: Condividi
+      share_comment: Commento sulla %{version_name} della bozza del progetto %{process_name}

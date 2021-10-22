@@ -1,0 +1,54 @@
+
+  <% provide :title do %><%= t("sectors.index.title") %><% end %>
+
+   <main>
+    <%= render "shared/section_header", i18n_namespace: "sectors.index.section_header", image: "sectors" %>
+    <div id="sectors" class="proposals-list small-12 medium-12 column sectors-list">
+
+      <div class="row " >
+
+        <div id="section_help" style="padding-left: 1rem;" data-magellan-target="section_help">
+          <!-- <p class="lead">
+            <strong><%#= t("sectors.index.section_footer.title") %></strong>
+          </p> -->
+          <p><%= Setting["service_description.sectors",User.pon_id] %></p>
+          <p><%= t("sectors.index.section_footer.help_text_1",
+                   stsector: link_to(t("sectors.index.section_footer.stsector"), new_sector_path)).html_safe %></p>
+          <p><%= t("sectors.index.section_footer.help_text_2",
+                   email_sectors: mail_to(Setting["email_sectors",User.pon_id])).html_safe %></p>
+        </div>
+
+        <div data-equalizer >
+          <% @sector_types.each do |type|%>
+            <div id="<%= dom_id(type) %>" class="large-4 medium-6 small-12 column proposals-list proposal" data-type="proposal" >
+
+              <div class="card-wrapper">
+                <div class="card card-img no-after" style="width: 100%;">
+
+                  <div class="img-responsive-wrapper">
+                    <div class="img-responsive">
+                      <div class="img-wrapper">
+                        <img style="max-width: 100%" src="<%= sector_types_image_url(type.name) %>" title="img title" alt="imagealt">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h4 class="card-title"><%= type.name %></h4>
+                    <p class="card-text"></p><a class="read-more" href="<%= sectors_path(sector_type: type.id) %>"><span class="text">Organizzazioni: <%=  sectors_by_sector_type_id(type.id) %></span>
+                      <svg class="icon">
+                        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-arrow-right"></use>
+                      </svg></a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+
+
+    </div>
+  </main>
+

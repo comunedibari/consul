@@ -1,0 +1,13 @@
+<table class="margin-top">
+  <thead>
+    <th scope="col"><%= t("users.show.collaboration_agreements") %></th>
+    <th scope="col" colspan="2"><%= t("users.show.actions") %></th>
+  </thead>
+  <tbody>
+    <% @collaboration_agreements.each do |collaboration_agreement| %>
+      <%= render "collaboration_agreement", collaboration_agreement: collaboration_agreement %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @collaboration_agreements %>

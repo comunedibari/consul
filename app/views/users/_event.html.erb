@@ -1,0 +1,39 @@
+<tr id="event_<%= event.id %>">
+    <td class="small-9">
+     <% if !event.rejected?%>
+        <%= link_to event.title, event_path(event, pon_id: event.pon_id) %>
+      <% else %>
+        <strong><%= event.title %></strong>
+      <% end %>
+      <br>
+    </td>
+
+
+
+  <% if author?(event) %>
+    <td>
+      <% if event.in_approval? %>
+        <%= t("users.events.in_approval") %>
+      <% elsif event.rejected? %>
+        <%= t("users.events.rejected") %>
+      <% else %>
+        <%= t("users.events.approved") %>
+      <% end %>
+      </td>
+    <td>
+    </td>
+
+  <% else %>
+
+    <td class="text-center" colspan="2">
+      <td class="text-center" colspan="2">
+        <% if !event.in_approval? %>
+          <%= link_to t('users.events.see'), event, class: 'button hollow' %>
+        <% else %>
+          <%= t("users.events.in_approval") %>
+        <% end %>
+    </td>
+
+  <% end %>
+
+</tr>

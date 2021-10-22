@@ -1,0 +1,14 @@
+<div id="<%= dom_id(reporting) %>" class="reporting minimal clear" data-type="reporting">
+  <div class="panel">
+    <div class="row">
+      <div class="small-12 column">
+        <div class="reporting-content">
+          <% cache [locale_and_user_status(reporting),
+                    'index_minimal', reporting, reporting.author] do %>
+            <h3><%= link_to reporting.title, namespaced_reporting_path(reporting) %></h3>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

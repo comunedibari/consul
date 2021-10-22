@@ -1,0 +1,60 @@
+<% provide :title do %>
+  Admin - <%= t("admin.asset.title")%>
+<% end %>
+<h2 class="inline-block"><%= t("admin.asset.index.title") %></h2>
+<div class="legislation-admin legislation-process-index">
+  <div class="row">
+    <div class="small-12 medium-9 column">
+      
+    </div>
+    <div class="small-12 medium-3 column legislation-process-new">
+      <%= link_to t("admin.asset.index.button_new"), new_admin_asset_path, class: "button" %>
+    </div>
+
+  </div>
+
+  <% if @assets.any? %>
+    <h3><%= page_entries_info @assets %></h3>
+
+    <table class="stack">
+      <thead>
+      <tr>
+        <th><%= t("admin.reservation.index.table.name") %></th>
+        <th><%= t("admin.reservation.index.table.num_moderable_bookings_not_approved") %></th>
+        <th><%= t("admin.reservation.index.table.num_moderable_bookings") %></th>
+        <th><%= t("admin.reservation.index.table.action") %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @assets.each do |asset| %>
+        <tr id="<%= dom_id(asset) %>">
+          <td class="small-12 medium-8 large-3">
+            <%= link_to asset.name, admin_asset_path(asset) %>
+          </td>
+          <td class="small-12 medium-8 large-3">
+            <%= link_to count_resrvations_to_approve(asset), admin_moderable_bookings_path(bookable_id: asset.id) %>
+          </td>
+          <td class="small-12 medium-8 large-3">
+            <%= link_to "[#{asset.moderable_bookings.approved.count.to_s}]", admin_moderable_bookings_path(bookable_id: asset.id) %>
+          </td>
+          <td class="align-middle large-3">
+            <%= link_to t("admin.asset.index.table.update_button"), edit_admin_asset_path(asset),
+                        class: 'button hollow warning' %>
+
+            <%= link_to t("admin.asset.index.table.delete_button"), admin_asset_path(asset),
+                        method: :delete,
+                        class: 'button hollow alert' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <%= paginate @assets %>
+  <% else %>
+    <div class="callout primary">
+      <%= t("admin.reservation.index.table.empty_assets") %>
+    </div>
+  <% end %>
+
+</div>

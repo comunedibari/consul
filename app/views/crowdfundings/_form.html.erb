@@ -1,0 +1,320 @@
+<%= form_for(@crowdfunding, url: form_url) do |f| %>
+  <%= render 'shared/errors', resource: @crowdfunding %>
+
+  <div class="row">
+
+    <%# if (can? :add_sector_content, @crowdfunding) %>
+    <!-- <div class="small-12 medium-6 large-6  column " > -->
+    <%#= label_tag "comment-as-rappr-legale", t("crowdfundings.form.sectorable"), class: "js-toggle-sector-label" %>
+    <%#= f.select :sector_id , sectors_by_user, {:label => false , :placeholder => t('activerecord.attributes.legislation/process.work_status') , :include_blank  => t("comments.form.none") } %>
+    <!-- </div> -->
+    <%# end %>
+
+
+    <%# if current_user.provider.present? && current_user.provider == "openam" && current_user.administrator? %>
+      <div class="small-12 medium-9 column ">
+        <%= f.fields_for :social_content do |ff| %>
+          <%= ff.label :social_access, t("debates.form.social_access") %>
+          <p class="help-text" id="tag-list-help-text"><%= t("debates.form.social_access_info") %></p>
+          <%= ff.check_box :social_access, checked: social_access?(@crowdfunding.social_content ? @crowdfunding.social_content.social_access : false), title: t('debates.form.social_access'), label: false %>
+          <span class="checkbox">
+                    <%= t("debates.form.social_access_check") %>
+                </span>
+        <% end %>
+      </div>
+    <%# else %>
+      <%#= f.fields_for :social_content do |ff| %>
+        <%#= ff.hidden_field :social_access, value: false %>
+      <%# end %>
+    <%# end %>
+
+    <div class="small-12 column">
+      <%= f.label :title, "#{t('crowdfundings.form.crowdfunding_title')} *" %>
+      <%= f.text_field :title, maxlength: Crowdfunding.title_max_length, placeholder: t("crowdfundings.form.crowdfunding_title"), label: false, data: {js_suggest_result: "js_suggest_result", js_suggest: "#js-suggest", js_url: suggest_crowdfundings_path} %>
+    </div>
+    <%#
+=begin%>
+    <!-- <div id="js-suggest"></div> -->
+<%#
+=end%>
+
+    <%= f.invisible_captcha :subtitle %>
+
+    <div class="small-12 column">
+      <%= f.label :summary, "#{t('crowdfundings.form.crowdfunding_summary')} *" %>
+      <p class="help-text" id="summary-help-text"><%= t("crowdfundings.form.crowdfunding_summary_note") %></p>
+      <%= f.text_area :summary, rows: 4, maxlength: 200, label: false,
+                      placeholder: t('crowdfundings.form.crowdfunding_summary'),
+                      aria: {describedby: "summary-help-text"} %>
+    </div>
+
+    <div class="ckeditor small-12 column">
+      <%= f.label :description, "#{t('crowdfundings.form.crowdfunding_text')} *" %>
+      <%= f.cktext_area :description, maxlength: Crowdfunding.description_max_length, ckeditor: {language: I18n.locale}, label: false %>
+    </div>
+
+    <%#div class="small-12 column">
+      <%= f.label :question, t("crowdfundings.form.crowdfunding_question") %>
+    <%#p class="help-text" id="question-help-text">
+        <%= t("crowdfundings.form.crowdfunding_question_example_html") %>
+    <%#/p>
+      <%= f.text_field :question, maxlength: Crowdfunding.question_max_length,
+                                  placeholder: t("crowdfundings.form.crowdfunding_question"),
+                                  label: false,
+                                  aria: {describedby: "question-help-text"} %>
+    <%#/div%>
+
+
+
+    <div class="small-12 column">
+      <%= f.label :price_goal, "#{t('crowdfundings.form.crowdfunding_price_goal')} *" %>
+      <p class="help-text" id="price_goal-help-text"><%= t("crowdfundings.form.crowdfunding_price_goal_note") %></p>
+      <%= f.number_field :price_goal,
+                         placeholder: t("crowdfundings.form.crowdfunding_price_goal"),
+                         label: false,
+                         required: true,
+                         step: "0.01",
+                         aria: {describedby: "video-url-help-text"} %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :min_price, "#{t('crowdfundings.form.crowdfunding_min_price')} *" %>
+      <p class="help-text" id="min_price-help-text"><%= t("crowdfundings.form.crowdfunding_min_price_note") %></p>
+      <%= f.number_field :min_price,
+                         placeholder: t("crowdfundings.form.crowdfunding_min_price"),
+                         label: false,
+                         required: true,
+                         step: "0.01",
+                         aria: {describedby: "video-url-help-text"} %>
+    </div>
+
+
+    <div class="small-12 column">
+      <%= f.label :phase, "#{t('crowdfundings.form.crowdfunding_phase')} *" %>
+      <p class="help-text" id="phase-help-text"><%= t("crowdfundings.form.crowdfunding_phase_note") %></p>
+      <br>
+    </div>
+
+    <div class="small-12 medium-1 column legislation-process-start">
+      <%= t('admin.legislation.processes.form.start') %>
+    </div>
+    <div class="small-12 medium-2 column">
+      <%= f.text_field :start_date,
+                       label: false,
+                       value: format_date_for_calendar_form(@crowdfunding.start_date),
+                       id: "start_date" %>
+    </div>
+    <div class="small-12 medium-1 column legislation-process-end">
+      <%= t('admin.legislation.processes.form.end') %>
+    </div>
+    <div class="small-12 medium-2 column">
+      <%= f.text_field :end_date,
+                       label: false,
+                       value: format_date_for_calendar_form(@crowdfunding.end_date),
+                       id: "end_date" %>
+    </div>
+
+
+
+
+    <%# contatti info %>
+    <div class="ckeditor small-12 column" style="margin-top:20px;">
+      <%= f.label :contacts_info, t("crowdfundings.form.contacts_info") %>
+      <p class="help-text" id="min_price-help-text"><%= t("crowdfundings.form.contacts_info_description") %></p>
+      <%= f.cktext_area :contacts_info, ckeditor: {language: I18n.locale}, label: false %>
+    </div>
+
+
+    <div class="small-12 column">
+      <%= f.label :video_url, t("crowdfundings.form.crowdfunding_video_url") %>
+      <p class="help-text" id="video-url-help-text"><%= t("crowdfundings.form.crowdfunding_video_url_note") %></p>
+      <%= f.text_field :video_url, placeholder: t("crowdfundings.form.crowdfunding_video_url"), label: false,
+                       aria: {describedby: "video-url-help-text"} %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :external_url, t("crowdfundings.form.crowdfunding_external_url") %>
+      <%= f.text_field :external_url, placeholder: t("crowdfundings.form.crowdfunding_external_url"), label: false %>
+    </div>
+
+    <% if feature?(:allow_images) and Crowdfunding.max_images_allowed > 0 %>
+      <div class="images small-12 column">
+        <%= render 'images/nested_image', imageable: @crowdfunding, f: f, isComment: false %>
+      </div>
+    <% end %>
+
+    <% if feature?(:allow_attached_documents) and Crowdfunding.max_documents_allowed > 0 %>
+      <div class="documents small-12 column">
+        <%= render 'documents/nested_documents', documentable: @crowdfunding, f: f, isComment: false %>
+      </div>
+    <% end %>
+
+    <div class="small-12 medium-6 column">
+      <%= f.label :geozone_id, t("crowdfundings.form.geozone") %>
+      <%= f.select :geozone_id, geozone_select_options, {include_blank: t("geozones.none"), label: false} %>
+    </div>
+
+
+    <div class="small-12 column " style="display: none;">
+      <label for="crowdfunding_address"> <%= t("crowdfundings.form.account_crowdfundings") %> </label>
+      <div class="input-group">
+        <input type="text" id='crowdfunding_address' placeholder='<%= t("crowdfundings.form.account_crowdfundings") %>'/>
+        <div class="input-group-button">
+          <%= map_location_search('') %>
+        </div>
+      </div>
+      <div id="no-text-insert" class="callout alert no-text-insert primary text-center hide">
+        <%= t "account.no_text_insert_html" %>
+      </div>
+    </div>
+
+
+    <% if feature?(:map) %>
+      <div class="small-12 column">
+
+        <%= render 'map_locations/form_fields',
+                   form: f,
+                   map_location: @crowdfunding.map_location || MapLocation.new,
+                   label: "#{t("crowdfundings.form.map_location")} *",
+                   help: t("crowdfundings.form.map_location_instructions"),
+                   remove_marker_label: t("crowdfundings.form.map_remove_marker"),
+                   parent_class: "crowdfunding",
+                   i18n_namespace: "crowdfundings",
+                   geo_coding_addr: "#crowdfunding_address" %>
+
+      </div>
+    <% end %>
+
+    <div class="small-12 column">
+      <%= f.label :tag_list, t("crowdfundings.form.tags_label") %>
+      <p class="help-text" id="tag-list-help-text"><%= t("crowdfundings.form.tags_instructions") %></p>
+
+      <div id="category_tags" class="tags">
+        <%= f.label :category_tag_list, t("crowdfundings.form.tag_category_label") %>
+        <% @categories.each do |tag| %>
+          <a class="js-add-tag-link"><%= tag.name %></a>
+        <% end %>
+      </div>
+
+      <br>
+      <%= f.text_field :tag_list, value: @crowdfunding.tag_list.to_s,
+                       label: false,
+                       placeholder: t("crowdfundings.form.tags_placeholder"),
+                       class: 'js-tag-list tag-autocomplete',
+                       aria: {describedby: "tag-list-help-text"},
+                       data: {js_url: suggest_tags_path} %>
+    </div>
+
+    <% if current_user.unverified? %>
+      <div class="small-12 column">
+        <%= f.label :responsible_name, t("crowdfundings.form.crowdfunding_responsible_name") %>
+        <p class="help-text" id="responsible-name-help-text"><%= t("crowdfundings.form.crowdfunding_responsible_name_note") %></p>
+        <%= f.text_field :responsible_name, placeholder: t("crowdfundings.form.crowdfunding_responsible_name"), label: false,
+                         aria: {describedby: "responsible-name-help-text"} %>
+      </div>
+    <% end %>
+
+    <div class="small-12 column">
+      <% if @crowdfunding.new_record? %>
+        <%= f.label :terms_of_service do %>
+          <%= f.check_box :terms_of_service, title: t('form.accept_terms_title'), label: false %>
+          <span class="checkbox">
+            <%= t("form.accept_terms",
+                  policy: link_to(t("form.policy"), "/privacy", target: "blank"),
+                  conditions: link_to(t("form.conditions"), "/conditions", target: "blank")).html_safe %> *
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+    <!--
+    <div class="small-12 column">
+        <%#= f.label :flag_rewards do %>
+          <%#= f.check_box :flag_rewards, title: t('form.flag_rewards.title'), label: false %>
+          <span class="checkbox">
+            <%#= t('form.flag_rewards.title') %>
+          </span>
+          <p class="help-text ml-4"><%#= t("form.flag_rewards.help_text") %></p>
+        <%# end %>
+    </div>
+
+    <div class="small-12 column mt-3">
+      <%#= f.label :flag_refund do %>
+        <%#= f.check_box :flag_refund, title: t('form.flag_refund.title'), label: false %>
+        <span class="checkbox">
+          <%#=  t('form.flag_refund.title') %>
+        </span>
+        <p class="help-text ml-4"><%#= t("form.flag_refund.help_text") %></p>
+      <%# end %>
+    </div>
+
+    <div class="small-12 column mt-3">
+      <%#= f.label :flag_investments do %>
+        <%#= f.check_box :flag_investments, title: t('form.flag_investments.title'), label: false %>
+        <span class="checkbox">
+          <%#= t('form.flag_investments.title') %>
+        </span>
+        <p class="help-text ml-4"><%#= t("form.flag_investments.help_text") %></p>
+      <%# end %>
+    </div>
+  -->
+
+    <div class="actions small-12 column mt-3">
+      <%= f.submit(class: "btn btn-primary", value: t("crowdfundings.#{action_name}.form.submit_button")) %>
+    </div>
+  </div>
+<% end %>
+
+
+
+
+
+
+<script type="text/javascript">
+  let field_price_goal = document.getElementById('crowdfunding_price_goal');
+  let field_min_price = document.getElementById('crowdfunding_min_price');
+
+  // Validazione input numerici
+  field_price_goal.addEventListener('keypress', inputNumberIhibitor);
+  field_min_price.addEventListener('keypress', inputNumberIhibitor);
+
+  // Scroll automatico su validazione
+  document.addEventListener('invalid', scrollIntoRealView, true);
+
+  jQuery.datetimepicker.setLocale('it');
+
+  jQuery(function () {
+    jQuery('#end_date').datetimepicker({
+      format: 'd-m-Y',
+      lang: 'it',
+      onShow: function (ct) {
+        if (jQuery('#start_date').val()) {
+          val = jQuery('#start_date').val().slice(0, 10).split("-");
+          dat_s = val[2] + "-" + val[1] + "-" + val[0];
+        } else {
+          dat_s = false;
+        }
+        this.setOptions({
+          minDate: dat_s
+        })
+      },
+      timepicker: false
+    });
+    jQuery('#start_date').datetimepicker({
+      format: 'd-m-Y',
+      lang: 'it',
+      onShow: function (ct) {
+        if (jQuery('#end_date').val()) {
+          val = jQuery('#end_date').val().slice(0, 10).split("-");
+          dat_s = val[2] + "-" + val[1] + "-" + val[0];
+        } else {
+          dat_s = false;
+        }
+
+        this.setOptions({
+          maxDate: dat_s
+        })
+      },
+      timepicker: false
+    });
+  });
+</script>

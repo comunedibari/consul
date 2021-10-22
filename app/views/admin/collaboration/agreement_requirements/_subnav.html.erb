@@ -1,0 +1,33 @@
+<ul class="menu simple clear">
+  <% if active == 'info' %>
+    <li class="active">
+       <h2><%= t("admin.collaboration.agreements.subnav.info") %></h2>
+    </li>
+  <% else %>
+    <li>
+      <%= link_to t("admin.collaboration.agreements.subnav.info"), 
+             edit_admin_collaboration_agreement_path(agreement)  %>
+    </li>
+  <% end %>
+
+  <% if active == 'agreement_requirements' %>
+    <li class="active">
+      <h2><%= t("admin.collaboration.agreements.subnav.consultation") %></h2>
+    </li>
+  <% else %>
+    <li>
+      <%= link_to t("admin.collaboration.agreements.subnav.consultation"), admin_collaboration_agreement_agreement_requirements_path(agreement) %>
+    </li>
+  <% end %>
+
+  <% if active == 'subscriptions' %>
+    <li class="active">
+      <h2><%= t("admin.collaboration.agreements.subnav.subscription") %></h2>
+    </li>
+  <% else %>
+    <li>
+      <%= link_to t("admin.collaboration.agreements.subnav.subscription"), admin_collaboration_agreement_subscriptions_path(agreement) %>
+    </li>
+  <% end %>   
+
+</ul>

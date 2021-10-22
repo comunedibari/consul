@@ -1,0 +1,27 @@
+<div id="image" class="large-4 medium-6 small-12 column image-preview">
+  <figure>
+    <%= image_tag image.attachment.url(version),
+                  class: image_class(image),
+                  alt: image.title.unicode_normalize,
+                  title: image.title.unicode_normalize %>
+      <% if show_caption and false %>
+      <figcaption class="text-right">
+        <em><%= image.title.unicode_normalize %></em>
+      </figcaption>
+    <% end %>  
+  </figure>
+
+  <% if can?(:destroy, image) %>
+    <%= link_to image_path(image, from: image.get_refer_to != '' ? "http://"+request.host+":"+request.port.to_s+image.get_refer_to : request.url),
+                method: :delete,
+                class: 'delete',
+                data: { confirm: t('images.actions.destroy.confirm') } do %>
+                <span class="icon-image"></span>
+                <%= t("images.remove_image") %>
+    <% end %>
+  <% end %>
+
+<br>
+</br>
+
+</div>

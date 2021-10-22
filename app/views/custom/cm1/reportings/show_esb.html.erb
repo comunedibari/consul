@@ -1,0 +1,105 @@
+<div class="row account">
+  <% provide :title do %><%= @reporting.title %><% end %>
+  <% content_for :meta_description do %><%= @reporting.summary %><% end %>
+  <%# cache [locale_and_user_status(@reporting), @reporting, @reporting.author, Flag.flagged?(current_user, @reporting), @reporting_votes] do %>
+    <div class="reporting-show">
+      <div id="<%= dom_id(@reporting) %>" class="row" style="margin:20px">
+
+        <% if current_user.administrator? || current_user.moderator? %>
+          <%= link_to social_flag_reporting_path(@reporting),class: "btn btn-primary btn-block #{@reporting.social_content.social_access? ? 'btn-alert' : ''}" do %>
+            <span class="icon-comments"></span>
+            <%= t("#{@reporting.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+          <% end %>
+        <% end %>
+        <div class="small-12 medium-12 large-12 column">
+          <%= back_link_to reportings_path %>
+          <h1><%= @reporting.title %></h1>
+        </div>
+
+        <div class="small-12 medium-9 column">
+          <!-- image -->
+          <div class="margin-top text-center">
+            <div data-equalizer-watch>
+              <% if @reporting.url_image_preview %>
+                <%= image_tag @reporting.url_image_preview, alt: "prova", style: "width: 520px; height: 360px;" %>
+              <% else %>
+                <%= image_tag "reportings.png", alt: t("welcome.schede.scheda2.title") %>
+              <% end %>
+            </div>
+          </div>
+
+          <%# DESCRIZIONE%>
+          <h4 class="inline-block margin-top"><%= t("reportings.show.description") %></h4>
+          <p>
+            <%= safe_html_with_links @reporting.description %>
+          </p>
+          <%# INDIRIZZO %>
+          <h4 class="inline-block margin-top"><%= t("reportings.show.address") %></h4>
+          <p>
+            <%= safe_html_with_links @reporting.address %>
+          </p>
+
+          <%# NOTA %>
+          <h4 class="inline-block margin-top"><%= t("reportings.show.notes") %></h4>
+          <% if @reporting.note != nil %>
+            <p>
+
+              <% text_area_tag :note, @reporting.note, :readonly => true %>
+            </p>
+          <% else %>
+            <p>
+              <%= text_area_tag :nil_note, t("reportings.show.nil_notes"), :readonly => true, :size => "6x2" %>
+            </p>
+          <% end %>
+
+          <%# MAPPA %>
+          <div class="margin">
+            <h4 class="inline-block margin-top"><%= t("reportings.show.map") %></h4>
+            <%= render_heatmap(@reporting.map_location, @reporting, "reporting", false, nil) %>
+          </div>
+
+        </div>
+
+        <aside class="small-12 medium-3 column margin-top" data-background-color="white">
+          <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <%# DETTAGLIO %>
+              <div class="small-12 medium-6 large-12">
+                <h3 class="inline-block margin-top" style="display: block;"><%= t("reportings.show.detail") %></h3>
+                <p>
+                  <%# DATA %>
+                <h4 class="inline-block"><%= t("reportings.show.date") %></h4>
+                <div class="reporting-info">
+                  <%= l @reporting.created_at, format: :datetime %>
+                  <% if current_user and !read_only_service %>
+                    <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                    <span class="js-flag-actions">
+                      <%= render 'reportings/flag_actions', reporting: @reporting %>
+                    </span>
+                  <% end %>
+                </div>
+                </p>
+              </div>
+
+              <%# TIPOLOGIA %>
+              <div class="small-12 medium-6 large-12">
+                <h4 class="inline-block"><%= t("reportings.show.type") %></h4>
+                <p>
+                  <%= safe_html_with_links @reporting.reporting_type.nome %>
+                </p>
+              </div>
+              <%# STATUS %>
+              <div class="small-12 medium-6 large-12">
+                <h4 class="inline-block"><%= t("reportings.show.status") %></h4>
+                <b>
+                  <p class="btn <%= setStyleStatus(@reporting.description_status.to_s) %>  btn-sm" style="font-weight: bold;color: #fff;"> <%= @reporting.description_status %> </p>
+                </b>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  <%# end %>
+</div>
+

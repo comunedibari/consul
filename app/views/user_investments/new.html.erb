@@ -1,0 +1,31 @@
+<%# cache [locale_and_user_status(@crowdfunding)] do %>
+  <%#div class="row comments">
+    <div class="small-12 medium-8 column ">
+      <% if user_signed_in? %>
+        <%#= render 'user_investments/form' ,crowdfunding: @crowdfunding %>
+      <%# end %>
+    <%#/div>
+  </div>
+<% end %>
+
+<div class="service-form row">
+
+  <div class="small-12 medium-9 column">
+    <%= back_link_to %>
+    <h1 style="font-size: 2.4rem;"><span class="icon-services float-left"></span><%= t("crowdfundings.user_investments.new.start_new") %></h1>
+
+    <%# if user_signed_in? %>
+      <%= render "user_investments/form",crowdfunding: @crowdfunding %>
+    <%# end %>
+  </div>
+
+  <div class="small-12 medium-3 column">
+    
+    <h2><%= t("crowdfundings.user_investments.new.recommendations_title") %></h2>
+    <ul class="recommendations">
+      <li><%= t("crowdfundings.user_investments.new.recommendation_one") %></li>
+      <!-- <li><%#= t("crowdfundings.user_investments.new.recommendation_two") %></li> -->
+      <li><%= t("crowdfundings.user_investments.new.recommendation_three") %></li>
+    </ul>
+  </div>
+</div>

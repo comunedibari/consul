@@ -1,0 +1,12 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <ns2:<%= @outcome[:action] %>Response xmlns:ns2="<%= Rails.application.config.namespace %>">
+         <return>
+            <esito><%= @outcome[:esito] %></esito>
+            <messaggioErrore><%= @outcome[:msgErr] %></messaggioErrore>
+            <identificativoPagamento><%= @outcome[:idPag] %></identificativoPagamento>
+            <infoAggiuntiveServizio><%= @outcome[:infoAgg] %></infoAggiuntiveServizio>
+         </return>
+      </ns2:<%= @outcome[:action] %>Response>
+   </soap:Body>
+</soap:Envelope>

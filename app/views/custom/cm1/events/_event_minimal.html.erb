@@ -1,0 +1,14 @@
+<div id="<%= dom_id(event) %>" class="event minimal clear" data-type="event">
+  <div class="panel">
+    <div class="row">
+      <div class="small-12 column">
+        <div class="event-content">
+          <% cache [locale_and_user_status,
+                    'index_minimal', event ] do #, @event_votes[event.id]] do %>
+            <h3><%= link_to event.title, event %></h3>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<% if @process.process_phases.count > 0  %>
+        <h5><%= t("processes.process_sgap.phases_list_title") %></h5>
+        <div class="scrollbar_table_phases">
+            <table class="stack">
+                <thead>
+                    <tr>
+                        <h5><th><%= "Fase" %></th></h5>
+                        <h5><th><%= "Inizio previsto" %></th></h5>
+                        <h5><th><%= "Fine prevista" %></th></h5>
+                        <h5><th><%= "Inizio effettivo" %></th></h5>
+                        <h5><th><%= "Fine effettiva" %></th></h5>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% legislation_process_phases_by_process(process) %>
+                    <% @legislation_process_phases.each do |phase| %>
+                        <tr>
+                            <td><%= phase.description %></td>
+                            <td><%= print_correct_date(phase.datainizioprevista) %></td>
+                            <td><%= print_correct_date(phase.datafineprevista) %></td>
+                            <td><%= print_correct_date(phase.datainizioeffettiva) %></td>
+                            <td><%= print_correct_date(phase.datafineeffettiva) %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+<% end %>

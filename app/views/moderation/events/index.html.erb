@@ -1,0 +1,76 @@
+<h2><%= t("moderation.events.index.title") %></h2>
+
+<%= render 'shared/filter_subnav', i18n_namespace: "moderation.events.index" %>
+
+<div class="row">
+  <h3 class="small-8 large-8 columns"><%= page_entries_info @events %></h3>
+  <div class="small-4 large-4 columns">
+    <div class="float-right">
+      <%= t("moderation.events.index.order") %>
+      <%= render 'shared/order_selector', i18n_namespace: "moderation.events.index" %>
+    </div>
+  </div>
+</div>
+
+<%= form_tag moderate_moderation_events_path(request.query_parameters), method: :put do %>
+  <p class="js-check">
+    <%= t('shared.check') %>:
+    <%= link_to t('shared.check_all'), '#', data: {check_all: "event_ids[]"} %>
+    |
+    <%= link_to t('shared.check_none'), '#', data: {check_none: "event_ids[]"} %>
+  </p>
+
+  <table class="clear">
+    <tr>
+      <th>
+        <%= t("moderation.events.index.headers.event") %>
+      </th>
+      <th>
+       <%= t("moderation.events.index.headers.moderate") %>
+      </th>
+    </tr>
+    <% @events.each do |event| %>
+      <tr id="event_<%= event.id %>">
+        <td>
+          <%= link_to event.title, event, target: "_blank" %>
+          <br>
+          <span class="date"><%= l event.updated_at.to_date %></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= event.flags_count > 0 ? event.flags_count : 0 %><span class="icon-flag flag-disable"></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= event.author.username %>
+          <br>
+          <div class="moderation-description">
+            <%= event.description %>
+          </div>
+        </td>
+        <td class="text-center">
+          <%= check_box_tag "event_ids[]", event.id, nil, id: "#{dom_id(event)}_check" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= submit_tag t('moderation.events.index.block_authors'),
+    name: "block_authors",
+    class: "button hollow alert",
+    data: {confirm: t('moderation.events.index.confirm')}
+  %>
+
+  <div class="float-right">
+    <%= submit_tag t('moderation.events.index.hide_events'),
+      name: "hide_events",
+      class: "button hollow alert",
+      data: {confirm: t('moderation.events.index.confirm')}
+    %>
+    <%= submit_tag t('moderation.events.index.ignore_flags'),
+      name: "ignore_flags",
+      class: "button success hollow",
+      data: {confirm: t('moderation.events.index.confirm')}
+    %>
+  </div>
+
+  <%= paginate @events %>
+
+<% end %>
+

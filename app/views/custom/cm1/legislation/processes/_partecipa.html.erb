@@ -1,0 +1,20 @@
+<% if check_process_fase(process)%>
+
+    <div class="row large-12 medium-12 small-12">
+      <nav class="legislation-process-categories large-9 medium-9 small-12">
+        <div class="legislation-process-list" style="border-bottom: none;">
+          <div class="small-12 column">
+            <ul>
+                <li <%= 'class=active' if phase.to_sym == :debate_phase %> style="width: 100%;">
+                  <%= link_to debate_legislation_process_path(process) do %>
+                    <h4><%= t('legislation.processes.shared.debate_dates') %></h4>
+                    <p><%= t("legislation.processes.shared.debate_label") %></p>
+                  <% end %>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+<% end %>

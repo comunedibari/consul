@@ -1,0 +1,64 @@
+
+
+
+<% provide :title do %>
+  Admin - <%= t("admin.menu.crowdfunding") %> - <%= t("admin.crowdfundings_admin.index.filters.#{@current_filter}") %>
+<% end %>
+
+<div class="legislation-admin legislation-process-index">
+  <h2 class="inline-block"><%= t("admin.crowdfundings_admin.index.title") %></h2>
+
+  <% if can?(:new, Crowdfunding)%>
+    <%#= link_to t("admin.crowdfundings_admin.index.create"), new_crowdfunding_path, class: "button float-right" %>
+    <%= link_to t("admin.crowdfundings_admin.index.create"), new_admin_crowdfunding_path, class: "button float-right" %>
+  <% end %>
+
+  <%= render 'shared/filter_subnav', i18n_namespace: "admin.crowdfundings_admin.index" %>
+
+  <% if @crowdfundings.any? %>
+    <h3><%= page_entries_info @crowdfundings %></h3>
+
+    <table class="stack">
+      <thead>
+        <tr>
+          <th><%= t("admin.crowdfundings_admin.crowdfunding.title_crowd") %></th>
+          <th><%= t("admin.crowdfundings_admin.crowdfunding.start_date") %></th>
+          <th><%= t("admin.crowdfundings_admin.crowdfunding.end_date") %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @crowdfundings.each do |crowdfunding| %>
+        <tr id="<%= dom_id(crowdfunding) %>">
+          <td class="small-12 medium-8">
+              <%= link_to crowdfunding.title, toedit_admin_crowdfunding_path(crowdfunding) %>
+          </td>
+          <%#td><%= t("admin.legislation.processes.process.status_#{crowdfunding.status}") %><%#/td%>
+          <td><%= I18n.l crowdfunding.start_date.to_date %></td>
+          <%#td><%= crowdfunding.total_comments %><%#/td%>
+          <td><%= I18n.l crowdfunding.end_date.to_date %></td>
+          <td>
+            <% if crowdfunding.user_investments.user_investments_accepted == 0 %>
+              <%= link_to t("admin.crowdfundings_admin.index.delete"), admin_crowdfunding_path(crowdfunding),
+                        method: :delete,
+                        class: 'button hollow alert' %>
+            <% else %>
+              <%= link_to t("admin.crowdfundings_admin.index.delete"), admin_crowdfunding_path(crowdfunding),
+                        method: :delete,
+                        class: 'button hollow alert',
+                        disabled: true %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <%= paginate @crowdfundings %>
+  <% else %>
+    <div class="callout primary">
+      <%= page_entries_info @crowdfundings %>
+    </div>
+  <% end %>
+
+</div>

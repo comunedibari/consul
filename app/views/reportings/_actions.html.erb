@@ -1,0 +1,4 @@
+<% if can? :hide, reporting %>
+  <%= link_to t("admin.actions.hide").capitalize, hide_moderation_reporting_path(reporting),
+              method: :put, remote: true, data: { confirm: t('admin.actions.confirm') } %>
+<% end %>

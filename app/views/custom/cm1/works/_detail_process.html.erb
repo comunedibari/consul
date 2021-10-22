@@ -1,0 +1,73 @@
+        <div class="small-12 medium-9 large-9 column" style="height: 40%;">
+          <div class="legislation-text">
+            <% if process.process_type != 4 %>
+            <h3><%= link_to process.title.html_safe, process %></h3>
+            <p class="proposal-info">
+
+              <% if process.author.virtual %>
+              <span class="author">
+                <%= "Importato da Bari innovazione Sociale" %>
+              </span>
+              <% else %>
+
+              <%= l process.created_at.to_date %>
+
+              <% if process.author.hidden? || process.author.erased? %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="author">
+                <%= t("proposals.show.author_deleted") %>
+              </span>
+              <% elsif process.sector_content.presence %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="author">
+                <%= process.sector_content.sector.name %>
+              </span>
+              <% else %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="author">
+                <%= process.author.name %>
+              </span>
+              <% if process.author.display_official_position_badge? %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="label round level-<%= process.author.official_level %>">
+                <%= process.author.official_position %>
+              </span>
+              <% end %>
+              <% end %>
+
+              <% if process.author.verified_organization? %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="label round is-association">
+                <%= t("shared.collective") %>
+              </span>
+              <% end %>
+
+              <% end %>
+            </p>
+            <% else %>
+            <!-- <h3><%= link_to("Progetto #{process.external_id}", process) %></h3> -->
+            <h3><%= link_to process.title.html_safe, process %></h3>
+            <!--
+                  <span class="label round is-author " title="<%= t("processes.sgap_label") %>">
+                    <%= t("processes.process_sgap.label") %>                
+                  </span>        
+                -->
+            <% end %>
+          </div>
+        </div>
+
+        <div class="small-12 medium-3 large-3 column" style="height: 25%; margin-top: 5%;">
+          <%= link_to process, class: "btn btn-outline-primary btn-block btn", title: t("legislation.processes.process.see_latest_comments_title") do %>
+          <span class="icon-comments"></span>&nbsp; <%= t("legislation.processes.process.see_latest_comments") %>
+          <% end %>
+        </div>
+
+        <div class="small-12 medium-11 large 12 column end" style="text-align: justify; height: 60%;">
+          <% testo = first_paragraph(process.description)
+            if testo.include? "<div" and !testo.include? "</div"
+              testo = testo + "</div>"
+            end %>
+
+          <%= markdown(process.summary.present? ? process.summary : testo) %>
+          <%= render "tags", taggable: process, taggable_name: taggable_name, limit: 5 %>
+        </div>

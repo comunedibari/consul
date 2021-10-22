@@ -1,0 +1,55 @@
+<tr id="proposal_<%= proposal.id %>">
+  <td class="small-9">
+    <% if !proposal.rejected?%>
+      <strong><%= link_to proposal.title, proposal_path(proposal, pon_id: proposal.pon_id), proposal.retired? ? { class: 'retired' } : {} %></strong>
+    <% else %>
+      <strong><%= proposal.title %></strong>
+    <% end %>
+    <br>
+    <%= proposal.summary %>
+  </td>
+
+  <% if proposal.retired? %>
+
+    <td class="text-center" colspan="2">
+      <span class="label alert"><%= t('users.proposals.retired') %></span>
+    </td>
+
+  <% elsif author?(proposal) %>
+  <td>
+    <% if proposal.in_approval?%>
+        <%= t("users.proposals.approval") %>
+    <% elsif proposal.rejected?%>
+        <%= t("users.proposals.rejected") %>
+    <% else%>
+        <%= link_to t("users.proposals.send_notification"),
+                    new_proposal_notification_path(proposal_id: proposal.id),
+                    class: 'btn btn-outline-primary btn-block' %>
+    <% end %>
+    </td>
+    <td>
+      <% if !proposal.in_approval? && !proposal.rejected?%>
+        <% if proposal.retired? %>
+          <span class="label alert"><%= t('users.proposals.retired') %></span>
+        <% else %>
+          <%= link_to t('users.proposals.retire'),
+                      retire_form_proposal_path(proposal),
+                      class: 'btn btn-primary btn-block btn-alert' %>
+        <% end %>
+      <% end %>
+    </td>
+
+  <% else %>
+
+    <td class="text-center" colspan="2">
+      <td class="text-center" colspan="2">
+        <% if !proposal.in_approval? %>
+          <%= link_to t('users.proposals.see'), proposal, class: 'button hollow' %>
+        <% else %>
+          <%= t("users.proposals.in_approval") %>
+        <% end %>
+    </td>
+
+  <% end %>
+
+</tr>

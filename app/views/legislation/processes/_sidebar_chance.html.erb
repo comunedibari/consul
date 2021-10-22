@@ -1,0 +1,75 @@
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("shared.sidebar_chance.progress_state") %></h2>
+<div id="bar" style="margin: 0 auto;"></div>
+<script>
+    progress_status = '<%= @process.process_chance.progress_status.to_f %>'
+    var bar = new RadialProgress(document.getElementById("bar"),{
+        indeterminate:true,
+        colorFg:"#004a83",
+        thick:6,
+        colorBg : "#9db8ce",
+        colorText : "#004a83",
+        spin : false,
+        round : true
+        });
+
+    bar.setIndeterminate(false);
+    bar.setValue(progress_status/100 );
+    bar.setText('<%= @process.process_chance.progress_status %>%');
+
+    bar.draw(true);
+
+</script>
+
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("shared.sidebar_chance.chance_info") %></h2>
+
+<h5><%= t("shared.sidebar_chance.chance_info_office") %></h5>
+<div class="additional-document-link">
+        <% if @process.process_chance.address != nil %>
+            <p><%= @process.process_chance.address %></p>
+        <% end %>
+
+    <% if @process.process_chance.contacts != nil %>
+        <div class="p2">
+            <% element_splitted(process.process_chance.contacts).each do |contact| %>
+                <%= contact %>
+                <br>
+                <br>
+            <% end %>
+        </div>
+    <% end %>
+    <% if @process.process_chance.info != nil %>
+        <div class="p2">
+            <% if @process.process_type == 3 %>
+                <% element_splitted(process.process_chance.info).each do |i| %>
+                    <%= i %>
+                    <br>
+                    <br>
+                <% end %>
+            <% end %>
+            <% if @process.process_type == 5 and process.process_chance.info != '-bando-' %>
+                <% val = process.process_chance.info 
+                   arr = val.split('-bando-') 
+                %>
+
+                <%if arr[0] != '' %>
+                <p style="margin-bottom: 30px;">Scarica la domanda per partecipare all'opportunità</p>                
+                <a type="button" class="btn btn-outline-primary btn-block" 
+                href='<%= arr[0] %>' target="_blank">
+                <i class="fa fa-arrow-circle-down "></i> DOWNLOAD
+                </a>
+                <% end %>
+                        
+                <%if arr[1] != '' %>
+                <p>Scarica il bando sul sito del Comune di Bari</p>
+                <a type="button" class="btn btn-outline-primary btn-block" 
+                href='<%= arr[1] %>' target="_blank">
+                <i class="fa fa-arrow-circle-down "></i> DOWNLOAD
+                </a>
+                <% end %>
+            <% end %>
+        </div>
+    <% end %>
+</div>
+

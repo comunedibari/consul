@@ -1,0 +1,22 @@
+<main>
+  <%= render 'admin/shared/crowdfunding_search', url: management_crowdfundings_path %>
+
+  <div class="row">
+    <div class="crowdfundings-list small-12 column">
+
+      <div class="filters">
+        <div class="small-12 medium-7 float-left">
+          <% if @search_terms %>
+            <h2>
+              <%= page_entries_info @crowdfundings %>
+              <%= t("crowdfundings.index.search_results_html", count: @crowdfundings.size, search_term: @search_terms) %>
+            </h2>
+          <% end %>
+        </div>
+
+        <%= render @crowdfundings %>
+        <%= paginate @crowdfundings %>
+      </div>
+    </div>
+  </div>
+</main>

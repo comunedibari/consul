@@ -1,0 +1,25 @@
+
+<%# per allungare la linea blu disabilitare display: inline-block;%>
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("shared.sidebar_work.work_info") %></h2>
+
+    <div class="additional-document-link">
+
+        <h5><%= t("processes.process_sgap.financed_amount") %></h5>
+        <p><%= @process.process_sgap.importofinanziato %> € </p>
+        <h5><%= t("processes.process_sgap.sal_amount") %></h5>
+        <p><%= @process.process_sgap.importosal %> €</p>
+        <h5><%= t("processes.process_sgap.base_auction_amount") %></h5>
+        <p><%= @process.process_sgap.importobaseasta %> €</p>
+        <h5><%= t("processes.process_sgap.realized_amount") %></h5>
+        <p><%= @process.process_sgap.importorealizzato %> €</p>
+        <h5><%= t("processes.process_sgap.amount_to_realize") %></h5>
+        <p><%= @process.process_sgap.importodarealizzare %> €</p>
+        <h5><%= t("processes.process_sgap.start_date") %></h5>
+        <p><%= print_correct_date(@process.process_sgap.inizioprogetto) %> </p>
+        <h5><%= t("processes.process_sgap.end_date") %></h5>
+        <p><%= print_correct_date(process.process_sgap.fineprogetto) %> </p>
+    </div>
+
+<br>
+

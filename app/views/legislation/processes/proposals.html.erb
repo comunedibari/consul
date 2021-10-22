@@ -1,0 +1,36 @@
+<% provide :title do %><%= @process.title %><% end %>
+
+<%= render 'legislation/processes/header', process: @process, header: :full %>
+
+<% if @process.process_type != 1 %>
+  <%= render 'key_dates', process: @process, phase: :proposals_phase %>
+<% else %>
+  <%= render 'partecipa', process: @process, phase: :debate_phase %>
+<% end %>
+
+<div class="row">
+  <div class="container my-5">
+    <div class="row">
+      <div class="small-12 medium-9 col">
+        <div class="legislation-proposals">
+          <% if @process.proposals.empty? %>
+            <div class="callout primary">
+              <p><%= t('.empty_proposals') %></p>
+            </div>
+          <% else %>
+            <%= render @process.proposals.mod_approved %> 
+          <% end %>
+        </div>
+      </div>
+
+      <div class="small-12 medium-3 column">
+        <% if @process.proposals_phase.open? %>
+          <% if current_user && ( (service_social?(:legislation_process_processes_proposal) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator  || current_user.moderator?)%>
+            <p><%= link_to t("proposals.index.start_legislation_proposal"), new_legislation_process_proposal_path(@process), class: 'btn btn-primary btn-block' %></p>
+          <% end %>
+        <% end %>
+        <%= render 'legislation/proposals/categories', taggable: @process %>
+      </div>
+    </div>
+  </div>
+</div>

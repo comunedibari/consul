@@ -1,0 +1,50 @@
+<!--<div id="<%#= dom_id(crowdfunding) %"-->
+<!--     class="service clear <%#= ("successful" if crowdfunding.total_votes > Crowdfunding.votes_needed_for_success) %"-->
+<!--     data-type="crowdfunding">-->
+<!--  <div data-equalizer-watch style="padding:0; border: 1px solid #dcdcdc; border-radius: 3px;">-->
+<!--    <div class="service-card-content" style="background-color: #D9EDF7;">-->
+<!--      <div class="card__img">-->
+<!--        <div class="row">-->
+<!--          <div class="small-12 column">-->
+<!--            <div class="row service-content">-->
+
+<!--              <div class="tooltip_p arrow-top" data-placement="auto right"><%#= t("crowdfundings.index.focus_info") %></div>-->
+
+<!--              <div class="small-12 column">-->
+<!--                <h3><%#= crowdfunding_reward.min_investment %> € o più</h3>-->
+                <%# if crowdfunding_reward.description.to_s != "" %>
+                  <%#= crowdfunding_reward.description.strip.split("</p").first.html_safe %>
+                  <%#= crowdfunding_reward.description.strip.html_safe %>
+                <%# end %>
+<!--              </div>-->
+
+
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<%
+  last_element = false
+
+  if (@crowdfunding_rewards.count-1) == index
+    last_element = true
+  end
+%>
+
+<!--<small class="text-muted">(clicca per espandere)</small>-->
+
+<div class="collapse-header" id="heading<%= crowdfunding_reward.id %>">
+  <button data-toggle="collapse" data-target="#collapse<%= crowdfunding_reward.id %>" aria-expanded="true" aria-controls="collapse<%= crowdfunding_reward.id %>">
+    <%= crowdfunding_reward.min_investment %> € o più
+  </button>
+</div>
+<div id="collapse<%= crowdfunding_reward.id %>" class="collapse <%= last_element ? 'show' : '' %>" role="tabpanel" aria-labelledby="heading<%= crowdfunding_reward.id %>" data-parent="#rewardsAccordionDiv">
+  <div class="collapse-body">
+    <% if crowdfunding_reward.description.to_s != "" %>
+      <%= crowdfunding_reward.description.strip.html_safe %>
+    <% end %>
+  </div>
+</div>

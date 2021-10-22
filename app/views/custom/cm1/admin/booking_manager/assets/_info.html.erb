@@ -1,0 +1,181 @@
+<%= form_for [:admin, @asset],  html: {data: {watch_changes: true}} do |f| %>
+    <div class="row margin-top">  
+      <%= f.fields_for :asset, @asset do |field| %>
+
+        <%= field.hidden_field :id, value: @asset.id %>
+
+        <div class="small-12 medium-4 column">
+          <%= f.label :description %>
+        </div>
+        <div class="small-12 medium-8 column">
+          <p><%= safe_html_with_links @asset.description %></p>
+        </div>
+
+        <div class="small-12 medium-4 column">
+          <%= f.label :address %>
+        </div>
+        <div class="small-12 medium-8 column">
+          <p><%= @asset.address.to_s %></p>
+        </div>
+
+        <div class="small-12 medium-4 column">
+          <%= f.label :contacts %>
+        </div>
+        <div class="small-12 medium-8 column">
+          <p><%= @asset.contacts.to_s %></p>
+        </div>
+
+      
+    </div>
+    <% if @asset.images.any? %>
+      <div class="margin-top">
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title"><%= t("admin.moderable_bookings.assets.image") %></h2>
+      <%= render "gallery", asset: @asset %>
+    </div> 
+    <% end %>
+
+    <% if @asset.documents.count >0 %>
+      <div class="margin-top">
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title"><%= t("admin.moderable_bookings.assets.document") %></h2>
+        <%= render 'documents/additional_documents', documents: @asset.documents %>
+      </div>  
+    <% end %>
+
+    <div class="sidebar-divider"></div>
+    <h2 class="sidebar-title"><%= t("admin.moderable_bookings.assets.map") %></h2>
+    <p><%= render_geolocation([@asset], "asset")  %></p>
+
+    <%= render 'shared/tags', taggable: @asset %>
+
+    <h4><%= t("assets.show.calendar") %></h4>
+    <div class="help-text"> <%= t("admin.assets.info.help") %> </div>
+      <p>
+      <div id='calendar' class='calendar'></div>
+      </p>
+    </div>  
+
+  <% end %>
+<% end %>
+
+
+  <script>
+    
+    $(document).ready(function() {
+      var initialLocaleCode = 'it';//document.documentElement.lang;
+      var url_to_json=window.location.href.split('eventi')[1];
+    
+
+      $('#calendar').fullCalendar({
+        defaultView: 'agendaWeek',
+
+        lang: 'it',
+        height: "auto",
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,listMonth' //,agendaDay
+        },
+        minTime: '<%= get_min_time @asset.id%>',
+        maxTime: '<%= get_max_time @asset.id%>',
+        defaultDate: new Date(),
+        allDaySlot: false,
+        locale: initialLocaleCode,
+        slotDuration: "00:30:00",
+        buttonIcons: false, // show the prev/next text
+        weekNumbers: false,
+        navLinks: true, // can click day/week names to navigate views
+        editable: false,
+        eventLimit: true, // allow "more" link when too many events
+        events: '/amministrazione/<%= Rails.application.config.route_assets %>/<%=@asset.id%>?format=json',
+        
+        selectOverlap: function(event) {
+          return event.rendering === 'background' && event.color === 'green';
+        },
+        selectable: false,
+
+        select: function(startDate, endDate,jsEvent,view) {         
+          day_s = startDate.get('date')
+          day_e = endDate.get('date')   
+          if (day_s === day_e) {
+            val = getIntervalDate(startDate, endDate)
+            val1 = IsDateHasEvent(startDate)
+            val2 = IsDateHasEventEnd(endDate)
+            if (!val || !val1 || !val2){
+              $('#calendar').fullCalendar('unselect');
+              }
+            else{
+              dati = startDate.format().split('T');
+              dati_d = dati[0].split('-');
+              data_d = dati_d[2]+"-"+dati_d[1]+"-"+dati_d[0]
+              start_h = dati[1].substring(0, 5);
+              dati = endDate.format().split('T');
+              end_h = dati[1].substring(0, 5);
+              //call controller for insert reservation             
+              //alert('ok selected ' + data_d + ' from ' + start_h + ' to ' + end_h);
+              //open.window
+              window.open('/<%= Rails.application.config.route_assets %>/<%=@asset.id%>/prenotazioni/new?data='+data_d+'&start='+start_h+'&end='+end_h ,"_self")
+            }
+          }
+          else
+            $('#calendar').fullCalendar('unselect');
+        },
+
+        eventClick: function(event, element) {
+          window.open('/amministrazione/prenotazioni/'+event.id ,"_self");
+          //alert ("show Prenotazione")
+        }
+      });
+
+      function getIntervalDate(startDate, endDate) {
+          var newDateObj = moment(startDate).add(30, 'm');
+          while(endDate.format() != newDateObj.format()){            
+            val = IsDateHasEvent(newDateObj);
+            if(!val)
+              return val;
+            newDateObj = moment(newDateObj).add(30, 'm');
+          }
+          return true;
+      }
+
+      // check if this day has an event before
+      function IsDateHasEvent(date) {
+          var allEvents = [];
+          allEvents = $('#calendar').fullCalendar('clientEvents');
+          var event = $.grep(allEvents, function (v) {
+              return +v.start === +date;
+          });
+          return event.length > 0;
+      }
+
+      function IsDateHasEventEnd(date) {
+          var allEvents = [];
+          allEvents = $('#calendar').fullCalendar('clientEvents');
+          var event = $.grep(allEvents, function (v) {
+              return +v.end === +date;
+          });
+          return event.length > 0;
+      }
+
+      // build the locale selector's options
+      $.each($.fullCalendar.locales, function(localeCode) {
+        $('#locale-selector').append(
+          $('<option/>')
+            .attr('value', localeCode)
+            .prop('selected', localeCode == initialLocaleCode)
+            .text(localeCode)
+        );
+      });
+
+      // when the selected option changes, dynamically change the calendar option
+      $('#locale-selector').on('change', function() {
+        if (this.value) {
+          $('#calendar').fullCalendar('option', 'locale', this.value);
+        }
+      });
+
+    });
+
+
+  </script>

@@ -1,0 +1,14 @@
+<div id="<%= dom_id(crowdfunding) %>" class="service minimal clear" data-type="crowdfunding">
+  <div class="panel">
+    <div class="row">
+      <div class="small-12 column">
+        <div class="service-content">
+          <% cache [locale_and_user_status(crowdfunding),
+                    'index_minimal', crowdfunding, crowdfunding.author] do %>
+            <h3><%= link_to crowdfunding.title, namespaced_crowdfunding_path(crowdfunding) %></h3>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

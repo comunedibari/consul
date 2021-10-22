@@ -1,0 +1,106 @@
+<% provide :name do %><%= @sector.name %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: sector_url(@sector) %>
+<% end %>
+
+<%# cache [locale_and_user_status(@sector)] do %>
+<div class="debate-show">
+  <div id="<%= dom_id(@sector) %>" class="row">
+    <div class="small-12 medium-9 column">
+      <%= back_link_to sectors_path(sector_type: @sector.sector_type_id) %>
+
+      <h1><%= @sector.name %></h1>
+
+      <% if @sector.images.any? %>
+        <%= render "gallery", st_sector: @sector %>
+      <% end %>
+
+      <h3><%= t("st_sectors.show.description") %></h3>
+      <%= safe_html_with_links @sector.description %>
+
+
+
+
+      <% if @sector.class.name == "StSector" && @st_sectors != nil %>
+        <hr>
+        <br>
+        <h3><%= t("st_sectors.show.operations") %></h3>
+        <div class="scrollWrapper hide-for-large-only">
+          <%= render "table_history", st_sectors: @st_sectors %>
+        </div>
+        <div class="show-for-large-only">
+          <%= render "table_history", st_sectors: @st_sectors %>
+        </div>
+        <% if @sector.class.name == "StSector" && (@sector.user_id == current_user.id || current_user.administrator? || current_user.moderator?) %>
+          <hr>
+          <br>
+
+          <div>
+            <%= t("st_sectors.show.request_date") %>:
+            <h5 style="color: black !important;"><%= @sector.created_at.strftime("%d-%m-%Y %H:%M") %></h5>
+          </div>
+          <div>
+            <%= t("st_sectors.show.table.request") %>: <h5 style="color: black !important;"> <%= @sector.request %></h5>
+          </div>
+          <div>
+            <%= t("st_sectors.show.table.state") %>: <h5 style="color: black !important;"> <%= @sector.state %></h5>
+          </div>
+          <div>
+            <%= t("st_sectors.show.table.note") %>: <h5 style="color: black !important;"><%= @sector.note %> </h5>
+          </div>
+        <% end %>
+      <% end %>
+
+
+    </div>
+    <div class="small-12 medium-3 column">
+      <aside class="">
+
+        <% if @sector.class.name == "StSector" && st_sector_modify? %>
+          <div class="sidebar-divider"></div>
+          <h2 class="sidebar-title"><%= t("proposals.show.actions") %></h2>
+          <%= link_to edit_sector_path(@sector.sector_id), class: 'btn btn-outline-primary btn-block' do %>
+            <span class="icon-edit"></span>
+            <%= t("processes.show.edit_process_link") %>
+          <% end %>
+          <%= link_to t("st_sectors.show.erase_sector"), delete_sector_path(@sector.sector_id), method: :put, data: { confirm: t('moderation.proposals.index.confirm') }, class: "btn btn-outline-danger btn-block" %>
+        <% end %>
+
+
+        <div class="margin-top">
+          <%= render 'sidebar', sector: @sector %>
+        </div>
+
+        <% if @sector.documents.count > 0 %>
+          <div class="margin-top">
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= t('proposals.show.title_external_url') %></h2>
+            <%= render 'documents/additional_documents', documents: @sector.documents %>
+          </div>
+        <% end %>
+
+        <% if feature?(:map) && map_location_available?(@sector.map_location) %>
+          <div class="margin-top">
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= "Mappa Associazione" %></h2>
+            <%= render_map(@sector.map_location, "st_sector", false, nil) %>
+          </div>
+        <% end %>
+
+        <div class="margin-top">
+          <%= render partial: 'shared/social_share', locals: {
+            share_title: t("proposals.show.share"),
+            title: @sector.name,
+            url: st_sector_url(@sector),
+            description: @sector.name
+          } %>
+        </div>
+
+      </aside>
+    </div>
+
+  </div>
+
+</div>
+<%# end %>

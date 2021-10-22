@@ -1,0 +1,50 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= @agreement.title %> - <%= t("admin.legislation.agreement_requirements.index.title") %>
+<% end %>
+
+<div class="legislation-admin legislation-draft-versions-index row">
+  <div class="small-12 column">
+    
+    <%= back_link_to  admin_collaboration_agreements_path , t("admin.collaboration.agreement_requirements.index.back") %>
+
+ 
+    <h2><%= @agreement.title %></h2>
+
+    <%= render 'admin/collaboration/agreements/subnav', agreement: @agreement, active: 'agreement_requirements' %>
+
+    <div class="row">
+      <div class="small-12 medium-9 column">
+        <p2><%= t("admin.collaboration.agreement_requirements.index.title") %></p2>
+      </div>
+    </div>
+
+    <% if @agreement.agreement_requirements.any? %>
+      <table class="stack">
+       <thead>
+          <tr>
+            <th><%= t("admin.collaboration.agreement_requirements.table.title") %></th>
+            <%#th><%= t("admin.collaboration.agreement_requirements.table.question_options") %><%#/th>
+            <th><%= t("admin.collaboration.agreement_requirements.table.answers_count") %><%#/th>
+            <th><%= t("admin.collaboration.agreement_requirements.table.comments_count") %><%#/th%>
+          </tr>
+        </thead>
+        <tbody>
+        <% @agreement.agreement_requirements.each do |agreement_requirement| %>
+          <tr id="<%= dom_id(agreement_requirement) %>">
+            <td>
+              <%= link_to agreement_requirement.title, edit_admin_collaboration_agreement_agreement_requirement_path(@agreement, agreement_requirement) %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <% else %>
+        <div class="callout primary margin">
+          <%= t("admin.collaboration.agreement_requirements.index.no_agreement_requirements") %>
+        </div>
+    <% end %>
+      <div class="small-12 medium-3 column legislation-process-question">
+        <%= link_to t("admin.collaboration.agreement_requirements.index.create"), new_admin_collaboration_agreement_agreement_requirement_path, class: "button" %>
+      </div>    
+  </div>
+</div>

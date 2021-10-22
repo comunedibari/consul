@@ -1,0 +1,109 @@
+<div id="<%= dom_id(reporting) %>"
+     class="reporting clear <%#= ("successful" if reporting.total_votes > Reporting.votes_needed_for_success) %>"
+     data-type="reporting">
+  <div class="panel <%= ('with-image' if feature?(:allow_images) && reporting.images.present?) %>">
+    <div class="icon-successful"></div>
+    <div class="row" data-equalizer>
+        <div class="small-12 medium-3 large-2 column text-center">
+          <div data-equalizer-watch>
+            <% if !read_only_service %>
+              <% if feature?(:allow_images) && reporting.images.present? %>
+                <%= image_tag reporting.image_url(:thumb), alt: "" %>
+              <% else %>
+                <%= image_tag "reportings.png", alt: t("welcome.schede.scheda2.title") %>
+              <% end %>    
+            <% else %>
+              <% if reporting.url_image_preview %>
+                <%= image_tag reporting.url_image_preview, alt: "" %>
+              <% else %>  
+                <%= image_tag "reportings.png", alt: t("welcome.schede.scheda2.title") %>
+              <% end %>
+            <% end %>  
+          </div>
+        </div>
+
+        <div class="small-12 medium-6 column">
+          <div class="reporting-content">
+            <%# cache [locale_and_user_status(reporting), 'index', reporting, reporting.author] do %>
+              <h3><%= link_to reporting.title, namespaced_reporting_path(reporting) %></h3>
+              <p class="reporting-info">
+
+                <% if !read_only_service %>
+                  <span class="icon-comments"></span>&nbsp;
+                  <%= link_to t("reportings.reporting.comments", count: reporting.comments_count), namespaced_reporting_path(reporting, anchor: "comments") %>
+                  <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <% end %>
+                <%= l reporting.created_at, format: :datetime %>
+
+                <% if reporting.author.hidden? || reporting.author.erased? %>
+                  <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                  <span class="author">
+                    <%= t("reportings.show.author_deleted") %>
+                  </span>
+                <% else %>
+                  <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                  <span class="author">
+                    <%#= User.system.to_s %>
+                  </span>
+                  <% if reporting.author.display_official_position_badge? %>
+                    <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                    <span class="label round level-<%= reporting.author.official_level %>">
+                      <%= reporting.author.official_position %>
+                    </span>
+                  <% end %>
+                <% end %>
+
+                <% if reporting.author.verified_organization? %>
+                  <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                  <span class="label round is-association">
+                    <%= t("shared.collective") %>
+                  </span>
+                <% end %>
+              </p>
+              <div class="reporting-description">
+                <p><%= reporting.description %></p>
+                <!-- <div class="truncate"></div> -->
+              </div>
+              <%= render "shared/tags", taggable: reporting, limit: 5 %>
+            <%# end %>
+          </div>
+      </div>
+
+      <div id="<%= dom_id(reporting) %>_reporting_types"
+           class="small-12 medium-3 col supports-container"
+           <%= 'data-equalizer-watch' if feature?(:allow_images) && reporting.images.present? %>>
+        <%= render 'reporting_types',
+                { reporting: reporting } %>
+
+
+
+        <%# if reporting.successful? and false %>
+          <%#div class="padding text-center">
+
+            <p>
+              <%= t("reportings.reporting.successful",
+                  voting: link_to(t("reportings.reporting.voting"), polls_path)).html_safe %>
+            <%#/p>
+          </div>
+          <%# if can? :create, Poll::Question %>
+            <%#p class="text-center">
+              <%= link_to t('poll_questions.create_question'),
+                          new_admin_question_path(reporting_id: reporting.id),
+                          class: "button hollow" %>
+            <%#/p>
+          <%# end %>
+        <%# elsif reporting.archived? and false %>
+          <%#div class="padding text-center">
+            <strong><%#= t("reportings.reporting.supports", count: reporting.total_votes) %><%#/strong>
+            <%#p><%= t("reportings.reporting.archived") %><%#/p>
+          </div>
+        <%# elsif false %>
+          <%#= render 'votes',
+                    { reporting: reporting, vote_url: vote_reporting_path(reporting, value: 'yes') } %>
+        <%# end %>
+
+        
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<% if documents.any? %>
+  <div class="row">
+    <div class="small-12 column">
+      <div class="additional-document-link">
+        <%= render partial: 'documents/additional_document', collection: documents, as: :document %>
+      </div>
+    </div>
+  </div>
+<% end %>

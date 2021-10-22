@@ -1,0 +1,35 @@
+<p>Scegli una o più categorie:</p>
+
+<div class="row">
+  <div class="col-12 col-sm-7 col-md-9">
+    <ul id="categories" class="ml-0 d-inline list-unstyled proposals-category-filters">
+      <% typologies.each do |typology| %>
+        <% if typology.active %>
+          <li class="inline-block">
+            <a class="ml-sm-2 ml-0 typology-pill" data-typologyId="<%= typology.id %>" href="#"><%= typology.name %></a>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col-12 col-sm-5 col-md-3">
+    <button class="ml-0 mx-sm-2 float-sm-right btn btn-primary" id="typology_submit_form_button">Scegli</button>
+    <button class="float-sm-right btn btn-danger" id="cancel_form_button"><i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+
+<%#= form_tag filter_by_typology_processes_proposals_path, id: "typology_filters_form", style: "width: 100%;", method: :get do %>
+  <%#= hidden_field(:typology, :id) %>
+<!--  <input type="hidden" name="filter" value="<%#= params[:filter].present? ? params[:filter] : 'opens' %>">-->
+<!--  <input type="hidden" name="page" value="<%#= params[:page].present? ? params[:page] : '1' %>">-->
+<%# end %>
+
+<%= form_tag processes_proposals_path, id: "cancel_filters_form", style: "width: 100%;", method: :get do %>
+  <input type="hidden" name="filter" value="<%= params[:filter].present? ? params[:filter] : 'opens' %>">
+  <input type="hidden" name="page" value="<%= params[:page].present? ? params[:page] : '1' %>">
+<% end %>
+
+<%= javascript_include_tag "process_typology_filters" %>

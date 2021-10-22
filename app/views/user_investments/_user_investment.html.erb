@@ -1,0 +1,9 @@
+<% cache [locale_and_user_status(crowdfunding)] do %>
+  <div class="row comments">
+    <div class="small-12 medium-8 column ">
+      <%# if user_signed_in? %>
+        <%= render 'user_investments/form' ,crowdfunding: crowdfunding %>
+      <%# end %>
+    </div>
+  </div>
+<% end %>

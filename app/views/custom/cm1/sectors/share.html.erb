@@ -1,0 +1,30 @@
+<% provide :title do %><%= @sector.name %><% end %>
+    <% provide :social_media_meta_tags do %>
+    <%= render "shared/social_media_meta_tags",
+                social_url: sector_url(@sector),
+                social_title: @sector.name,
+                social_description: @sector.description %>
+    <% end %>
+    <% content_for :canonical do %>
+      <%= render "shared/canonical", href: sector_url(@sector) %>
+    <% end %>
+
+    <%# cache [locale_and_user_status(@st_sector), @st_sector, @st_sector.user_id.name, Flag.flagged?(current_user, @st_sector), @st_sector_votes] do %>
+      <div class="debate-show">
+        <div id="<%= dom_id(@sector) %>" class="row">
+          <div class="small-12 column">
+
+            <h1><%= t("st_sectors.st_sector.created",
+                      sector: @sector.name, sector_type: @sector.sector_type.name ) %></h1>
+            <% if  !current_administrator? && !current_moderator? %>
+              <p><%= t("st_sectors.st_sector.in_approval") %></p>
+            <% end %>
+
+            <div class="small margin-bottom">
+              <%= link_to t("st_sectors.st_sector.share.view_st_sector"), sector_path(@sector) %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <%# end %>

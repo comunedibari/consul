@@ -1,0 +1,53 @@
+<main>
+  <div class="row reportings-summary">
+    <div id="reportings" class="reportings-list small-12 medium-9 column">
+      <%= back_link_to %>
+
+      <% @reportings.each do |group_name, reportings| %>
+        <div id="<%= group_name.parameterize %>">
+          <h2 class="margin-top"><%= group_name %></h2>
+
+          <% reportings[0..2].each do |reporting| %>
+            <div class="reporting clear">
+              <div class="panel">
+                <div class="row">
+                  <div class="small-12 medium-9 column">
+                    <div class="reporting-contenta">
+                      <h4><%= link_to reporting.title, namespaced_reporting_path(reporting) %></h4>
+
+                      <p class="reporting-info">
+                        <% if reporting.author.hidden? || reporting.author.erased? %>
+                          <span class="author"><%= t("reportings.show.author_deleted") %></span>
+                        <% else %>
+                          <span class="author"><%= reporting.author.name %></span>
+                          <% if reporting.author.display_official_position_badge? %>
+                            <span class="label round level-<%= reporting.author.official_level %>">
+                              <%= reporting.author.official_position %>
+                            </span>
+                          <% end %>
+                        <% end %>
+                      </p>
+
+                      <div class="reporting-description">
+                        <p><%= reporting.summary %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="small-12 medium-3 column">
+      <aside class="sidebar">
+        <%= link_to t("reportings.index.start_reporting"), new_reporting_path, class: 'btn btn-primary btn-block' %>
+        <%= render "shared/tag_cloud", taggable: 'reporting' %>
+        <%= render 'categories' %>
+        <%= render 'geozones' %>
+      </aside>
+    </div>
+  </div>
+</main>

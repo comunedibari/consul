@@ -1,0 +1,65 @@
+<% provide :title do %><%= @poll.name %>
+<% end %>
+
+<div class="polls-show">
+  <%= render "poll_header" %>
+
+  <%= render "poll_subnav" %>
+
+  <div class="row margin">
+    <div class="column">
+      <%= render "callout" %>
+
+
+      <% if current_user && ((service_social?(:polls) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator?) %>
+        <% if @poll.voted_in_booth?(current_user) %>
+          <div class="callout warning">
+            <%= t("polls.show.already_voted_in_booth") %>
+          </div>
+        <% else %>
+          <% if current_user && @poll.voted_in_web?(current_user) && !@poll.expired? && !@poll.vote_has_been_confirmed?(current_user) %>
+            <div class="callout warning">
+              <%= t("polls.show.already_voted_in_web") %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% @questions.each do |question| %>
+          <%= render 'polls/questions/question', question: question, token: @token %>
+        <% end %>
+      <% else %>
+        <% if current_user %>
+          <div class="callout warning">
+            <%= t("polls.show.social_service_disactive") %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if poll_voter_token(@poll, current_user).empty? %>
+        <div class="callout token-message js-token-message" style="display: none">
+          <%= t('poll_questions.show.voted_token') %>
+        </div>
+      <% end %>
+      <div>
+
+        <%= link_to t("polls.show.participate_in_other_polls"), polls_path, class: "btn btn-outline-primary" %>
+        <% if current_user && (service_social?(:polls) && current_user.provider.present? && current_user.is_social? || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator?) %>
+          <% if !@poll.vote_has_been_confirmed?(current_user) && !(@poll.ends_at < Time.now) %>
+            <%= link_to t("admin.polls.show.submit"),
+                        confirm_poll_path(),
+                        data: {confirm: t("admin.polls.show.submit_alert")},
+                        method: :post,
+                        class: "btn btn-success small-12 medium-4 column" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tabs-content" data-tabs-content="polls_tabs" role="tablist">
+    <%= render "filter_subnav" %>
+
+    <div class="tabs-panel is-active" id="tab-comments">
+      <%= render "comments" %>
+    </div>
+  </div>
+</div>

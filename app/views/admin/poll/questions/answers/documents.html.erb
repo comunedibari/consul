@@ -1,0 +1,58 @@
+<%= back_link_to %>
+
+<h2><%= t("admin.questions.show.answers.documents_list") %></h2>
+
+<ul class="breadcrumbs">
+  <li><%= @answer.question.title %></li>
+  <li><%= @answer.title %></li>
+</ul>
+
+<div class="poll-question-form">
+  <%= form_for(Poll::Question::Answer.new,
+               url: admin_answer_path(@answer),
+               method: :put) do |f| %>
+
+    <%= render 'shared/errors', resource: @answer %>
+
+    <div>
+      <div class="small-12 column">
+        <div class="documents small-12">
+          <%= render 'documents/nested_documents_admin', documentable: @answer, f: f, isComment: false %>
+        </div>
+      </div>
+      <div>
+        <div class="actions small-12 medium-4 margin-top margin-bottom">
+          <%= f.submit(class: "button success", value: t("shared.save")) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @answer.documents.present? %>
+    <table>
+      <tr>
+        <th scope="col"><%= t("admin.questions.show.answers.document_title") %></th>
+        <th scope="col" class="text-right">Download</th>
+        <th scope="col" class="text-right"><%= t("admin.questions.show.answers.document_actions") %></th>
+      </tr>
+
+      <% @answer.documents.each do |document| %>
+        <tr>
+          <td>
+            <%= link_to document.title, document.attachment.url %>
+          </td>
+          <td class="text-right">
+            <%= link_to t('documents.buttons.download_document'),
+                        document.attachment.url,
+                        target: "_blank",
+                        rel: "nofollow",
+                        class: 'button' %>
+          </td>
+          <td class="text-right">
+            <%= link_to t('shared.delete'), document_path(document, from: document.get_refer_to != '' ? "http://" + request.host + ":" + request.port.to_s + document.get_refer_to : request.url), class: "button hollow alert", method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

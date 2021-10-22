@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-12 my-3">
+    <%= back_link_to account_path, t("verification.back") %>
+  </div>
+  <% user = get_user %>
+  <% if user %>
+    <div class="small-12 column">
+      <h2 class="inline-block">
+        <%= avatar_image(user, seed: user.id, size: 60) %>
+        <%= user.name %>
+        <% if current_administrator? %>
+          <small><%= user.email %></small>
+        <% end %>
+      </h2>
+
+   
+
+      <br>
+    </div>
+    <div class="small-12 medium-6 column">
+      <h3><%= t("gamification.account.title") %></h3>
+      <div style="margin-top: 20px;">
+        <table>
+          <thead>
+          <th scope="col"><%= "Achievements" %></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          </thead>
+          <tbody>
+          <% user.badges.each do |badge| %>
+            <tr id="<%= dom_id(badge) %>">
+              <td class="align-top">
+                <strong><%= badge.name %></strong>
+              </td>
+              <td class="align-top">
+                (<%= badge.description %>)
+              </td>
+              <td class="align-top">
+                <% (1..badge.level.to_i).each do |star| %>
+                  <%= image_tag("badge_icon.png", width: 25) %>
+                <% end %>
+                <% (badge.level.to_i + 1..4).each do |star| %>
+                  <%= image_tag("badge_icon_base.png", width: 20) %>
+                <% end %>
+
+
+              </td>
+              <td class="align-top">
+                <%= user.sash.badges_sashes.where(badge_id: badge.id).first.created_at.strftime("%d/%m/%Y") %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="small-12 medium-6 column">
+      <h3><%= t("gamification.user.title") %></h3>
+      <div style="margin-top: 20px;">
+        <table>
+          <thead>
+          <th scope="col"><%= t("gamification.user.services") %></th>
+          <th scope="col"><%= t("gamification.user.current_month") %></th>
+          <th scope="col"><%= t("gamification.user.prec_month") %></th>
+          <th scope="col"><%= t("gamification.user.total") %></th>
+
+          </thead>
+          <tbody>
+
+          <% @resources_map.each do |resource, value| %>
+            <% service_results = gamification_result_user(resource, user) %>
+            <% service_results.each do |service_result| %>
+              <tr id="<%= dom_id(service_result) %>">
+                <td class="align-top">
+                  <%= value.to_s %>
+                </td>
+                <td class="align-top">
+                  <%= service_result.current_month_result %>
+                </td>
+                <td class="align-top">
+                  <%= service_result.prec_month_result %>
+                </td>
+                <td class="align-top">
+                  <%= service_result.total_result %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  <% else %>
+    <div class="callout primary margin-top">
+      <%= t("gamification.index.no_user") %>
+    </div>
+  <% end %>
+</div>
+
+

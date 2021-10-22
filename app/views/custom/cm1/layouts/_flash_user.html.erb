@@ -1,0 +1,57 @@
+<% flash.each do |flash_key, flash_message| %>
+
+  <% if flash_key == 'alert'
+       flash_key = 'error'
+       title = 'Errore'
+       icon = 'it-close-circle'
+     elsif flash_key == 'warning'
+       flash_key = 'warning'
+       title = 'Attenzione'
+       icon = 'it-error'
+     else
+       flash_key = 'success'
+       title = 'Notifica'
+       icon = 'it-check-circle'
+     end
+  %>
+  <div class="show-for-small-only">
+    <div class="notification top-fix-sm with-icon dismissable <%= flash_key %>" role="alert" aria-labelledby="<%= flash_key %>-title" id="<%= flash_key %>">
+      <h5 id="<%= flash_key %>-title">
+        <svg class="icon">
+          <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#<%= icon %>"></use>
+        </svg><%= title %></h5>
+      <p> <%= flash_message.try(:html_safe) %></p>
+      <button type="button" class="btn notification-close">
+        <svg class="icon">
+          <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-close"></use>
+        </svg>
+        <span class="sr-only">Chiudi notifica: <%= title %></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="hide-for-small-only">
+    <div class="notification right-fix with-icon dismissable <%= flash_key %>" style="z-index: 9999;" role="alert" aria-labelledby="<%= flash_key %>-title" id="<%= flash_key %>">
+      <h5 id="<%= flash_key %>-title">
+        <svg class="icon">
+          <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#<%= icon %>"></use>
+        </svg><%= title %></h5>
+      <p> <%= flash_message.try(:html_safe) %></p>
+      <button type="button" class="btn notification-close">
+        <svg class="icon">
+          <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-close"></use>
+        </svg>
+        <span class="sr-only">Chiudi notifica: <%= title %></span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(
+      function () {
+        notificationShow("<%= flash_key %>", 6000);
+      }
+    )
+  </script>
+
+<% end %>

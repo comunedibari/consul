@@ -1,0 +1,27 @@
+<%= back_link_to admin_question_path(@answer.question) %>
+
+<%= link_to t("admin.questions.answers.images.add_image"),
+            new_admin_answer_image_path(@answer),
+            class: "button hollow float-right" %>
+
+<ul class="breadcrumbs margin-top">
+  <li><%= @answer.question.title %></li>
+  <li><%= @answer.title %></li>
+</ul>
+
+<% @answer.images.each do |image| %>
+  <div class="row margin-top">
+    <div class="column">
+      <div class="large-3 c3-tooltip" align="center">
+        <%= render_image(image, :medium, false) if image.present? %>
+        <%= link_to image_path(image, from: request.url),
+                    method: :delete,
+                    class: 'button hollow alert margin-top ',
+                    data: {confirm: t('images.actions.destroy.confirm')} do %>
+          <span class="icon-image-service"></span>
+          <%= t("images.remove_image") %>
+        <% end %>
+      </div >
+    </div>
+  </div>
+<% end %>

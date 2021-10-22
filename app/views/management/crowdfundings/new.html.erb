@@ -1,0 +1,12 @@
+<div class="crowdfunding-form">
+
+  <div class="clear float-right">
+    <%= render '/shared/print' %>
+  </div>
+
+  <div class="small-12 medium-9 column end">
+    <h1 class=""><%= t("management.crowdfundings.create_crowdfunding") %></h1>
+    <%= render "crowdfundings/form", form_url: management_crowdfundings_url %>
+  </div>
+
+</div>

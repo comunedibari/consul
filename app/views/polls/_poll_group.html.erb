@@ -1,0 +1,73 @@
+<% poll_group.each do |poll| %>
+  <div class="poll with-image">
+    <% if !poll.vote_has_been_confirmed?(current_user) && user_signed_in? && !current_user.unverified? && !poll.votable_by?(current_user) %>
+      <div class="icon-poll-answer can-answer " title="<%= t("polls.index.already_answer") %>">
+        <span class="show-for-sr"><%= t("polls.index.already_answer") %></span>
+      </div>
+    <% elsif poll.vote_has_been_confirmed?(current_user) %>
+      <div class="icon-poll-answer already-answer" title="<%= t("polls.index.already_submitted") %>">
+        <span class="show-for-sr"><%= t("polls.index.already_submitted") %></span>
+      </div>
+    <% end %>
+    <div class="row" data-equalizer data-equalize-on="medium">
+      <div class="small-12 medium-3 column">
+        <div class="image-container" data-equalizer-watch>
+          <% if poll.images.present? %>
+            <%= image_tag poll.image_url(:large), alt: poll.images.first.title.unicode_normalize %>
+          <% end %>
+        </div>
+      </div>
+      <div class="small-12 medium-6 column" data-equalizer-watch>
+        <% if poll.questions.count == 1 %>
+          <% poll.questions.each do |question| %>
+            <h4>
+              <%= link_to question.title, poll %>
+            </h4>
+            <div class="dates">
+              <%= poll_dates(poll) %>
+            </div>
+          <% end %>
+        <% else %>
+          <h4>
+            <%= link_to poll.name, poll %>
+          </h4>
+          <div class="dates">
+            <%= poll_dates(poll) %>
+          </div>
+          <ul class="margin-top">
+            <% poll.questions.each do |question| %>
+              <li><%= question.title %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <% if poll.geozones.any? %>
+          <p>
+            <small><%= t("polls.index.geozone_info") %></small>
+          </p>
+        <% end %>
+        <ul class="list-unstyled inline-block tags">
+          <% poll.geozones.each do |g| %>
+            <li class="inline-block"><span><%= g.name %></span></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="small-12 medium-3 column table" data-equalizer-watch>
+        <div class="table-cell align-middle">
+          <% if current_user && ((service_social?(:polls) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator || current_user.moderator?) %>
+            <%= link_to poll, class: "btn btn-outline-primary btn-block" do %>
+              <% if poll.expired? %>
+                <%= t("polls.index.participate_button_expired_html") %>
+              <% elsif poll.incoming? || poll.vote_has_been_confirmed?(current_user) %>
+                <%= t("polls.index.participate_button_incoming") %>
+              <% elsif user_signed_in? && !current_user.unverified? && !poll.votable_by?(current_user) %>
+                <%= t("polls.index.continue_button_html") %>
+              <% else %>
+                <%= t("polls.index.participate_button") %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

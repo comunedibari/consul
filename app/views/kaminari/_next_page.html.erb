@@ -1,0 +1,7 @@
+<li class="pagination-next d-sm-none">
+  <%= link_to "", kaminari_path(url), :rel => "next", :remote => remote %>
+</li>
+
+<li class="pagination-next d-sm-block d-none">
+  <%= link_to t("views.pagination.next").html_safe, kaminari_path(url), :rel => "next", :remote => remote %>
+</li>

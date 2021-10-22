@@ -1,0 +1,23 @@
+     <%= render 'subnav', crowdfunding: @crowdfunding, active: 'rewards' %>
+
+    <div class="small-12  column">
+        <span >
+          <h4><%= t("admin.crowdfundings.investments.status") %>:</h4> 
+          <p><%= status(@crowdfunding) %></p>
+        </span>
+    </div>
+    <div class="small-12  column">
+      <br>
+      <h2><%= "Lista delle ricompense" %></h2>
+      <% if !@rewards.any? %>
+      <div class="callout primary margin">
+          <%= t("admin.legislation.crowdfundings.index.no_rewards_for_crowdfunding") %>
+        </div>
+      <% end %>
+      <h3 class="margin"></h3>
+      <div class="row comments">
+          <div id="rewards">
+            <%= render 'admin/crowdfunding_rewards/form' ,crowdfunding: @crowdfunding %>
+          </div>
+      </div>
+    </div>

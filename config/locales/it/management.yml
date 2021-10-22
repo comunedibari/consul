@@ -1,0 +1,158 @@
+---
+it:
+  management:
+    account:
+      alert:
+        unverified_user: Si possono modificare solo gli account degli utenti verificati
+      edit:
+        back: Back
+        password:
+          password: Password
+          print: Print password
+          print_help: You will be able to print the password when it is saved.
+          random: Genera password random
+          reset_email_send: Email correttamente inviata.
+          reseted: Password reimpostata correttamente
+          save: Save
+          send_email: Invia email reset password
+        title: 'Edit user account: Reset password'
+      menu:
+        reset_password_email: Reset password via email
+        reset_password_manually: Reset password manualmente
+      show:
+        title: Account utente
+    account_info:
+      change_user: Cambiare utente
+      document_number_label: 'Dati identificativi del documento:'
+      document_type_label: 'Tipo di documento:'
+      email_label: 'Email:'
+      identified_label: 'Identificato come:'
+      username_label: 'Utente:'
+    budget_investments:
+      alert:
+        unverified_user: Utente non verificato
+      create: Crea nuovo progetto
+      filters:
+        heading: Concepto
+        unfeasible: Progetti non realizzabili
+      print:
+        print_button: Stampa
+      search_results:
+        one: " contiene la parola '%{search_term}'"
+        other: " contengono la parola '%{search_term}'"
+    budgets:
+      create_new_investment: Crea un nuovo progetto di investimento
+      print_investments: Stampa progetti
+      support_investments: Appoggia progetti
+    check: Verifica
+    dashboard:
+      index:
+        info: Da qui è possibile gestire gli utenti mediante le azioni elencate nel menu di sinistra.
+        title: Gestione
+    date_of_birth: Data di nascita
+    document_number: Dati identificativi del documento
+    document_type_label: Tipo di documento
+    document_verifications:
+      already_verified: Questo account utente è già stato verificato.
+      has_no_account_html: Per creare un account, vai a %{link} e fai click su <b>'Registrati'</b> nella parte superiore destra dello schermo.
+      in_census_has_following_permissions: 'Questo utente può partecipare con le seguenti autorizzazioni:'
+      link: CasaDelCittadino
+      not_in_census: Questo documento non è registrato.
+      not_in_census_info: 'I cittadini non residenti possono partecipare con le seguenti autorizzazioni:'
+      please_check_account_data: Si prega di controllare che i dati dell'utenza sopra riportati siano corretti.
+      title: Gestione degli utenti
+      under_age: Non hai l'età richiesta per verificare l'account.
+      verify: Verifica utente
+    email_label: Email
+    email_verifications:
+      already_verified: Questo account dell'utente è già certificato.
+      choose_options: 'Si prega di scegliere una delle opzioni seguenti:'
+      document_found_in_census: Questo documento è stato trovato in anagrafe, ma non ha alcun account utente ad esso associato.
+      document_mismatch: 'Questa e-mail appartiene a un utente che dispone già di un identificativo associato: %{document_number}(%{document_type})'
+      email_placeholder: Inserisci l'email utilizzata per creare l'utente
+      email_sent_instructions: Per verificare completamente questo utente, è necessario che cliccare su un link che ti abbiamo inviato all'indirizzo di posta elettronica sopra riportato. Questo passaggio è necessario al fine di confermare che l'indirizzo e-mail sia proprio il tuo.
+      if_existing_account: Se la persona ha già un account utente creato nel sito,
+      if_no_existing_account: Se questa persona non ha ancora creato nel sito un account
+      introduce_email: 'Si prega di introdurre l''indirizzo di email usato per creare l''utenza:'
+      send_email: Invia email di verifica
+    menu:
+      create_budget_investment: Crea progetti di investimento
+      create_proposal: Crea proposta
+      create_spending_proposal: Crea proposta di investimento
+      edit_user_accounts: Modifica account utente
+      print_budget_investments: Stampa i progetti di investimento
+      print_proposals: Stampa proposte
+      print_spending_proposals: Stampare le proposte di spesa
+      support_budget_investments: Appoggia i progetti di investimento
+      support_proposals: Sostieni proposte
+      support_spending_proposals: Appoggia le proposte di spesa
+      user_invites: Inviti per gli utenti
+      users: Utenti
+    permissions:
+      create_proposals: Crea nuove proposte
+      debates: Partecipa alle discussioni
+      support_proposals: Sostieni proposte
+      vote_proposals: Partecipa alle votazioni finali
+      create_crowdfundings: Crea nuovi crowdfundings
+      debates: Partecipa ai crowdfundings
+      support_crowdfundings: Sostieni crowdfundings
+      vote_crowdfundings: Partecipa alle votazioni finali
+    print:
+      budget_investments_info: Partecipa a http://url.consul
+      budget_investments_note: I bilanci partecipativi saranno investiti nelle proposte di investimento più supportate.
+      proposals_info: Fai la tua proposta su http://url.consul
+      proposals_note: Le proposte maggiormente sostenute passeranno alla fase di votazione. Se saranno accettate dalla maggioranza, il Comune si impegnerà a realizzarle.
+      proposals_title: 'Proposte:'
+      spending_proposals_info: Partecipa a http://url.consul
+      spending_proposals_note: I fondi per il bilancio partecipativo saranno assegnati ai progetti di investimento più votati.
+    print_info: Stampa questa informazione
+    proposals:
+      alert:
+        unverified_user: L'utente non è stato verificato
+      create_proposal: Crea proposta
+      print:
+        print_button: Stampa
+    crowdfundings:
+      alert:
+        unverified_user: L'utente non è stato verificato
+      create_crowdfunding: Crea crowdfunding
+      print:
+        print_button: Stampa
+    sessions:
+      signed_out: Disconnesso correttamente.
+      signed_out_managed_user: Sessione utente disconnessa correttamente.
+    spending_proposals:
+      alert:
+        unverified_user: L'utente non è stato verificato
+      create: Crea proposta di investimento
+      filters:
+        by_geozone: 'Proposte di investimento con ambito: %{geozone}'
+        unfeasible: Proposte di investimento non realizzabili
+      print:
+        print_button: Stampa
+      search_results:
+        one: " che contiene '%{search_term}'"
+        other: " che contengono '%{search_term}'"
+    user_invites:
+      create:
+        success_html: Sono stati inviati <strong>%{count} inviti</strong>.
+        title: Inviti per gli utenti
+      new:
+        info: Introdurre gli indirizzi di email separati da virgola (',')
+        label: Emails
+        submit: Spedisci inviti
+        title: Inviti per gli utenti
+    username_label: Nome utente
+    users:
+      autogenerated_password_html: La password generata automaticamente è <b>%{password}</b>, è possibile modificarla nella sezione «Mio profilo»
+      create_user: Crea nuovo account utente
+      create_user_info: 'Creeremo un account con i seguenti dati:'
+      create_user_submit: Crea utente
+      create_user_success_html: Abbiamo inviato una email all'indirizzo <b>%{email}</b> per verificare che sia la tua. La mail contiene un link che dovrà essere cliccato per impostare la password di accesso.
+      email_optional_label: Email (consigliato però facoltativo)
+      erase_account_confirm: Sei sicuro di che voler cancellare l'account? Questa azione non può essere annullata
+      erase_account_link: Elimina account
+      erase_submit: Elimina account
+      erase_warning: Questa azione non può essere annullata. Si prega di assicurarsi di voler cancellare realmente questo account.
+      erased_by_manager: 'Eliminata dal gestore: %{manager}'
+      erased_notice: Account Utente sconosciuto.

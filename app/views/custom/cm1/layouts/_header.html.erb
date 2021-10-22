@@ -1,0 +1,310 @@
+<% if current_page?('/') %>
+<header style="position: sticky; top: 0 ; z-index: 9000;margin-bottom: -26px !important;">
+<% else %>
+<header style="position: sticky; top: 0 ; z-index: 9000;">
+<% end %>
+  <div class="it-header-wrapper">
+    <div class="it-header-slim-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="it-header-slim-wrapper-content">
+            <span class="nav-palce-mobile">
+              <nav>
+                <% list_pons = pon_active %>                    
+                <% if user_signed_in? || list_pons.count > 1 %>
+                  <!--
+                  <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="fa fa-user-circle fa-2x"></i>
+                  </a>
+                  -->
+                  <div class="link-list-wrapper collapse" id="menu4">                   
+                    
+                      <% if list_pons.count > 1 and (list_pons.count > 3 || Rails.application.config.select_ente_page) %>
+                        <ul class="link-list">
+                          <li><%= link_to t("layouts.header.pon_list"), pons_path %></li>
+                      <% elsif list_pons.count > 1 %>            
+                        <ul class="link-list">
+                          <% if !user_signed_in? || (user_signed_in? && !( current_user.administrator? || current_user.moderator? )) %>          
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <nobr><span style="color: white;width: 73%;text-align: right;margin: 0px;"><%= t("layouts.header.pon_list") %></span> </nobr>
+                                <svg class="icon icon-xs" style="fill: white;">
+                                  <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+                                </svg>
+                              </a>
+                              <div class="dropdown-menu">
+                                <div class="link-list-wrapper">
+                                  <ul>                                
+                                    <% list_pons.each do |pon| %>
+                                      <li><span><nobr><%= link_to "#{pon['name']}", "/?pon_id=#{pon['id']}", style: "color: #3b94ff;" %></nobr></span></li>
+                                    <% end %>
+                                  </ul>
+                                </div>
+                              </div>                    
+                            </li>
+                          <% end %>
+                      <% else %>
+                        <ul class="link-list">                      
+                      <% end %>
+                          <%= render "layouts/notification_item" %>
+                          <%= render "devise/menu/login_items" %>
+                        </ul>
+                  
+                  </div>
+                <% end %>
+              </nav>
+            </span>
+
+
+                <div class="header-slim-right-zone">
+                  <%= render "shared/admin_login_items" %>
+                  <% if !user_signed_in? %>
+                    <div class="it-access-top-wrapper">
+                      <%#= link_to t("devise_views.menu.login_items.login"), user_omniauth_authorize_path(:openam), rel: "nofollow", class: "btn btn-primary btn-sm btn-ocra" %>
+                      <%= link_to t("devise_views.menu.login_items.login"), new_user_session_path, rel: "nofollow", class: "btn btn-primary btn-sm btn-ocra" %>
+                    </div>
+                  <% else %>
+                    <div class="it-access-top-wrapper">
+                      <%= link_to t("devise_views.menu.login_items.logout"),
+                                  destroy_user_session_path, rel: "nofollow", method: :delete, class: "btn btn-primary btn-sm btn-ocra" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="it-nav-wrapper">
+        <div class="it-header-center-wrapper" style="height: 100px">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="it-header-center-content-wrapper px-0">
+
+                  <div class="it-brand-wrapper" style="width: 100%; <%= user_signed_in? || list_pons.count > 1 ? '' : 'padding-left: 0px;' %>">
+                    <div class="container">
+
+                      <!-- Div logo Partecipa-->
+                      <% r_path = default_path %>
+                      <div class="row">
+
+                        <%= link_to r_path, class: "hide-for-small-only", accesskey: "0" do %>                          
+                          <% if Rails.application.config.cm == 'cm1' %>
+                            <%= image_tag(image_path_for("#{Rails.application.config.cm}/bari-partecipa-logo.png"), class: 'hide-for-small-only float-left', style: "height: 70px;", alt: t("layouts.header.logo")) %>
+                          <% end %>
+                        <% end %>
+
+                        <%= link_to r_path, class: "show-for-small-only ml-3", style:"margin-left: 5% !important;;", accesskey: "0" do %>
+                          <% if Rails.application.config.cm == 'cm1' %>
+                            <%= image_tag(image_path_for("#{Rails.application.config.cm}/bari-partecipa-logo.png"), class: 'show-for-small-only float-left', style: "height: 40px;", alt: t("layouts.header.logo")) %>
+                          <% end %>
+                        <% end %>
+
+                        <%= link_to root_path, accesskey: "0" do %>
+                          <div class="it-brand-text ml-2 hide-for-small-only hide-for-medium-only">
+                            <h2 class="no_toc ml-3"><%= Setting['org_name', 0].strip %></h2>
+                            <h4 class="no_toc ml-3"><%= Setting['place_name', User.pon_id].strip %></h4>
+                          </div>
+
+                          <div class="it-brand-text ml-2 show-for-medium-only">
+                            <h2 class="no_toc ml-3"><%= Setting['org_name', 0].strip %></h2>
+                            <h4 class="no_toc ml-3"><%= Setting.where(key: "place_name").where("settings.pon_id = ?", User.pon_id).first.value %></h4>
+                          </div>
+                          <div class="it-brand-text ml-2 show-for-small-only" style="padding-right: 0px;">
+                            <h3 class="no_toc ml-3" style="display: inherit;color: #3b94ff; font-size: 1.5rem;margin-left: 0px !important;"><%= Setting['org_name', 0].strip %></h3>
+                            <h6 class="no_toc ml-3" style="display: inherit;color: #3b94ff;margin-left: 0px !important; <%=  Setting.where(key: "place_name").where("settings.pon_id = ?", User.pon_id).first.value.to_s.length > 20 ? 'font-size: 0.7rem;' : '' %>"><%= Setting.where(key: "place_name").where("settings.pon_id = ?", User.pon_id).first.value %></h6>
+                          </div>
+                        <% end %>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- Div logo comune-->
+                  <% if Rails.application.config.cm == 'cm1' %>
+                    <% get_logo_ente %>
+                    <% if @ente_img.value.present? && @ente_img.images.present? && @ente_img.images.count > 0 %> 
+                      <% image_h = @ente_img.images.first.attachment.url(:original) %>        
+                    <% else %>
+                      <% image_h = "#{Rails.application.config.cm}/template/stemma_segnaposto.png" %>
+                    <% end %>
+
+                    <div class="it-brand-wrapper show-for-large-only" style="padding-right: 30px;">
+                      <div class="container">                      
+                        <div class="row">
+                            <%= image_tag(image_h, class: 'show-for-large-only float-left', style:"height: 70px;", alt: t("layouts.header.logo")) %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="it-brand-wrapper show-for-medium-only" style="padding-right: 10px;">
+                      <div class="container">                      
+                        <div class="row">
+                            <%= image_tag(image_h, class: 'show-for-medium-only float-left', style:"height: 70px;", alt: t("layouts.header.logo")) %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="it-brand-wrapper show-for-small-only" style="padding-right: 0px;padding-left: 0px; width: 33%;">
+                      <div class="container">                      
+                        <div class="row">
+                            <%= image_tag(image_h, class: 'show-for-small-only float-left', style:"height: 70px;", alt: t("layouts.header.logo")) %>
+                        </div>
+                      </div>
+                    </div>
+
+                  <% end %>
+                  <!-- End Div logo comune-->
+<!--
+                  <div class="it-right-zone">
+                    <div class="it-socials d-none d-md-flex">
+                      <span><%#= t("layouts.header.follow_us") %></span>
+                      <ul>
+                        <li>
+                          <a href="https://twitter.com/#/" aria-label="Twitter" target="_blank">
+                            <svg class="icon" style="fill: #3b94ff !important;">
+                              <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-twitter"></use>
+                            </svg>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.facebook.com/#/" aria-label="Facebook" target="_blank">
+                            <svg class="icon" style="fill: #3b94ff !important;">
+                              <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-facebook"></use>
+                            </svg>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.youtube.com/#/" aria-label="YouTube" target="_blank">
+                            <svg class="icon" style="fill: #3b94ff !important;">
+                              <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-youtube"></use>
+                            </svg>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.instagram.com/#/" aria-label="Instagram" target="_blank">
+                            <svg class="icon" style="fill: #3b94ff !important;">
+                              <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-instagram"></use>
+                            </svg>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="it-search-wrapper hide-for-small-only hide-for-medium-only">
+                      <%#= yield :header_addon %>
+                    </div>
+
+                  </div>
+ -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% if user_signed_in? || list_pons.count > 1 %>
+        <div class="it-header-navbar-wrapper" style="background: transparent;">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <nav class="navbar navbar-expand-lg has-megamenu">
+                  <button class="custom-navbar-toggler" type="button" aria-controls="nav10" aria-expanded="false" aria-label="Toggle navigation" data-target="#nav10">
+                    <svg class="icon" style="fill: #3b94ff;">
+                      <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-burger"></use>
+                    </svg>
+                  </button>
+                  <div class="navbar-collapsable" id="nav10" style="display: none;">
+                    <div class="overlay" style="display: none;"></div>
+                    <div class="close-div sr-only">
+                      <button class="btn close-menu" type="button"><span class="it-close"></span>close</button>
+                    </div>                    
+                      <div class="menu-wrapper">
+                        <ul class="navbar-nav">
+                          <%# if pon_count > 1 and Rails.application.config.select_ente_page %>
+                          <% if list_pons.count > 1 and Rails.application.config.select_ente_page %>
+                            <li class="nav-item"><%= link_to t("layouts.header.pon_list"), pons_path, class: "hide-for-large nav-link" %></li>
+                          <% elsif list_pons.count > 1 %>
+                            <li class="nav-item dropdown">
+                              <a class="hide-for-large nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <span style="color: #3b94ff;"><%= t("layouts.header.pon_list") %></span>
+                                <svg class="icon icon-xs">
+                                  <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+                                </svg>
+                              </a>
+                              <div class="dropdown-menu hide-for-large">
+                                <div class="link-list-wrapper" style="padding-left: 5px;">
+                                  <ul class="link-list">
+                                    <% list_pons.each do |pon| %>
+                                      <li><span><%= link_to "#{pon['name']}", "/?pon_id=#{pon['id']}", style: "color: #3b94ff;" %></span></li>
+                                    <% end %>
+                                  </ul>
+                                </div>
+                              </div>                    
+                            </li>
+                          <% end %>
+                          <%= render "layouts/small_notification_item" %>
+                          <%= render "devise/menu/small_login_items" %>
+                          <%#= render "devise/menu/login_items_news"  %>
+                        </ul>
+                      </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+
+      <div class="it-nav-wrapper">
+        <div calss="it-header-center-wrapper">
+          <div class="it-search-wrapper show-for-small-only">
+            <%= yield :header_small_addon %>
+          </div>
+        </div>
+      </div>
+
+
+
+        <!--nav per breadcrumb -->
+        <% if !current_page?('/') %>
+        <div class="it-header-navbar-wrapper theme-dark-mobile">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <!--start nav-->
+                <nav class="navbar navbar-expand-lg has-megamenu">
+                  <button class="custom-navbar-toggler" type="button" aria-controls="nav2" aria-expanded="false" aria-label="Toggle navigation" data-target="#nav2">
+                    <svg class="icon">
+                      <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-burger"></use>
+                    </svg>
+                  </button>
+
+                    <div class="row">
+                      <div class="col-12 pt-3 hide-for-small-only" style="font-size: medium;">
+                        <nav class="breadcrumb-container" aria-label="breadcrumb">
+                            <%= render_breadcrumbs :separator => ' > ' %>
+                        </nav>
+                      </div>
+                      
+                      <div class="col-12 show-for-small-only" style="font-size: medium;">
+                        <nav class="breadcrumb-container" aria-label="breadcrumb">
+                            <%= render_breadcrumbs :separator => ' > ' %>
+                        </nav>
+                      </div>
+                    </div>
+
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %> 
+
+    </div>
+
+
+</header>

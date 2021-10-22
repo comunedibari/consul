@@ -1,0 +1,127 @@
+---
+en:
+  legislation:
+    annotations:
+      comments:
+        cancel: Cancel
+        comments_count:
+          one: "%{count} comment"
+          other: "%{count} comments"
+        publish_comment: Publish Comment
+        replies_count:
+          one: "%{count} reply"
+          other: "%{count} replies"
+        see_all: See all
+        see_complete: See complete
+      form:
+        login_to_comment: You must %{signin} or %{signup} to leave a comment.
+        phase_not_open: This phase is not open
+        signin: Sign in
+        signup: Sign up
+      index:
+        comments_about: Comments about
+        comments_count:
+          one: "%{count} comment"
+          other: "%{count} comments"
+        see_in_context: See in context
+        title: Comments
+      show:
+        title: Comment
+      version_chooser:
+        see_text: See text draft
+        seeing_version: Commments for version
+    draft_versions:
+      changes:
+        see_text: See text draft
+        seeing_changelog_version: Revision changes summary
+        title: Changes
+      show:
+        loading_comments: Loading comments
+        see_changes: see changes summary
+        see_comments: See all comments
+        seeing_version: You're seeing draft version
+        select_draft_version: Select draft
+        select_version_submit: see
+        text_body: Text
+        text_comments: Comments
+        text_toc: Table of contents
+        updated_at: updated at %{date}
+    processes:
+      debate:
+        empty_questions: There aren't any questions
+        participate: Participate in the debate
+      header:
+        additional_info: Additional information
+        description: Description
+        more_info: More information and context
+      index:
+        filter: Filter
+        filters:
+          next: Next
+          open: Open processes
+          past: Past
+        no_next_processes: There aren't planned processes
+        no_open_processes: There aren't open processes
+        no_past_processes: There aren't past processes
+        section_footer:
+          description: Participate in the debates and processes prior to the approval of a ordinance or a municipal action. Your opinion will be considered by the City Council.
+          help_text_1: In participatory processes, the City Council offers to its citizens the opportunity to participate in the drafting and modification of regulations, affecting the city and to be able to give their opinion on certain actions that it plans to carry out.
+          help_text_2: People registered in %{org} can participate with contributions in the public consultation of new ordinances, regulations and guidelines, among others. Your comments are analyzed by the corresponding area and considered for the final drafting of the ordinances.
+          help_text_3: The City Council also opens processes to receive contributions and opinions on municipal actions.
+          title: Help about legislation processes
+        section_header:
+          help: Help about legislation processes
+          icon_alt: Legislation processes icon
+          title: Legislation processes
+      phase_empty:
+        empty: Nothing published yet
+      phase_not_open:
+        not_open: This phase is not open yet
+      process:
+        see_latest_comments: See latest comments
+        see_latest_comments_title: Comment on this process
+      proposals:
+        empty_proposals: There are no proposals
+      shared:
+        allegations_dates: Allegations
+        debate_dates: Debate
+        draft_publication_date: Draft publication
+        key_dates: Key dates
+        proposals_dates: Proposals
+        result_publication_date: Final result publication
+    proposals:
+      closed: This process has been closed and can not receive votes.
+      form:
+        tags_label: Categories
+      not_verified: For vote proposals %{verify_account}.
+    questions:
+      comments:
+        comment_button: Publish answer
+        comments_closed: Closed phase
+        comments_title: Open answers
+        form:
+          leave_comment: Leave your answer
+      participation:
+        debate_phase_not_open: Debate phase has finished and answers are not accepted anymore
+        organizations: Organisations are not permitted to participate in the debate
+        phase_not_open: This phase is not open
+        signin: Sign in
+        signup: Sign up
+        unauthenticated: You must %{signin} or %{signup} to participate.
+        verified_only: Only verified users can participate, %{verify_account}.
+        verify_account: verify your account
+      question:
+        comments:
+          one: "%{count} comment"
+          other: "%{count} comments"
+          zero: No comments
+        debate: Debate
+      show:
+        answer_question: Submit answer
+        first_question: First question
+        next_question: Next question
+        share: Share
+        title: Collaborative legislation process
+    shared:
+      share: Share
+      share_comment: Comment on %{version_name} from process draft %{process_name}

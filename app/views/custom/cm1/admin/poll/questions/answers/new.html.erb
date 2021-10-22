@@ -1,0 +1,18 @@
+<%= back_link_to %>
+<ul class="breadcrumbs margin-top">
+  <li><%= @question.poll_question_type_id == 2 ? @question.group_title : @question.title %></li>
+  <li><%= t('admin.answers.new.title') %></li>
+</ul>
+<h2><%= t('admin.answers.new.title') %></h2>
+<script>
+  var other = "<%= t('polls.show.question_type.other') %>"
+</script>
+
+<% if @question.poll_question_type_id != 2 %>
+  <input id= "open_answer_check" type="checkbox"> <%= t('admin.answers.new.open_answer') %>
+<% end %>
+
+
+<div class="poll-question-answer-form">
+  <%= render "form", form_url: admin_question_answers_path %>
+</div>

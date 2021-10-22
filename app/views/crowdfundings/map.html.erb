@@ -1,0 +1,10 @@
+<main>
+    <%= render "shared/section_header", i18n_namespace: "crowdfundings.index.section_header", image: "crowdfundings" %>
+    <div class="row">
+        <%= back_link_to crowdfundings_path %>
+        <%= render 'shared/map',
+            parent_class: "crowdfunding",
+            i18n_namespace: "crowdfundings",
+            new_url_path: new_crowdfunding_path %>
+    </div>
+</main>

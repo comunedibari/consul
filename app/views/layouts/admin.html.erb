@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title><%= content_for?(:title) ? yield(:title) : "Admin" %></title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag Rails.application.config.css %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= content_for :head %>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag "favicon.ico" %>
+  </head>
+
+  <body class="admin" data-watch-form-message="<%= I18n.t('layouts.admin.watch_form_message') %>">
+    <div class="off-canvas-wrapper">
+      <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+        <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+
+          <div class="show-for-small-only">
+            <%= side_menu %>
+          </div>
+        </div>
+
+        <div class="off-canvas-content" data-off-canvas-content>
+          <%= render 'layouts/admin_header' %>
+
+          <div class="no-margin-top row expanded collapse" data-equalizer>
+            <div class="small-12 medium-3 column" data-equalizer-watch>
+
+              <div class="show-for-small-only">
+                <button type="button" class="btn btn-outline-primary btn-block" data-toggle="offCanvas"><%= t("admin.menu.admin") %></button>
+              </div>
+
+              <div id="side_menu" class="hide-for-small-only">
+                <%= side_menu %>
+              </div>
+            </div>
+
+            <div class="admin-content small-12 medium-9 column height-auto" data-equalizer-watch>
+              <%= render 'layouts/flash' %>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

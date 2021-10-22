@@ -1,0 +1,76 @@
+<h2><%= t("moderation.crowdfundings.index.title") %></h2>
+
+<%= render 'shared/filter_subnav', i18n_namespace: "moderation.crowdfundings.index" %>
+
+<div class="row">
+  <h3 class="small-8 large-8 columns"><%= page_entries_info @crowdfundings %></h3>
+  <div class="small-4 large-4 columns">
+    <div class="float-right">
+      <%= t("moderation.crowdfundings.index.order") %>
+      <%= render 'shared/order_selector', i18n_namespace: "moderation.crowdfundings.index" %>
+    </div>
+  </div>
+</div>
+
+<%= form_tag moderate_moderation_crowdfundings_path(request.query_parameters), method: :put do %>
+  <p class="js-check">
+    <%= t('shared.check') %>:
+    <%= link_to t('shared.check_all'), '#', data: {check_all: "crowdfunding_ids[]"} %>
+    |
+    <%= link_to t('shared.check_none'), '#', data: {check_none: "crowdfunding_ids[]"} %>
+  </p>
+
+  <table class="clear">
+    <tr>
+      <th>
+        <%= t("moderation.crowdfundings.index.headers.crowdfunding") %>
+      </th>
+      <th>
+       <%= t("moderation.crowdfundings.index.headers.moderate") %>
+      </th>
+    </tr>
+    <% @crowdfundings.each do |crowdfunding| %>
+      <tr id="crowdfunding_<%= crowdfunding.id %>">
+        <td>
+          <%= link_to crowdfunding.title, crowdfunding, target: "_blank" %>
+          <br>
+          <span class="date"><%= l crowdfunding.updated_at.to_date %></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= crowdfunding.flags_count > 0 ? crowdfunding.flags_count : 0 %><span class="icon-flag flag-disable"></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= crowdfunding.author.username %>
+          <br>
+          <div class="moderation-description">
+            <%= crowdfunding.description %>
+          </div>
+        </td>
+        <td class="text-center">
+          <%= check_box_tag "crowdfunding_ids[]", crowdfunding.id, nil, id: "#{dom_id(crowdfunding)}_check" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= submit_tag t('moderation.crowdfundings.index.block_authors'),
+    name: "block_authors",
+    class: "button hollow alert",
+    data: {confirm: t('moderation.crowdfundings.index.confirm')}
+  %>
+
+  <div class="float-right">
+    <%= submit_tag t('moderation.crowdfundings.index.hide_crowdfundings'),
+      name: "hide_crowdfundings",
+      class: "button hollow alert",
+      data: {confirm: t('moderation.crowdfundings.index.confirm')}
+    %>
+    <%= submit_tag t('moderation.crowdfundings.index.ignore_flags'),
+      name: "ignore_flags",
+      class: "button success hollow",
+      data: {confirm: t('moderation.crowdfundings.index.confirm')}
+    %>
+  </div>
+
+  <%= paginate @crowdfundings %>
+
+<% end %>
+

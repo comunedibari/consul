@@ -1,0 +1,35 @@
+
+<%= form_for(@collaboration_subscription, url: collaboration_agreement_subscriptions_path) do |f| %>
+
+  <%= render 'shared/errors', resource: @collaboration_subscription %>
+
+  <div class="row">
+
+    <div class="small-12 column">
+
+        <div class="small-12 column">
+          <%= f.label :note, t("collaboration.requirements.form.note") %>
+          <p class="help-text" id="price_goal-help-text"><%= t("collaboration.requirements.form.note_info") %></p>
+          <%= f.text_field :note, placeholder: t("collaboration.requirements.form.note"), label: false %>
+          <h4><span class=" float-left"></span><%= t("collaboration.requirements.new.insert") %></h4>
+          <%= f.hidden_field :collaboration_agreement_id, value: @collaboration_agreement.id %>          
+        </div>
+        <% if feature?(:allow_attached_documents) and Collaboration::Subscription.max_documents_allowed > 0 %>
+          <div class="documents small-12 column">
+            <% @operation = "select" %>
+            <%= render 'documents/nested_documents', documentable: @collaboration_subscription ,f: f,  isComment: false %>
+          </div>
+        <% end %>        
+    </div>
+    <div class="actions small-12 column" style="margin-top: 60px;">
+      <%= f.submit(class: "btn btn-primary", value: t("collaboration.requirements.new.submit_button")) %>
+    </div>
+
+  </div>
+<% end %>
+
+
+
+
+
+

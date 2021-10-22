@@ -1,0 +1,126 @@
+<div class="row margin-top">
+  <div class="small-12 medium-12 column">
+    <%= back_link_to asset_path(@asset), t("assets.moderable_bookings.show.back") %>
+  </div>
+</div>
+
+
+<div class="row margin-top">
+  <div class="small-12 medium-9 column">
+    <h2><span><%= t("assets.moderable_bookings.show.code") %> <%= @moderable_booking.code %></span></h2>
+
+
+    <div class="row margin-top">
+      <div class="small-12 medium-9 column">
+        <h4><span class="float-left"></span><%= t("assets.moderable_bookings.show.asset_detail") %></h4>
+        <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+          <thead>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.asset_name") %>:</td>
+            <td><%= @moderable_booking.asset.name.to_s %></td>
+          </tr>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.asset_description") %>:</td>
+            <td><%= safe_html_with_links @moderable_booking.asset.description %></td>
+          </tr>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.asset_address") %>:</td>
+            <td><%= @moderable_booking.asset.address.to_s %></td>
+          </tr>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.asset_contacts") %>:</td>
+            <td><%= @moderable_booking.asset.contacts.to_s %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-9 column">
+        <h4><span class=" float-left"></span><%= t("assets.moderable_bookings.show.user_detail") %></h4>
+        <p class="help-text"></span><%= t("collaboration.subscriptions.new.user") %></p>
+        <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+          <thead>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.user_name") %>:</td>
+            <td><%= @moderable_booking.user.username.to_s %></td>
+          </tr>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.user_cf") %>:</td>
+            <td><%= current_user.cod_fiscale.to_s %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ">
+      <div class="small-12 medium-9 column">
+        <h4><span class="float-left"></span><%= t("assets.moderable_bookings.show.detail") %></h4>
+        <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+          <thead>
+          </thead>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.day") %>:</td>
+            <td><%= @moderable_booking.time_end.strftime("%d-%m-%Y") %> </td>
+          </tr>
+          <td><%= t("assets.moderable_bookings.show.time_start") %>:</td>
+          <td><%= @moderable_booking.time_start.to_s(:time) %> </td>
+          </tr>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.time_end") %>:</td>
+            <td><%= (@moderable_booking.time_end + 1.seconds).to_s(:time) %> </td>
+          </tr>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.status") %>:</td>
+            <% if @moderable_booking.status == 1 %>
+              <td>
+                <%= "In Corso" %></td>
+            <% elsif @moderable_booking.status == 2 %>
+              <td>
+                <%= "Accettata" %></td>
+            <% elsif @moderable_booking.status == 3 %>
+              <td>
+                <%= "Cancellata" %></td>
+            <% end %>
+          </tr>
+          <% if @moderable_booking.note.present? %>
+            <tr>
+              <td><%= t("assets.moderable_bookings.show.note") %>:</td>
+              <td><%= @moderable_booking.note %> </td>
+            </tr>
+          <% end %>
+
+
+        </table>
+      </div>
+    </div>
+
+  </div> 
+
+</div>
+
+
+
+
+
+<% if @moderable_booking.errors.any? %>
+  <div id="error_explanation" data-alert class="callout alert" data-closable>
+    <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <strong>
+      <%= @moderable_booking.errors.count %>
+      <%= t("admin.asset.errors.form.error", count: @moderable_booking.errors.count) %>
+    </strong>
+  </div>
+<% end %>
+  
+  

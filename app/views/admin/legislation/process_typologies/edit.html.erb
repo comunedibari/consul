@@ -1,0 +1,21 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= t("admin.legislation.process_typologies.index.title") %>
+<% end %>
+<div class="legislation-admin legislation-process-edit row">
+
+  <div class="small-12 column">
+    <%= back_link_to admin_legislation_process_typologies_path, t("admin.legislation.processes.edit.back") %>
+
+    <h2><%= t("admin.legislation.process_typologies.edit.modify") %></h2>
+
+  </div>
+
+  <div class="row">
+    <div class="column small-12 medium-8">
+      <%= render "form", url: admin_legislation_process_typology_path(@typology), method: :patch %>
+    </div>
+    <div class="column small-12 medium-4">
+      <%= render "list" %>
+    </div>
+  </div>
+</div>

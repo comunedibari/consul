@@ -1,0 +1,22 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.legislation") %> - <%#= @process.title %> - <%= t("admin.legislation.questions.index.title") %> - <%= t("admin.legislation.questions.new.title") %>
+<% end %>
+
+<div class="legislation-admin legislation-questions-new legislation-questions-form row">
+  <div class="small-12 column">
+    <%= back_link_to admin_collaboration_agreement_agreement_requirements_path(@agreement), t("admin.collaboration.agreement_requirements.new.back") %>
+
+    <h2><%= @agreement.title %></h2>
+
+    <%= render 'admin/collaboration/agreements/subnav', process: @agreement, active: 'agreement_requirements' %>
+
+    <div class="row">
+      <div class="small-12 medium-9 column">
+        <h3><%= t("admin.collaboration.agreement_requirements.new.title") %></h3>
+      </div>
+    </div>
+
+    <%= render 'form', url: admin_collaboration_agreement_agreement_requirements_path(@agreement) %>
+
+  </div>
+</div>

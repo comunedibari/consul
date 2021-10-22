@@ -1,0 +1,168 @@
+<% provide :name do %><%= @st_sector.name %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: sector_url(@st_sector) %>
+<% end %>
+
+<div class="debate-show">
+  <div id="<%= dom_id(@st_sector) %>" class="row">
+    <div class="small-12 medium-9 column">
+      <%= back_link_to %>
+
+      <h1 style="margin-top: 15px;"><%= @st_sector.name %></h1>
+      <div>
+        <div class="large-12">
+          <div class="large-2 column" style="margin-top: 20px;">
+            <%= t("st_sectors.show.request_date") %>:
+          </div>
+          <div class="large-10 column" style="margin-top: 20px;">
+            <p style="color: black !important; margin-bottom: 0rem !important;"><%= @st_sector.created_at.strftime("%d-%m-%Y %H:%M") %></p>
+          </div>
+        </div>
+
+        <div class="large-12">
+          <div class="large-2 column">
+            <%= t("st_sectors.show.table.request") %>:
+          </div>
+          <div class="large-10 column">
+            <p style="color: black !important; margin-bottom: 0rem !important"><%= @st_sector.request %></p>
+          </div>
+        </div>
+
+        <div class="large-12">
+          <div class="large-2 column">
+            <%= t("st_sectors.show.table.state") %>:
+          </div>
+          <div class="large-10 column">
+            <p style="color: black !important; margin-bottom: 0rem !important"><%= @st_sector.state %></p>
+          </div>
+        </div>
+
+        <div class="large-12">
+          <div class="large-2 column" style="margin-bottom: 20px;">
+            <%= t("st_sectors.show.table.note") %>:
+          </div>
+          <div class="large-10 column" style="margin-bottom: 20px;">
+            <p style="color: black !important; margin-bottom: 0rem !important"><%= @st_sector.note %></p>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <hr>
+      <br>
+
+      <% if @st_sector.images.any? %>
+        <%= render "gallery", st_sector: @st_sector %>
+      <% end %>
+
+      <h3><%= t("st_sectors.show.description") %></h3>
+      <%= safe_html_with_links @st_sector.description %>
+
+
+      <% if @st_sectors != nil %>
+        <hr>
+        <br>
+        <h3><%= t("st_sectors.show.operations") %></h3>
+        <table>
+          <thead>
+          <th scope="col"><%= t("st_sectors.show.table.date") %></th>
+          <th scope="col" class="small-6"><%= t("st_sectors.show.table.request") %></th>
+          <th scope="col" class="small-3"><%= t("st_sectors.show.table.state") %></th>
+          <th scope="col" class="small-3"><%= t("st_sectors.show.table.note") %></th>
+          <th scope="col" class="small-3"><%= t("st_sectors.show.table.actions") %></th>
+          </thead>
+          <tbody>
+          <% @st_sectors.each do |st_sector| %>
+            <% if !((st_sector.user_id == current_user.id || current_user.administrator? || current_user.moderator?) && @st_sector.id == st_sector.id) %>
+              <tr id="<%= dom_id(st_sector) %>">
+                <td>
+                  <%= st_sector.created_at.strftime("%d/%m/%Y %H:%M") %>
+                </td>
+                <td>
+                  <%= st_sector.request %>
+                </td>
+                <td>
+                  <%= st_sector.state %>
+                </td>
+                <td>
+                  <%= st_sector.note %>
+                </td>
+                <td>
+                  <%= link_to t("st_sectors.show.table.button.views"),
+                              moderation_sector_path(st_sector.sector_id, st: st_sector.id),
+                              class: "button" %>
+                </td>
+              </tr>
+            <% else %>
+              <tr id="<%= dom_id(st_sector) %>" style="background-color: #3b94ff;">
+                <td>
+                  <%= st_sector.created_at.strftime("%m/%d/%Y %H:%M") %>
+                </td>
+                <td>
+                  <%= st_sector.request %>
+                </td>
+                <td>
+                  <%= st_sector.state %>
+                </td>
+                <td class="text-title-sectors">
+                  <%= st_sector.note %>
+                </td>
+                <td>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+
+          </tbody>
+        </table>
+      <% end %>
+
+
+    </div>
+    <div class="small-12 medium-3 column">
+      <aside class="">
+        <% if [1, 5, 8].include? StSector.states[@st_sector.state] %>
+          <div class="sidebar-divider"></div>
+          <h2 class="sidebar-title"><%= t("proposals.show.actions") %></h2>
+          <% if [1, 5].include? StSector.states[@st_sector.state] %>
+            <td class="text-center">
+              <div><%= link_to t("admin.moderable_bookings.index.table.approve"), outcome_moderation_sector_path(@st_sector.sector_id, st: @st_sector.id, approved: true), class: "large-12 button success hollow" %></div>
+              <div><%= link_to t("moderation.sectors.index.button.modify"), outcome_moderation_sector_path(@st_sector.sector_id, st: @st_sector.id, approved: "modify"), class: "large-12 button hollow" %></div>
+              <div><%= link_to t("moderation.sectors.index.button.clean"), outcome_moderation_sector_path(@st_sector.sector_id, st: @st_sector.id, approved: false), class: "large-12 button alert hollow" %></div>
+            </td>
+          <% elsif [8].include? StSector.states[@st_sector.state] %>
+            <td class="text-center">
+              <div><%= link_to t("admin.moderable_bookings.index.table.approve"), outcome_moderation_sector_path(@st_sector.sector_id, st: @st_sector.id, approved: true), class: "large-12 button success hollow" %></div>
+              <div><%= link_to t("moderation.sectors.index.button.clean"), outcome_moderation_sector_path(@st_sector.sector_id, st: @st_sector.id, approved: false), class: "large-12 button alert hollow" %></div>
+            </td>
+          <% end %>
+        <% end %>
+
+
+        <div class="margin-top">
+          <%= render 'sidebar', sector: @st_sector %>
+        </div>
+
+        <% if @st_sector.documents.count > 0 %>
+          <div class="margin-top">
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= t('proposals.show.title_external_url') %></h2>
+            <%= render 'documents/additional_documents', documents: @st_sector.documents %>
+          </div>
+        <% end %>
+
+        <% if feature?(:map) && map_location_available?(@st_sector.map_location) %>
+          <div class="margin-top">
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= t("moderation.sectors.show.map") %></h2>
+            <%= render_map(@st_sector.map_location, "st_sector", false, nil) %>
+          </div>
+        <% end %>
+
+      </aside>
+    </div>
+
+  </div>
+
+</div>

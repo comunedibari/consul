@@ -1,0 +1,99 @@
+<% provide :title do %>
+  <%= t("layouts.header.collaborative_processes") %>
+<% end %>
+<% if User.pon_id == 0 %>
+  <%= render "shared/section_header", i18n_namespace: "processes.index.section_header", image: "processes" %>
+  <div class="row">
+    <div class="column">
+      <%= render "shared/pon_list", resource: "processes" %>
+    </div>
+  </div>
+<% else %>
+
+  <% content_for :header_addon do %>
+    <%= render "shared/search_form",
+               search_path: processes_proposals_path(page: 1),
+               i18n_namespace: "processes_proposals.index.search_form" %>
+  <% end %>
+  <% content_for :header_small_addon do %>
+    <%= render "shared/search_form_small",
+               search_path: processes_proposals_path(page: 1),
+               i18n_namespace: "processes_proposals.index.search_form" %>
+  <% end %>
+
+  <%= render "shared/section_header", i18n_namespace: "processes.index.section_header", image: "processes" %>
+
+  <%= render "shared/search_results",
+             resources: @resources,
+             total_resources_num: @tot_resources,
+             search_terms: @search_terms,
+             advanced_search_terms: @advanced_search_terms,
+             tag_filter: @tag_filter
+  %>
+
+
+  <div class="row">
+
+    <div id="legislation" class="legislation-list small-12 medium-12 large-9 column">
+
+      <div id="section_help" class="margin" data-magellan-target="section_help">
+        <!-- <p class="lead">
+        <strong><%#= t("legislation.processes.index.section_footer.title") %></strong>
+      </p> -->
+        <!-- <p><%#= Setting["service_description.processes",User.pon_id] %></p> -->
+        <p><%= t("processes.index.section_footer.help_text_1").html_safe %></p>
+        <p><%= t("processes.index.section_footer.help_text_2").html_safe %></p>
+        <p><%= t("processes.index.section_footer.help_text_3").html_safe %></p>
+        <p><%= t("processes.index.section_footer.help_text_4") %></p>
+      </div>
+
+      <div class="mb-4">
+        <%= render 'process_typology_filters', typologies: @typologies %>
+      </div>
+
+      <hr>
+
+      <div>
+        <%= render "shared/advanced_search", search_path: processes_proposals_path(page: 1),
+                   class_name: "Process" %>
+      </div>
+
+      <%= render 'shared/filter_subnav', i18n_namespace: "legislation.processes.index" %>
+
+
+      <div id="legislation-list">
+        <% if @resources.any? %>
+          <%= render @resources, taggable_name: 'processes_proposal' %>
+          <%= paginate @resources %>
+        <% else %>
+          <div class="callout primary margin-top">
+            <%= t(".no_#{@current_filter}_processes") %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
+    <div class="small-12 medium-12 large-3 column">
+      <aside class="margin-bottom">
+        <% if current_user && ((service_social?(:legislation_process_processes_proposal) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator?) %>
+          <%= link_to t("processes.index.start_processes_proposal"),
+                      new_admin_legislation_process_processes_proposal_path,
+                      class: 'btn btn-primary btn-block' %>
+        <% end %>
+
+        <% if params[:retired].blank? %>
+          <div class="sidebar-divider"></div>
+          <h2 class="sidebar-title"><%= t("processes.processes_proposals.form.geolocation") %></h2>
+          <p><%= render_geolocation(@resources, "legislation_process") %></p>
+          <%= link_to "Visualizza dettaglio mappa", large_map_processes_proposals_path %>
+        <% end %>
+      </aside>
+      <%= render 'legislation/processes/categories', taggable: 'processes_proposals' %>
+      <%= render "shared/tag_cloud", taggable: 'processes_proposals' %>
+      <%#= render "shared/gamification_result", resource: 'Legislation::Proposal' %>
+
+
+    </div>
+  </div>
+<% end %>

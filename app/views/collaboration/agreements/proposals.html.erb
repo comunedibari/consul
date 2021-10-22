@@ -1,0 +1,30 @@
+<% provide :title do %><%= @collaboration_agreement.title %><% end %>
+
+<%= render 'collaboration/agreements/header', agreement: @collaboration_agreement, header: :full %>
+
+<%#= render 'key_dates', agreement: @collaboration_agreement, phase: :proposals_phase %>
+
+<div class="row">
+  <div class="debate-chooser">
+    <div class="row">
+      <div class="small-12 medium-9 column">
+        <div class="legislation-proposals">
+          <% if @collaboration_agreement.proposals.empty? %>
+            <div class="callout primary">
+              <p><%= t('.empty_proposals') %></p>
+            </div>
+          <% else %>
+            <%= render @collaboration_agreement.proposals.mod_approved %> 
+          <% end %>
+        </div>
+      </div>
+
+      <div class="small-12 medium-3 column">
+        <% if @collaboration_agreement.proposals_phase.open? %>
+          <p><%= link_to t("proposals.index.start_legislation_proposal"), new_collaboration_agreement_path(@collaboration_agreement), class: 'btn btn-primary btn-block' %></p>
+        <% end %>
+        <%= render 'legislation/proposals/categories', taggable: @collaboration_agreement %>
+      </div>
+    </div>
+  </div>
+</div>

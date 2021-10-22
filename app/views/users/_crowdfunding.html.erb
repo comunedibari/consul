@@ -1,0 +1,59 @@
+<tr id="crowdfunding_<%= crowdfunding.id %>">
+  <td class="small-9">
+     <% if !crowdfunding.rejected?%>
+      <strong><%= link_to crowdfunding.title, crowdfunding_path(crowdfunding, pon_id: crowdfunding.pon_id), crowdfunding.retired? ? { class: 'retired' } : {} %></strong>
+    <% else %>
+      <strong><%= crowdfunding.title %></strong>
+    <% end %>
+    <br>
+    <%= crowdfunding.summary %>
+  </td>
+
+  <% if crowdfunding.retired? %>
+
+    <td class="text-center" colspan="2">
+      <span class="label alert"><%= t('users.crowdfundings.retired') %></span>
+    </td>
+
+  <% elsif author?(crowdfunding) %>
+    <td>
+      <% if crowdfunding.in_approval?%>
+        <%= t("users.crowdfundings.approval") %>
+      <% elsif crowdfunding.rejected?%>
+        <%= t("users.crowdfundings.rejected") %>
+      <% else%>
+        <%= link_to t("users.crowdfundings.send_notification"),
+                    new_crowdfunding_notification_path(crowdfunding_id: crowdfunding.id),
+                    class: 'btn btn-outline-primary btn-block' %>
+      <% end %>
+      </td>
+    <td>
+       <% if !crowdfunding.in_approval? && !crowdfunding.rejected?%>
+        <% if crowdfunding.retired? %>
+          <span class="label alert"><%= t('users.crowdfundings.retired') %></span>
+        <% else %>
+          <% if crowdfunding.exist_user_investments %>
+            <%# non puoi ritirarlo %>
+          <% else %>
+            <%= link_to t('users.crowdfundings.retire'),
+                        retire_form_crowdfunding_path(crowdfunding),
+                        class: 'btn btn-primary btn-block btn-alert' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </td>
+
+  <% else %>
+
+    <td class="text-center" colspan="2">
+      <td class="text-center" colspan="2">
+        <% if !crowdfunding.in_approval? %>
+          <%= link_to t('users.crowdfundings.see'), crowdfunding, class: 'button hollow' %>
+        <% else %>
+          <%= t("users.crowdfundings.in_approval") %>
+        <% end %>
+    </td>
+
+  <% end %>
+
+</tr>

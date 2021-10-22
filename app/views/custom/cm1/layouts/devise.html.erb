@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html style="agid" lang="<%= I18n.locale %>" data-current-user-id="2<%= User.pon_id %>" pon-id="<%= User.pon_id %>"  user-email="<%= current_user.try(:email) %>>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <%= render "layouts/tracking_data" %>
+    <%= render "layouts/meta_tags" %>
+    <title><%= content_for?(:title) ? yield(:title) : Setting['org_name',User.pon_id].to_s %></title>
+    <%= content_for :canonical %>
+    <%= stylesheet_link_tag    "application_v2" %>
+    <!-- <link rel="stylesheet" href="/bootstrap-italia/dist/css/bootstrap-italia.min.css"> -->
+    
+    <!--[if lt IE 9]>
+      <%= stylesheet_link_tag "ie" %>
+    <![endif]-->
+    <%= stylesheet_link_tag Rails.application.config.css %>
+    <!-- <script src="/bootstrap-italia/dist/js/jquery.min.js"></script> -->
+    <%= javascript_include_tag "application_v2", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag "favicon.ico" %>
+    <%= favicon_link_tag image_path_for("apple-touch-icon-200.png"),
+                     rel: "icon apple-touch-icon",
+                     sizes: "200x200",
+                     type: "image/png" %>
+    <%= content_for :social_media_meta_tags %>
+
+    <%= setting['per_page_code_head'].try(:html_safe) %>
+  </head>
+
+    <body class="<%= yield (:body_class) %>">
+    <%= setting['per_page_code_body'].try(:html_safe) %>
+
+    <h1 class="show-for-sr"><%= Setting['org_name', User.pon_id].to_s %></h1>
+
+    <% unless current_page?(root_path) or current_page?(pons_path) %>
+      <div class="wrapper <%= yield (:wrapper_class) %>">
+    <% else %>
+      <div class="wrapper_image <%= Rails.application.config.cm %>  <%= yield (:wrapper_class) %> ">
+    <% end %>
+
+    <%= render 'layouts/header' %>
+
+    <!--[if lt IE 9]>
+          <% if browser.ie? && cookies['ie_alert_closed'] != 'true' %>
+            <div data-alert class="callout primary ie-callout" data-closable>
+              <button class="close-button ie-callout-close-js"
+                      aria-label="<%= t("application.close") %>" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h2><%= t("layouts.application.ie_title") %></h2>
+              <p>
+                <%= t("layouts.application.ie",
+                      chrome: link_to(
+                        t("layouts.application.chrome"), "https://www.google.com/chrome/browser/desktop/", title: t("shared.target_blank_html"), target: "_blank"),
+                      firefox: link_to(
+                        t("layouts.application.firefox"), "https://www.mozilla.org/firefox", title: t("shared.target_blank_html"), target: "_blank")
+                                                                                                                                                                                                                                                                    ).html_safe %>
+              </p>
+            </div>
+          <% end %>
+          <![endif]-->
+
+    <%= render 'layouts/flash' %>
+
+    <%= yield %>
+    <div class="push_<%= Rails.application.config.cm %>"></div>
+    </div>
+
+    <div id="footer" class="footer_<%= Rails.application.config.cm %>">
+      <%= render 'layouts/footer' %>
+    </div>
+    <div class="d-flex align-items-center">
+      <a href="#" aria-hidden="true" data-attribute="back-to-top" class="back-to-top shadow">
+        <svg class="icon icon-light"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-arrow-up"></use></svg>
+      </a>
+    </div>
+
+
+    <div id="btn_cookie" class="cookiebar show" style="display:none; left: 15%; width: 10px; padding: 0px 55px 0px 30px;">    
+      <a href="#" onclick="visualizza('cookiebar','btn_cookie'); return false">
+          <svg class="icon icon-light" style="transform: rotate(90deg); width: 26px;"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-more-items"></use></svg>
+      </a>
+    </div>
+    
+    <div id ='cookiebar' class="cookiebar_new show"  style="display:none; style="display:''">
+        <div class="mr-3">
+        <a href="#" onclick="visualizza('btn_cookie','cookiebar'); return false">
+          <svg class="icon icon-light"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-more-actions"></use></svg>
+        </a>
+        </div>
+        <p>Questo sito utilizza cookie tecnici, analytics e di terze parti. <br>Proseguendo nella navigazione accetti l’utilizzo dei cookie.</p>
+        
+        <div class="cookiebar_new-buttons">
+            <!-- <a href="#" class="cookiebar_new-btn">Preferenze<span class="sr-only">cookies</span></a> -->
+            <button class="cookiebar_new-btn" onclick="delete_cookie();">Non Accetto<span class="sr-only"> i cookies</span></button>
+            <button data-accept="cookiebar" class="cookiebar_new-btn cookiebar_new-confirm" onclick="accept_cookie();">Accetto<span class="sr-only"> i cookies</span></button>
+        </div>
+    </div>
+
+    <!-- <script src="/bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js"></script> -->
+    <script src="/bootstrap-italia/dist/js/popper.min.js"></script>
+    <script src="/bootstrap-italia/dist/js/owl.carousel.min.js"></script>
+    <script src="/bootstrap-italia/dist/js/bootstrap-italia.min.js"></script>
+    <script src="/bootstrap-italia/dist/js/svgxuse.js" defer></script>
+  </body>
+  <!--[if lt IE 9]>
+    <%= javascript_include_tag "ie_lt9" %>
+  <![endif]-->
+</html>
+
+<script>
+(function(document, history, location) {
+  var HISTORY_SUPPORT = !!(history && history.pushState);
+
+  var anchorScrolls = {
+    ANCHOR_REGEX: /^#[^ ]+$/,
+    OFFSET_HEIGHT_PX: 202,
+
+    /**
+     * Establish events, and fix initial scroll position if a hash is provided.
+     */
+    init: function() {
+      this.scrollToCurrent();
+      window.addEventListener('hashchange', this.scrollToCurrent.bind(this));
+      document.body.addEventListener('click', this.delegateAnchors.bind(this));
+    },
+
+    /**
+     * Return the offset amount to deduct from the normal scroll position.
+     * Modify as appropriate to allow for dynamic calculations
+     */
+    getFixedOffset: function() {
+      return this.OFFSET_HEIGHT_PX;
+    },
+
+    /**
+     * If the provided href is an anchor which resolves to an element on the
+     * page, scroll to it.
+     * @param  {String} href
+     * @return {Boolean} - Was the href an anchor.
+     */
+    scrollIfAnchor: function(href, pushToHistory) {
+      var match, rect, anchorOffset;
+
+      if(!this.ANCHOR_REGEX.test(href)) {
+        return false;
+      }
+
+      match = document.getElementById(href.slice(1));
+
+      if(match) {
+        rect = match.getBoundingClientRect();
+        anchorOffset = window.pageYOffset + rect.top - this.getFixedOffset();
+        window.scrollTo(window.pageXOffset, anchorOffset);
+
+        // Add the state to history as-per normal anchor links
+        if(HISTORY_SUPPORT && pushToHistory) {
+          history.pushState({}, document.title, location.pathname + href);
+        }
+      }
+
+      return !!match;
+    },
+
+    /**
+     * Attempt to scroll to the current location's hash.
+     */
+    scrollToCurrent: function() {
+      this.scrollIfAnchor(window.location.hash);
+    },
+
+    /**
+     * If the click event's target was an anchor, fix the scroll position.
+     */
+    delegateAnchors: function(e) {
+      var elem = e.target;
+
+      if(
+        elem.nodeName === 'A' &&
+        this.scrollIfAnchor(elem.getAttribute('href'), true)
+      ) {
+        e.preventDefault();
+      }
+    }
+  };
+
+  window.addEventListener(
+    'DOMContentLoaded', anchorScrolls.init.bind(anchorScrolls)
+  );
+})(window.document, window.history, window.location);
+
+</script>
+
+<script type="text/javascript" language="javascript">
+
+function visualizza(id,btn){
+    //if(document.getElementById(id).style.display == 'none'){
+      document.getElementById(id).style.display = '';
+      document.getElementById(btn).style.display = 'none';
+    //}else{
+    //  document.getElementById(id).style.display = 'none';
+    //  document.getElementById(btn).style.display = '';
+    //}
+}
+
+function accept_cookie(){
+  setCookie('cookies_consent','true',1);
+  /*
+  var x = getCookie('partecipaCookie');
+  if (x) {
+      console.log(x);
+  }
+  */
+}
+
+function delete_cookie(){
+  eraseCookie('cookies_consent');
+  /*
+  var x = getCookie('partecipaCookie');
+  if (x) {
+      console.log(x);
+  }
+  */
+}
+
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    visualizza('btn_cookie','cookiebar');
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+    visualizza('btn_cookie','cookiebar');
+}
+
+  jQuery(function () {
+    var x = getCookie('cookies_consent');
+    if (x) {
+      visualizza('btn_cookie','cookiebar');
+    }
+    else {      
+      visualizza('cookiebar','btn_cookie');
+    }
+  });
+
+</script>

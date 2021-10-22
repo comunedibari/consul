@@ -1,0 +1,39 @@
+
+  <% provide :title do %><%= "OpenData" %><% end %>
+  
+   <main>
+   
+    <div class="row">
+       <p>
+        <span class="icon-document"></span>&nbsp;
+        <strong><%=  "Link integrazione Open Data - #{Setting['org_name',@pon_id].to_s}" %></strong>
+      </p>
+        <table>
+          <tr>
+            <th>
+                File
+            </th>
+            <th>
+                Link CSV
+            </th>
+          </tr>
+          <% @types.each do |element| %> 
+          <tr>
+            <td>
+              <p><%= link_to("Scarica CSV #{element}", download_csv_opendatas_path(pon_id: @pon_id, type: "#{element}", format: :csv)) %></p>
+            </td>
+            <td>
+              <%= download_csv_opendatas_url(pon_id: @pon_id, type: "#{element}", format: :csv) %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+    </div>
+
+
+
+
+
+
+  </main>  
+

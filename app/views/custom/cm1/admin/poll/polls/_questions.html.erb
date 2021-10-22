@@ -1,0 +1,28 @@
+<h3><%= t("admin.polls.show.questions_title") %></h3>
+
+<% if @questions.empty? %>
+  <div class="callout primary margin-top">
+    <%= t('admin.polls.show.no_questions') %>
+  </div>
+<% else %>
+  <table class="fixed margin">
+    <thead>
+      <tr>
+        <th><%= t('admin.polls.show.table_title') %></th>
+        <th><%= t('admin.questions.show.question_type') %></th>
+      </tr>
+    </thead>
+    <% @questions.each do |question| %>
+      <tr id="<%= dom_id(question) %>">
+        <td>
+          <strong>
+            <%= link_to question.poll_question_type_id == 2 ? question.group_title : question.title, admin_question_path(question) %>
+          </strong>
+        </td>
+        <td>
+            <%= question.poll_question_type.name %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

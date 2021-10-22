@@ -1,0 +1,124 @@
+it:
+  settings:
+    moderation:
+      proposals: Proposte
+      crowdfunding: Crowdfunding
+      debates: Discussioni
+      comments: Commenti
+    proposals: Proposte
+    crowdfundings: Crowdfundings
+    spid_login: Accesso con SPID
+    min_interaction_for_heatmap: Numero minimo di utenti per visualizzazione mappa di calore
+    comments_body_max_length: "Lunghezza massima dei commenti"
+    official_level_1_name: "Funzionario pubblico di livello 1"
+    official_level_2_name: "Funzionario pubblico di livello 2"
+    official_level_3_name: "Funzionario pubblico di livello 3"
+    official_level_4_name: "Funzionario pubblico di livello 4"
+    official_level_5_name: "Funzionario pubblico di livello 5"
+    open_city_title: "Titolo home page"
+    home_more_info_description: "Descrizione home page"
+    max_ratio_anon_votes_on_debates: "Percentuale massima di voti anonimi per ogni discussione"
+    max_ratio_anon_votes_on_events: "Percentuale massima di voti anonimi per ogni evento"
+    max_votes_for_proposal_edit: "Numero di voti necessari per non poter più modificare una proposta"
+    max_votes_for_event_edit: "Numero di voti necessari per non poter più modificare un evento"
+    max_votes_for_crowdfunding_edit: "Numero di voti necessari per non poter più modificare un crowdfunding"
+    max_votes_for_debate_edit: "Numero di voti necessari per non poter più modificare una discussione"
+    proposal_code_prefix: "Prefisso per i codici delle proposta"
+    crowdfunding_code_prefix: "Prefisso per i codici del crowdfunding"
+    reporting_code_prefix: "Prefisso per i codici delle segnalazioni"
+    votes_for_proposal_success: "Numero di voti necessari per approvare una proposta"
+    months_to_archive_proposals: "Mesi per archiviare le proposte"
+    votes_for_crowdfunding_success: "Numero di voti necessari per approvare un crowdfunding"
+    months_to_archive_crowdfundings: "Mesi per archiviare i crowdfundings"
+    months_to_archive_reportings: "Mesi per archiviare le segnalazioni"
+    email_domain_for_officials: "Dominio di posta elettronica per funzionari pubblici"
+    per_page_code_head: "Codice da inserire in ogni pagina (<head>)"
+    per_page_code_body: "Codice da inserire in ogni pagina (<body>)"
+    twitter_handle: "Utente Twitter"
+    twitter_hashtag: "Hashtag per Twitter"
+    facebook_handle: "Utente Facebook"
+    youtube_handle: "Utente Youtube"
+    telegram_handle: "Utente Telegram"
+    instagram_handle: "Utente Instagram"
+    blog_url: "URL del Blog"
+    transparency_url: "URL per la trasparenza"
+    opendata_url: "URL per Open Data"
+    url: "URL principale"
+    org_name: "Nome dell'organizzazione"
+    place_name: "Luogo"
+    url_coll: "URL di Collaudo"
+    gamification_stats: "Visualizza statistiche per Gamification"
+    user_investment_improvement_path: ""
+    service:
+      assets: Prenotazioni
+      debates: Forum
+      works: Lavori pubblici
+      chances: Opportunità
+      reportings:	Segnalazioni geo-localizzate
+      events:	Eventi
+      polls: Consultazioni
+      petitioning:	E-petitioning
+      proposals: Proposte
+      crowdfundings: Crowdfundings
+      collaboration: Patti di collaborazione
+      crowdfunding: Crowdfunding
+      reservations: Prenotazioni
+      third_sector_platform: Piattaforma Terzo Settore
+      gamification: Gamificazione
+      processes: Proposte e iniziative
+      process_works: Progetti e lavori pubblici
+      process_chances: Opportunità
+      moderable_booking: Prenotazioni
+      legislation_proposals: Proposte ai progetti
+      collaboration_subscriptions: Adesioni
+      legislation_process_processes_proposal: Proposte e iniziative
+    job:
+      enable_disable: Attiva/Disattiva jobs
+      recover_tag_notifications_job: Completa invio notifiche
+      send_email_moderable_bookings_job: Invia email utenti per cancellazione disponibilità Spazio Prenotabile
+      sgap_download_data_job: Importa dati da SGAP
+      bis_download_data_job: Importa dati da BIS
+      gamification_monthly_job: Attiva gamification job mensile
+      gamification_hourly_job: Attiva gamification job oraria
+      bis_process_download_data_job: Importa Progetti da BIS
+    feature:
+      budgets: Bilanci partecipativi
+      twitter_login: Accesso con Twitter
+      facebook_login: Accesso con Facebook
+      google_login: Accesso con Google
+      proposals: Proposte
+      crowdfundings:  Crowdfundings
+      debates: Discussioni
+      polls: Consultazioni
+      signature_sheets: Fogli delle firme
+      spending_proposals: Progetti di investimento
+      spending_proposal_features:
+        voting_allowed: Votazioni sui progetti di investimento
+      legislation: Legislazione
+      user:
+        recommendations: Suggerimenti
+      community: Communità per le proposte e per i progetti di investimento
+      map: Geolocalizzazione delle proposte e dei progetti di investimento
+      allow_images: Permetti upload e mostra immagini
+      allow_attached_documents: Permetti upload e mostra documenti allegtai
+    map_latitude: Latitudine
+    map_longitude: Longitudine
+    map_zoom: Zoom
+    mailer_from_name: Nominativo del mittente
+    mailer_from_address: Email del mittente
+    email_sectors: Email per richieste Associazioni
+    meta_title: "Titolo del sito (SEO)"
+    meta_description: "Descrizione del sito (SEO)"
+    meta_keywords: "Parole chiave (SEO)"
+    verification_offices_url: URL degli uffici di verifica
+    min_age_to_participate: Età minima necessaria per partecipare
+    crowdfunding_improvement_path: Informazioni su come migliorare i crowdfundings
+    crowdfunding_improvement_path: Informazioni su come migliorare i crowdfundings
+    reporting_improvement_path: Informazioni su come migliorare le segnalazioni
+    crowdfunding:
+      codiceCategoriaServizio: Codice Categoria Servizio
+      codiceOrganizzazione: Codice organizzazione
+      idServizio: ID Servizio
+      identificativoCredito: Prefisso identificativo Credito
+
+

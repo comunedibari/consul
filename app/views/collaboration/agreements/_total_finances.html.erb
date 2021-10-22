@@ -1,0 +1,23 @@
+<% if @collaboration_agreement.agreement_finance.count > 0  %>
+        <h5><%= t("processes.process_sgap.finances_list_title") %></h5>
+        <div class="scrollbar_table_finances">
+            <table class="stack">
+                <thead>
+                    <tr>
+                        <h5><th><%= "Codice Investimento" %></th></h5>
+                        <h5><th><%= "Investimento" %></th></h5>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% collaboration_agreement_finances_by_agreement(agreement) %>
+                    <% @collaboration_agreement_finances.each do |finance| %>
+                        <tr>
+                            <td><%= finance.code %></td>
+                            <td><%= finance.amount %> €</td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+ <% end %>

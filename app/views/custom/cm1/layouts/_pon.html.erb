@@ -1,0 +1,25 @@
+<div class="link-list-wrapper mt-3">
+  <ul class="link-list">
+
+    <li>
+      <h3 style="color: #ccc;"><%= t("layouts.menu.label_menu") %></h3>
+    </li>
+    <% get_pons %>
+    <% @pons.each do |pon| %>
+      <li class="mt-0">
+
+        <div class="">
+          <%= link_to "/?pon_id=" + (pon.id.to_s), style: "font-size: 0.75em; line-height: 0.3em;" do %>
+            <svg style="width: 26px; height: 26px; vertical-align: middle; fill: white">
+              <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-chevron-right"></use>
+            </svg>
+            <span style="color: white"><nobr><%= pon.name %></nobr></span>
+          <% end %>
+        </div>
+
+      </li>
+    <% end %>
+
+  </ul>
+</div>
+

@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+
+  <li class="nav-item">
+    <%= link_to current_user.name, account_path, rel: "nofollow", class: "hide-for-large nav-link" %>
+  </li>
+
+  <li class="nav-item">
+    <%= link_to t("layouts.header.my_activity_link"), user_path(current_user), rel: "nofollow", class: "hide-for-large nav-link" %>
+  </li>
+  
+<% end %>

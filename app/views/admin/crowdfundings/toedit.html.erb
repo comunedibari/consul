@@ -1,0 +1,27 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.crowdfunding") %> - <%= @crowdfunding.title %>
+<% end %>
+
+<div class="legislation-admin legislation-process-edit row">
+  
+  <div class="small-12 column">
+    <%= back_link_to admin_crowdfundings_path, t("admin.crowdfundings_admin.edit.back") %>
+
+    <h2><%= @crowdfunding.title %></h2>
+
+    <%= render 'subnav', crowdfunding: @crowdfunding, active: 'info' %>
+
+    
+    <div class="small-12  column">
+      <span >
+          <h4><%= t("admin.crowdfundings.investments.status") %>:</h4> 
+          <p> <%= status(@crowdfunding) %></p>
+        </span>
+    </div>
+
+    <br>
+
+    <%= render "crowdfunding", url: admin_crowdfunding_path(@crowdfunding)   %>
+  </div>
+</div>
+

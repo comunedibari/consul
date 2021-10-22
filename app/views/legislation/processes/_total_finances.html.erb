@@ -1,0 +1,23 @@
+<% if @process.process_finance.count > 0  %>
+        <h5><%= t("processes.process_sgap.finances_list_title") %></h5>
+        <div class="scrollbar_table_finances">
+            <table class="stack">
+                <thead>
+                    <tr>
+                        <h5><th><%= "Codice Investimento" %></th></h5>
+                        <h5><th><%= "Investimento" %></th></h5>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% legislation_process_finances_by_process(process) %>
+                    <% @legislation_process_finances.each do |finance| %>
+                        <tr>
+                            <td><%= finance.code %></td>
+                            <td><%= finance.amount %> €</td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+ <% end %>

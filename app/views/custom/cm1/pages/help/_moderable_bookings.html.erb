@@ -1,0 +1,19 @@
+<div class="row section-content">
+  <div class="small-12 column">
+    <h3 id="moderable_bookings" data-magellan-target="moderable_bookings">
+      <%= t("pages.help.moderable_bookings.title") %>
+    </h3>
+    <p>
+      <%= t("pages.help.moderable_bookings.description",
+              link: link_to(t("pages.help.moderable_bookings.link"), assets_path)).html_safe %>
+    </p>
+    <ul class="features">
+      <li>
+        <%= t("pages.help.moderable_bookings.feature_html",
+              org: Setting['org_name',User.pon_id].to_s,
+              supports: setting['votes_for_crowdfunding_success']).html_safe %>
+      </li>
+    </ul>
+
+  </div>
+</div>

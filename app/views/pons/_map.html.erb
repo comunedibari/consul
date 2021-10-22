@@ -1,0 +1,34 @@
+<%= render 'layouts/pon_list' %>
+
+<div class="row hide-for-small-only">
+  <div class="small-12 column text-center" style="margin-top:20px">
+    <div class="map_card" style="padding-bottom:30px">
+      <% if get_pon_100.present? %>
+        <% get_pon_100 %>
+        <div class="my-4 small-12 medium-12 column" style="text-align: center; font-size: xx-large;">
+          <%= link_to "/?pon_id=" + (@pon_100['id']).to_s do %>
+            <svg style="width: 26px; height: 26px; vertical-align: middle; fill: white">
+              <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-chevron-right"></use>
+            </svg>
+            Vai a <%= @pon_100['name'] %>
+          <% end %>
+        </div>
+      <% end %>
+      <h2><%= t("zone.pon_title") %></h2>
+      <%= image_tag("#{Rails.application.config.cm}/pon.png", usemap: "#map", style: "width: 871px !important;") %>
+    </div>
+  </div>
+
+  <map name="map" id="html_map">
+    <%# @pons.each do |pon| %>
+    <% @val.each do |pon| %>
+      <% if pon['count'].to_i > 0 %>
+        <area shape="poly"
+              coords="<%= pon['html_map_coordinates'] %>"
+              href="<%= "/?pon_id=" + (pon['id'].to_s) %>"
+              title="<%= pon['name'] %>"
+              alt="<%= pon['name'] %>">
+      <% end %>
+    <% end %>
+  </map>
+</div>

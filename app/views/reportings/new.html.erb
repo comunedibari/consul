@@ -1,0 +1,20 @@
+<div class="reporting-form row">
+
+  <div class="small-12 medium-9 column">
+    <%= back_link_to %>
+
+    <h1><span class="icon-reportings float-left"></span><%= t("reportings.new.start_new") %></h1>
+
+    <%= render "reportings/form", form_url: reportings_url %>
+  </div>
+
+  <div class="small-12 medium-3 column">
+    
+    <h2><%= t("reportings.new.recommendations_title") %></h2>
+    <ul class="recommendations">
+      <li><%= t("reportings.new.recommendation_one") %></li>
+      <li><%= t("reportings.new.recommendation_two") %></li>
+      <li><%= t("reportings.new.recommendation_three") %></li>
+    </ul>
+  </div>
+</div>

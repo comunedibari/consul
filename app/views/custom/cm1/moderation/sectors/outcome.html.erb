@@ -1,0 +1,38 @@
+<%= back_link_to moderation_sectors_path, t("admin.moderable_bookings.back") %>
+
+<div class="row margin-top">
+  <div class="small-12 medium-12 column">
+      <h2><span> <%=  param_approved %></span></h2>
+  </div>
+</div>
+<div class="row margin-top">
+  <div class="small-12 medium-12 column">
+    <h4><span class="float-left"></span><%= t("moderation.sectors.outcome.title") %></h4>
+    <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+      <thead>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= t("moderation.sectors.outcome.sector_name") %>:</td>
+        <td><strong><%= @st_sector.name %> </strong></td>
+      </tr>
+      <tr>
+        <td><%= t("moderation.sectors.outcome.legal_representative") %>:</td>
+        <td><strong><%= @st_sector.legal_representative %> </strong></td>
+      </tr>
+      <tr>
+        <td><%= t("moderation.sectors.outcome.date") %>:</td>
+        <td><strong><%= @st_sector.created_at.strftime('%Y-%m-%d %H:%M:%S') %> </strong></td>
+      </tr>
+      <tr>
+        <td><%= t("moderation.sectors.outcome.request") %>:</td>
+        <td><strong><%= @st_sector.request %></strong></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= render 'form', form_url: actions_moderation_sector_path %>
+
+

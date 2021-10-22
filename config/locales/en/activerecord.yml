@@ -1,0 +1,319 @@
+---
+en:
+  activerecord:
+    attributes:
+      budget:
+        currency_symbol: Currency
+        description_accepting: Description during Accepting phase
+        description_balloting: Description during Balloting phase
+        description_finished: Description when the budget is finished
+        description_reviewing: Description during Reviewing phase
+        description_reviewing_ballots: Description during Reviewing Ballots phase
+        description_selecting: Description during Selecting phase
+        description_valuating: Description during Valuating phase
+        name: Name
+        phase: Phase
+      budget/heading:
+        name: Heading name
+        population: Population
+        price: Price
+      budget/investment:
+        administrator_id: Administrator
+        description: Description
+        external_url: Link to additional documentation
+        heading_id: Heading
+        image: Proposal descriptive image
+        image_title: Image title
+        location: Location (optional)
+        organization_name: If you are proposing in the name of a collective/organization, or on behalf of more people, write its name
+        title: Title
+      budget/investment/milestone:
+        description: Description
+        publication_date: Publication date
+        title: Title
+      comment:
+        body: Comment
+        user: User
+      debate:
+        author: Author
+        description: Opinion
+        terms_of_service: Terms of service
+        title: Title
+      document:
+        attachment: Attachment
+        title: Title
+      image:
+        attachment: Attachment
+        title: Title
+      legislation/annotation:
+        text: Comment
+      legislation/draft_version:
+        body: Text
+        changelog: Changes
+        final_version: Final version
+        status: Status
+        title: Version title
+      legislation/process:
+        additional_info: Additional info
+        allegations_end_date: Allegations end date
+        allegations_start_date: Allegations start date
+        debate_end_date: Debate end date
+        debate_start_date: Debate start date
+        description: Description
+        draft_publication_date: Draft publication date
+        end_date: End date
+        result_publication_date: Final result publication date
+        start_date: Start date
+        title: Process Title
+      legislation/question:
+        question_options: Options
+        title: Title
+      legislation/question_option:
+        value: Value
+      newsletter:
+        body: Email content
+        from: From
+        segment_recipient: Recipients
+        subject: Subject
+      organization:
+        name: Name of organisation
+        responsible_name: Person responsible for the group
+      poll:
+        description: Description
+        ends_at: Closing Date
+        geozone_restricted: Restricted by geozone
+        name: Name
+        starts_at: Start Date
+        summary: Summary
+      poll/question:
+        description: Description
+        external_url: Link to additional documentation
+        summary: Summary
+        title: Question
+      poll/question/answer:
+        description: Description
+        title: Answer
+      poll/question/answer/video:
+        title: Title
+        url: External video
+      proposal:
+        author: Author
+        description: Description
+        question: Question
+        terms_of_service: Terms of service
+        title: Title
+      signature_sheet:
+        document_numbers: Documents numbers
+        signable_id: Signable ID
+        signable_type: Signable type
+      site_customization/content_block:
+        body: Body
+        locale: locale
+        name: Name
+      site_customization/image:
+        image: Image
+        name: Name
+      site_customization/page:
+        content: Content
+        created_at: Created at
+        locale: Language
+        more_info_flag: Show in help page
+        print_content_flag: Print content button
+        slug: Slug
+        status: Status
+        subtitle: Subtitle
+        title: Title
+        updated_at: Updated at
+      spending_proposal:
+        administrator_id: Administrador
+        association_name: Association name
+        description: Description
+        external_url: Link to additional documentation
+        geozone_id: Scope of operation
+        title: Title
+      user:
+        current_password: Current password
+        email: Email
+        login: Email or username
+        official_level: Official level
+        official_position: Official position
+        password: Password
+        password_confirmation: Password confirmation
+        phone_number: Phone number
+        redeemable_code: Verification code received via email
+        username: Username
+    errors:
+      messages:
+        record_invalid: 'Validation failed: %{errors}'
+        restrict_dependent_destroy:
+          has_many: Cannot delete record because dependent %{record} exist
+          has_one: Cannot delete record because a dependent %{record} exists
+      models:
+        budget/investment:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: tags must be less than or equal to %{count}
+        comment:
+          attributes:
+            valuation:
+              cannot_comment_valuation: You cannot comment a valuation
+        debate:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: tags must be less than or equal to %{count}
+        direct_message:
+          attributes:
+            max_per_day:
+              invalid: You have reached the maximum number of private messages per day
+        image:
+          attributes:
+            attachment:
+              min_image_height: Image Height must be at least %{required_min_height}px
+              min_image_width: Image Width must be at least %{required_min_width}px
+        legislation/process:
+          attributes:
+            allegations_end_date:
+              invalid_date_range: must be on or after the allegations start date
+            debate_end_date:
+              invalid_date_range: must be on or after the debate start date
+            end_date:
+              invalid_date_range: must be on or after the start date
+        map_location:
+          attributes:
+            map:
+              invalid: Map location can't be blank. Place a marker or select the checkbox if geolocalization is not needed
+        newsletter:
+          attributes:
+            segment_recipient:
+              invalid: The user recipients segment is invalid
+        poll/voter:
+          attributes:
+            document_number:
+              has_voted: User has already voted
+              not_in_census: Document not in census
+        proposal:
+          attributes:
+            tag_list:
+              less_than_or_equal_to: tags must be less than or equal to %{count}
+        proposal_notification:
+          attributes:
+            minimum_interval:
+              invalid: You have to wait a minium of %{interval} days between notifications
+        signature:
+          attributes:
+            document_number:
+              already_voted: Already voted this proposal
+              not_in_census: Not verified by Census
+        site_customization/image:
+          attributes:
+            image:
+              image_height: Height must be %{required_height}px
+              image_width: Width must be %{required_width}px
+        site_customization/page:
+          attributes:
+            slug:
+              slug_format: must be letters, numbers, _ and -
+        user:
+          attributes:
+            email:
+              password_already_set: This user already has a password
+    models:
+      activity:
+        one: activity
+        other: activities
+      administrator:
+        one: Administrator
+        other: Administrators
+      budget:
+        one: Budget
+        other: Budgets
+      budget/investment:
+        one: Investment
+        other: Investments
+      budget/investment/milestone:
+        one: milestone
+        other: milestones
+      comment:
+        one: Comment
+        other: Comments
+      debate:
+        one: Debate
+        other: Debates
+      documents:
+        one: Document
+        other: Documents
+      images:
+        one: Image
+        other: Images
+      legislation/answers:
+        one: Answer
+        other: Answers
+      legislation/draft_texts:
+        one: Draft
+        other: Drafts
+      legislation/draft_versions:
+        one: Draft version
+        other: Draft versions
+      legislation/process:
+        one: Process
+        other: Processes
+      legislation/question_options:
+        one: Question option
+        other: Question options
+      legislation/questions:
+        one: Question
+        other: Questions
+      manager:
+        one: Manager
+        other: Managers
+      moderator:
+        one: Moderator
+        other: Moderators
+      newsletter:
+        one: Newsletter
+        other: Newsletters
+      organization:
+        one: Organisation
+        other: Organisations
+      poll:
+        one: Poll
+        other: Polls
+      poll/booth:
+        one: booth
+        other: booths
+      poll/officer:
+        one: officer
+        other: officers
+      proposal:
+        one: Citizen proposal
+        other: Citizen proposals
+      site_customization/content_block:
+        one: Custom content block
+        other: Custom content blocks
+      site_customization/image:
+        one: Custom image
+        other: Custom images
+      site_customization/page:
+        one: Custom page
+        other: Custom pages
+      spending_proposal:
+        one: Spending proposal
+        other: Spending proposals
+      tag:
+        one: Tag
+        other: Tags
+      topic:
+        one: Topic
+        other: Topics
+      user:
+        one: User
+        other: Users
+      valuator:
+        one: Valuator
+        other: Valuators
+      valuator_group:
+        one: Valuator group
+        other: Valuator groups
+      vote:
+        one: Vote
+        other: Votes

@@ -1,0 +1,164 @@
+<% provide :title do %><%= t("reportings.index.title") %><% end %>
+<% if User.pon_id == 0 %>
+  <%= render "shared/section_header", i18n_namespace: "reportings.index.section_header", image: "reportings" %>
+      <div class="row">
+        <div class="column">
+        <%= render "shared/pon_list", resource: "reportings" %>
+        </div>  
+      </div>
+<% else %>
+    <% content_for :header_addon do %>
+      <% if !read_only_service %>
+        <%= render "shared/search_form",
+                  search_path: reportings_path(page: 1),
+                  i18n_namespace: "reportings.index.search_form"
+                  %>
+      <% end %>  
+      <% content_for :header_small_addon do %>
+        <%= render "shared/search_form_small",
+                  search_path: reportings_path(page: 1),
+                  i18n_namespace: "reportings.index.search_form" %>
+      <% end %>
+
+    <% end %>
+    <% content_for :canonical do %>
+      <%= render "shared/canonical", href: reportings_url %>
+    <% end %>
+    
+    <main>
+      <%= render "shared/section_header", i18n_namespace: "reportings.index", image: "reportings" %>
+      <%= render "shared/search_results",
+          resources:  @reportings,
+          total_resources_num: @tot_resources,
+          search_terms: @search_terms,
+          advanced_search_terms: @advanced_search_terms,
+          tag_filter: @tag_filter
+            %>
+    
+      <div class="row">
+        <div id="reportings" class="reportings-list small-12 medium-12 large-9 column">
+
+          <%# unless @search_terms || @advanced_search_terms || @tag_filter %>
+            <div id="section_help" class="margin" data-magellan-target="section_help">
+              <!-- <p class="lead">
+                <strong><%#= t("reportings.index.section_footer.title") %></strong>
+              </p> -->
+              <p><%= t("reportings.index.section_footer.description") %><%#= Setting["service_description.reportings",User.pon_id] %></p>
+              <p><%= t("reportings.index.section_footer.help_text_1") %></p>
+              <p><%= t("reportings.index.section_footer.help_text_2",
+                        org: link_to(Setting['org_name',User.pon_id].to_s, new_user_registration_path),
+                        supports: setting["votes_for_reporting_success"]).html_safe %></p>
+              <p><%= t("reportings.index.section_footer.help_text_3") %></p>
+            </div>
+          <%# end %>
+
+          <%# COMMENTO IL BANNER PER LE SEGNALAZIONI%>
+          <%# <% if has_banners? %>
+            <%#= render "shared/banner" %>
+          <%# end %> 
+    
+          <% if @featured_reportings.present? %>
+            <div id="featured-reportings" class="row featured-reportings">
+              <div class="small-12 column">
+                <h2>
+                  <%= t("reportings.index.featured_reportings") %>
+                </h2>
+              </div>
+              <% @featured_reportings.each do |featured_reporting| %>
+                <%= render "featured_reporting", reporting: featured_reporting %>
+              <% end %>
+            </div>
+          <% end %>
+    
+          <div class="row">
+            <div class="small-12 column">
+              <%= render "view_mode" %>
+            </div>
+          </div>
+
+
+            <%= render("shared/advanced_search", search_path: reportings_path(page: 1),
+                                                  class_name: "Reporting") unless params[:retired].present? %>
+      
+            <%= render 'shared/order_links', i18n_namespace: "reportings.index" %>
+
+
+          <div class="show-for-small-only">
+            <%  if !current_user %>
+            <div data-alert class="callout primary">
+              <%= t("reportings.show.send_reportings",
+                  signin: link_to(t("reportings.show.sign_in"), go_to_login)).html_safe %>
+              </div>
+            <% elsif current_user && ( (service_social?(:reportings) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator? )%>
+                <%= link_to t("reportings.index.start_reporting"), new_reporting_guide, class: 'btn btn-primary btn-block' %>
+            <% else %>
+              <div data-alert class="callout primary">
+                <%= t("debates.show.login_as_spid_to_send_reporting") %>
+                </div>
+            <% end %>
+           </div> 
+ 
+
+          <div id="reportings-list">
+            <% if @reportings.any? || current_user.blank? %>
+              <p> <%= page_entries_info @resources %></p>                
+              <% if reportings_default_view? %>
+                <%= render partial: 'reportings/reporting', collection: @reportings %>
+              <% else %>         
+                <% @reportings.each do |reporting| %>
+                  <%= render partial: '/reportings/reporting_minimal', locals: { reporting: reporting } %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= empty_recommended_reportings_message_text(current_user) %>
+            <% end %>
+            <%= paginate @reportings %>
+    
+          </div>
+        </div>
+    
+        <div class="small-12 medium-12 large-3 column">
+          <aside class="margin-bottom">
+            <%  if !current_user %>
+            <div data-alert class="callout primary">
+              <%= t("reportings.show.send_reportings",
+                  signin: link_to(t("reportings.show.sign_in"), go_to_login)).html_safe %>
+              </div>
+            <% elsif current_user && ( (service_social?(:reportings) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator? )%>
+                <%= link_to t("reportings.index.start_reporting"), new_reporting_guide, class: 'btn btn-primary btn-block' %>
+            <% else %>
+              <div data-alert class="callout primary">
+                <%= t("debates.show.login_as_spid_to_send_reporting") %>
+                </div>
+            <% end %>             
+            <% if params[:retired].blank? %>
+              <div class="sidebar-divider"></div>
+              <h2 class="sidebar-title"><%= t("reportings.form.geolocation") %></h2>
+              <p><%= render_geojson(@reportings, "reporting")  %></p>
+              <% if !read_only_service %>
+                <%= link_to "Visualizza dettaglio mappa",
+                    large_map_reportings_path
+                     %>          
+                <%#= render 'categories' %>
+                <%#= render "shared/tag_cloud", taggable: 'reporting' %>
+                <%#= render 'geozones' %>
+                <%#= render 'popular' %>
+                <%#= render 'retired' %>
+              <% end %>
+              <% if new_element_for_service %>
+                <div class="sidebar-divider"></div>
+                <h2 class="sidebar-title"><%= t("reportings.form.apps_download") %></h2>
+                <p style="text-align: justify; line-height: 1.5rem;"><%= t("reportings.form.download_from_barisolve") %></p>
+                <div style="text-align: center;">
+                  <%= link_to((image_tag "apple-store-badge.png", alt: "Disponibile su App Store", width: 200), "https://itunes.apple.com/it/app/barisolve/id942509469?mt=8", target: "blank", rel: "nofollow") %>
+                  <%= link_to((image_tag "google-play-badge.png", alt: "Disponibile su Google Play", width: 200, style: "margin-top:20px;" ), "https://play.google.com/store/apps/details?id=it.linksmt.cdb.baapp&utm_source=+1&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1", target: "blank", rel: "nofollow") %>
+                </div>
+              <% end %>  
+            <% end %>
+          </aside>
+        </div>
+    
+      </div>
+    </main>
+
+  <% end%>

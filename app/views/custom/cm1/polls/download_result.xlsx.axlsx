@@ -1,0 +1,50 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Statistiche") do |sheet|
+  sheet.add_row ["partecipanti totali"]
+  sheet.add_row [@stats[:total_participants_web]]
+  sheet.add_row
+  sheet.add_row ["Quesito"]
+  @poll.questions.each do |question|
+    if question.title != '----' and !question.question_group.nil? and !question.question_group.question_answers.empty?
+      sheet.add_row [question.title]
+      sheet.add_row ["Risposta", "Voti totali", "Voti percentuali"]
+      question.question_group.question_answers.each do |answer|
+        sheet.add_row [answer.title, answer.total_votes_by_question(question.id), answer.total_votes_percentage_by_question(question).round(2)]
+      end
+      sheet.add_row
+    end
+  end
+end
+
+
+
+@poll.questions.each.with_index do |question, index|
+  sheet_name = "Quesito " + (index + 1).to_s
+  if question.poll_question_type_id == 1 || question.poll_question_type_id == 3
+    flag = false
+    question.question_group.question_answers.each do |answ|
+      if answ.title == "Altro"
+        flag = true
+        break
+      end
+    end
+    if flag
+      wb.add_worksheet(name: sheet_name) do |sheet|
+        sheet.add_row ["RISPOSTE APERTE"]
+        sheet.add_row ["Quesito:"+question.title]
+        question.question_group.question_answers.each do |answ|
+          if answ.title == "Altro"
+            Poll::Answer.where(answer:answ.title,question_id:question.id).each do |f|
+              sheet.add_row [f.content]
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+
+
+
+

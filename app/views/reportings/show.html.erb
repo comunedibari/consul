@@ -1,0 +1,227 @@
+<% provide :title do %><%= @reporting.title %>
+<% end %>
+<% content_for :meta_description do %><%= @reporting.summary %>
+<% end %>
+<% provide :social_media_meta_tags do %>
+  <%= render "shared/social_media_meta_tags",
+             social_url: reporting_url(@reporting),
+             social_title: @reporting.title,
+             social_description: @reporting.summary,
+             twitter_image_url: (@reporting.images.present? ? @reporting.image_url(:thumb) : nil),
+             og_image_url: (@reporting.images.present? ? @reporting.image_url(:thumb) : nil) %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: reporting_url(@reporting) %>
+<% end %>
+
+<% cache [locale_and_user_status(@reporting), @reporting, @reporting.author, Flag.flagged?(current_user, @reporting), @reporting_votes] do %>
+  <div class="reporting-show">
+    <div id="<%= dom_id(@reporting) %>" class="row">
+      <div class="small-12 medium-9 column">
+        <%= back_link_to reportings_path %>
+
+        <h1><%= @reporting.title %></h1>
+        <% if @reporting.retired? %>
+          <div data-alert class="callout alert margin-top">
+            <strong>
+              <%= t("reportings.show.retired_warning") %><br>
+              <%= link_to t("reportings.show.retired_warning_link_to_explanation"), "#retired_explanation" %>
+            </strong>
+          </div>
+        <% elsif @reporting.conflictive? %>
+          <div data-alert class="callout alert margin-top">
+            <strong><%= t("reportings.show.flag") %></strong>
+          </div>
+        <% end %>
+
+        <div class="reporting-info">
+          <%
+=begin%>
+ <%= render '/shared/author_info', resource: @reporting %>
+
+
+<%
+=end%>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= l @reporting.created_at.to_date %>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <span class="icon-comments"></span>&nbsp;
+          <%= link_to t("reportings.show.comments", count: @reporting.comments_count), "#comments" %>
+
+          <% if current_user %>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            <span class="js-flag-actions">
+              <%= render 'reportings/flag_actions', reporting: @reporting %>
+            </span>
+          <% end %>
+
+        </div>
+
+        <% if @reporting.images.any? %>
+          <%= render "gallery", reporting: @reporting %>
+        <% end %>
+
+        <br>
+        <%
+=begin%>
+ <p>
+          <%= t("reportings.show.code") %>
+          <strong><%= @reporting.code %></strong>
+        </p>
+<%
+=end%>
+
+        <blockquote><%= @reporting.summary %></blockquote>
+
+        <% if @reporting.video_url.present? %>
+          <div class="small-12 medium-7 small-centered">
+            <div class="flex-video">
+              <div id="js-embedded-video" data-video-code="<%= embedded_video_code(@reporting) %>"></div>
+            </div>
+          </div>
+        <% end %>
+        <b> <p style="font-weight: bold;"> <%= "Ente responsabile: "%>  <%= @reporting.reporting_type.institution.name %> </p></b>
+        <%= safe_html_with_links @reporting.description %>
+
+        <%# #if feature?(:map) && map_location_available?(@proposal.map_location) %>
+        <div class="margin">
+          <%= render_heatmap(@reporting.map_location, @reporting, "reporting", false, nil) %>
+        </div>
+        <%# #end %>
+
+        <% if @reporting.external_url.present? %>
+          <div class="document-link">
+            <p>
+              <span class="icon-document"></span>&nbsp;
+              <strong><%= t('reportings.show.title_external_url') %></strong>
+            </p>
+            <%= text_with_links @reporting.external_url %>
+          </div>
+        <% end %>
+
+        <% if @reporting.video_url.present? %>
+          <div class="video-link">
+            <p>
+              <span class="icon-video"></span>&nbsp;
+              <strong><%= t('reportings.show.title_video_url') %></strong>
+            </p>
+            <%= text_with_links @reporting.video_url %>
+          </div>
+
+        <% end %>
+
+        <h4><%= @reporting.question %></h4>
+
+        <% if @reporting.retired? %>
+          <div id="retired_explanation" class="callout">
+            <h2><%= t('reportings.show.retired') %>
+              : <%= t("reportings.retire_options.#{@reporting.retired_reason}") unless @reporting.retired_reason == 'other' %></h2>
+            <%= simple_format text_with_links(@reporting.retired_explanation), {}, sanitize: false %>
+          </div>
+        <% end %>
+        <% if @reporting.documents.present? %>
+          <% if feature?(:allow_attached_documents) %>
+            <%= render 'documents/documents',
+                       documents: @reporting.documents,
+                       max_documents_allowed: Reporting.max_documents_allowed %>
+          <% end %>
+        <% end %>
+
+        <%#= render 'shared/tags', taggable: @reporting %>
+
+        <%#= render 'shared/geozone', geozonable: @reporting %>
+
+        <%#= render 'relationable/related_content', relationable: @reporting %>
+
+        <div class="js-moderator-reporting-actions margin">
+          <%= render 'reportings/actions', reporting: @reporting %>
+        </div>
+      </div>
+
+      <aside class="small-12 medium-3 column">
+        <% if author_of_reporting?(@reporting) || reporting_current_editable?(@reporting) || can_destroy_image?(@reporting) || current_moderable_comments?(@reporting) %>
+          <div class="sidebar-divider"></div>
+          <h2><%= t("proposals.show.actions") %></h2>
+          <div class="show-actions-menu">
+
+<%
+=begin%>
+
+            <% if reporting_current_editable?(@reporting) %>
+              <%= link_to edit_reporting_path(@reporting), class: 'btn btn-outline-primary btn-block' do %>
+                <span class="icon-edit"></span>
+                <%= t("reportings.show.edit_reporting_link") %>
+              <% end %>
+            <% end %>
+
+<%
+=end%>
+
+            <% if current_user && (current_user.administrator? || current_user.moderator?) %>
+              <%= link_to social_flag_reporting_path(@reporting), class: "btn btn-primary btn-block #{@reporting.social_content.social_access? ? 'btn-alert' : ''}" do %>
+                <span class="icon-comments"></span>
+                <%= t("#{@reporting.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+              <% end %>
+            <% end %>
+
+            <% if current_moderable_comments?(@reporting) %>
+              <%= link_to moderation_flag_reporting_path(@reporting),
+                          class: "btn btn-primary font_size_initial btn-block #{@reporting.moderation_flag? ? 'btn-alert' : ''}" do %>
+                <span class="icon-comments"></span>
+                <%= t("#{@reporting.moderation_flag? ? 'reportings.show.moderation_flag_desactive' : 'reportings.show.moderation_flag_active'}") %>
+              <% end %>
+            <% end %>
+
+            <% if author_of_reporting?(@reporting) %>
+              <%= link_to new_reporting_notification_path(reporting_id: @reporting.id),
+                          class: 'btn btn-outline-primary btn-block' do %>
+                <span class="icon-no-notification"></span>
+                <%= t("reportings.show.send_notification") %>
+              <% end %>
+            <% end %>
+
+            <% if can_destroy_image?(@reporting) and false %>
+              <% @reporting.images.each do |image| %>
+                <%= link_to image_path(image, from: request.url),
+                            method: :delete,
+                            class: 'btn btn-primary btn-block btn-alert',
+                            data: {confirm: t('images.actions.destroy.confirm')} do %>
+                  <span class="icon-image"></span>
+                  <%= t("images.remove_image") %>
+                <% end %>
+              <% end %>
+            <% end %>
+
+          </div>
+        <% end %>
+
+
+        <%= render partial: 'shared/social_share', locals: {
+          share_title: t("reportings.show.share"),
+          title: @reporting.title,
+          url: reporting_url(@reporting),
+          description: @reporting.summary
+        } %>
+
+        <% if current_user %>
+          <div class="sidebar-divider"></div>
+          <p class="sidebar-title"><%= t("shared.follow") %></p>
+
+          <%= render 'follows/follow_button', follow: find_or_build_follow(current_user, @reporting) %>
+        <% end %>
+
+        <%= render 'communities/access_button', community: @reporting.community %>
+
+      </aside>
+    </div>
+  </div>
+<% end %>
+
+<div class="tabs-content" data-tabs-content="reportings-tabs" role="tablist">
+  <%= render "reportings/filter_subnav" %>
+  <%= render "reportings/notifications" %>
+
+  <div class="tabs-panel is-active" id="tab-comments">
+    <%= render "reportings/comments" %>
+  </div>
+</div>

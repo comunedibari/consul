@@ -1,0 +1,41 @@
+<% if isComment %>
+  <% @max_images_allowed = Comment.max_images_allowed %>
+<%else%>
+  <% @max_images_allowed = imageable.class.max_images_allowed %>
+<%end%>
+
+<% image_fields ||= :images %>
+
+<%= f.label image_fields, t("images.form.title") %>
+<p class="help-text"><%= imageables_note(imageable,@max_images_allowed) %></p>
+<% css_id = rand(1..999999).to_s #css_id.nil? ? 1 : css_id %>
+<div class="row" id=<%= "nested-image_#{css_id}" %> data-max-images-allowed="<%= @max_images_allowed %>">
+  <%= f.fields_for image_fields do |image_builder| %>
+      <%= render 'images/image_fields', f: image_builder, imageable: imageable %>
+  <% end %>
+</div>
+
+  <%= link_to_add_association t('images.form.add_new_image'), f, image_fields,
+                              force_non_association_create: true,
+                              partial: "images/image_fields",
+                              id: "new_image_link",
+                              class: "button
+                                        #{"hide" if image_fields == :images && imageable.images.count >= @max_images_allowed  and !isComment}",
+                              render_options: {
+                                locals: { imageable: imageable }
+                              },
+                              data: {
+                                association_insertion_node: "#nested-image_#{css_id}",
+                                association_insertion_method: "append"
+                              } %>
+<% if @max_images_allowed == 1 %>
+ <div style="display: none;">
+    <div id="max-images-notice" class="max-images-notice callout primary text-center <%= "hide" unless image_fields == :images && max_images_allowed?(imageable)  && !isComment %>">
+      <%= t "images.max_images_allowed_reached_html" %>
+    </div>
+</div>
+<% else %>
+    <div id="max-images-notice" class="max-images-notice callout primary text-center <%= "hide" unless image_fields == :images && max_images_allowed?(imageable)  && !isComment %>">
+      <%= t "images.max_images_allowed_reached_html" %>
+    </div>
+<% end %>

@@ -1,0 +1,19 @@
+<%= fields_for @question do |f| %>
+<% if @question.nil? || @question.poll_question_type_id != 3%>
+  <div class="answers_box" style="display: none;" >
+<% else %>
+  <div class="answers_box">
+<% end %>
+    <div class="small-12 medium-6 large-4">
+      <%#= label_tag :poll_answer_id, t("admin.questions.index.optional_answer") %>
+      <%#= select_tag "poll_answer_id",
+                    options_for_select(@answers.pluck(:title, :id),1) %>
+
+      <%= f.select :poll_question_answer_id,
+                    options_for_select(@answers.pluck(:title, :id),@question.nil? ? 1 : @question.poll_question_answer_id),
+                    label: t("admin.questions.new.optional_answer"),
+                    data: {remote: true } %>
+    </div>
+
+</div>
+<% end %>

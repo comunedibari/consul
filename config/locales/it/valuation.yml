@@ -1,0 +1,128 @@
+---
+it:
+  valuation:
+    budget_investments:
+      edit:
+        dossier: Fascicolo
+        duration_html: Time scope
+        feasibility: Fattibilità
+        feasible: Realizzabile
+        feasible_explanation_html: Rapporto sulla fattibilità <small>(qualora lo sia, dato pubblico)</small>
+        internal_comments_html: Commenti e osservazioni <small>(per i responsabili interni, dato non pubblico)</small>
+        not_feasible_alert: An email will be sent immediately to the author of the project with the report of unfeasibility.
+        price_explanation_html: Relazione di spesa <small>(facoltativo, dato pubblico)</small>
+        price_first_year_html: Costo del primo anno (%{currency}) <small>(facoltativo, dato non pubblico)</small>
+        price_html: Costo (%{currency}) <small>(dato pubblico)</small>
+        save: Salva Modifiche
+        undefined_feasible: Non definito
+        unfeasible: Non realizzabile
+        valuation_finished: Valutazione conclusa
+        valuation_finished_alert: Are you sure you want to mark this report as completed? If you do it, it can no longer be modified.
+      index:
+        assigned_to: Assegnate a %{valuator}
+        edit: Modifica fascicolo
+        filters:
+          valuating: Valutazione in corso
+          valuation_finished: Valutazione terminata
+          valuation_open: Aperte
+        headings_filter_all: Tutte le voci
+        no_valuators_assigned: Nessun valutatore assegnato
+        table_actions: Azioni
+        table_heading_name: Nome della voce
+        table_id: ID
+        table_title: Titolo
+        title: Progetti di investimento
+        valuators_assigned:
+          one: Valutatore assegnato
+          other: "%{count} valutatori assegnati"
+      not_in_valuating_phase: Gli investimenti possono essere valutati solo quando il Dudget è in fase di valutazione
+      notice:
+        valuate: Fascicolo aggiornato
+      show:
+        assigned_admin: Amministratore assegnato
+        assigned_valuators: Valutatori assegnati
+        back: Indietro
+        by: Inviata da
+        currency: "€"
+        dossier: Rapporto
+        duration: Tempo massimo di esecuzione
+        edit_dossier: Modifica rapporto
+        feasibility: Fattibilità
+        feasible: Realizzabile
+        heading: Voce
+        info: Info sull'autore
+        price: Costo
+        price_first_year: Costo del primo anno
+        responsibles: Responsabili
+        sent: Data di creazione
+        title: Progetto di investimento
+        undefined: Non definito
+        unfeasible: Non realizzabile
+        valuation_finished: Valutazione conclusa
+      valuation_comments: Commenti valutazioni
+    budgets:
+      index:
+        evaluate: Valutare
+        filters:
+          current: Aperti
+          finished: Conclusi
+        table_actions: Azioni
+        table_assigned_investments_valuation_open: Progetti di investimento assegnate in valutazione
+        table_name: Nome
+        table_phase: Fase
+        title: Bilanci partecipativi
+    header:
+      title: Valutazione
+    menu:
+      budgets: Bilanci partecipativi
+      spending_proposals: Progetti di investimento
+      title: Valutazione
+    spending_proposals:
+      edit:
+        currency: "€"
+        dossier: Fascicolo
+        feasibility: Fattibilità
+        feasible: Realizzabile
+        feasible_explanation_html: Relazione di non fattibilità <small>(qualora lo sia, dato pubblico)</small>
+        internal_comments_html: Commenti e osservazioni <small>(per i responsabili interni, dato non pubblico)</small>
+        not_feasible: Non realizzabile
+        price_explanation_html: Relazione di spesa <small>(facoltativo, dato pubblico)</small>
+        price_first_year_html: Costo nel primo anno (%{currency}) <small>(facoltativo, privato)</small>
+        price_html: Costo (%{currency}) <small>(dato pubblico)</small>
+        save: Salva modifiche
+        time_scope_html: Tempo di esecuzione <small>(facoltativo, dato non pubblico)</small>
+        undefined_feasible: Non definito
+        valuation_finished: Fascicolo concluso
+      index:
+        edit: Modifica
+        filters:
+          valuating: In valutazione
+          valuation_finished: Valutazione conclusa
+          valuation_open: Aperte
+        geozone_filter_all: Tutti gli ambiti di esecuzione
+        title: Progetti di investimento per bilanci partecipativi
+      notice:
+        valuate: Fascicolo aggiornato
+      show:
+        assigned_admin: Amministratore assegnato
+        assigned_valuators: Valutatori assegnati
+        association_name: Associazione
+        back: Indietro
+        by: Inviata da
+        currency: "€"
+        dossier: Fascicolo
+        edit_dossier: Modifica fascicolo
+        feasibility: Fattibilità
+        feasible: Realizzabile
+        geozone: Ambito
+        heading: Progetto di investimento
+        info: Info sull'autore
+        internal_comments: Commenti interni
+        not_feasible: Non realizzabile
+        price: Costo
+        price_first_year: Costo nel primo anno
+        responsibles: Responsabili
+        sent: Data di creazione
+        time_scope: Tempo massimo di esecuzione
+        undefined: Da definire
+        valuation_finished: Relazione conclusa

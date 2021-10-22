@@ -1,0 +1,47 @@
+<div id="open-answer-form" style="width: 100%;">
+  <div id = <%="other_field_question_" + question.id.to_s %>  >
+
+    <%= form_tag answer_question_path(question), id: val+"_form", method: "post", remote: true do %>
+          <% if selected %>
+            <%= answer.title %>: <%= text_area_tag :content , open_answer_content(answer.question_id,answer.title), class: "js-answer-other", id: val+"_in", disabled: true, :onkeyup => "answer_other_keyup('#{val}')", :onfocusout => "answer_other_focusout('#{val}')" 
+            #:onkeypress => "$ ('##{val}').attr('class','btn btn-secondary btn-block mr-1 mb-2');", :onfocusout => "$('form##{id_form}').submit();" 
+            %>
+          <% else %>
+            <%= answer.title %>: <%= text_area_tag :content , open_answer_content(answer.question_id,answer.title), class: "js-answer-other", id: val+"_in", :onkeyup => "answer_other_keyup('#{val}')", :onfocusout => "answer_other_focusout('#{val}')" 
+            #:onkeypress => "$ ('##{val}').attr('class','btn btn-secondary btn-block mr-1 mb-2');", :onfocusout => "$('form##{id_form}').submit();" 
+            %>
+          <% end %>
+      <%= hidden_field_tag :question, question %>
+
+      <%= hidden_field_tag :answer, t('polls.show.question_type.other') %>
+      <%= hidden_field_tag :token, token %>
+      
+      
+    <% end %>
+  </div>
+</div>
+
+<script>
+
+function answer_other_keyup(id) {
+  /*
+  txt = $("#"+id+"_in").val();
+  if (txt.length > 0){
+    $("#"+id+"_bt").attr('class','btn btn-dark btn-block mr-1 mb-2');
+  }
+  else {
+    $("#"+id+"_bt").attr('class','btn btn-outline-dark btn-block mb-2 mr-1');
+  }
+  */
+}
+
+function answer_other_focusout(id) {
+  //alert("we");
+  txt = $("#"+id+"_in").val();
+  //if (txt.length > 0) {
+    $("#"+id+"_form").submit();
+  //}
+}
+
+
+</script>

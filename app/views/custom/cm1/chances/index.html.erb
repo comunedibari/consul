@@ -1,0 +1,97 @@
+<% provide :title do %>
+  <%= t("layouts.header.collaborative_chances") %>
+<% end %>
+
+<% if User.pon_id == 0 %>
+  <%= render "shared/section_header", i18n_namespace: "chances.index.section_header", image: "chances" %>
+      <div class="row">
+        <div class="column">
+        <%= render "shared/pon_list", resource: "chances" %>
+        </div>  
+      </div>
+<% else %>    
+
+  <% content_for :header_addon do %>
+    <%= render "shared/search_form",
+              search_path: chances_path(page: 1),
+              i18n_namespace: "processes.chances.index.search_form" %>
+  <% end %>
+  <% content_for :header_small_addon do %>
+    <%= render "shared/search_form_small",
+                search_path: chances_path(page: 1),
+                i18n_namespace: "processes.chances.index.search_form" %>
+  <% end %>
+
+    <%= render "shared/section_header", i18n_namespace: "chances.index.section_header", image: "chances" %>
+    <%= render "shared/search_results",
+          resources:  @resources,
+          total_resources_num: @tot_resources,
+          search_terms: @search_terms,
+          advanced_search_terms: @advanced_search_terms,
+          tag_filter: @tag_filter
+            %>
+
+
+<div class="row">
+  <div id="legislation" class="legislation-list small-12 medium-12 large-9 column">
+
+    <div id="section_help" class="margin" data-magellan-target="section_help">
+      <!-- <p class="lead">
+        <strong><%#= t("chances.index.section_footer.title") %></strong>
+      </p> -->
+      <p><%= Setting["service_description.chances",User.pon_id] %></p>
+      <p><%= t("chances.index.section_footer.help_text_1") %></p>
+      <p><%= t("chances.index.section_footer.help_text_2",
+                org: Setting['org_name',User.pon_id].to_s) %></p>
+      <p><%= t("chances.index.section_footer.help_text_3") %></p>
+    </div>
+
+  <div>
+    <%= render "shared/advanced_search", search_path: chances_path(page: 1),
+                                        class_name: "Process" %>
+  </div>    
+
+    <%= render 'shared/filter_subnav', i18n_namespace: "legislation.processes.index" %>
+
+
+    <div id="legislation-list">
+     
+        
+        <% if @resources.any? %>
+          <div >
+            <div data-equalizer class="row">
+              <% @resources.each do |process| %>
+                <div class="medium-6 small-12 column" style="">
+                  <%= render 'process', process: process, taggable_name: 'chance' %>
+                </div>
+              <% end %>
+              </div>
+          </div>
+          <%= paginate @resources %>
+        <% else %>
+          <div class=" row ">
+            <div class="callout primary margin-top">
+              <%= t(".no_#{@current_filter}_processes") %>
+            </div>
+          </div>
+        <% end %>
+
+    </div>
+  </div>
+
+  <div class="small-12 medium-12 large-3 column">
+    <aside class="margin-bottom">
+      <% if params[:retired].blank? %>
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title"><%= t("processes.chances.form.geolocation") %></h2>
+        <p><%= render_geolocation(@resources, "legislation_process")  %></p>
+        <%= link_to "Visualizza dettaglio mappa", large_map_chances_path %>
+      <% end %>
+    </aside>
+      <%= render 'legislation/processes/categories', taggable: 'chance' %>
+      <%= render "shared/tag_cloud", taggable: 'chance' %>
+
+
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,61 @@
+---
+en:
+  community:
+    show:
+      author: Author
+      back: Back to %{community} %{proposal}
+      create_first_community_topic:
+        first_theme: Create the first community topic
+        first_theme_not_logged_in: No issue available, participate creating the first one.
+        sign_in: sign in
+        sign_up: sign up
+        sub_first_theme: To create a theme you must to %{sign_in} o %{sign_up}.
+      description:
+        investment: Participate in the community of this budget investment. An active community can help to improve the content of the budget investment and boost its dissemination to get more support.
+        proposal: Participate in the community of this proposal. An active community can help to improve the content of the proposal and boost its dissemination to get more support.
+      sidebar:
+        new_topic: Create topic
+        participate: Participate
+      tab:
+        participants: Participants
+      title:
+        investment: Budget Investment community
+        proposal: Proposal community
+      topic:
+        comments:
+          one: 1 comment
+          other: "%{count} comments"
+          zero: No comments
+        destroy: Destroy topic
+        edit: Edit topic
+    sidebar:
+      button_to_access: Access the community
+      description:
+        investment: Participate in the user community of this investment.
+        proposal: Participate in the user community of this proposal.
+      title: Community
+    topic:
+      create: Create a topic
+      edit: Edit Topic
+      form:
+        create:
+          submit_button: Create topic
+        edit:
+          submit_button: Edit topic
+        new:
+          submit_button: Create topic
+        topic_text: Initial text
+        topic_title: Title
+        update:
+          submit_button: Update topic
+      show:
+        tab:
+          comments_tab: Comments
+      sidebar:
+        recommendation_one: Do not write the topic title or whole sentences in capital letters. On the internet that is considered shouting. And no one likes to be yelled at.
+        recommendation_three: Enjoy this space, the voices that fill it, it's yours too.
+        recommendation_two: Any topic or comment that implies an illegal action will be eliminated, also those that intend to sabotage the spaces of the subject, everything else is allowed.
+        recommendations_title: Recommendations to create a topic
+  topics:
+    show:
+      login_to_comment: You must %{signin} or %{signup} to leave a comment.

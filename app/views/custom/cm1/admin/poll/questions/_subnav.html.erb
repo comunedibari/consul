@@ -1,0 +1,26 @@
+<ul class="menu simple clear" id="filter-subnav">
+
+    <% if @current_filter == "question_group" %>
+      <li class="active"><h2><%= t("admin.questions.show.question_group") %></h2></li>
+    <% else %>
+      <li><%= link_to t("admin.questions.show.question_group"),
+        current_path_with_query_params(filter: "question_group", page: 1) %></li>
+    <% end %>
+
+    <% if @current_filter == "answer_group" %>
+      <li class="active"><h2><%= t("admin.questions.show.answer_group") %></h2></li>
+    <% else %>
+      <li><%= link_to t("admin.questions.show.answer_group"),
+        current_path_with_query_params(filter: "answer_group", page: 1) %></li>
+    <% end %>
+
+</ul>
+
+<br>
+
+<% if @current_filter == "question_group" %>
+  <%= render 'question_group', question: @question %>
+<% else %>
+    <%= render 'answer_group', question: @question %>
+<% end %>
+

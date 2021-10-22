@@ -1,0 +1,12 @@
+<% provide :title do %><%= t("devise_views.sessions.new.title") %><% end %>
+
+<div class="row mt-5">
+  <div class="medium-3 large-3"></div>
+  <div class="small-12 medium-6 large-6 p-2">
+    <h2><%= t("devise_views.sessions.new.title") %></h2>
+    <%= render 'devise/omniauth_form' %>
+  </div>
+  <div class="medium-3 large-3"></div>
+</div>
+
+<%= render "devise/shared/links" %>

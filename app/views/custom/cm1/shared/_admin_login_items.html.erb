@@ -1,0 +1,61 @@
+<% if show_admin_menu? %> 
+<div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+      <% if current_user.administrator?  %>
+        <span><%= t("layouts.header.administration_menu") %></span>      
+      <% else %>
+        <span><%= t("layouts.header.moderation_menu") %></span>
+      <% end %>
+
+      <svg class="icon d-none d-lg-block">
+        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+      </svg>
+    </a>
+    <div class="dropdown-menu">
+      <div class="row">
+        <div class="col-12">
+          <div class="link-list-wrapper">
+            <ul class="link-list">
+              <% if current_user.administrator? || current_user.moderator? %>
+                <li>
+                  <a class="list-item" href="<%= admin_root_path %>"><span><%= t("layouts.header.administration") %></span></a>
+                </li>
+              <% end %>
+
+              <% if current_user.administrator? || current_user.moderator? %>
+                <li>
+                  <a class="list-item" href="<%= moderation_root_path %>"><span><%= t("layouts.header.moderation") %></span></a>
+                </li>
+              <% end %>
+
+              <% if (feature?(:spending_proposals) || feature?(:budgets)) &&
+                    (current_user.administrator? || current_user.valuator?) %>
+                <li>
+                  <a class="list-item" href="<%= valuation_root_path %>"><span><%= t("layouts.header.valuation") %></span></a>
+                </li>
+              <% end %>
+            <% if Rails.application.config.management %>
+              <% if current_user.administrator? || current_user.manager? %>
+                <li>
+                  <a class="list-item" href="<%= management_root_path %>"><span><%= t("layouts.header.management") %></span></a>
+                </li>
+              <% end %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if current_user && current_user.poll_officer? %>
+<div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="<%= officing_root_path %>" data-toggle="dropdown" aria-expanded="false">
+        <span><%= t("layouts.header.officing") %></span>      
+      <svg class="icon d-none d-lg-block">
+        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+      </svg>
+    </a>
+</div>
+<% end %>

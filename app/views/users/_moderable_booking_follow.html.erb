@@ -1,0 +1,6 @@
+<li id="moderable_booking_<%= moderable_booking.id %>">
+  <%= link_to moderable_booking.code, moderable_booking, moderable_booking.retired? ? { class: 'retired' } : {} %>
+  <% if moderable_booking.retired? %>
+    <span class="label alert"><%= t('users.moderable_bookings.retired') %></span>
+  <% end %>
+</li>

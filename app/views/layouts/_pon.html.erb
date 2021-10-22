@@ -1,0 +1,21 @@
+
+<main class="no-margin-top row expanded collapse">
+    <div class="">
+        <div class="pon-sidebar">
+            <ul id="admin_menu" data-accordion-menu data-multi-open="false">
+                <li><br></li>
+                <li>
+                    <h3><small><%= t("layouts.menu.label_menu") %></small></h3>
+                </li>
+                <% get_pons %>
+                <% @pons.each do |pon| %>                          
+                <li>
+                    <%= link_to "/?pon_id="+(pon.id.to_s) do %>
+                    <strong>>>    </strong><%= pon.name %>
+                    <% end %>
+                </li>
+                <% end %>      
+            </ul>
+        </div>
+    </div>
+  </main>

@@ -1,0 +1,28 @@
+<% if user_signed_in? %>
+  <li id="notifications" class="nav-item" style="padding-left: 10px;">
+      
+      <% if current_user.notifications.unread.count > 0 %>
+          <button class="hide-for-large btn btn-default btn-lg btn-link" 
+              data-toggle="tooltip" data-placement="bottom" title="<%= t('layouts.header.notification_item.new_notifications', 
+              count: current_user.notifications_count).html_safe %>" onclick="location.href='<%= notifications_path %>'">
+            <i class="fa fa-bell"></i>
+          </button>
+          <span class="hide-for-large badge badge-notify"><%= current_user.notifications_count %></span>
+          <small class="hide-for-large btn-link">
+            <%= link_to t('layouts.header.notification_item.new_notifications', 
+                count: current_user.notifications_count).html_safe,notifications_path %>
+          </small>
+      <% else %>
+          <button class="hide-for-large btn btn-default btn-lg btn-link"
+              data-toggle="tooltip" data-placement="bottom" title="<%= t('layouts.header.notification_item.no_notifications') %>"
+              onclick="location.href='<%= notifications_path %>'">
+            <i class="fa fa-bell-slash"></i>
+          </button>
+          <small class="hide-for-large btn-link">
+            <%= link_to t('layouts.header.notification_item.no_notifications'),notifications_path %>
+          </small>
+
+      <% end %>
+
+  </li>
+<% end %>

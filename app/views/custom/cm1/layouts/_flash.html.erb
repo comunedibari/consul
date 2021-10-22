@@ -1,0 +1,15 @@
+<%
+val = request.original_fullpath
+    if val.start_with?("/amministrazione/") || val.start_with?("/gestione/")  || val.start_with?("/moderazione/")
+%>
+<%= render partial: "layouts/flash_admin" %>
+
+<%
+    else
+%>
+<%= render partial: "layouts/flash_user" %>
+
+<% end %>
+
+
+

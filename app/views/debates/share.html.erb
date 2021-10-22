@@ -1,0 +1,53 @@
+<% provide :title do %><%= @debate.title %><% end %>
+    <% provide :social_media_meta_tags do %>
+    <%= render "shared/social_media_meta_tags",
+                social_url: debate_url(@debate),
+                social_title: @debate.title,
+                social_description: @debate.description %>
+    <% end %>
+    <% content_for :canonical do %>
+      <%= render "shared/canonical", href: debate_url(@debate) %>
+    <% end %>
+    
+    <% cache [locale_and_user_status(@debate), @debate, @debate.author, Flag.flagged?(current_user, @debate), @debate_votes] do %>
+      <div class="debate-show">
+        <div id="<%= dom_id(@debate) %>" class="row">
+          <div class="small-12 medium-8 column">
+    
+            <h1><%= t("debates.debate.created") %></h1>
+    
+            <p>
+              <span class="lead"><%= t("debates.debate.share.guide") %></span><br>
+              <%= t("debates.debate.share.edit") %>
+            </p>
+    
+            <%= render partial: 'shared/social_share', locals: {
+              title: @debate.title,
+              url: debate_url(@debate),
+              description: @debate.description
+            } %>
+    
+            <% if @debate_improvement_path.present? %>
+              <div class="callout highlight margin-top text-center">
+                <p class="lead"><strong><%= t("debates.debate.improve_info") %></strong></p>
+                <%= link_to t("debates.debate.improve_info_link"), @debate_improvement_path, class: "button" %>
+              </div>
+            <% end %>
+    
+            <div class="small margin-bottom">
+              <%= link_to t("debates.debate.share.view_debate"), debate_path(@debate) %>
+            </div>
+          </div>
+    
+          <div class="small-12 medium-4 column">
+            <div class="callout light">
+              <p>
+                <strong><%= @debate.title %></strong><br>
+                
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    

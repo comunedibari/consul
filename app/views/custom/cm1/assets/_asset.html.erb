@@ -1,0 +1,51 @@
+<div id="<%= dom_id(asset) %>" class="proposal clear" data-type="asset">
+  <div class="panel <%= ('with-image' if feature?(:allow_images) && asset.images.present?) %>">
+    <div class="icon-successful"></div>
+
+    <% if feature?(:allow_images) && asset.images.present? %>
+      <div class="row" data-equalizer>
+
+        <div class="small-12 medium-3 large-2 column text-center">
+          <div data-equalizer-watch>
+            <%= image_tag asset.image_url(:thumb),
+                          alt: asset.images.first.title.unicode_normalize %>
+          </div>
+        </div>
+
+        <div class="small-12 medium-6 large-10 column">
+    <% else %>
+      <div class="row">
+        <div class="small-12 medium-9 column">
+      <% end %>
+        <div class="asset-content">
+          <% cache [locale_and_user_status(asset), 'index', asset, asset.author] do %>
+            <h3><%= link_to asset.name, namespaced_asset_path(asset) %></h3>
+            <p class="proposal-info">
+
+              
+              <%= l asset.created_at.to_date %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            
+
+              <% if asset.author.verified_organization? %>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="label round is-association">
+                  <%= t("shared.collective") %>
+                </span>
+              <% end %>
+            </p>
+            <div class="proposal-description">
+              <p><%= safe_html_with_links asset.description %></p>
+              <div class="truncate"></div>
+            </div>
+            <%= render "shared/tags", taggable: asset, limit: 5 %>
+
+           
+          <% end %>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</div>

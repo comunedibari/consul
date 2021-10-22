@@ -1,0 +1,60 @@
+<li id="<%= dom_id(notification) %>" class="list-item notification2 <%= "unread" if notification.unread? %> shadow-box"
+    style="width: 98%; bottom: 0px; margin-left: 37px; right: 15px;">
+  <% if (notification.notifiable.class.name != "StSector" && notification.notifiable_available?)  || check_st_sector_deleted(notification.notifiable) %>
+    <%= link_to notification do %>
+      <p>
+        <em>
+          <%= t("notifications.notification.action.#{notification.notifiable_action}",
+                count: notification.counter) %>
+        </em>
+        <strong id="<%= dom_id(notification) %>_title">
+          <%= notification.notifiable_title %>
+        </strong>
+      </p>
+
+      <p>
+        <% if notification.notifiable.class.name == "StSector" %>
+        <%= make_st_sector_notifications(notification.notifiable) %>
+        <% else %>
+          <%= notification.filename %>
+        <% end %>
+      </p>
+
+      <p class="time">
+        <%= t('st_sectors.notification.of') %> <%= l notification.timestamp, format: :datetime %>
+      </p>
+    <% end %>
+  <% elsif check_st_sector_notification_delete(notification.notifiable) %>
+
+      <p>
+        <% if notification.notifiable.class.name == "StSector" %>
+        <%= make_st_sector_del_notifications(notification.notifiable) %>
+        <% else %>
+          <%= notification.filename %>
+        <% end %>
+      </p>
+
+      <p class="time">
+        <%= t('st_sectors.notification.of') %> <%= l notification.timestamp, format: :datetime %>
+      </p>
+
+  <% else %>
+    <p>
+      <strong>
+        <%= t("notifications.notification.notifiable_hidden") %>
+      </strong>
+    </p>
+  <% end %>
+
+  <% if notification.unread? %>
+    <%= link_to t("notifications.notification.mark_as_read"),
+                mark_as_read_notification_path(notification),
+                method: :put, remote: true,
+                class: "mark-notification small", style: "position: absolute; right: 12px; top: 12px;" %>
+  <% else %>
+    <%= link_to t("notifications.notification.mark_as_unread"),
+                mark_as_unread_notification_path(notification),
+                method: :put, remote: true,
+                class: "mark-notification small", style: "position: absolute; right: 12px; top: 12px;" %>
+  <% end %>
+</li>

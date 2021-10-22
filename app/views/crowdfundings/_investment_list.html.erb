@@ -1,0 +1,49 @@
+<% if investments&.count > 0 %>
+  <ul class="list-group pl-0 ml-sm-0">
+
+    <p><%= t('crowdfundings.user_investments.show.list_info') %></p>
+
+    <% investments.each do |investment| %>
+      <li class="list-group-item px-0 px-sm-3 p-lg-3 border-right-0 border-left-0">
+        <div class="row">
+          <div class="d-none d-sm-block col-sm-1">
+            <%=
+              if investment.visible
+                avatar_image(investment.investor, seed: investment.user_id, size: 48, class: "float-left")
+              else
+                avatar_image("Anonimo Anonimous", seed: investment.user_id, size: 48, class: "float-left")
+              end
+            %>
+          </div>
+
+          <div class="col-12 col-sm">
+            <p class="mb-0 mb-sm-4">
+              <span class="d-sm-none mr-2">
+                <%=
+                  if investment.visible
+                    avatar_image(investment.investor, seed: investment.user_id, size: 24, class: "float-left")
+                  else
+                    avatar_image("Anonimo Anonimous", seed: investment.user_id, size: 24, class: "float-left")
+                  end
+                %>
+              </span>
+              <%= investment.visible ? investment.investor : "Anonimo" %> <%= t('crowdfundings.user_investments.show.invested') %>
+              <strong><%= number_to_euro(investment.value_investements) %></strong>
+              <br>
+            </p>
+
+            <p class="font-italic mb-0 mb-sm-4"><%= investment.note %></p>
+
+            <span class="mt-sm-4 text-muted mb-0 mb-sm-4">
+              <small><%= date_until_now(investment) %> <%= t('ago') %></small>
+            </span>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%= t('crowdfundings.user_investments.show.list_empty') %></p>
+<% end %>
+
+<%= paginate investments, param_name: :inv_list_page %>

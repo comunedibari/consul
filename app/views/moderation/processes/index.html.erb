@@ -1,0 +1,75 @@
+<%# #moderazione su process %>
+
+<h2><%= t("moderation.processes.index.title") %></h2>
+<%= render 'shared/filter_subnav', i18n_namespace: "moderation.processes.index" %>
+<div class="row">
+  <h3 class="small-8 large-8 columns"><%= page_entries_info @resources %></h3>
+  <div class="small-4 large-4 columns">
+    <div class="float-right">
+      <%= t("moderation.processes.index.order") %>
+      <%= render 'shared/order_selector', i18n_namespace: "moderation.processes.index" %>
+    </div>
+  </div>
+</div>
+
+<%= form_tag moderate_moderation_processes_path(request.query_parameters), method: :put do %>
+  <p class="js-check">
+    <%= t('shared.check') %>:
+    <%= link_to t('shared.check_all'), '#', data: {check_all: "process_ids[]"} %>
+    |
+    <%= link_to t('shared.check_none'), '#', data: {check_none: "process_ids[]"} %>
+  </p>
+
+  <table class="clear">
+    <tr>
+      <th>
+        <%= t("moderation.processes.index.headers.process") %>
+      </th>
+      <th>
+       <%= t("moderation.processes.index.headers.moderate") %>
+      </th>
+    </tr>
+    <% @resources.each do |process| %>
+      <tr id="process_<%= process.id %>">
+        <td>
+          <%= link_to process.title, process, target: "_blank" %>
+          <br>
+          <span class="date"><%= l process.updated_at.to_date %></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= process.author.username %>
+          <br>
+          <div class="moderation-description">
+            <%= process.description %>
+          </div>
+        </td>
+        <td class="text-center">
+          <%= check_box_tag "process_ids[]", process.id, nil, id: "#{dom_id(process)}_check" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= submit_tag t('moderation.processes.index.block_authors'),
+    name: "block_authors",
+    class: "button hollow alert",
+    data: {confirm: t('moderation.processes.index.confirm')}
+  %>
+
+  <div class="float-right">
+    <%= submit_tag t('moderation.processes.index.hide_processes'),
+      name: "hide_processes",
+      class: "button hollow alert",
+      data: {confirm: t('moderation.processes.index.confirm')}
+    %>
+    <%= submit_tag t('moderation.processes.index.ignore_flags'),
+      name: "confirm_process",
+      class: "button success hollow",
+      data: {confirm: t('moderation.processes.index.confirm')}
+    %>
+  </div>
+
+  <%= paginate @resources %>
+
+<% end %>
+
+

@@ -1,0 +1,10 @@
+<%# if can? :hide, crowdfunding %>
+<!--  <%#= link_to t("admin.actions.hide").capitalize, hide_moderation_crowdfunding_path(crowdfunding),
+              method: :put, remote: true, data: { confirm: t('admin.actions.confirm') } %>-->
+<%# end %>
+
+<% if can? :hide, crowdfunding.author %>
+  &nbsp;|&nbsp;
+  <%= link_to t("admin.actions.hide_author").capitalize, hide_moderation_user_path(crowdfunding.author_id),
+              method: :put, data: { confirm: t('admin.actions.confirm') } %>
+<% end %>

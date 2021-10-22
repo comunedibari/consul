@@ -1,0 +1,67 @@
+---
+en:
+  officing:
+    dashboard:
+      index:
+        info: Here you can validate user documents and store voting results
+        title: Poll officing
+    header:
+      title: Polling
+    menu:
+      total_recounts: Total recounts and results
+      voters: Validate document
+    polls:
+      final:
+        add_results: Add results
+        no_polls: You are not officing final recounts in any active poll
+        select_poll: Select poll
+        title: Polls ready for final recounting
+    residence:
+      flash:
+        create: Document verified with Census
+        not_allowed: You don't have officing shifts today
+      new:
+        document_number: Document number (including letters)
+        error_verifying_census: The Census was unable to verify this document.
+        form_errors: prevented the verification of this document
+        no_assignments: You don't have officing shifts today
+        submit: Validate document
+        title: Validate document
+    results:
+      flash:
+        create: Results saved
+        error_create: Results NOT saved. Error in data.
+        error_wrong_booth: Wrong booth. Results NOT saved.
+      index:
+        no_results: No results
+        results: Results
+        table_answer: Answer
+        table_nulls: Invalid ballots
+        table_total: Total ballots
+        table_votes: Votes
+        table_whites: Totally blank ballots
+      new:
+        ballots_null: Invalid ballots
+        ballots_total: Total ballots
+        ballots_white: Totally blank ballots
+        booth: Booth
+        date: Date
+        not_allowed: You are allowed to add results for this poll
+        results_list: Your results
+        see_results: See results
+        select_booth: Select booth
+        submit: Save
+        title: "%{poll} - Add results"
+    voters:
+      can_vote:
+        submit_disable_with: Wait, confirming vote...
+      new:
+        table_actions: Actions
+        table_poll: Poll
+        table_status: Polls status
+        title: Polls
+      show:
+        can_vote: Can vote
+        error_already_voted: Has already participated in this poll
+        submit: Confirm vote
+        success: Vote introduced!

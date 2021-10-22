@@ -1,0 +1,39 @@
+<tr id="collaboration_agreement_<%= collaboration_agreement.id %>">
+  <td class="small-9">
+     <% if !collaboration_agreement.rejected?%>
+      <strong><%= link_to collaboration_agreement.title, collaboration_agreement_path(collaboration_agreement, pon_id:  collaboration_agreement.pon_id) %></strong>
+    <% else %>
+      <strong><%= collaboration_agreement.title %></strong>
+    <% end %>
+    <br>
+    <%= collaboration_agreement.summary %>
+  </td>
+
+
+  <%if author?(collaboration_agreement) %>
+    <td>
+      <% if collaboration_agreement.in_approval?%>
+        <%= t("users.collaboration_agreements.approval") %>
+      <% elsif collaboration_agreement.rejected?%>
+        <%= t("users.collaboration_agreements.rejected") %>
+      <% else%>
+        <%= link_to t("users.collaboration_agreements.send_notification"),
+                    new_collaboration_agreement_notification_path(collaboration_agreement_id: collaboration_agreement.id),
+                    class: 'btn btn-outline-primary btn-block' %>
+      <% end %>
+    </td>
+
+  <% else %>
+
+    <td class="text-center" colspan="2">
+      <td class="text-center" colspan="2">
+        <% if !collaboration_agreement.in_approval? %>
+          <%= link_to t('users.collaboration_agreements.see'), collaboration_agreement, class: 'button hollow' %>
+        <% else %>
+          <%= t("users.collaboration_agreements.in_approval") %>
+        <% end %>
+    </td>
+
+  <% end %>
+
+</tr>

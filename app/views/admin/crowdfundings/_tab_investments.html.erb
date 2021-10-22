@@ -1,0 +1,44 @@
+<table>
+  <thead>
+  <th scope="col"><%= "Codice" %></th>
+  <th scope="col"><%= "Utente" %></th>
+  <th scope="col"><%= "Data" %></th>
+  <th scope="col"><%= "Nota" %></th>
+  <th scope="col"><%= "Cifra" %></th>
+  <th scope="col"><%= "Stato" %></th>
+  <th scope="col"><%= "Fonte" %></th>
+  </thead>
+  <tbody>
+  <% @user_investments.each do |user_investment| %>
+    <tr id="<%= dom_id(user_investment) %>">
+      <td class="align-top">
+        <%= link_to "#{code( user_investment)}",
+          crowdfunding_user_investment_path(user_investment.crowdfunding_id,user_investment)
+          %>
+      </td>
+      <td class="align-top">
+        <%#= user_investment.user.username %>
+        <%= user_investment.investor %>
+      </td>
+      <td class="align-top">
+        <%= user_investment.created_at.strftime("%d/%m/%Y - %H:%M:%S") %>
+      </td>
+      <td class="align-top">
+        <%= user_investment.note %>
+      </td>
+      <td class="align-top">
+        <%= number_to_euro(user_investment.value_investements) %>
+      </td>
+      <td class="align-top text-<%= get_status_badge_class user_investment %>">
+        <%= view_status user_investment %>
+      </td>
+      <td class="align-top">
+        <%= user_investment.source %>
+      </td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @user_investments %>

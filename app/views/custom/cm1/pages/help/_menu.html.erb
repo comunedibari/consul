@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="small-12 column">
+    <ul class="menu-pages">
+      <% if service?(:debates) %>
+      <li>
+        <%= link_to t("pages.help.menu.debates"), "#debates", class: "btn btn-outline-primary btn-block" %>
+      </li>
+      <% end %>
+      <% if service?(:proposals) %>
+        <li>
+          <%= link_to t("pages.help.menu.proposals"), "#proposals", class: "btn btn-outline-primary btn-block" %>
+        </li>
+      <% end %>
+      <% if service?(:crowdfundings) %>
+        <li>
+          <%= link_to t("pages.help.menu.crowdfundings"), "#crowdfundings", class: "btn btn-outline-primary btn-block" %>
+        </li>
+      <% end %>
+      <% if service?(:events) %>
+        <li>
+          <%= link_to t("pages.help.menu.events"), "#events", class: "btn btn-outline-primary btn-block" %>
+        </li>
+      <% end %>
+      <% if feature?(:polls) %>
+      <li>
+        <%= link_to t("pages.help.menu.polls"), "#polls", class: "btn btn-outline-primary btn-block" %>
+      </li>
+      <% end %>
+      <% if service?(:processes) %>
+      <li>
+        <%= link_to t("pages.help.menu.processes"), "#processes", class: "btn btn-outline-primary btn-block" %>
+      </li>
+      <% end %>
+      <% if service?(:assets) %>
+      <li>
+        <%= link_to t("pages.help.menu.moderable_bookings"), "#moderable_bookings", class: "btn btn-outline-primary btn-block" %>
+      </li>
+      <% end %>
+     <% if service?(:reportings) %>
+      <li>
+        <%= link_to t("pages.help.menu.reportings"), "#reportings", class: "btn btn-outline-primary btn-block" %>
+      </li>
+      <% end %>      
+      <li>
+        <%= link_to t("pages.help.menu.other"), "#other", class: "btn btn-outline-primary btn-block" %>
+      </li>
+    </ul>
+  </div>
+</div>

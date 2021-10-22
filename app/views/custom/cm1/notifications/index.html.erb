@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row my-2">
+    <div class="col-sm-12 col">
+      <div class="col-12">
+        <%= link_to t("notifications.index.mark_all_as_read"),
+                    mark_all_as_read_notifications_path, method: :put,
+                    class: "btn btn-outline-primary float-right-medium mr-4" %>
+      </div>
+      <div class="col-10">
+        <h1 class="inline-block margin-bottom">
+          <%= t("notifications.index.title") %>
+        </h1>
+      </div>
+      <ul class="menu simple clear" style="width: 96%;">
+        <li class="active">
+          <h2><%= link_to t("notifications.index.unread"), notifications_path %></h2>
+        </li>
+        <li>
+          <%= link_to t("notifications.index.read"), read_notifications_path %>
+        </li>
+      </ul>
+
+      <% if @notifications.empty? %>
+        <div data-alert class="callout primary margin-top clear">
+          <%= t("notifications.index.empty_notifications") %>
+        </div>
+      <% else %>
+        <ul class="notifications-list" style="width: 96%; margin-left: 2px;">
+          <%= render @notifications %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>

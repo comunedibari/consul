@@ -1,0 +1,183 @@
+<%= form_for [:admin, @process], :url => url, html: {data: {watch_changes: true}} do |f| %>
+
+  <% if @process.errors.any? %>
+
+    <div id="error_explanation" data-alert class="callout alert" data-closable>
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <strong>
+        <%= @process.errors.count %>
+        <%= t("admin.legislation.processes.errors.form.error", count: @process.errors.count) %>
+      </strong>
+    </div>
+
+  <% end %>
+
+  <div class="row margin-bottom">
+    <% if (can? :add_sector_content, @process) %>
+      <div class="column ">
+        <%= label_tag "comment-as-rappr-legale", t("admin.legislation.processes.form.process_proposals_sectorable"), class: "js-toggle-sector-label" %>
+        <%= f.select :sector_id, sectors_by_user(@process.author), {:label => false, :include_blank => t("comments.form.none")} %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row margin-bottom">
+    <div class="small-12 medium-4 column">
+      <%= label_tag '', t("admin.legislation.processes.form.typology") %>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.select :legislation_process_typologies_id, get_typologies, {:label => false} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <label><%= t('admin.legislation.processes.form.process_date') %></label>
+    </div>
+    <div class="small-12 medium-1 column legislation-process-start">
+      <%= t('admin.legislation.processes.form.start') %>
+    </div>
+    <div class="small-12 medium-2 column">
+      <%= f.text_field :start_date,
+                       label: false,
+                       value: format_date_for_calendar_form(@process.start_date),
+                       class: "js-calendar-full",
+                       id: "start_date" %>
+    </div>
+    <div class="small-12 medium-1 column legislation-process-end">
+      <%= t('admin.legislation.processes.form.end') %>
+    </div>
+    <div class="small-12 medium-2 column">
+      <%= f.text_field :end_date,
+                       label: false,
+                       value: format_date_for_calendar_form(@process.end_date),
+                       class: "js-calendar-full",
+                       id: "end_date" %>
+    </div>
+
+    <div class="small-12 column">
+      <hr>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <%= f.label :title_proposal %>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.text_field :title,
+                       label: false,
+                       placeholder: t('admin.legislation.processes.form.title_proposal_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <%= f.label :summary %>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.text_area :summary,
+                      label: false,
+                      rows: 2,
+                      placeholder: t('admin.legislation.processes.form.summary_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <%= f.label :description %>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.cktext_area :description,
+                        label: false,
+                        rows: 5,
+                        placeholder: t('admin.legislation.processes.form.description_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <%= f.label :additional_info %>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.text_area :additional_info,
+                      label: false,
+                      rows: 10,
+                      placeholder: t('admin.legislation.processes.form.additional_info_placeholder') %>
+    </div>
+  </div>
+
+  <% if (current_user.provider.present? && current_user.provider == "openam") || current_user.administrator? %>
+    <div class="small-12 medium-9 column ">
+      <%= f.fields_for :social_content do |ff| %>
+        <%= ff.label :social_access, t("debates.form.social_access") %>
+        <p class="help-text" id="tag-list-help-text"><%= t("debates.form.social_access_info") %></p>
+        <%= ff.check_box :social_access, checked: social_access?(@process.social_content ? @process.social_content.social_access : false), title: t('debates.form.social_access'), label: false %>
+        <span class="checkbox">
+                    <%= t("debates.form.social_access_check") %>
+                </span>
+      <% end %>
+    </div>
+  <% else %>
+    <%= f.fields_for :social_content do |ff| %>
+      <%= ff.hidden_field :social_access, value: false %>
+    <% end %>
+  <% end %>
+
+
+
+
+  <div class="documents small-12 column" style="margin-top:15px">
+    <%= render 'documents/nested_documents_admin', documentable: @process, f: f, isComment: false %>
+  </div>
+  <hr>
+  <div class="images small-12 column">
+    <%= render 'images/nested_image_admin', imageable: @process, f: f, isComment: false %>
+    <div class="small-12 column">
+      <hr>
+    </div>
+  </div>
+
+  <% if feature?(:map) %>
+    <div class="small-12 column">
+
+      <%= render 'map_locations/form_fields',
+                 form: f,
+                 map_location: @process.map_location || MapLocation.new,
+                 label: t("processes.form.map_location"),
+                 help: t("processes.form.map_location_instructions"),
+                 remove_marker_label: t("processes.form.map_remove_marker"),
+                 parent_class: "process",
+                 i18n_namespace: "processes" %>
+
+    </div>
+  <% end %>
+
+  <hr>
+
+  <div class="small-12 margin-top column">
+    <div id="category_tags" class="tags">
+      <%= f.label :category_tag_list, t("debates.form.tag_category_label") %>
+      <% @categories.each do |tag| %>
+        <a class="js-add-tag-link"><%= tag.name %></a>
+      <% end %>
+    </div>
+    <br>
+    <%= f.text_field :tag_list, value: @process.tag_list.to_s,
+                     label: false,
+                     placeholder: t("debates.form.tags_placeholder"),
+                     class: 'js-tag-list tag-autocomplete',
+                     aria: {describedby: "tag-list-help-text"},
+                     data: {js_url: suggest_tags_path} %>
+  </div>
+
+  <div class="row">
+    <div class="actions small-12 medium-3 column legislation-process-save">
+      <%= f.submit(class: "button", value: t("admin.legislation.processes.#{admin_submit_action(@process)}.submit_button_proposal")) %>
+    </div>
+  </div>
+<% end %>

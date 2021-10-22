@@ -1,0 +1,28 @@
+<table class="margin-top">
+  <thead>
+    <th scope="col"><%= t("users.show.comments") %></th>
+    <th scope="col"><%= t("users.show.comments_status") %></th>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr id="comment_<%= comment.id %>">
+        <td>
+          <%= comment_commentable_title(comment) %>
+          <br>
+          <%= comment.body %>
+        </td>
+        <td>
+        <% if comment.in_approval?%>        
+          <%= t("users.comments.in_approval") %>
+        <% elsif comment.rejected?%>        
+          <%= t("users.comments.rejected") %> 
+        <% else %>
+         <%= t("users.comments.approved") %>              
+        <% end%>
+        </td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @comments %>

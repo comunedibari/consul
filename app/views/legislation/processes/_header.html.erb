@@ -1,0 +1,142 @@
+<div class="jumbo">
+  <div class="row">
+    <div class="small-12 medium-9 column">
+      <!-- customize backlink  -->      
+      <%= back_link_to legislation_process_back_link(@process) %>
+      <% if @process.process_type != 4 %>
+        <h2><%= @process.title.html_safe %></h2>
+        <% if @process.summary %>
+          <p class="margin-bottom"><%= @process.summary %></p>
+        <% end %>
+      <% else %>
+        <h2>Progetto - <%=  @process.external_id %></h2>
+       <% end %>
+
+
+      <% if @process.images.any? %>
+        <div class="">
+          <%= render "gallery", process: @process %>
+        </div>
+      <% end %> 
+
+      <div class="legislation-hero">
+        <% if header == :small %>
+          <div id="legislation_info" class="is-hidden" data-toggler=".is-hidden">
+
+            <% if @process.description.present? %>
+              <hr>
+              <p class="title"><%= t("legislation.processes.header.description") %></p>
+              <%= markdown @process.description %>
+            <% end %>
+
+            <% if @process.additional_info.present? %>
+              <hr>
+              <p class="title"><%= t("legislation.processes.header.additional_info") %></p>
+              <%= markdown @process.additional_info if @process.additional_info %>
+            <% end %>
+          </div>
+
+          <a class="btn btn-primary" data-toggle="legislation_info">
+            <%= t("legislation.processes.header.more_info") %>
+          </a>
+        <% elsif @process.process_type === 1 %>
+          <%= render 'legislation/processes/body_process', process: @process %>
+        <% elsif @process.process_type === 2 %>
+          <%= render 'legislation/processes/body_work', process: @process %>
+        <% elsif @process.process_type === 3  || @process.process_type === 5 %>
+          <%= render 'legislation/processes/body_chance', process: @process %>
+        <% elsif @process.process_type === 4 %>
+          <%= render 'legislation/processes/body_sgap', process: @process %>
+        <% end %>
+      </div> 
+
+
+
+
+    </div>
+    <div class="small-12 medium-3 column">
+      <aside class="">
+      <%#div class="margin-top">%>
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title"><%= t("proposals.show.actions") %></h2>
+
+        <%= link_to legislation_process_question_path(process,process.questions.order(:id).first), class: 'btn btn-primary btn-sm text-center btn-block' do %>
+            <span class="icon-comments"></span>
+            <%= t("legislation.processes.shared.consultation") %>
+        <% end %>
+
+        <% if current_user && @process.editable_by?(current_user)%>
+          <%= link_to legislation_process_edit_link(@process), class: 'btn btn-outline-primary btn-block' do %>
+            <span class="icon-edit"></span>
+            <%= t("processes.show.edit_process_link") %>
+          <% end %>
+        <% end %>
+
+        <%# if @process.process_type === 1 %>   <%# process_processes_proposals %>
+          <% if current_user && (current_user.administrator? || current_user.moderator? ) %>
+            <%= link_to social_flag_legislation_process_path(@process),class: "btn btn-primary btn-block #{@process.social_content.social_access? ? 'btn-alert' : ''}" do %>
+                <span class="icon-comments"></span>
+                <%= t("#{@process.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+            <% end %>
+            
+            <% if current_moderable_comments?(@process) %>
+              <%= link_to moderation_flag_legislation_process_path(@process),
+                          class: "btn btn-primary btn-block font_size_initial #{@process.questions.first.moderation_flag? ? 'btn-alert' : ''}" do %>
+                <span class="icon-comments"></span>
+                <%= t("#{@process.questions.first.moderation_flag? ? 'debates.show.moderation_flag_desactive' : 'debates.show.moderation_flag_active'}") %>
+              <% end %>
+            <% end %>
+
+          <% end %>
+        <%# end %>
+
+        <% if feature?(:map) && map_location_available?(@process.map_location) &&  @process.process_type != 4  %>
+          <div class="margin-top">
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= t("processes.form.geolocation") %></h2>
+            <%= render_map(@process.map_location, "process", false, nil) %>
+          </div>
+        <% end %>
+         
+
+
+        <% if @process.documents.count >0 %>
+          <div class="margin-top">
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= t('proposals.show.title_external_url') %></h2>
+            <%= render 'documents/additional_documents', documents: @process.documents %>
+          </div>  
+        <% end %>
+
+        <% if @process.process_type === 2 %>
+          <div class="margin-top">
+            <%= render 'legislation/processes/sidebar_work', process: @process %>
+          </div>
+        <% elsif @process.process_type === 3 or @process.process_type === 5 %>
+          <div class="margin-top">
+            <%= render 'legislation/processes/sidebar_chance', process: @process %>
+          </div>
+        <% elsif @process.process_type === 4 %>
+          <div class="margin-top">
+            <%= render 'legislation/processes/sidebar_sgap', process: @process %>
+          </div>
+        <% end %>
+        
+        
+
+
+
+        <div class="margin-top">
+          <%= render partial: 'shared/social_share', locals: {
+            share_title: t("proposals.show.share"),
+            title: @process.title,
+            url: legislation_process_url(@process),
+            description: @process.title
+          } %>
+        </div>
+
+      </aside>
+    </div>
+
+  </div>
+</div>

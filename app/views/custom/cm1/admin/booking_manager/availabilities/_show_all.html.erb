@@ -1,0 +1,100 @@
+
+<h3> <%= t("admin.availability.table.index.list") %> </h3>
+<% @availabilities = @asset.availabilities%>
+
+<% if @availabilities.weekly.any? %>
+
+  <table class="stack">
+    <thead>
+    <tr>
+      <th><%= t("admin.availability.show_all.months") %></th>
+      <th><%= t("admin.availability.show_all.time_lapse.title") %></th>
+      <th><%= t("admin.reservation.index.table.action") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @availabilities.weekly.each do |availability| %>
+      <tr id="<%= dom_id(availability) %>">
+        <td >
+          <%= get_months_by_numbers(availability.months.where(checked: true).select("month").map{|v| v[:month]}) %>
+        </td>
+        <td>
+          <%= render "admin/booking_manager/availabilities/time_lapse", resource: availability %>
+        </td>
+        <td>
+          <%= link_to t("admin.asset.index.table.delete_button"), admin_asset_availability_path(@asset, availability),
+                      method: :delete,
+                      class: 'button hollow alert' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+<% else %>
+  <div class="callout primary">
+    <%= t("admin.reservation.index.table.empty_assets") %>
+  </div>
+<% end %>
+
+<h3> <%= t("admin.availability.table.index.daily_list") %> </h3>
+<% @availabilities = show_all_availabilities_for_asset(@asset) %>
+
+<% if @availabilities.daily.any? %>
+
+  <table class="stack">
+    <thead>
+    <tr>
+      <th><%= t("admin.availability.show_all.day") %></th>
+      <th><%= t("admin.availability.show_all.month") %></th>
+      <th><%= t("admin.availability.show_all.year") %></th>
+      <th><%= t("admin.availability.show_all.time_lapse.title") %></th>
+      <th><%= t("admin.reservation.index.table.action") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @availabilities.daily.each do |availability| %>
+      <tr id="<%= dom_id(availability) %>">
+        <td >
+          <%= availability.days.select("day").first[:day]%>
+        </td>
+        <td >
+          <%= get_months_by_numbers(availability.months.where(checked: true).select("month").map{|v| v[:month]}) %>
+        </td>
+        <td >
+          <%= availability.years.select("year").first[:year] %>
+        </td>
+        <td>
+          <%= render "admin/booking_manager/availabilities/time_lapse_daily", resource: availability %>
+        </td>
+        <td>
+          <%= link_to t("admin.asset.index.table.delete_button"),destroy_daily_admin_asset_availability_path(@asset, availability),
+                      method: :post,
+                      class: 'button hollow alert' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+<% else %>
+  <div class="callout primary">
+    <%= t("admin.reservation.index.table.empty_assets") %>
+  </div>
+<% end %>
+<div class="row">
+  <div class="margin-top large-4 column" >
+
+    <%= link_to t("admin.availability.table.index.new_availability"), new_admin_asset_availability_path(@asset),
+                class: 'button success' %>
+  </div>
+
+  <div class="margin-top large-4 column" >
+
+   <%= link_to t("admin.availability.table.index.new_daily_availability"), daily_availability_admin_asset_availabilities_path(@asset),
+                class: 'button success' %>
+
+  </div>
+</div>

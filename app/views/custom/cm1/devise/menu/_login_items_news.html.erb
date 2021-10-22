@@ -1,0 +1,45 @@
+<%# if user_signed_in? %>
+  <li class="nav-item">
+    <%= link_to t("device.menu.news"),
+                              '#',
+                              rel: "nofollow",
+                              class: "nav-link",
+                              title: t("shared.go_to_page") +
+                                     t("device.menu.news") %>
+  </li>
+  <li class="nav-item">
+    <%= link_to t("device.menu.events"),
+                              '#',
+                              rel: "nofollow",
+                              class: "nav-link",
+                              title: t("shared.go_to_page") +
+                                     t("device.menu.events") %>
+  </li>
+  
+  <li class="nav-item">
+    <%= link_to t("device.menu.contacts"),
+                              page_path('contacts'),
+                              rel: "nofollow",
+                              class: "nav-link",
+                              title: t("shared.go_to_page") +
+                                     t("device.menu.contacts") %>
+  </li>
+
+  <li class="nav-item">
+  <%= link_to t("device.menu.project"),
+                              page_path('projects'),
+                              rel: "nofollow",
+                              class: "nav-link",
+                              title: t("shared.go_to_page") +
+                                     t("device.menu.project") %>
+  </li>
+  <li class="nav-item">
+    <%= link_to t("device.menu.privacy"),
+                              page_path('privacy'),
+                              rel: "nofollow",
+                              class: "nav-link",
+                              title: t("shared.go_to_page") +
+                                     t("device.menu.privacy") %>
+  </li>
+
+<%# end %>

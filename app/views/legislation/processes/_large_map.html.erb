@@ -1,0 +1,62 @@
+<% #calcola array marker
+geolocation_arr = []
+    @processes.each do |process|
+
+        if  process.map_location && process.process_type.to_i==params[:process_type].to_i
+            geolocation = process.map_location
+            geolocation_arr.push(geolocation)
+        end 
+    end
+%>
+
+<% provide :title do %><%= t('legislation.processes.index.section_header.title') %><% end %>
+
+<% if User.pon_id > 0 %>
+
+
+
+<main>
+   
+<div class="help-header no-margin-top margin-bottom">
+  <div class="row">
+    <div class="small-12 column" data-magellan>
+      <%= image_tag "#{Rails.application.config.cm}/help/help_icon_processes.png", alt: t("legislation.processes.index.section_header.title"), class: "align-top" %>
+      <h1 class="inline-block"> <%= i18n_namespace %></h1>
+  
+    </div>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <p><%= back_link_to %></p>
+    </div>
+    <% if controller_name == "chances" %>
+      <div class="col-12"><p><%= t("#{controller_name}.map.info") %></p> </div>
+      <div class="col-12"><p><%= t("#{controller_name}.map.count_markers") %> <%= count_markers = item_with_maplocation_count(@processes) %></p> </div>
+  <% elsif controller_name == "processes_proposals" %>
+    <div class="col-12"> <p><%= t("#{controller_name}.map.info") %></p></div>
+    <div class="col-12"> <p><%= t("#{controller_name}.map.count_markers") %> <%= count_markers = item_with_maplocation_count(@processes) %></p> </div>
+  <% end %>
+
+<p><%= render_geolocation(@processes, "legislation_process","process_all")  %></p>
+
+
+  </div>
+</main>
+
+  <% else%>
+    <main>
+      <div class="row">
+      </div>
+    </main>
+  <% end%>
+
+
+
+
+
+
+
+
+

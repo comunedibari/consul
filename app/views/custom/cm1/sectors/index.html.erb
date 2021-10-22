@@ -1,0 +1,111 @@
+<%# if params[:sector_type].present?%>
+<%#= render "sectors/proposals/index" %>
+<%# else %>
+<%#= render "sector_types/services" %>
+<%# end %>
+
+<% provide :title do %><%= t("sectors.index.title") %>
+<% end %>
+
+<% content_for :header_addon do %>
+  <%= render "shared/search_form",
+             search_path: sectors_path(page: 1),
+             i18n_namespace: "sectors.index.search_form" %>
+<% end %>
+<% content_for :header_small_addon do %>
+  <%= render "shared/search_form_small",
+             search_path: sectors_path(page: 1),
+             i18n_namespace: "sectors.index.search_form" %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: sectors_url %>
+<% end %>
+
+<main>
+  <% if @search_terms || @advanced_search_terms %>
+    <div class="highlight no-margin-top padding margin-bottom">
+      <div class="row">
+        <div class="small-12 column">
+          <% if @search_terms || @advanced_search_terms %>
+            <h2><%= t("shared.search_results") %></h2>
+            <p>
+              <%= page_entries_info @sectors %>
+              <% if !@advanced_search_terms %>
+                <%= t("sectors.index.search_results_html", count: @sectors.size, search_term: @search_terms) %>
+              <% end %>
+            <p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <%= render "shared/section_header", i18n_namespace: "sectors.index.section_header", image: "sectors" %>
+  <% end %>
+
+  <div class="row">
+
+    <div id="sectors" class="proposals-list small-12 medium-9 column large-9">
+
+      <%# unless @search_terms || @advanced_search_terms  %>
+      <div id="section_help" class="margin" data-magellan-target="section_help">
+        <!--<p class="lead">
+              <strong><%#= t("sectors.index.section_footer.title") %></strong>
+            </p> -->
+        <!--<p><%##= t("sectors.index.section_footer.description") %></p>-->
+        <p><%= t("sectors.index.section_footer.help_text_1",
+                 stsector: link_to(t("sectors.index.section_footer.stsector"), new_sector_path)).html_safe %></p>
+        <p><%= t("sectors.index.section_footer.help_text_2",
+                 email_sectors: mail_to(Setting["email_sectors", User.pon_id])).html_safe %></p>
+      </div>
+      <%# end %>
+
+      <%= back_link_to sector_types_path %>
+      <div style="margin-right: 500px column">
+        <%= render("shared/advanced_search", search_path: sectors_path(page: 1),
+                   class_name: "Sector") unless params[:retired].present? %>
+      </div>
+      <br class="sr-only">
+      <div id="proposals-list">
+        <%#div class="row"%>
+        <% if @sectors.any? || current_user.blank? %>
+          <%#p style="margin-left: 5px;">Num organizzazioni: <%= @sectors.count %><%#/p%>
+          <div class="margin-top">
+
+            <% if sectors_default_view? %>
+              <%= render partial: 'sectors/sector', collection: @sectors %>
+            <% else %>
+              <div data-equalizer class="row">
+                <% @sectors.each do |sector| %>
+                  <div id="<%= dom_id(sector) %>" class="hide-for-large-only large-4 medium-6 small-12 column proposals-list m-2" data-type="sector">
+                    <%= render partial: '/sectors/sector_minimal', locals: { sector: sector } %>
+                  </div>
+                  <div id="<%= dom_id(sector) %>" class="show-for-large-only large-4 medium-6 small-12 column proposal proposals-list " data-type="sector">
+                    <%= render partial: '/sectors/sector_minimal', locals: { sector: sector } %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-3 column">
+      <aside class="margin-bottom">
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title"><%= t("account.form.geolocation") %></h2>
+        <p><%= render_geolocation(@sectors, "sector") %></p>
+        <%= link_to "Visualizza dettaglio mappa",
+                    large_map_sectors_path(sector_type: @sector_type) %>
+      </aside>
+    </div>
+
+    <div class=" small-12 medium-12 large-12 column">
+      <div>
+        <%= paginate @sectors %>
+      </div>
+
+    </div>
+  </div>
+
+</main>

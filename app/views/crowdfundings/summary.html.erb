@@ -1,0 +1,53 @@
+<main>
+  <div class="row services-summary">
+    <div id="crowdfundings" class="services-list small-12 medium-9 column">
+      <%= back_link_to %>
+
+      <% @crowdfundings.each do |group_name, crowdfundings| %>
+        <div id="<%= group_name.parameterize %>">
+          <h2 class="margin-top"><%= group_name %></h2>
+
+          <% crowdfundings[0..2].each do |crowdfunding| %>
+            <div class="service clear">
+              <div class="panel">
+                <div class="row">
+                  <div class="small-12 medium-9 column">
+                    <div class="service-contenta">
+                      <h4><%= link_to crowdfunding.title, namespaced_crowdfunding_path(crowdfunding) %></h4>
+
+                      <p class="service-info">
+                        <% if crowdfunding.author.hidden? || crowdfunding.author.erased? %>
+                          <span class="author"><%= t("crowdfundings.show.author_deleted") %></span>
+                        <% else %>
+                          <span class="author"><%= crowdfunding.author.name %></span>
+                          <% if crowdfunding.author.display_official_position_badge? %>
+                            <span class="label round level-<%= crowdfunding.author.official_level %>">
+                              <%= crowdfunding.author.official_position %>
+                            </span>
+                          <% end %>
+                        <% end %>
+                      </p>
+
+                      <div class="service-description">
+                        <p><%= crowdfunding.summary %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="small-12 medium-3 column">
+      <aside class="sidebar">
+        <%= link_to t("crowdfundings.index.start_crowdfunding"), new_crowdfunding_path, class: 'btn btn-primary btn-block mb-3' %>
+        <%= render "shared/tag_cloud", taggable: 'crowdfunding' %>
+        <%= render 'categories' %>
+        <%= render 'geozones' %>
+      </aside>
+    </div>
+  </div>
+</main>

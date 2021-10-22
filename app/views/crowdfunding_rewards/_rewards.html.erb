@@ -1,0 +1,17 @@
+<div class="sidebar-divider"></div>
+<h2><%= t("crowdfundings.show.list_reward") %></h2>
+<div data-equalizer>
+  <% if @crowdfunding_rewards.count == 0 %>
+    <p><%= t("crowdfundings.show.no_rewards") %></p>
+  <% else %>
+    <div id="rewardsAccordionDiv" class="collapse-div">
+      <% @crowdfunding_rewards.each_with_index do |reward, i| %>
+        <%= render partial: '/crowdfunding_rewards/crowdfunding_reward', locals: {crowdfunding_reward: reward, crowdfunding: @crowdfunding, index: i} %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+
+
+

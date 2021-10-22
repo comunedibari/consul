@@ -1,0 +1,24 @@
+﻿<!-- <div class="jumbo highlight"> -->
+<div class="jumbo">
+  <div class="row">
+    <div class="small-12 medium-9 small-centered column text-center">
+      <h1><%= t("layouts.header.titolo") %></h1>
+      <p class="lead">
+        <%= t("layouts.header.html") %>
+      </p>
+      <div class="small-12 medium-6 large-4 small-centered">
+        <%= link_to t("layouts.header.more_info"), help_path, class: "btn btn-primary btn-block large" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row"> 
+  <%= render "services_active" %>
+  <% if current_user && current_user.administrator? %>
+    <%= render "services_disactive" %>
+  <% end %>  
+</div>
+
+
+<div class="clearfix"></div>

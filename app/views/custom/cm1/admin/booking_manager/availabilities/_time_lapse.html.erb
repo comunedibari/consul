@@ -1,0 +1,28 @@
+<table>
+  <thead>
+  <tr>
+    <th><%= t("admin.availability.show_all.time_lapse.day") %></th>
+    <th><%= t("admin.availability.show_all.time_lapse.AM") %></th>
+    <th><%= t("admin.availability.show_all.time_lapse.PM") %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% Day.where(availability_id: resource.id).where(" am_start IS NOT NULL OR pm_start  IS NOT NULL").order(:day).each do |day| %>
+    <tr>
+      <td>
+        <%= get_day_by_number(day.day) %>
+      </td>
+      <td>
+        <%= day.am_start.nil? ? "" : day.am_start.to_s(:time) %>
+        -
+        <%= day.am_end.nil? ? "" : day.am_end.to_s(:time) %>
+      </td>
+      <td>
+        <%= day.pm_start.nil? ? "" : day.pm_start.to_s(:time) %>
+        -
+        <%= day.pm_end.nil? ? "" : day.pm_end.to_s(:time) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

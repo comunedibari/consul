@@ -1,0 +1,56 @@
+<% provide :title do %><%= @reporting.title %><% end %>
+<% provide :social_media_meta_tags do %>
+<%= render "shared/social_media_meta_tags",
+            social_url: reporting_url(@reporting),
+            social_title: @reporting.title,
+            social_description: @reporting.summary %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: reporting_url(@reporting) %>
+<% end %>
+
+<% cache [locale_and_user_status(@reporting), @reporting, @reporting.author, Flag.flagged?(current_user, @reporting), @reporting_votes] do %>
+  <div class="reporting-show">
+    <div id="<%= dom_id(@reporting) %>" class="row">
+      <div class="small-12 medium-8 column">
+
+        <h1><%= t("reportings.reporting.created") %></h1>
+
+        <p>
+          <span class="lead"><%= t("reportings.reporting.share.guide") %></span><br>
+          <%= t("reportings.reporting.share.edit") %>
+        </p>
+
+        <%= render partial: 'shared/social_share', locals: {
+          title: @reporting.title,
+          url: reporting_url(@reporting),
+          description: @reporting.summary
+        } %>
+
+        <% if @reporting_improvement_path.present? %>
+          <div class="callout highlight margin-top text-center">
+            <p class="lead"><strong><%= t("reportings.reporting.improve_info") %></strong></p>
+            <%= link_to t("reportings.reporting.improve_info_link"), @reporting_improvement_path, class: "button" %>
+          </div>
+        <% end %>
+
+        <div class="small margin-bottom">
+          <%= link_to t("reportings.reporting.share.view_reporting"), reporting_path(@reporting) %>
+        </div>
+      </div>
+
+      <%
+=begin%>
+ <div class="small-12 medium-4 column">
+        <div class="callout light">
+          <p>
+            <strong><%= @reporting.title %></strong><br>
+            <%#= t("reportings.show.code") %> <%#= @reporting.code %>
+          </p>
+        </div>
+      </div> 
+<%
+=end%>
+    </div>
+  </div>
+<% end %>

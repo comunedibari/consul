@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="event-form row">
+    <div class="small-12 medium-9 column">
+      <%= back_link_to events_path %>
+
+      <h1><span class="icon-proposals float-left"></span><%= t("events.new.start_new") %></h1>
+
+      <%= render "events/form", form_url: events_url %>
+    </div>
+    <div class="small-12 medium-3 column">
+      <h2><%= t("events.new.recommendations_title") %></h2>
+      <ul class="recommendations">
+        <li><%= t("events.new.recommendation_one") %></li>
+        <li><%= t("events.new.recommendation_two") %></li>
+        <li><%= t("events.new.recommendation_three") %></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div id="<%= dom_id(agreement) %>" class="legislation clear">
+  <div class="column row legislation-text">
+    <div class="small-12 medium-8 column">
+      <div class="legislation-text">
+       <% if agreement.agreement_type != 4 %>
+          <h3><%= link_to agreement.title.capitalize, agreement %></h3>
+          <p class="proposal-info">
+              <span> <%= t("proposals.show.create_date") %>: </span>
+              <%= l agreement.created_at.to_date %>
+              <% if agreement.author.hidden? || agreement.author.erased? %>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="author">
+                  <%= t("proposals.show.author_deleted") %>
+                </span>
+              <% elsif agreement.sector_content.presence %> 
+                 <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="author">
+                  <span class="author">
+                      <%= agreement.sector_content.sector.name %>
+                  </span>
+              <% else %>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="author">
+                  <%= agreement.author.name %>
+                </span>
+                <% if agreement.author.display_official_position_badge? %>
+                  <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                  <span class="label round level-<%= agreement.author.official_level %>">
+                    <%= agreement.author.official_position %>
+                  </span>
+                <% end %>
+              <% end %>
+
+              <% if agreement.author.verified_organization? %>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="label round is-association">
+                  <%= t("shared.collective") %>
+                </span>
+              <% end %>
+            </p>
+        <%  else %> 
+            <h3><%= link_to("Progetto #{agreement.external_id}", agreement) %></h3>
+              <span class="label round is-author " title="<%= t("agreements.sgap_label") %>">
+                <%= t("agreements.agreement_sgap.label") %>                
+              </span>        
+        <% end %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-4 column">
+      <% if agreement.open? %>
+        <% if user_signed_in? && agreement.already_subscription?(current_user)  %>
+          <%= link_to agreement, class: "btn btn-outline-primary btn-block btn", title:  t(".see_latest_comments_title") do %>
+            <span class="icon-comments"></span>&nbsp; <%= t(".see_latest_comments") %>
+          <% end %>
+        <% else %>
+          <% if current_user && (  (service_social?(:collaboration) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test'  )%>
+            <%= link_to agreement, class: "btn btn-outline-primary btn-block btn", title:  t("agreement.index.not_subscription") do %>
+              <span class="icon-comments"></span>&nbsp; <%= t("agreement.index.not_subscription") %>        
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= link_to agreement, class: "btn btn-outline-primary btn-block btn", title:  t(".see_latest_comments_title") do %>
+          <span class="icon-comments"></span>&nbsp; <%= t(".see_latest_comments") %>
+        <% end %>      
+      <% end %>
+    </div>
+  
+    <div class="small-12 medium-11 column end" style="text-align: justify;">
+      <%= markdown(agreement.summary.present? ? agreement.summary : first_paragraph(agreement.description)) %>
+      <%= render "tags", taggable: agreement, taggable_name: taggable_name, limit: 5 %>
+    </div> 
+  </div>
+
+<%  if agreement.agreement_type == 1  %> 
+  <% if agreement.enabled_phases_and_publications_count.positive? %>
+  <% column_width = 12 / agreement.enabled_phases_and_publications_count %>
+
+
+  <div class="column row small-collapse medium-uncollapse collaboration-calendar">
+    <% if agreement.present? %>
+      <div class="small-6 medium-6 column">
+        <h4><%= t("collaboration.agreements.shared.consultation") %></h4> 
+        <p><%= format_date(agreement.start_date) %> - <%= format_date(agreement.end_date) %></p>
+      </div>
+    <% end %>
+  <% else %>
+  <div class="column row small-collapse medium-uncollapse collaboration-calendar">
+      <div class="small-12 medium-4 column">
+        <h4><%= t("collaboration.agreements.shared.membership_submission_start_date") %></h4>
+        <p><%= format_date(agreement.start_date) %> </p>
+      </div>
+      <div class="small-12 medium-4 column">
+        <h4><%= t("collaboration.agreements.shared.membership_submission_end_date") %></h4>
+        <p><%= format_date(agreement.end_date) %> </p>
+      </div>
+      <div class="small-12 medium-4 column">
+        <h4><%= t("collaboration.agreements.shared.number_of_registrations") %></h4>
+        <p> <%= agreement.subscriptions_count.to_i %>  </p>
+      </div> 
+
+
+<!--
+      <%# if agreement.draft_publication.enabled? %>
+        <div class="small-6 medium-<%#= column_width %> column">
+          <h4><%#= t("collaboration.agreements.shared.draft_publication_date") %></h4>
+          <p><%#= format_date(agreement.draft_publication_date) %></p>
+        </div>
+      <%# end %>
+
+      <%# if agreement.proposals_phase.enabled? %>
+        <div class="small-6 medium-<%#= column_width %> column">
+          <h4><%#= t("collaboration.agreements.shared.proposals_dates") %></h4>
+          <p><%#= format_date(agreement.proposals_phase_start_date) %> - <%#= format_date(agreement.proposals_phase_end_date) %></p>
+        </div>
+      <%# end %>
+
+      <%# if agreement.allegations_phase.enabled? %>
+        <div class="small-6 medium-<%#= column_width %> column">
+          <h4><%#= t("collaboration.agreements.shared.allegations_dates") %></h4>
+          <p><%#= format_date(agreement.allegations_start_date) %> - <%#= format_date(agreement.allegations_end_date) %></p>
+        </div>
+      <%# end %>
+
+      <%# if agreement.result_publication.enabled? %>
+        <div class="small-6 medium-<%#= column_width %> column">
+          <h4><%#= t("collaboration.agreements.shared.result_publication_date") %></h4>
+          <p><%#= format_date(agreement.result_publication_date) %></p>
+        </div>
+      <%# end %>
+-->
+    </div>
+  <% end %>
+ <% end %>
+</div>

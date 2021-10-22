@@ -1,0 +1,33 @@
+
+<% if isComment %>
+  <% @max_documents_allowed = Comment.max_documents_allowed %>
+<%else%>
+  <% @max_documents_allowed = documentable.class.max_documents_allowed %>
+<%end%>
+
+<div class="documents-list">
+    <% if @operation != 'select' %>
+      <%= f.label :documents, t("documents.form.title") %>
+      <p class="help-text"><%= documentables_note(documentable,@max_documents_allowed) %></p>
+    <% end %>
+
+  <% css_id = rand(1..999999).to_s #css_id.nil? ? 1 : css_id %>
+  <div id=<%= "nested-documents_#{css_id}" %> data-max-documents-allowed="<%= @max_documents_allowed %>" style="margin-top: 10px">
+    <%= f.fields_for :documents do |documents_builder| %>
+      <%= render 'documents/document_fields', f: documents_builder %>
+    <% end %>
+  </div>
+
+  <%= link_to_add_association t('documents.form.add_new_document'), f, :documents,
+                              partial: "documents/document_fields",
+                              id: "new_document_link",
+                              class: "btn btn-outline-primary my-3  #{"hide" if documentable.documents.count >= @max_documents_allowed and !isComment}",
+                              data: {
+                                association_insertion_node: "#nested-documents_#{css_id}",
+                                association_insertion_method: "append"
+                              } %>
+
+  <div id="max-documents-notice" class="max-documents-notice callout primary text-center <%= "hide" unless (max_documents_allowed?(documentable) and !isComment) %>">
+    <%= t "documents.max_documents_allowed_reached_html" %>
+  </div>
+</div>

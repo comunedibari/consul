@@ -1,0 +1,41 @@
+<%= back_link_to admin_moderable_bookings_path, t("admin.moderable_bookings.back") %>
+
+<div class="row margin-top">
+  <div class="small-12 medium-12 column">
+    <h2><span> <%= params[:approved] == 'false' ? "Disapprova" : "Approva" %></span></h2>
+  </div>
+</div>
+<div class="row margin-top">
+  <div class="small-12 medium-12 column">
+    <h4><span class="float-left"></span><%= t("admin.moderable_bookings.edit.detail") %></h4>
+    <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+      <thead>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= t("admin.moderable_bookings.edit.table.asset") %>:</td>
+        <td><strong><%= Asset.find(@moderable_booking.bookable_id).name.to_s %> </strong></td>
+      </tr>
+      <tr>
+        <td><%= t("admin.moderable_bookings.edit.table.name") %>:</td>
+        <td><strong><%= User.find(@moderable_booking.booker_id).username.to_s %> </strong></td>
+      </tr>
+      <tr>
+        <td><%= t("admin.moderable_bookings.edit.table.day") %>:</td>
+        <td><strong><%= @moderable_booking.time_end.strftime("%d-%m-%Y") %> </strong></td>
+      </tr>
+      <td><%= t("admin.moderable_bookings.edit.table.start_date") %>:</td>
+      <td><strong><%= @moderable_booking.time_start.to_s(:time) %></strong></td>
+      </tr>
+      <tr>
+        <td><%= t("admin.moderable_bookings.edit.table.end_date") %>:</td>
+        <td><strong><%= @moderable_booking.time_end.to_s(:time) %> </strong></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= render 'form', form_url: admin_moderable_booking_path %>
+
+

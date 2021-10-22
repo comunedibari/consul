@@ -1,0 +1,39 @@
+<div class="it-list-wrapper">
+  <% if current_user_investments.count > 0 %>
+    <ul class="list-group pl-0 ml-0">
+      <ul class="it-list">
+        <% current_user_investments.each do |investment| %>
+          <li>
+            <a href="<%= crowdfunding_user_investment_path(investment.crowdfunding.id, investment) %>"
+               class="text-dark"
+            >
+              <div class="it-right-zone justify-content-around ml-0">
+                <div class="small-12 column">
+                  <%= t("crowdfundings.user_investments.investment.date") %>:
+                  <span class="d-none d-sm-inline"><strong><%= investment.created_at.strftime("%d/%m/%Y - %H:%M:%S") %></strong></span>
+                  <span class="d-sm-none"><small><strong><%= investment.created_at.strftime("%d/%m/%Y - %H:%M:%S") %></strong></small></span>
+                </div>
+                <div class="small-12 column">
+                  <%= t("crowdfundings.user_investments.investment.investment") %>:
+                  <span class="d-none d-sm-inline"><strong><%= number_to_euro(investment.value_investements) %></strong></span>
+                  <span class="d-sm-none"><small><strong><%= number_to_euro(investment.value_investements) %></strong></small></span>
+                </div>
+                <div class="small-12 column">
+                  <%= t("crowdfundings.user_investments.investment.status") %>:
+                  <span class="badge badge-<%= get_status_badge_class investment %>"><%= view_status investment %></span>
+                </div>
+              </div>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+
+    </ul>
+  <% else %>
+  <p>
+    <%= t('crowdfundings.show.no_current_user_investments') %>
+  </p>
+  <% end %>
+</div>
+
+<%= paginate current_user_investments, param_name: :my_inv_list_page %>

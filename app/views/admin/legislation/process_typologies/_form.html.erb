@@ -1,0 +1,42 @@
+<%= form_for [:admin, @typology], :url => url, html: {data: {watch_changes: true}} do |f| %>
+
+  <% if @typology.errors.any? %>
+    <div id="error_explanation" data-alert class="callout alert" data-closable>
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <strong>
+        <%= @typology.errors.count %>
+        <%= t("admin.legislation.processes.errors.form.error", count: @typology.errors.count) %>
+      </strong>
+    </div>
+  <% end %>
+
+  <div class="row" >
+    <div class="small-12 medium-4 column" >
+      <%= f.label t("admin.legislation.process_typologies.new.name") %>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.text_field :name,
+                       label: false %>
+    </div>
+  </div>
+
+  <%#= CAMPO ACTIVE NASCOSTO %>
+  <!-- <div class="row" >
+    <div class="small-12 medium-4 column" >
+      <%#= f.label t("admin.legislation.process_typologies.new.active") %>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%#= f.check_box :active,
+                       label: false %>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="small-12 column medium-12 text-right">
+      <%= f.submit(class: "button", value: t("admin.legislation.process_typologies.#{admin_submit_action(@typology)}.submit_button_typology")) %>
+    </div>
+  </div>
+<% end %>

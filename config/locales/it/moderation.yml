@@ -1,0 +1,198 @@
+---
+it:
+  moderation:
+    processes:
+      index:
+        title: Proposte e iniziative
+        order: Ordine
+        orders:
+          start_date: Più segnalati
+          flags: Più segnalati
+          newest: Più nuovi
+          created_at: Più recenti
+        headers:
+          process: Proposta e progetto
+          moderate: Modera
+        confirm: Sei sicuro?
+        filters:
+          new_hidden: Da approvare
+          pending_flag_review: In attesa di revisione
+          all_moderate: Tutte
+          with_ignored_flag: Marcati come esaminati
+        block_authors: Blocca autori
+        hide_processes: Nascondi Proposte e Iniziative
+        ignore_flags: Segna come esaminati
+    comments:
+      index:
+        block_authors: Blocca autori
+        confirm: Sei sicuro?
+        filter: Filtro
+        filters:
+          all: Tutti
+          new_hidden: Da approvare
+          all_moderate: Tutte
+          pending_flag_review: In sospeso
+          with_ignored_flag: Marcati come esaminati
+        headers:
+          comment: Commenti
+          moderate: Modera
+        hide_comments: Nascondi commenti
+        ignore_flags: Segna come esaminati
+        order: Ordine
+        orders:
+          flags: Più segnalati
+          newest: Più nuovi
+        title: Commenti
+    dashboard:
+      index:
+        title: Moderare
+    debates:
+      index:
+        block_authors: Blocca autori
+        confirm: Sei sicuro?
+        filter: Filtra
+        filters:
+          all: Tutti
+          new_hidden: Da approvare
+          all_moderate: Tutte
+          pending_flag_review: In sospeso
+          with_ignored_flag: Marcati come esaminati
+        headers:
+          debate: Forum
+          moderate: Modera
+        hide_debates: Nascondi forum
+        ignore_flags: Segna come esaminati
+        order: Ordine
+        orders:
+          created_at: Più nuovi
+          flags: Più segnalati
+        title: Forum
+    st_sectors:
+      outcome:
+        form:
+          submit_button: Conferma
+      index:
+        block_authors: Blocca autori
+        confirm: Sei sicuro?
+        filter: Filtra
+        filters:
+          new_adds: Nuovi inserimenti
+          change_requests: Richieste di modifica
+          cancellation_requests: Richieste di cancellazione
+          all: Tutti
+          new_hidden: Da approvare
+          all_moderate: Tutte
+          pending_flag_review: In sospeso
+          with_ignored_flag: Marcati come esaminati
+        headers:
+          data: Dati
+          moderate: Modera
+        order: Ordine
+        orders:
+          created_at: Più nuovi
+        title: Associazioni Terzo Settore
+    events:
+      index:
+        block_authors: Blocca Autori
+        confirm: Sei sicuro?
+        hide_events: Nascondi eventi
+        ignore_flags: Segna come Esaminati
+        title: Eventi
+        filters:
+          new_hidden: Da approvare
+          pending_flag_review: In attesa di revisione
+          all_moderate: Tutti
+          with_ignored_flag: Marcati come esaminati
+        headers:
+          event: Evento
+          moderate: Modera
+        order: Ordina per
+        orders:
+          created_at: Più recenti
+          flags: Più segnalati
+    header:
+      title: Moderazione
+    menu:
+      process_processes_proposals: Proposte e iniziative
+      events: Eventi
+      flagged_comments: Commenti
+      flagged_debates: Forum
+      sectors: Associazioni Terzo Settore
+      proposals: Proposte
+      crowdfundings: Crowdfundings
+      reportings: Segnalazioni       #moderazione su reporting
+      titles: Proposte / Segnalazioni / Dibattiti / Commenti
+      info: Da qui puoi moderare il sistema, attraverso le seguenti azioni
+      lock: Utenti Bloccati         #fine moderazione
+      users: Blocca utenti
+    proposals:
+      index:
+        block_authors: Blocca autori
+        confirm: Sei sicuro?
+        filter: Filtro
+        filters:
+          new_hidden: Da approvare
+          all_moderate: Tutte
+          all: Tutte
+          pending_flag_review: In attesa di revisione
+          with_ignored_flag: Marcate come esaminate
+        headers:
+          moderate: Modera
+          proposal: Proposta
+        hide_proposals: Nascondi Proposte
+        ignore_flags: Segna come esaminate
+        order: Ordina per
+        orders:
+          created_at: Più recenti
+          flags: Più segnalate
+        title: Proposte
+    crowdfundings:
+      index:
+        block_authors: Blocca autori
+        confirm: Sei sicuro?
+        filter: Filtro
+        filters:
+          new_hidden: Da approvare
+          all_moderate: Tutti
+          all: Tutti
+          pending_flag_review: In attesa di revisione
+          with_ignored_flag: Marcati come esaminati
+        headers:
+          moderate: Modera
+          crowdfunding: Crowdfunding
+        hide_crowdfundings: Nascondi Crowdfundings
+        ignore_flags: Segna come esaminati
+        order: Ordina per
+        orders:
+          created_at: Più recenti
+          flags: Più segnalati
+        title: Crowdfundings
+    reportings:        #moderazione su reporting
+      index:
+        block_authors: Blocca autori
+        confirm: Sei sicuro?
+        filter: Filtro
+        filters:
+          new_hidden: Da approvare
+          all_moderate: Tutte
+          all: Tutte
+          pending_flag_review: In attesa di revisione
+          with_ignored_flag: Marcate come esaminate
+        headers:
+          moderate: Modera
+          reporting: Segnalazione
+        hide_reportings: Nascondi Segnalazioni
+        ignore_flags: Segna come esaminate
+        order: Ordina per
+        orders:
+          created_at: Più recenti
+          flags: Più segnalate
+        title: Segnalazioni
+    users:
+      index:
+        hidden: Bloccato
+        hide: Blocca
+        search: Cerca
+        search_placeholder: email o nome utente
+        title: Blocca utenti
+      notice_hide: Utente bloccato. Tutte le sue Discussioni e i suoi commenti sono stati nascosti.

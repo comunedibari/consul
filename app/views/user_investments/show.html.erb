@@ -1,0 +1,170 @@
+<% provide :title do %><%= @user_investment.crowdfunding.title %>
+<% end %>
+
+
+
+<div class="proposal-show">
+  <div id="<%= dom_id(@user_investment) %>" class="container">
+
+    <%# if author_of_crowdfunding?(@user_investment.crowdfunding) %>
+      <%#= back_link_to investments_admin_crowdfunding_path(@user_investment.crowdfunding_id) %>
+    <%# else %>
+      <%#= back_link_to crowdfunding_path(@user_investment.crowdfunding_id) %>
+    <%# end %>
+
+    <%= back_link_to %>
+
+    <h1><%= t("crowdfundings.user_investments.show.investment") %>#<%= @user_investment.id %></h1>
+
+
+    <div class="row" style="margin-top:50px;">
+      <div class="col-sm-12 col">
+        <h3><%= t("crowdfundings.user_investments.show.title") %> </h3>
+        <hr>
+      </div>
+      <div class="col-sm-12 col">
+        <p><%= @user_investment.crowdfunding.title.to_s %></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-9 col">
+        <h3><%= t("admin.crowdfundings_admin.form.title") %></h3>
+      </div>
+    </div>
+    <hr>
+
+    <div class="col-sm-12 col-md-4 col legislation-process-start">
+      <strong><%= t('admin.crowdfundings_admin.form.start') %></strong>
+    </div>
+    <div class="col-sm-12 col-md-8 col">
+      <p><%= @user_investment.crowdfunding.start_date.strftime("%d/%m/%Y").to_s %></p>
+    </div>
+    <div class="col-sm-12 col-md-4 col legislation-process-end">
+      <strong><%= t('admin.crowdfundings_admin.form.end') %></strong>
+    </div>
+    <div class="col-sm-12 col-md-8 col">
+      <p><%= @user_investment.crowdfunding.end_date.strftime("%d/%m/%Y").to_s %></p>
+    </div>
+
+
+    <%#  campi  %>
+
+    <div class="col-sm-12 col-md-4 col">
+      <strong><%= t('admin.crowdfundings_admin.form.author') %></strong>
+    </div>
+    <div class="col-sm-12 col-md-8 col">
+      <p>
+        <%= unless @user_investment.investor.blank?
+             '( ' + @user_investment.investor.to_s + ' )'
+           end
+        %>
+        <%= @user_investment.crowdfunding.author.username.to_s %>
+      </p>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col">
+      <strong><%= t('crowdfundings.form.crowdfunding_price_goal') %></strong>
+    </div>
+    <div class="col-sm-12 col-md-8 col">
+      <p><%= number_to_currency(@user_investment.crowdfunding.price_goal, :unit => '€') %></p>
+    </div>
+
+
+    <div class="col-sm-12 col-md-4 col">
+      <strong><%= t('crowdfundings.form.crowdfunding_min_price') %></strong>
+    </div>
+    <div class="col-sm-12 col-md-8 col">
+      <p><%= number_to_currency(@user_investment.crowdfunding.min_price, :unit => '€') %></p>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col">
+      <strong><%= t('crowdfundings.show.total_investments') %></strong>
+    </div>
+    <div class="col-sm-12 col-md-8 col">
+      <p><%= number_to_currency(@user_investment.crowdfunding.total_investiment, :unit => '€') %></p>
+    </div>
+
+
+    <div class="col-sm-12 col-md-4 col">
+      <strong><%= t('crowdfundings.show.count_investors') %></strong>
+    </div>
+    <div class="col-sm-12 col-md-8 col">
+      <p><%= @user_investment.crowdfunding.count_investors.to_s %></p>
+    </div>
+
+    <hr>
+
+    <div class="row" style="margin-top:50px;">
+      <div class="col-sm-12 col">
+        <h3><%= t("crowdfundings.user_investments.show.summary") %> </h3>
+        <hr>
+      </div>
+      <div class="col-sm-12 col">
+        <p><%= safe_html_with_links @user_investment.crowdfunding.summary %> </p>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:50px;">
+      <div class="col-sm-12 col">
+        <h3><%= t("crowdfundings.user_investments.show.description") %> </h3>
+        <hr>
+      </div>
+      <div class="col-sm-12 col">
+        <p><%= safe_html_with_links @user_investment.crowdfunding.description %> </p>
+      </div>
+    </div>
+
+
+    <div class="row" style="margin-top:50px;">
+      <div class="col-sm-12 col">
+        <h3><%= t("crowdfundings.user_investments.show.investment_detail") %> </h3>
+        <hr>
+      </div>
+
+
+      <div class="col-sm-12 col-md-4 col">
+        <strong><%= t('crowdfundings.user_investments.show.value_investements') %></strong>
+      </div>
+      <div class="col-sm-12 col-md-8 col">
+        <p><%= @user_investment.value_investements.to_s %></p>
+      </div>
+
+      <div class="col-sm-12 col-md-4 col">
+        <strong><%= t('crowdfundings.user_investments.show.note') %></strong>
+      </div>
+      <div class="col-sm-12 col-md-8 col">
+        <p><%= @user_investment.note.to_s %></p>
+      </div>
+
+      <div class="col-sm-12 col-md-4 col">
+        <strong><%= t('crowdfundings.user_investments.show.refound_info') %></strong>
+      </div>
+      <div class="col-sm-12 col-md-8 col">
+        <p><%= safe_html_with_links @user_investment.refound_info.to_s %></p>
+      </div>
+
+      <div class="col-sm-12 col-md-4 col">
+        <strong><%= t('crowdfundings.user_investments.show.reward_info') %></strong>
+      </div>
+      <div class="col-sm-12 col-md-8 col">
+        <p><%= safe_html_with_links @user_investment.reward_info.to_s %></p>
+      </div>
+    </div>
+
+
+    <br>
+    <br>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+<div class="row section-content">
+  <div class="small-12 column">
+    <h3 id="reportings" data-magellan-target="reportings">
+      <%= t("pages.help.reportings.title") %>
+    </h3>
+    <p>
+      <%= t("pages.help.reportings.description",
+              link: link_to(t("pages.help.reportings.link"), reportings_path)).html_safe %>
+    </p>
+    <ul class="features">
+      <li>
+        <%= t("pages.help.reportings.feature_html",
+              org: Setting['org_name',User.pon_id].to_s,
+              supports: setting['votes_for_crowdfunding_success']).html_safe %>
+      </li>
+    </ul>
+
+  </div>
+</div>

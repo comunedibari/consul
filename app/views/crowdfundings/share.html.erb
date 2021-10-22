@@ -1,0 +1,52 @@
+<% provide :title do %><%= @crowdfunding.title %><% end %>
+<% provide :social_media_meta_tags do %>
+<%= render "shared/social_media_meta_tags",
+            social_url: crowdfunding_url(@crowdfunding),
+            social_title: @crowdfunding.title,
+            social_description: @crowdfunding.summary %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: crowdfunding_url(@crowdfunding) %>
+<% end %>
+
+<%# cache [locale_and_user_status(@crowdfunding), @crowdfunding, @crowdfunding.author, Flag.flagged?(current_user, @crowdfunding), @crowdfunding_votes] do %>
+  <div class="service-show">
+    <div id="<%= dom_id(@crowdfunding) %>" class="row">
+      <div class="small-12 medium-8 column">
+
+        <h1><%= t("crowdfundings.crowdfunding.created") %></h1>
+
+        <p>
+          <span class="lead"><%= t("crowdfundings.crowdfunding.share.guide") %></span><br>
+          <%= t("crowdfundings.crowdfunding.share.edit") %>
+        </p>
+
+        <%= render partial: 'shared/social_share', locals: {
+          title: @crowdfunding.title,
+          url: crowdfunding_url(@crowdfunding),
+          description: @crowdfunding.summary
+        } %>
+
+        <% if @crowdfunding_improvement_path.present? %>
+          <div class="callout highlight margin-top text-center">
+            <p class="lead"><strong><%= t("crowdfundings.crowdfunding.improve_info") %></strong></p>
+            <%= link_to t("crowdfundings.crowdfunding.improve_info_link"), @crowdfunding_improvement_path, class: "button" %>
+          </div>
+        <% end %>
+
+        <div class="small margin-bottom">
+          <%= link_to t("crowdfundings.crowdfunding.share.view_crowdfunding"), crowdfunding_path(@crowdfunding) %>
+        </div>
+      </div>
+
+      <div class="small-12 medium-4 column">
+        <div class="callout light">
+          <p>
+            <strong><%= @crowdfunding.title %></strong><br>
+            <%= t("crowdfundings.show.code") %> <%= @crowdfunding.code %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+<%# end %>

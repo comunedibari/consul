@@ -1,0 +1,218 @@
+<div id="<%= dom_id(crowdfunding) %>"
+     class="service clear <%= ("successful" if crowdfunding.total_investiment >= crowdfunding.price_goal) %>"
+     data-type="crowdfunding">
+
+  <script>
+    window.dispatchEvent(new Event('resize'));
+  </script>
+
+
+  <div data-equalizer-watch style="padding:0; border: 1px solid #dcdcdc; border-radius: 3px;" class="card_material panel <%= ('with-image' if feature?(:allow_images) && crowdfunding.images.present?) %>">
+    <div class="service-card-content cwd">
+      <% if user_signed_in? && crowdfunding.already_invest?(current_user) %>
+        <div class="icon-crowdfunding-invest already-answer" title="<%= t("crowdfundings.index.already_invest") %>">
+          <span class="show-for-sr"><%= t("polls.index.already_answer") %></span>
+        </div>
+      <% end %>
+      <div class="card__img">
+        <% if feature?(:allow_images) && crowdfunding.images.present? %>
+          <div style="background-image: url('<%= crowdfunding.image_url(:large) %>' ); min-width: 100%;background-size: cover; background-repeat: no-repeat;height: 270px;background-position: center;">
+          </div>
+        <% else %>
+          <div style="background-image: url('/assets/crowdfundings/crowd.JPG'); min-width: 100%;background-size: cover; background-repeat: no-repeat;height: 270px;background-position: center;">
+          </div>
+        <% end %>
+        <div class="icon-successful"></div>
+        <div class="row">
+          <div class="small-12 column">
+            <div class="row service-content">
+              <div class="column" style="height: 281px">
+                <% cache [locale_and_user_status(crowdfunding), 'index', crowdfunding, crowdfunding.author] do %>
+
+
+                  <div id="crowdfunding_poupup" class="prova" name="<%= crowdfunding.title %>">
+                    <h4><%= link_to crowdfunding.title, namespaced_crowdfunding_path(crowdfunding), class: "card-title" %></h4>
+                  </div>
+                  <div class="tooltip_p arrow-top" data-placement="auto right"><%= t("crowdfundings.index.focus_info") %></div>
+
+                  <p class="service-info" style="line-height: 1rem;">
+                    <span class="icon-comments"></span>&nbsp;
+                    <%= link_to t("crowdfundings.crowdfunding.comments", count: crowdfunding.comments_count), namespaced_crowdfunding_path(crowdfunding, anchor: "comments") %>
+                    <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                    <%= l crowdfunding.created_at.to_date %>
+                    <% if crowdfunding.author.hidden? || crowdfunding.author.erased? %>
+                      <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                      <span class="author">
+                            <%= t("crowdfundings.show.author_deleted") %>
+                            </span>
+                    <% elsif crowdfunding.sector_content.presence %>
+                      <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                      <span class="author">
+                            <%= crowdfunding.sector_content.sector.name %>
+                            </span>
+                    <% else %>
+                      <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                      <span class="author">
+                            <%= crowdfunding.author.name %>
+                            </span>
+
+                    <% end %>
+                    <% if crowdfunding.author.verified_organization? %>
+                      <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                      <span class="label round is-association">
+                            <%= t("shared.collective") %>
+                            </span>
+                    <% end %>
+                  </p>
+                  <div class="service-description" style="margin-top:10px; max-height: 168px;">
+                    <p><%= crowdfunding.summary %></p>
+                    <div class="truncate"></div>
+                  </div>
+                  <%= render "shared/tags", taggable: crowdfunding, limit: 3 %>
+
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 column">
+            <div class="row">
+              <div class="small-6 medium-6 column">
+                <p class="p-gray"><%= t("crowdfundings.show.total_investments") %></p>
+                <p class="p-crowd"><%= number_to_euro(crowdfunding.total_investiment) %></p>
+              </div>
+              <div class="small-6 medium-6 column" style="padding-top: 0px">
+                <p class="p-gray"><%= t("crowdfundings.show.total_investors") %></p>
+                <p class="p-crowd"><%= crowdfunding.count_investors %></p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="small-12 column">
+            <div class="column">
+              <div class="small-12 column">
+                <% if crowdfunding.open? %>
+                  <div class="progress" style="background-color: #fee8da">
+                    <div
+                      class="progress-bar crowdfunding-progress-bar"
+                      role="progressbar"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      style=" width: <%= percentage_achieved(crowdfunding).to_i %>%;
+                        background-color: rgb(255, 127, 41)!important;
+                        color: #000!important;">
+                      <span class="justify-content-center d-flex position-absolute w-75 mw-100">
+                        <%= percentage_achieved(crowdfunding).to_i %> %
+                      </span>
+                    </div>
+                  </div>
+                  <!--                    <span><svg id='<%#= crowdfunding.id %>'></svg></span>-->
+                  <p style="color: #FF7F29; text-align:center;"><%= time_missing(crowdfunding) %> <%= t("crowdfundings.show.days_left") %></p>
+                  <%# if current_user && ((service_social?(:crowdfundings) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator?) %>
+                  <% if can? :new, UserInvestment and investable_by_social(crowdfunding) %>
+                    <%= link_to t("crowdfundings.show.invest"), namespaced_crowdfunding_path(crowdfunding), class: "button expanded", id: "btn_#{crowdfunding.id}" %>
+                  <% else %>
+                    <%= link_to t("crowdfundings.show.visualize").upcase, namespaced_crowdfunding_path(crowdfunding), class: "button expanded", id: "btn_#{crowdfunding.id}" %>
+                  <% end %>
+                <% elsif crowdfunding.close? %>
+                  <span><svg id='<%= crowdfunding.id %>'></svg></span>
+                  <p style="color: #FF7F29; text-align:center;"><%= t("crowdfundings.show.expired") %></p>
+                  <%= link_to t("crowdfundings.show.visualize").upcase, namespaced_crowdfunding_path(crowdfunding), class: "button expanded", id: "btn_#{crowdfunding.id}" %>
+                <% else %>
+                  <%= link_to t("crowdfundings.show.visualize").upcase, namespaced_crowdfunding_path(crowdfunding), class: "button expanded", id: "btn_#{crowdfunding.id}" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <%#div id="<%= dom_id(crowdfunding) >_votes"
+            class="small-12 medium-3 column supports-container"
+            <%= 'data-equalizer-watch' if feature?(:allow_images) && crowdfunding.images.present? >%>
+      <%# if crowdfunding.successful? %>
+      <%#div class="padding text-center">
+            <p style="line-height: initial;">
+              <%= t("crowdfundings.crowdfunding.successful",
+               voting: link_to(t("crowdfundings.crowdfunding.voting"), polls_path)).html_safe %>
+      <%#/p>
+            <%= image_tag "crowdfunding_votes.png"  %>
+      <%#/div>
+            <% if can? :create, Poll::Question %>
+      <%#div class="in-favour">
+            </div>
+            <% end %>
+      <%# elsif crowdfunding.archived? %>
+      <%#div class="padding text-center">
+            <strong><%= t("crowdfundings.crowdfunding.supports", count: crowdfunding.total_votes) %><%#/strong>
+            <%#p><%= t("crowdfundings.crowdfunding.archived") %><%#/p>
+            <%#/div>
+               <% else %>
+      <%#= render 'votes',
+            { crowdfunding: crowdfunding, vote_url: vote_crowdfunding_path(crowdfunding, value: 'yes') } %>
+      <%# end %>
+      <%#/div%>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(window).on('load', function () {
+    var x = $("#btn_<%= crowdfunding.id %>").parent().width();
+
+    console.log(`X calcolata per ID <%= crowdfunding.id %>: `, x);
+
+    $('#<%= crowdfunding.id %>').Progress({
+      width: x,
+      height: 16,
+      percent: '<%= percentage_achieved(crowdfunding) %>',
+      backgroundColor: '#fee8da',
+      barColor: 'rgb(255, 127, 41)',
+      fontColor: 'black',
+      style: 'font-weight:bold;',
+      radius: 3,
+      fontSize: 11,
+      increaseSpeed: 3,
+      animate: true
+    });
+  });
+
+  $(window).on('resize', function () {
+    var x = $("#btn_<%= crowdfunding.id %>").parent().width();
+
+    $('#<%= crowdfunding.id %>').Progress({
+      width: x,
+      height: 16,
+      percent: '<%= percentage_achieved(crowdfunding) %>',
+      backgroundColor: '#fee8da',
+      barColor: 'rgb(255, 127, 41)',
+      fontColor: 'black',
+      style: 'font-weight:bold;',
+      radius: 3,
+      fontSize: 11,
+      increaseSpeed: 3,
+      animate: true
+    });
+  });
+
+</script>
+
+
+<script>
+  $(function () {
+    // Mostriamo i tooltip sul titolo del crowd
+    $('.prova').hover(
+      function () {
+        $(this).next().show();
+      },
+      function () {
+        $(this).next().hide();
+      }
+    )
+  })
+</script>

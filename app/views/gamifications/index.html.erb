@@ -1,0 +1,181 @@
+<div class="row">    
+    <div class="column">
+        <h2><%= t("gamification.index.title") %></h2>
+        <%= render 'shared/order_links', i18n_namespace: "gamification.index" %>
+    </div>
+
+    <div class="small-12 medium-12 column">      
+        <div data-alert class="callout primary">
+            <%= t("gamification.index.info") %>
+        </div>
+    </div>
+
+</div>
+
+<div class="row " >    
+
+    <% if @global_stats.any? %>
+        <div class="small-12 medium-6 column mb-5">      
+            <h3><%= t("gamification.index.global") %></h3>
+            <% user_list = @global_stats %>
+            <% if user_list.count > 0  %>
+                <table  id="gamtab_Global" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col"><%= t("gamification.index.rank") %></th>
+                            <th scope="col"><%= t("gamification.index.user") %></th>
+                            <th scope="col"><%= t("gamification.index.stats") %></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% count_list = 1 %>
+                        <% count_user = 0 %>
+                        <% user_list.each do |g| %>
+                        <% if g.user && check_user_admin_mod?(g.user) && count_user <50 && g.user.public_activity? %>
+                                <tr>
+                                    <td class="align-top ">
+                                        <%= count_list.to_i %>  
+                                    </td>
+                                    <% if g.user.public_activity? %>
+                                        <td class="align-top">
+                                            <span><div class="fa fa-user-circle fa-3x" style="font-size: 1.5em;" ></div> 
+                                            <%= link_to g.user.name,{ controller: "gamifications", action: :user,user_id: g.user.id },method: :get %></span>
+                                        </td>
+                                        <td class="align-top">
+                                                    <% if @current_order == "current_month" %>
+                                                        <%= g.current_month_stats %>
+                                                    <% elsif @current_order == "prec_month"  %>
+                                                        <%= g.prec_month_stats %>
+                                                    <% elsif @current_order == "total" %>
+                                                        <%= g.total_stats %>
+                                                    <% else %>
+                                                    <% end %>
+                                        </td>
+                                    <% else %>
+                                        <td class="align-top">
+                                            <span><div class="fa fa-user-circle fa-3x" style="font-size: 1.5em;"></div> 
+                                            <%= g.user.name %> </div></span>
+                                        </td>
+                                        <td class="align-top">
+                                            <%= " - " %>
+                                        </td>
+                                    <% end %>
+                                    <% count_list=count_list +1 %>                                                              
+                                </tr>
+                            <% end %>
+                            <% count_user += 1 %>
+    
+                        <% end %>                        
+                    </tbody>
+                </table>
+            <% end %>
+        </div>
+    <% else %>
+        <div class="callout primary margin-top">
+            <%= t("gamification.index.no_#{@current_order}") %>
+        </div>
+    <% end %>
+
+
+
+    <% @service_stats.each do |resource,user_list| %>
+        <%#= @@sdsds.sdsd %>
+        <% if user_list != nil  %>
+            <div class="small-12 medium-6 column mb-5">
+            <h3><%= t("gamification.index.service") %> <%= @resources_map[resource] %></h3>
+                    <table id="gamtab_<%= resource %>" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col"><%= t("gamification.index.rank") %></th>
+                                <th scope="col"><%= t("gamification.index.user") %></th>
+                                <th scope="col"><%= t("gamification.index.stats") %></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% count_list = 1 %>
+                            <% count_user = 0 %>
+                            <% user_list.each do |g| %>
+                                <% if g.user && check_user_admin_mod?(g.user) && count_user <10 && g.user.public_activity?  %>
+                                    <tr id="<%= dom_id(g) %>">
+                                            <td class="align-top">
+                                                    <%= count_list.to_i%>  
+                                            </td>
+                                            <% if g.user.public_activity? %>
+                                                <td class="align-top">
+                                                    <div class="fa fa-user-circle fa-3x" style="font-size: 1.5em;"></div> 
+                                                    <%= link_to g.user.name,{ controller: "gamifications", action: :user,user_id: g.user.id },method: :get %> </div> 
+                                                </td>
+                                                <td class="align-top">
+                                                        <% if @current_order == "current_month" %>
+                                                            <%= g.current_month_result %>
+                                                        <% elsif @current_order == "prec_month"  %>
+                                                            <%= g.prec_month_result %>
+                                                        <% elsif @current_order == "total" %>
+                                                            <%= g.total_result %>
+                                                        <% else %>
+                                                        <% end %>
+                                                </td>
+                                            <% else %>
+                                                <td class="align-top">
+                                                    <span><div class="fa fa-user-circle fa-3x" style="font-size: 1.5em;"></div> 
+                                                    <%= g.user.name %> </div></span>
+                                                </td>
+                                                <td class="align-top">
+                                                    <%= " - " %>
+                                                </td>
+                                            <% end %>
+                                        <% count_list=count_list +1 %>                                                              
+                                    </tr>
+                                    <% count_user += 1 %>
+
+                                <% end %>
+                            <% end %>
+                        </tbody>
+                    </table>
+            </div>
+        <% end %>
+    <% end %>
+
+</div>
+
+
+<script>
+
+
+$(document).ready(function() {
+
+    $( "table[id^='gamtab_']" ).each(function( index, element ){
+
+    $(element).DataTable( {
+        "searching": false,
+        "language": {
+        "sEmptyTable":     "Nessun dato presente nella tabella",
+        "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
+        "sInfoEmpty":      "Vista da 0 a 0 di 0 elementi",
+        "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
+        "sInfoPostFix":    "",
+        "sInfoThousands":  ".",
+        "sLengthMenu":     "Visualizza _MENU_ elementi",
+        "sLoadingRecords": "Caricamento...",
+        "sProcessing":     "Elaborazione...",
+        "sSearch":         "Cerca:",
+        "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
+        "oPaginate": {
+            "sFirst":      "Inizio",
+            "sPrevious":   "Prec",
+            "sNext":       "Succ",
+            "sLast":       "Fine"
+        },
+        "oAria": {
+            "sSortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sSortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+    }
+    } );
+
+});
+
+} );
+
+
+</script>

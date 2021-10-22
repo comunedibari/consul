@@ -1,0 +1,82 @@
+<% if service?(:gamification) %>
+  <% user_list = gamification_result(resource) %>
+  <% if user_list.count > 0 %>
+    <div id="gamification">
+      <br>
+      <div class="sidebar-divider"></div>
+      <h2 class="sidebar-title"><%= t("shared.gamification.gamification_result") %></h2>
+      <br>
+      <ul class="list-unstyled tag-cloud">
+        <% user_list.each do |g| %>          
+          <% if g.user %>
+            <div class="row">
+              <div class="blog-card">
+                <div class="meta large-6 medium-6 small-6">
+                  <div class="fa fa-user-circle fa-3x" style="margin-top: 13px; margin-left: 40px;"> </i></div>
+                </div>
+                <div class="description large-6 medium-6 small-6">
+                  <div style="text-align: center;">
+                    <h5>
+                      <div class="author" style="text-align: center;">
+                        <%= link_to g.user.name,
+                                    {controller: "gamifications", action: :user,
+                                    user_id: g.user.id},
+                                    method: :get %> </div>
+                    </h5>
+                    <%= g.current_month_result %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <%#= link_to t('gamification.view_gamification_stats'),{ controller: "gamifications", action: :user,user_id: current_user.id }, method: :get %>
+      <%= link_to gamifications_path do %>
+        <%= t("gamification.view_gamification_global_stats") %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if service?(:gamification) %>
+  <% user_list = gamification_result(resource) %>
+  <% if user_list.count > 0 %>
+    <div id="gamification">
+      <br>
+      <div class="sidebar-divider"></div>
+      <h2 class="sidebar-title"><%= t("shared.gamification.gamification_result") %></h2>
+      <br>
+      <div class="it-list-wrapper">
+        <ul class="it-list">
+          <% user_list.each do |g| %>
+            <% if g.user %>
+              <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6 col mb-3">
+                  <div class="fa fa-user-circle fa-3x"></div>
+                </div>
+                <li>
+                  <div class="row">
+                    <div class="col" style="text-align: center;">
+                      <%= link_to g.user.name,
+                                  {controller: "gamifications", action: :user,
+                                  user_id: g.user.id},
+                                  method: :get %>
+
+                    </div>
+                    <div class="col" style="text-align: center;">
+                      <%= g.current_month_result %>
+                    </div>
+                  </div>
+                </li>
+              </div>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>

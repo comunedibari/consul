@@ -1,0 +1,33 @@
+<% unless can?(:answer, @poll) %>
+  <% if current_user.nil? && !@poll.guest_enabled? %>
+    <div class="callout primary">
+      <%= t("polls.show.cant_answer_not_logged_in",
+            signin: link_to(t("polls.show.signin"), go_to_login, class: "probe-message")).html_safe %>
+    </div>
+  <% elsif current_user.unverified? %>
+    <div class="callout warning">
+      <%= t('polls.show.cant_answer_verify_html',
+            verify_link: link_to(t('polls.show.verify_link'), verification_path)) %>
+    </div>
+  <% elsif @poll.incoming? %>
+    <div class="callout primary">
+      <%= t('polls.show.cant_answer_incoming') %>
+    </div>
+  <% elsif @poll.expired? %>
+    <div class="callout alert">
+      <%= t('polls.show.cant_answer_expired') %>
+    </div>
+  <% elsif @poll.vote_has_been_confirmed?(current_user)%>
+    <div class="callout warning">
+      <%= t('polls.show.cant_answer_confirmed') %>
+    </div>
+  <% elsif isBlockedPrivacy %>
+    <div class="callout warning">
+      <%= "Non hai dato il tuo consenso alla privacy, l'utilizzo della piattaforma sarà limitato alla sola visualizzazione" %>
+    </div>
+  <%else%>
+    <div class="callout warning">
+      <%= t('polls.show.cant_answer_wrong_geozone') %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,6 @@
+<li id="crowdfunding_<%= crowdfunding.id %>">
+  <%= link_to crowdfunding.title, crowdfunding, crowdfunding.retired? ? { class: 'retired' } : {} %>
+  <% if crowdfunding.retired? %>
+    <span class="label alert"><%= t('users.crowdfundings.retired') %></span>
+  <% end %>
+</li>

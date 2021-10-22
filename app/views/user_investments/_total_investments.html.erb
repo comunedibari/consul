@@ -1,0 +1,66 @@
+<div class="scrollbar_table">
+    <table class="stack">
+        <thead>
+            <tr>
+                <th><%= t("crowdfundings.user_investments.investment.date") %></th>
+                <th><%= t("crowdfundings.user_investments.investment.investment") %></th>
+                <th><%= t("crowdfundings.user_investments.investment.status") %></th>
+                <th><%= t("crowdfundings.user_investments.investment.actions") %></th>
+                <th><%= t("crowdfundings.user_investments.investment.detail") %></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if current_user_investments_by(crowdfunding) %>
+            <% @total_investments.each do |investment| %>
+                <tr>
+                    <td><%=investment.created_at.strftime("%d/%m/%Y - %H:%M:%S") %></td>
+                    <td><%= investment.value_investements.to_f %> €</td>
+
+                    <% if investment.accepted? %>
+                    <td>
+                        <span class="label round accepted-inv" style="color: #fff; width: 80px; text-align: center;" >
+                            <%= view_status(investment) %>
+                        </span>
+                    </td>
+                    <% elsif investment.rejected? %>
+                    <td>
+                        <span class="label round rejected-inv" style="color: #fff; width: 80px; text-align: center;" >
+                                <%= view_status(investment) %>
+                        </span>
+                    </td>
+                    <% else %>
+                        <td>
+                            <span class="label round pending-inv" style="color: #fff; width: 80px; text-align: center;" >
+                                    <%= view_status(investment) %>
+                            </span>
+                        </td>
+                    <% end %>
+                    <% if investment.pending? %>
+                        <td>
+                            <%= link_to  "",delete_investment_crowdfunding_user_investment_path(investment.crowdfunding.id,investment),
+                                method: :put,
+                                title: t("crowdfundings.user_investments.investment.delete_investment"),
+                                class: " label round button-delete-inv icon-x a-red ",
+                                style: "width: 50px; height: 25px; text-align: center; cursor: pointer;"
+                            %>
+                        </td>
+                    <% else %>
+                        <td>
+                        </td>
+                    <% end %>
+                    <td>
+                        <%= link_to  "", crowdfunding_user_investment_path(investment.crowdfunding.id,investment),
+                            title: t("crowdfundings.user_investments.investment.show_detail"),
+                            class: " label round button-delete-inv icon-check a-red ",
+                            style: "width: 50px; height: 25px; text-align: center; cursor: pointer;"
+                        %>
+                    </td>
+
+
+                </tr>
+            <% end %>
+        <% end %>
+        </tbody>
+    </table>
+</div>

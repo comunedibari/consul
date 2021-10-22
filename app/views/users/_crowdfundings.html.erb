@@ -1,0 +1,13 @@
+<table class="margin-top">
+  <thead>
+    <th scope="col"><%= t("users.show.crowdfundings") %></th>
+    <th scope="col" colspan="2"><%= t("users.show.actions") %></th>
+  </thead>
+  <tbody>
+    <% @crowdfundings.each do |crowdfunding| %>
+      <%= render "crowdfunding", crowdfunding: crowdfunding %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @crowdfundings %>

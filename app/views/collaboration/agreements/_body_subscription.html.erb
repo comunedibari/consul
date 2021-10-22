@@ -1,0 +1,21 @@
+<% if @collaboration_agreement.description.present? %>
+  <p class="title"><%= t("collaboration.agreements.header.description") %></p>
+  <div style=" word-wrap: break-word;"><%= markdown @collaboration_agreement.description %></div>
+<% end %>
+
+
+
+<% if @collaboration_agreement.additional_info.present? %>
+  <div id="collapseDiv1" class="collapse-div" role="tablist">
+    <div class="collapse-header" id="heading3">
+      <button data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+        <%= t("collaboration.agreements.header.additional_info") %>
+      </button>
+    </div>
+    <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3">
+      <div class="collapse-body">
+        <%= markdown @collaboration_agreement.additional_info if @collaboration_agreement.additional_info %>
+      </div>
+    </div>
+  </div>
+<% end %>

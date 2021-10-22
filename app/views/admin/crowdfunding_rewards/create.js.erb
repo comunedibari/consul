@@ -1,0 +1,6 @@
+<% if @crowdfunding_reward.min_investment.to_i <= 0  %>
+    App.CrowdfundingRewards.reset_form("<%= j render("admin/crowdfunding_rewards/refuse") %>");
+<% else %>
+    $("#total_rewards_admin").html('<%= j render("admin/crowdfunding_rewards/total_rewards" , crowdfunding: @crowdfunding) %>');
+    App.CrowdfundingRewards.reset_form("<%= j render("admin/crowdfunding_rewards/approve") %>");
+<% end %>

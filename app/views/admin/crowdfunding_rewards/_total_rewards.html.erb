@@ -1,0 +1,26 @@
+<div>
+    <table>
+        <thead>
+            <th scope="col"><%= "Soglia" %></th>
+            <th scope="col"><%= "Descrizione" %></th>
+            <th scope="col"><%= "Azioni" %></th>
+        </thead>
+        <tbody>
+            <% @rewards.each do |reward| %>
+                <tr>
+                    <td><%= reward.min_investment.to_f %> €</td>
+                    <td><%= reward.description.html_safe %></td>
+                    <td class="align-middle">
+                        <a href="#tab-globals" role="tab" aria-controls="tab-globals" aria-selected="true" id="tab-globals-label">
+                            <%= link_to t("admin.legislation.processes.index.delete"),
+                                admin_crowdfunding_crowdfunding_reward_path(@crowdfunding, reward.id),
+                                method: :delete,
+                                class: 'button alert' %>
+                        </a>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+ <%= paginate @rewards %>

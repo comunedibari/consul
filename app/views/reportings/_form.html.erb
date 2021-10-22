@@ -1,0 +1,187 @@
+<%= form_for(@reporting, url: form_url) do |f| %>
+  <%= render 'shared/errors', resource: @reporting %>
+
+  <div class="row">
+    <div class="small-12 column">
+      <%= f.label :title, t("reportings.form.reporting_title") %>
+      <%= f.text_field :title, placeholder: "Inserire oggetto della segnalazione", maxlength: Reporting.title_max_length, label: false, data: {js_suggest_result: "js_suggest_result", js_suggest: "#js-suggest", js_url: suggest_reportings_path}%>
+    </div>
+    <%
+=begin%>
+ <div id="js-suggest"></div> 
+<%
+=end%>
+
+
+    <div class="small-12 medium-6 column">
+      <%= f.label :reporting_type_id,  t("reportings.form.types") %>
+      <%= f.select :reporting_type_id, reporting_types_select_options, label: false %>
+    </div>
+
+    <div class="small-12 medium-9 column " >
+      <%= f.fields_for :social_content  do |ff| %>
+      <%= ff.hidden_field :social_access, value: true %>
+        <%
+=begin%>
+ <%= ff.label :social_access, t("debates.form.social_access")  %>
+          <p class="help-text" id="tag-list-help-text"><%= t("debates.form.social_access_info") %></p>
+          <%= ff.check_box :social_access ,checked: social_access?(@reporting.social_content ? @reporting.social_content.social_access : false), title: t('debates.form.social_access'), label: false %>
+            <span class="checkbox">
+                <%= t("debates.form.social_access_check") %>
+                
+            </span> 
+<%
+=end%>
+      <% end %>
+    </div>
+
+    <%= f.invisible_captcha :subtitle %>
+
+
+    <%# <br> %>
+    <%# <div class="small-12 medium-12 column"> %>
+      <%# <%= f.label :created_at,  t("reportings.form.reporting_created_at") %> 
+      <%# <%= f.text_field :created_at, %>
+                        <%# label: false, %>
+                        <%# value: format_date_for_calendar_form(@reporting.created_at), %>
+                        <%# class: "js-calendar-full", %>
+                        <%# id: "created_at" %> 
+    <%# </div> %>
+
+  
+    <div class="ckeditor small-12 column">
+      <%= f.label :description, t("reportings.form.reporting_text") %>
+      <%= f.cktext_area :description, maxlength: Reporting.description_max_length, ckeditor: { language: I18n.locale }, label: false %>
+    </div>
+
+
+    <div class="small-12 medium-6 column" style="display: none;">
+      <%= f.label :description_status, t("reportings.form.reporting_description_status") %>
+      <p class="help-text" id="tag-list-help-text"><%= t("reportings.form.description_status_istructions") %></p>
+      <%= f.select :description_status, status_select_options, {label: false},disabled: true %>
+      <%= f.hidden_field :description_status, value: 'Inoltrata' %>
+
+    </div>
+    <%
+=begin%>
+ <div id="js-suggest"></div> 
+<%
+=end%>
+
+
+    <div class="small-12 column" style="display: none;">
+      <%= f.label :video_url, t("reportings.form.reporting_video_url") %>
+      <p class="help-text" id="video-url-help-text"><%= t("reportings.form.reporting_video_url_note") %></p>
+      <%= f.text_field :video_url, placeholder: t("reportings.form.reporting_video_url"), label: false,
+                                   aria: {describedby: "video-url-help-text"} %>
+    </div>
+
+    <div class="small-12 column"style="display: none;">
+      <%= f.label :external_url, t("reportings.form.reporting_external_url") %>
+      <%= f.text_field :external_url, placeholder: t("reportings.form.reporting_external_url"), label: false %>
+    </div>
+    <% if feature?(:allow_images) %>
+      <div class="images small-12 column my-3">
+        <%= render 'images/nested_image', imageable: @reporting, f: f,  isComment: false %>
+      </div>
+    <% end %>
+
+    <% if feature?(:allow_attached_documents) %>
+      <div class="documents small-12 column"  style="display: none;">
+        <%= render 'documents/nested_documents', documentable: @reporting, f: f,  isComment: false %>
+      </div>
+    <% end %>
+
+    <div class="small-12 medium-6 column" style="display: none;">
+      <%= f.label :geozone_id,  t("reportings.form.geozone") %>
+      <%= f.select :geozone_id, geozone_select_options, {include_blank: t("geozones.none"), label: false} %>
+    </div>
+
+
+
+
+    <div class="small-12 medium-12 large-12 column" style="display: none;">
+      <%= f.label :address, t("reportings.form.reporting_address") %>
+        <div class="input-group">
+          <%= f.text_field :address, placeholder: t("reportings.form.reporting_address"), label: false, data: {js_suggest_result: "js_suggest_result", js_suggest: "#js-suggest", js_url: suggest_reportings_path}%>
+            <div class="input-group-button">
+              <button> <%= map_location_search('') %> </button>
+              </div>
+          </div>
+       <div id="no-text-insert" class="callout alert no-text-insert primary text-center hide">
+        <%= t "account.no_text_insert_html" %>         
+      </div>
+      <div id="js-suggest"></div>
+    </div>
+
+    <% if feature?(:map) %>
+      <div class="small-12 column">
+
+        <%= render 'map_locations/form_fields',
+                   form:     f,
+                   map_location: @reporting.map_location || MapLocation.new,
+                   label:    t("reportings.form.map_location"),
+                   help:     t("reportings.form.map_location_instructions"),
+                   remove_marker_label: t("reportings.form.map_remove_marker"),
+                   parent_class: "reporting",
+                   i18n_namespace: "reportings",
+                   geo_coding_addr: "#reporting_address" %>
+
+      </div>
+    <% end %>
+    <br> <br>
+    <div class="small-12 column" style="display: none;">
+      <%= f.label :tag_list, t("reportings.form.tags_label") %>
+      <p class="help-text" id="tag-list-help-text"><%= t("reportings.form.tags_instructions") %></p>
+
+      <div id="category_tags" class="tags" style="display: none;">
+        <%= f.label :category_tag_list, t("reportings.form.tag_category_label") %>
+        <% @categories.each do |tag| %>
+          <a class="js-add-tag-link"><%= tag.name %></a>
+        <% end %>
+      </div>
+
+      <br>
+      <%= f.text_field :tag_list, value: @reporting.tag_list.to_s,
+                        label: false,
+                        placeholder: t("reportings.form.tags_placeholder"),
+                        class: 'js-tag-list tag-autocomplete',
+                        aria: {describedby: "tag-list-help-text"},
+                        data: {js_url: suggest_tags_path} %>
+    </div>
+
+    <div class="small-12 column" style="display: none;">
+      <%= f.label :note, t("reportings.form.reporting_note") %>
+      <p class="help-text" id="tag-list-help-text"><%= t("reportings.form.note_instructions") %></p>
+      <%= f.text_field :note, maxlength: Reporting.title_max_length, placeholder: t("reportings.form.reporting_note"), label: false, data: {js_suggest_result: "js_suggest_result", js_suggest: "#js-suggest", js_url: suggest_reportings_path}%>
+    </div>
+    <div id="js-suggest"></div>
+
+    <% if current_user.unverified? %>
+      <div class="small-12 column">
+        <%= f.label :responsible_name, t("reportings.form.reporting_responsible_name") %>
+        <p class="help-text" id="responsible-name-help-text"><%= t("reportings.form.reporting_responsible_name_note") %></p>
+        <%= f.text_field :responsible_name, placeholder: t("reportings.form.reporting_responsible_name"), label: false,
+                                            aria: {describedby: "responsible-name-help-text"} %>
+      </div>
+    <% end %>
+
+    
+
+    <div class="actions small-12 column">
+      <%= f.submit(class: "btn btn-primary", value: t("reportings.#{action_name}.form.submit_button")) %>
+    </div>
+    <div class="small-12 column mt-3">
+      <% if @reporting.new_record? %>
+        <%= f.label :terms_of_service do %>
+          <%= f.check_box :terms_of_service, title: t('form.accept_terms_title'), label: false %>
+          <span class="checkbox" style="width:80%">
+            <%= t("form.accept_terms_reporting",
+                policy: link_to(t("form.policy"), "/privacy", target: "blank"),
+                conditions: link_to(t("form.conditions"), "/conditions", target: "blank")).html_safe %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

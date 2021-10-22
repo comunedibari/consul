@@ -1,0 +1,33 @@
+<ul class="menu simple clear">
+  <% if active == 'info' %>
+    <li class="active">
+      <h2><%= t("admin.crowdfundings_admin.subnav.info") %></h2>
+    </li>
+  <% else %>    
+    <li>
+      <%= link_to t("admin.crowdfundings_admin.subnav.info"), toedit_admin_crowdfunding_path(crowdfunding) %>
+    </li>
+  <% end %>
+    <% if active == 'investments' %>
+      <li class="active">
+        <h2><%= t("admin.crowdfundings_admin.subnav.investments") %></h2>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to t("admin.crowdfundings_admin.subnav.investments"), investments_admin_crowdfunding_path(crowdfunding) %>
+      </li>
+    <% end %>
+  <% if @crowdfunding.flag_rewards == true %>
+    <% if active == 'rewards' %>
+      <li class="active">
+        <h2><%= t("admin.crowdfundings_admin.subnav.rewards") %></h2>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to t("admin.crowdfundings_admin.subnav.rewards"), rewards_admin_crowdfunding_path(crowdfunding) %>
+      </li>
+    <% end %>
+  <% end %>
+
+  
+</ul>

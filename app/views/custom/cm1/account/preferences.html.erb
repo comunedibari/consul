@@ -1,0 +1,43 @@
+<div class="row account">
+  <div class="small-12 column">
+    <%= avatar_image(@account, seed: @account.id, size: 100, class: "margin-bottom") %>
+    <h1 class="inline-block"><%= t("account.show.title") %></h1>
+  </div>
+  <%= back_link_to account_path %>
+  <div class="small-12 margin-top column">
+   <h2> <%= t("account.show.user_categories_preference_title") %> </h2>
+   <p class="help-text" style="font-size: 1.0rem;"> <%= t("account.show.user_categories_preference_description") %> </p>
+    <table>
+      <tbody>
+        <% @user_tags.each do |user_tag| %>
+          <tr>
+            <td>
+              <strong><%= user_tag.tag %></strong>
+            </td>
+            <td>
+              <%= user_tag.selected? ? t("admin.settings.index.categories.enabled") : t("admin.settings.index.categories.disabled") %>
+            </td>
+            <td class="text-right">
+              <% if user_tag.selected? %>
+                  <%= form_for(user_tag, url: user_tag_path(user_tag)) do |f| %>
+                    <%= f.hidden_field :value, name: "_method", value: "delete" %>
+                    <%= f.hidden_field :value, id: dom_id(user_tag), value: (user_tag.selected? ? "" : "active") %>
+                    <%= f.submit(t("admin.settings.index.categories.#{user_tag.selected? ? 'disable' : 'enable'}"),
+                                class: "btn btn-primary btn-block #{user_tag.selected? ? 'btn-alert' : 'success'}") %>
+                  <% end %>
+              <% else %>
+                  <%= form_for(user_tag, url: new_user_tag_path, method: :get) do |f| %>
+                    <%= f.hidden_field :value, name: 'tag_id',  value: user_tag.tag_id %>
+                    <%= f.submit(t("admin.settings.index.categories.enable"), class: "btn btn-success btn-block") %>
+                  <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>

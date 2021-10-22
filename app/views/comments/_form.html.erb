@@ -1,0 +1,62 @@
+<% valuation = local_assigns.fetch(:valuation, false) %>
+<% cache [locale_and_user_status, parent_id, commentable_cache_key(commentable), valuation] do %>
+  <% css_id = parent_or_commentable_dom_id(parent_id, commentable) %>
+  
+  <div id="js-comment-form-<%= css_id %>" <%= "style='display:none'".html_safe if toggeable %> class="comment-form">
+  <%= form_for Comment.new, remote: true do |f| %>
+    <%= label_tag "comment-body-#{css_id}", leave_comment_text(commentable) %>
+      <%= f.text_area :body, id: "comment-body-#{css_id}", maxlength: Comment.body_max_length, label: false %>
+      <%= f.hidden_field :commentable_type, value: commentable.class.name %>
+      <%= f.hidden_field :commentable_id, value: commentable.id %>
+      <%= f.hidden_field :parent_id, value: parent_id %>
+      <%= f.hidden_field :valuation, value: valuation %>
+
+      <div class="small-12 column">
+      <%= f.label :external_url, t("proposals.form.proposal_external_url") %>
+      <%= f.text_field :external_url, placeholder: t("proposals.form.proposal_external_url"), label: false %>
+    </div>
+
+
+      <% if feature?(:allow_images) and Comment.max_images_allowed > 0 %>
+        <div class="images small-12 column">
+          <%= render 'images/nested_image', imageable: commentable, f: f, isComment: true, css_id: css_id %>
+        </div>
+      <% end %>
+
+      <% if feature?(:allow_attached_documents) and Comment.max_documents_allowed > 0 %>
+        <div class="documents small-12 column" style="margin-top: 10px;">
+          <%= render 'documents/nested_documents', documentable: commentable, f: f, isComment: true  %>
+        </div>
+      <% end %>
+      <%= f.submit comment_button_text(parent_id, commentable), class: "btn btn-primary", id: "publish_comment", style: "margin-top: 20px" %>
+ 
+      <% if can?(:comment_as_moderator, commentable) || 
+            can?(:comment_as_administrator, commentable) || 
+            current_user.can_sector_content? %>
+        <div class="float-right" style="margin-top: 30px;margin-right: 15px;" data= <%="#{css_id}" %>>
+          <% if can? :comment_as_moderator, commentable %>
+            <%= f.check_box :as_moderator, title: t('comments.form.comment_as_moderator'), id: "comment-as-moderator-#{css_id}", label: false %>
+            <%= label_tag "comment-as-moderator-#{css_id}", t("comments.form.comment_as_moderator"), class: "checkbox" %>
+          <% end %>
+          <% if can? :comment_as_administrator, commentable %>
+            <%= f.check_box :as_administrator, title: t('comments.form.comment_as_admin'), id: "comment-as-administrator-#{css_id}",label: false, class:'js-toggle-as-admin' %>
+            <%= label_tag "comment-as-administrator-#{css_id}", t("comments.form.comment_as_admin"), class: "checkbox" %>
+          <% end %>
+          <%# miaa %>
+          <%#= current_user.can_sector_content?.to_s %>
+          <% if current_user.can_sector_content? %>
+            <div>
+              <%= f.check_box :as_rappr_legale, title: t('comments.form.comment_as_admin_association'), id: "comment-as-rappr-legale-#{css_id}",label: false, class:'js-toggle-comment-sector' %>
+              <%= label_tag "comment-as-rappr-legale-#{css_id}", t("comments.form.comment_as_admin_association"), class: "js-toggle-comment-sector-label" %>
+              <%= f.select :sector_id , sectors_by_user, { :label => false , :placeholder => t('activerecord.attributes.legislation/process.work_status') , :include_blank  => t("comments.form.none") },{:id => "id-sector-#{css_id}", :class => 'js-toggle-comment-sector-select', :style => 'display: none' } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      
+     
+
+    <% end %>
+  </div>
+<% end %>

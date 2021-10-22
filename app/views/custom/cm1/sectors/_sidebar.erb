@@ -1,0 +1,23 @@
+<%# per allungare la linea blu disabilitare display: inline-block;%>
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= "Informazioni" %></h2>
+
+<div class="additional-document-link">
+  <h5><%=  t("sectors.new.sector_type") %></h5>
+  <p><%= sector.sector_type.name %></p>
+
+  <h5><%=  t("sectors.new.address") %></h5>
+  <p><%= sector.address %></p>
+
+  <h5><%= t("sectors.new.vat_code") %></h5>
+  <p><%= sector.vat_code %></p>
+
+  <h5><%= t("sectors.new.attorney") %></h5>
+  <p><%= sector.legal_representative %></p>
+
+  <h5><%= t("sectors.new.phone_number") %></h5>
+  <p><%= sector.phone_number %></p>
+
+  <h5><%= t("sectors.new.email") %></h5>
+  <p><%= sector.email %></p>
+</div>

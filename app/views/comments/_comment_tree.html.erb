@@ -1,0 +1,62 @@
+<% commentable = comment_tree.commentable %>
+<% valuation = local_assigns.fetch(:valuation, false) %>
+<% allow_comments = local_assigns.fetch(:allow_comments, true) %>
+<%# cache [locale_and_user_status, comment_tree.order, commentable_cache_key(commentable), comment_tree.comments, comment_tree.comment_authors, commentable.comments_count, comment_flags] do %>
+  <section class="expanded comments">
+    <div class="row">
+      <div id="comments" class="small-12 column">
+        <% if display_comments_count %>
+          <h2>
+            <%= comment_tree_title_text(commentable) %>
+            <span class="js-comments-count">(<%= commentable.comments_count %>)</span>
+          </h2>
+        <% end %>
+
+        <%= render 'shared/wide_order_selector', i18n_namespace: "comments" %>
+        <%# if user_signed_in?  && ((current_user.present? && service_social?(:proposals) && current_user.provider.present? && current_user.is_social? && @proposal.social_content.social_access?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator || current_user.moderator? )%>
+        <% if !isBlockedPrivacy && user_signed_in?  && ((current_user.present? && current_user.provider.present? && current_user.is_social? && commentable.process.social_content.social_access?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator? )%>
+          <% if comments_closed_for_commentable?(commentable) %>
+            <br>
+            <div data-alert class="callout primary">
+              <%= comments_closed_text(commentable) %>
+            </div>
+          <% elsif require_verified_resident_for_commentable?(commentable, current_user) %>
+            <br>
+            <div data-alert class="callout primary">
+              <%= t("comments.verified_only", verify_account: link_to(t("comments.verify_account"), verification_path )).html_safe %>
+            </div>
+          <% elsif allow_comments %>
+            <%= render 'comments/form', { commentable: commentable,
+                                          parent_id: nil,
+                                          toggeable: false,
+                                          valuation: valuation } %>
+          <% end %>
+        <% elsif current_user.present? && (current_user.provider.present? && current_user.is_social? && !commentable.process.social_content.social_access?)%>
+          <div data-alert class="callout primary">
+              <%= t("debates.show.login_as_spid_to_comment") %>
+          </div>
+        <% elsif isBlockedPrivacy && current_user.present? %>
+          <div data-alert class="callout primary">
+            <%= "Non hai dato il tuo pieno consenso alla privacy" %>
+          </div>
+        <% else %>
+          <br>
+          <div data-alert class="callout primary">
+            <%= t("debates.show.login_to_comment",
+                signin: link_to(t("votes.signin"), go_to_login)).html_safe %>
+          </div>
+        <% end %>
+
+        <% comment_tree.root_comments.each do |comment| %>
+          <%= render 'comments/comment', { comment: comment,
+                                           comment_flags: comment_flags,
+                                           valuation: valuation,
+                                           allow_votes: !valuation,
+                                           allow_actions: !valuation,
+                                           allow_comments: allow_comments } %>
+        <% end %>
+        <%= paginate comment_tree.root_comments %>
+      </div>
+    </div>
+  </section>
+<%# end %>

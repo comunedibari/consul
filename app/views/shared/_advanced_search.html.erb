@@ -1,0 +1,224 @@
+<div class="relative">
+  <%= link_to t("shared.advanced_search.title"), "#advanced_search_form", id: 'js-advanced-search-title', class: "advanced-search small" %>
+</div>
+
+<div class="row advanced-search-form margin-bottom">
+  <%= form_tag search_path, id: "advanced_search_form", style: "width: 100%;", method: :get do %>
+    <div id='js-advanced-search' data-advanced-search-terms="<%= !hash_is_empty?(@advanced_search_terms) or !@search_terms.blank? %>" style="display: none">
+
+      <div class="small-12 column">
+        <label for="search">
+          <%= t("shared.advanced_search.general") %>
+        </label>
+        <%= text_field_tag "search", params[:search],
+                           placeholder: t("shared.advanced_search.general_placeholder") %>
+      </div>
+
+      <%# if  class_name != "Sector" %>
+      <%#div class="small-12 large-3 column">
+        <label for="advanced_search_official_level"><%= t("shared.advanced_search.author_type") %></label>
+      <%#= select_tag('advanced_search[official_level]', official_level_search_options,
+                      include_blank: t("shared.advanced_search.author_type_blank")) %>
+      <%#/div>
+    <% end %%>
+
+      <%# per il filtraggio del reporting type %>
+      <% if class_name === "Reporting" %>
+        <div class="small-12 large-3 column">
+          <label for="advanced_search_reporting_type"><%= t("shared.advanced_search.reporting_type") %></label>
+          <%= select_tag('advanced_search[reporting_type]', reporting_type_options,
+                         include_blank: t("shared.advanced_search.reporting_type_blank")) %>
+        </div>
+        <div class="small-12 large-3 column">
+          <label for="advanced_search_reporting_type"><%= t("shared.advanced_search.institution_types") %></label>
+          <%= select_tag('advanced_search[institution_id]', institution_types_all,
+                         include_blank: t("shared.advanced_search.institution_types_blank")) %>
+        </div>
+      <% end %>
+
+      <%# per il filtraggio del sector type %>
+      <% if class_name === "Sector" %>
+        <div class="small-12 large-3 column">
+          <label for="advanced_search_sector_type"><%= t("shared.advanced_search.sector_type") %></label>
+          <%= select_tag('advanced_search[sector_type]', sector_type_options,
+                         include_blank: t("shared.advanced_search.sector_type_blank")) %>
+        </div>
+      <% end %>
+
+
+      <% if class_name != "Sector" && class_name != "Event" %>
+        <div class="small-12 large-9">
+          <div class="small-12 large-4 column">
+            <label for="js-advanced-search-date-min"><%= t("shared.advanced_search.date") %></label>
+            <%= select_tag('advanced_search[date_period]', date_range_options,
+                           include_blank: t("shared.advanced_search.date_range_blank"),
+                           id: 'js-advanced-search-date-min') %>
+          </div>
+
+          <div id='js-custom-date' class='small-12 large-8 column' style="display: none">
+            <div class="row">
+              <div class='small-12 large-6 column'>
+                <label for="advanced_search_date_min">
+                  <%= t("shared.advanced_search.from") %> (<%= t("shared.advanced_search.date_placeholder") %>)
+                </label>
+                <%= text_field_tag 'advanced_search[date_min]',
+                                   params[:advanced_search].try(:[], :date_min)
+                    #class: 'js-calendar'
+                %>
+              </div>
+              <div class='small-12 large-6 column'>
+                <label for="advanced_search_date_max">
+                  <%= t("shared.advanced_search.to") %> (<%= t("shared.advanced_search.date_placeholder") %>)
+                </label>
+                <%= text_field_tag 'advanced_search[date_max]',
+                                   params[:advanced_search].try(:[], :date_max)
+                    #class: 'js-calendar'
+                %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <%# per il filtraggio del event type %>
+      <% if class_name === "Event" %>
+
+        <div class="small-12 medium-6 column">
+          <label for="advanced_search_event_type"><%= t("shared.advanced_search.event_type") %></label>
+          <%= select_tag('advanced_search[event_type]', event_types_all,
+                         #include_blank: t("shared.advanced_search.reporting_type_blank"),
+                         multiple: true) %>
+        </div>
+
+        <div class="small-12 column">
+          <div class="row">
+            <div class="small-12 large-4 column">
+              <label for="js-advanced-search-date-min"><%= t("shared.advanced_search.date") %></label>
+              <%= select_tag('advanced_search[period_event]', date_range_options_for_event,
+                             include_blank: t("shared.advanced_search.date_range_blank"),
+                             id: 'js-advanced-search-date-min') %>
+            </div>
+
+            <div id='js-custom-date' class='small-12 large-8 column' style="display: none">
+              <div class="row">
+                <div class='small-12 large-6 column'>
+                  <label for="advanced_search_date_min_event">
+                    <%= t("shared.advanced_search.from") %> (<%= t("shared.advanced_search.date_placeholder") %>)
+                  </label>
+                  <%= text_field_tag 'advanced_search[date_min_event]',
+                                     params[:advanced_search].try(:[], :date_min_event)
+                      #,class: 'js-calendar-full'
+                  %>
+                </div>
+                <div class='small-12 large-6 column'>
+                  <label for="advanced_search_date_max">
+                    <%= t("shared.advanced_search.to") %> (<%= t("shared.advanced_search.date_placeholder") %>)
+                  </label>
+                  <%= text_field_tag 'advanced_search[date_max_event]',
+                                     params[:advanced_search].try(:[], :date_max_event)
+                      #,class: 'js-calendar-full'
+                  %>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+
+      <%#Filtraggio per tipologia proposta/iniziativa%>
+      <%= hidden_field(:typology, :id) %>
+
+      <div class="small-12 medium-3 column end clear">
+        <%= submit_tag t("shared.advanced_search.search"), class: 'btn btn-primary' %>
+      </div>
+      <div class="small-12 medium-3 column legislation-question-delete">
+        <% if params[:typology].present? and params[:typology][:id].present? %>
+          <%= link_to t("shared.advanced_search.reset"), {:controller => "#{controller_name}", :action => "index", "typology[id]" => params[:typology][:id], :search => ""}, class: 'btn btn-alert', id: 'cancel-advanced-filters-button' %>
+        <% else %>
+          <%= link_to t("shared.advanced_search.reset"), {:controller => "#{controller_name}", :action => "index"}, class: 'btn btn-alert', id: 'cancel-advanced-filters-button' %>
+        <% end %>
+      </div>
+
+
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  jQuery.datetimepicker.setLocale('it');
+
+  jQuery(function () {
+    jQuery('#advanced_search_date_max').datetimepicker({
+      format: 'd-m-Y',
+      lang: 'it',
+      onShow: function (ct) {
+        if (jQuery('#advanced_search_date_min').val()) {
+          val = jQuery('#advanced_search_date_min').val().slice(0, 10).split("-");
+          dat_s = val[2] + "-" + val[1] + "-" + val[0];
+        } else {
+          dat_s = false;
+        }
+        this.setOptions({
+          minDate: dat_s
+        })
+      },
+      timepicker: false
+    });
+    jQuery('#advanced_search_date_min').datetimepicker({
+      format: 'd-m-Y',
+      lang: 'it',
+      onShow: function (ct) {
+        if (jQuery('#advanced_search_date_max').val()) {
+          val = jQuery('#advanced_search_date_max').val().slice(0, 10).split("-");
+          dat_s = val[2] + "-" + val[1] + "-" + val[0];
+        } else {
+          dat_s = false;
+        }
+
+        this.setOptions({
+          maxDate: dat_s
+        })
+      },
+      timepicker: false
+    });
+
+
+    jQuery('#advanced_search_date_max_event').datetimepicker({
+      format: 'd-m-Y',
+      lang: 'it',
+      onShow: function (ct) {
+        if (jQuery('#advanced_search_date_min_event').val()) {
+          val = jQuery('#advanced_search_date_min_event').val().slice(0, 10).split("-");
+          dat_s = val[2] + "-" + val[1] + "-" + val[0];
+        } else {
+          dat_s = false;
+        }
+        this.setOptions({
+          minDate: dat_s
+        })
+      },
+      timepicker: false
+    });
+    jQuery('#advanced_search_date_min_event').datetimepicker({
+      format: 'd-m-Y',
+      lang: 'it',
+      onShow: function (ct) {
+        if (jQuery('#advanced_search_date_max_event').val()) {
+          val = jQuery('#advanced_search_date_max_event').val().slice(0, 10).split("-");
+          dat_s = val[2] + "-" + val[1] + "-" + val[0];
+        } else {
+          dat_s = false;
+        }
+
+        this.setOptions({
+          maxDate: dat_s
+        })
+      },
+      timepicker: false
+    });
+
+  });
+</script>

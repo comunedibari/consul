@@ -1,0 +1,97 @@
+<%= form_for(@question, url: form_url) do |f| %>
+
+  <%= render 'shared/errors', resource: @question %>
+
+  <%= f.hidden_field :proposal_id %>
+
+  <div class="small-12">
+    <div class="small-12 medium-6 large-4">
+
+      <%= f.select :poll_id,
+                    options_for_select(Poll.by_user_pon.pluck(:name, :id),@question.poll_id),
+                    #prompt: t("admin.questions.index.select_poll"),
+                    label: t("admin.questions.new.poll_label") %>
+
+
+      <%#= label_tag :poll_id, t("admin.questions.index.filter_poll") %>
+      <%#= select_tag "poll_id",
+        #            options_for_select(Poll.by_user_pon.pluck(:name, :id),@question.poll_id),
+                    #prompt: t("admin.questions.index.select_poll"),
+        #            data: {remote: true } %>
+
+
+    <!-- <div id= "item_grid_0"> -->
+      <%#= render :partial => 'load_question' , :locals => {selected: @selected }%>
+    <!-- </div> -->
+
+    <%= f.text_field :title %>
+
+    <%= f.label :num_min_answers, t("admin.questions.new.poll_min_answers_selectable") %>
+    <p class="help-text" id="video-url-help-text">
+      <%= t("admin.questions.new.poll_min_answers_selectable_note") %>
+    </p>
+    <div class="small-12 medium-6 large-4">
+      <%= f.select :num_min_answers,
+                   options_for_select(@num_min_answers_select_options, @question.num_min_answers),
+                   label: false %>
+    </div>
+
+    <%= f.label :num_max_answers, t("admin.questions.new.poll_max_answers_selectable") %>
+    <p class="help-text" id="video-url-help-text">
+      <%= t("admin.questions.new.poll_max_answers_selectable_note") %>
+    </p>
+    <div class="small-12 medium-6 large-4">
+         <%= f.select :num_max_answers,
+                    options_for_select(@num_max_answers_select_options, @question.num_max_answers),
+                    label: false %>
+    </div>
+<!--
+    <div class="small-12">
+      <%= f.label :video_url, t("proposals.form.proposal_video_url") %>
+
+      <p class="help-text" id="video-url-help-text">
+        <%= t("proposals.form.proposal_video_url_note") %>
+      </p>
+
+      <%= f.text_field :video_url,
+                        placeholder: t("proposals.form.proposal_video_url"),
+                        label: false,
+                        aria: {describedby: "video-url-help-text"} %>
+    </div>
+-->
+    <% if feature?(:allow_images) and Poll.max_images_allowed > 0 %>
+      <div class="images small-12 column">
+        <%= render 'images/nested_image_admin', imageable: @question, f: f,  isComment: false %>
+      </div>
+    <% end %>
+
+    <% if feature?(:allow_attached_documents) and Poll.max_documents_allowed > 0  %>
+      <div class="documents small-12 column">
+        <%= render 'documents/nested_documents_admin', documentable: @question, f: f, isComment: false %>
+      </div>
+    <% end %>
+
+    <div class="small-12 medium-6 large-4 margin-top">
+      <%= f.submit(class: "btn btn-primary btn-block", value: t("shared.save")) %>
+    </div>
+  </div>
+
+<% end %>
+
+<script>
+
+$('#poll_id').change(function(){
+  var variable = $(this).find('option:selected').val();
+  $.ajax({
+    url: "<%= load_question_admin_questions_path %>",
+    type: "GET",
+    //dataType: 'js',
+    /*success : function(text) {
+              alert("we");
+              //$("#item_grid").html("<p>124suc</p>");
+           },*/
+    data: {poll_id: variable}
+  });
+});
+
+</script>

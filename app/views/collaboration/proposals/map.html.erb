@@ -1,0 +1,10 @@
+<main>
+    <div class="row">
+        <%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
+        <%= back_link_to proposals_path %>
+        <%= render 'shared/map',
+            parent_class: "proposal",
+            i18n_namespace: "proposals",
+            new_url_path: new_proposal_path %>
+    </div>
+</main>

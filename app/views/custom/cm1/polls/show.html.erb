@@ -1,0 +1,71 @@
+<% provide :title do %><%= @poll.name %>
+<% end %>
+
+<div class="polls-show">
+  <%= render "poll_header" %>
+
+  <%= render "poll_subnav" %>
+
+  <div class="row margin">
+    <div class="column">
+      <%= render "callout" %>
+
+
+      <% if current_user && ((service_social_obj_pon?(:polls,@poll) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test'  || current_user.administrator? || current_user.moderator? ) || (current_user.nil? && @poll.access_type == 3)
+      %>
+
+          <% if (current_user && @poll.voted_in_web?(current_user) && !@poll.expired? && !@poll.vote_has_been_confirmed?(current_user) )
+          # || (current_user.nil? && @poll.access_type == 3 && check_cookies_poll(@poll))
+           %>
+          
+            <div class="callout warning">
+              <%= t("polls.show.already_voted_in_web") %>
+            </div>
+          <% elsif current_user and (current_user.administrator? || current_user.moderator?) %>            
+            <div class="callout warning">
+              <%= t("polls.show.admin_mod_disactive") %>
+            </div>
+          <% end %>
+        <div id="<%= dom_id(@poll) %>">
+          <%= render 'polls/questions/questions', questions: @questions, token: @token %>
+        </div>
+
+      <% else %>
+        <% if current_user %>
+          <div class="callout warning">
+              <%= t("polls.show.social_service_disactive") %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <%# if poll_voter_token(@poll, current_user).empty? %>
+        <!-- <div class="callout token-message js-token-message" style="display: none"> -->
+          <%#= t('poll_questions.show.voted_token') %>
+        <!-- </div> -->
+      <%# end %>
+
+      <div>
+
+        <%= link_to t("polls.show.participate_in_other_polls"), polls_path, class: "btn btn-outline-primary" %>
+        <% if current_user && (service_social?(:polls) && current_user.provider.present? && current_user.is_social? || current_user.provider == 'openam' || current_user.provider == 'test' ) || answerable_by_guest
+        #|| current_user.administrator? || current_user.moderator?) 
+        %>
+          <% if (current_user.nil? || !@poll.vote_has_been_confirmed?(current_user)) && !(@poll.ends_at < Time.now) %>
+            <%= link_to t("admin.polls.show.submit"),
+                        confirm_poll_path(token: @token),
+                        data: {confirm: t("admin.polls.show.submit_alert")},
+                        method: :post,
+                        class: "btn btn-success small-12 medium-4 column" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tabs-content" data-tabs-content="polls_tabs" role="tablist">
+    <%= render "filter_subnav" %>
+
+    <div class="tabs-panel is-active" id="tab-comments">
+      <%= render "comments" %>
+    </div>
+  </div>
+</div>

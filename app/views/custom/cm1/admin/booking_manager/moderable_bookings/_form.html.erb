@@ -1,0 +1,39 @@
+<%= form_for(@moderable_booking, url: form_url) do |f| %>
+
+
+
+  <% if @moderable_booking.errors.any? %>
+
+    <div id="error_explanation" data-alert class="callout alert" data-closable>
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <strong>
+        <%= @moderable_booking.errors.count %>
+        <%= t("admin.asset.errors.form.error", count: @moderable_booking.errors.count) %>
+      </strong>
+    </div>
+
+  <% end %>
+  
+  <div class="row">
+    <div class="large-12 column margin-top">
+      <%= f.text_area :note %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 column">
+      <%= f.hidden_field :status, value: params[:approved] == 'false' ? 3 : 2  %>
+    </div>
+  </div>
+
+
+<div class="actions small-12 column">
+  <p class="help-text"> <%= t("admin.moderable_bookings.form.help") %></p>
+    <%= f.submit(class: "button margin-top", value: t("admin.moderable_bookings.#{action_name}.form.submit_button")) %>
+</div>
+
+
+<% end %>

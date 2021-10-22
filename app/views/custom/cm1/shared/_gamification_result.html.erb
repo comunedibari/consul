@@ -1,0 +1,36 @@
+<% if service?(:gamification) && current_user %>
+  <% user_list = gamification_result(resource) %>
+  <% if user_list.count > 0 %>
+    <div id="gamification">
+      <br>
+      <div class="sidebar-divider"></div>
+      <h2 class="sidebar-title"><%= t("shared.gamification.gamification_result") %></h2>
+
+      <div class="it-list-wrapper mt-3">
+        <ul class="it-list">
+        <% count_user = 0 %>
+        <% user_list.each do |g| %>
+          <% if g.user && check_user_admin_mod?(g.user) && count_user <5  && g.current_month_result > 0 && g.user.public_activity?  %>
+          <li>
+            <a href="<%= user_gamifications_path(user_id: g.user.id) %>" class="ml-2">
+              <div class="avatar size-lg mx-2"><i class="fa fa-user-circle fa-3x"></i></div>
+              <div class="it-right-zone mr-2"><span class="text" style="font-size: 0.8rem;"><%= g.user.name %></span>
+              <span class="text" style="font-size: 0.8rem;"><%= g.current_month_result %></span>
+              </div>
+            </a>
+          </li>
+          <% count_user += 1 %>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>      
+    </div>
+
+    <div class="mt-3">
+      <%#= link_to t('gamification.view_gamification_stats'),{ controller: "gamifications", action: :user,user_id: current_user.id }, method: :get %>
+      <%= link_to gamifications_path do %>
+        <%= t("gamification.view_gamification_global_stats") %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

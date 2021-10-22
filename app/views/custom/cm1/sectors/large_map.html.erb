@@ -1,0 +1,54 @@
+
+<% #calcola array marker
+geolocation_arr = []
+    sectors_by_sector_type.each do |sector|
+        if  sector.map_location
+            geolocation = sector.map_location
+            geolocation_arr.push(geolocation) 
+        end 
+    end
+%>
+
+<% provide :title do %><%= t('account.show.sectors_large_map') %><% end %>
+
+
+
+
+
+<main>
+   
+<div class="help-header no-margin-top margin-bottom">
+  <div class="row">
+    <div class="small-12 column" data-magellan>
+      <%= image_tag "#{Rails.application.config.cm}/help/help_icon_sectors.png", alt: t("account.show.sectors_large_map"), class: "align-top" %>
+      <h1 style="margin-left:10px;" class="inline-block">  <%= t("account.show.sectors_large_map") %></h1>
+      
+    </div>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <p><%= back_link_to %></p>
+    </div>
+    <div class="col-12"> <p><%= t("#{controller_name}.map.info") %></p></div>
+    <div class="col-12"><p><%= t("#{controller_name}.map.count_markers") %> <%= count_markers=item_with_maplocation_count(sectors_by_sector_type) %></p></div>
+
+
+<p><%= render_geolocation(sectors_by_sector_type, "sector","sector_all")  %></p>
+
+       
+
+  </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,160 @@
+<% if feature?(:twitter_login) || feature?(:facebook_login) || feature?(:google_login) || feature?(:shibboleth_login) || feature?(:openam_login) %>
+
+
+    <div class="row">
+      <div class="small-12 column">
+        <div class="margin-bottom">
+          <strong><%= t("omniauth.info_sign_in") %></strong>
+        </div>
+      </div>
+      <% if feature? :twitter_login %>
+        <div class="small-12 medium-6 large-4 column end">
+          <%= link_to (image_tag "logo-twitter.png", width: '25') + "  " + raw("<span>#{t("omniauth.twitter.name")}</span>"), "javascript:show_error('error');",
+                      title: t("omniauth.twitter.sign_in"),
+                      id: "twitter_login",
+                      class: "button-twitter button expanded" %>
+        </div>
+      <% end %>
+
+      <% if feature? :facebook_login %>
+        <div class="small-12 medium-6 large-4 column end">
+          <%= link_to (image_tag "logo-facebook.png", width: '25') + "  " + raw("<span>#{t("omniauth.facebook.name")}</span>"), "javascript:show_error('error');",          
+                      title: t("omniauth.facebook.sign_in"),
+                      id: "facebook_login",
+                      class: "button-facebook button expanded" %>
+        </div>
+      <% end %>
+
+      <% if feature? :google_login %>
+        <div class="small-12 medium-6 large-4 column end">
+        <%= link_to (image_tag "logo-google.png", width: '25') + "  " + raw("<span>#{t("omniauth.google_oauth2.name")}</span>"), "javascript:show_error('error');",
+                      title: t("omniauth.google_oauth2.sign_in"),
+                      id: "google_oauth2_login",
+                      class: "button-google button expanded" %>
+        </div>
+      <% end %>
+
+      <% if feature? :openam_login %>
+      <div class="small-12 medium-6 large-4 column end">
+        <%#= link_to t("omniauth.spid.name"), "javascript:show_error('error');", %>
+        <%= link_to '', "javascript:show_error('error');",
+                    #Rails.application.config.spidUrl, #user_omniauth_authorize_path(:openam),
+                    title: "", #t("omniauth.spid.sign_in"),
+                    class: "button-spid button expanded",
+                    id: "openam_login",
+                    style: "text-align: center; ",
+                    onMouseOver: "this.style.backgroundColor='#0066cb'",
+                    onMouseOut: "this.style.backgroundColor='#0066cb'" %>
+      </div>
+      <% end %>
+
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-12 large-12 column end">
+
+          <%= label_tag "accept_terms_policy", style: "font-size: 100%;" do %>
+            <%= check_box_tag "accept_terms_policy", title: t('form.accept_terms_title'), label: false %>
+            <span class="checkbox">
+              <%= t("omniauth.accept_terms_policy",
+                  policy: link_to(t("form.check_policy"), "/privacy", target: "blank")).html_safe %>
+            </span>
+          <% end %>
+      </div>
+      <div class="small-12 medium-12 large-12 column end">
+          <%= label_tag "accept_terms_conditions", style: "font-size: 100%;" do %>
+            <%= check_box_tag "accept_terms_conditions", title: t('form.accept_terms_title'), label: false %>
+            <span class="checkbox">
+              <%= t("omniauth.accept_terms_conditions",
+                  conditions: link_to(t("form.check_conditions"), "/conditions", target: "blank")).html_safe %>
+            </span>
+          <% end %>
+
+      </div>
+    </div>
+
+<% end %>
+
+
+<%
+  flash_key = 'error'
+  title = 'Impossibile effettuare il login'
+  icon = 'it-close-circle'
+  flash_message = "Per accedere bisogna accettare la Politica della Privacy e le Condizioni d'uso."
+%>
+
+  <div class="show-for-small-only">
+  <div class="notification top-fix-sm with-icon dismissable <%= flash_key %>" style="display: none; z-index: 9999;" role="alert" aria-labelledby="<%= flash_key %>-title" id="<%= flash_key %>_s">
+    <h5 id="<%= flash_key %>-title">
+      <svg class="icon">
+        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#<%= icon %>"></use>
+      </svg><%= title %></h5>
+    <p> <%= flash_message.try(:html_safe) %></p>
+    <button type="button" class="btn notification-close">
+      <svg class="icon">
+        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-close"></use>
+      </svg>
+      <span class="sr-only">Chiudi notifica: <%= title %></span>
+    </button>
+  </div>
+  </div>
+
+  <div class="hide-for-small-only">
+  <div class="notification right-fix with-icon dismissable <%= flash_key %>" style="display: none; z-index: 9999;" role="alert" aria-labelledby="<%= flash_key %>-title" id="<%= flash_key %>_l">
+    <h5 id="<%= flash_key %>-title">
+      <svg class="icon">
+        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#<%= icon %>"></use>
+      </svg><%= title %></h5>
+    <p> <%= flash_message.try(:html_safe) %></p>
+    <button type="button" class="btn notification-close">
+      <svg class="icon">
+        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-close"></use>
+      </svg>
+      <span class="sr-only">Chiudi notifica: <%= title %></span>
+    </button>
+  </div>
+  </div>
+
+<script>
+
+  $(document).ready(function(){
+    init_checkboxes();
+
+    $('#accept_terms_policy').click(function(){
+      check_policy();
+    });
+
+    $('#accept_terms_conditions').click(function(){
+      check_policy();
+    });
+
+  });
+
+  function init_checkboxes() {
+    $("#accept_terms_policy").prop("checked", false);
+    $("#accept_terms_conditions").prop("checked", false);
+  }
+
+  function show_error(id) {
+    notificationShow('error_s');
+    notificationShow('error_l');
+  }
+
+  function check_policy() {
+    if ($('#accept_terms_policy:checked').length && $('#accept_terms_conditions:checked').length){
+      $("#error_l").hide();
+      $("#error_s").hide();
+      $("#facebook_login").attr("href",  "<%=  user_omniauth_authorize_path(:facebook) %>");
+      $("#twitter_login").attr("href", "<%=  user_omniauth_authorize_path(:twitter) %>");
+      $("#google_oauth2_login").attr("href", "<%=  user_omniauth_authorize_path(:google_oauth2) %>");
+      $("#openam_login").attr("href", "<%= Rails.application.config.spidUrl %>");
+    }
+    else {
+      $("#facebook_login").attr("href", "javascript:show_error('error');");
+      $("#twitter_login").attr("href", "javascript:show_error('error');");
+      $("#google_oauth2_login").attr("href", "javascript:show_error('error');");
+      $("#openam_login").attr("href", "javascript:show_error('error');");
+    }
+  }
+
+</script>

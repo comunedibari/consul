@@ -1,0 +1,1037 @@
+---
+it:
+  asset:
+    form:
+      tags_instructions: Per poter prenotare l'orario di uno spazio selezionare l'intervallo orario desiderato colorato in verde. In rosso sono indicati gli orari già occupati.
+  assets:
+    reservations:
+      create:
+        action: Prenota
+    show:
+      calendar: Calendario Prenotazioni
+      edit_asset_link: Modifica Prenotazione
+      reservations: Azioni
+      description: Descrizione
+      address: Indirizzo
+      contacts: Contatti
+      map: Mappa Prenotazioni
+    map:
+      info: La seguente mappa offre all'utente una visione generale su quali siano gli spazi prenotabili sull'intero territorio.
+      count_markers: "Il numero di spazi totali visualizzati in mappa: "
+  agreements:
+    map:
+      info: La seguente mappa offre all'utente una visione generale su quali siano i patti di collaborazione in fase di svolgimento o archiviati sull'intero territorio.
+      count_markers: "Il numero di patti di collaborazione totali visualizzati in mappa: "
+    show:
+      edit_agreement_link: Modifica Patto di collaborazione
+      login_to_comment: È necessario %{signin} per commentare.
+      notifications_tab: Aggiornamenti
+      comments_tab: Commenti
+      no_notifications: Questo patto di collaborazione non ha notifiche.
+      subscription: Invia adesione
+      already_subscription: Visualizza la tua adesione
+      sub_show: Visualizza adesione
+    agreement:
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+    index:
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_header:
+        title: Patti di Collaborazione
+        help: Aiuto sui Patti di Collaborazione
+        icon_alt: Patti di Collaborazione
+      search_form:
+        button: Cerca
+        placeholder: Cerca Patti ...
+        title: Cerca
+      start_collaboration_agreement: Nuovo Patto di collaborazione
+    form:
+      geolocation: Mappa
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questo patto di collaborazione non ha una posizione concreta o non ricordo quale sia.
+  breadcrumbs:
+    services:
+      polls: Consultazioni
+      debates: Forum
+      account: Profilo
+      proposals: Petizioni
+      works: Progetti e lavori pubblici
+      chances: Opportunità
+      reportings: Segnalazioni geo-localizzate
+      processes_proposals: Proposte e iniziative
+      events: Eventi
+      collaboration_agreements: Patti di Collaborazione
+      crowdfundings: Crowdfunding
+      assets: Prenotazioni
+      sectors: Terzo Settore
+    home: Home
+  collaboration:
+    index:
+      section_footer:
+        description: Aderisci ai Patti di Collaborazione che la tua della tua Città.
+        help_text_1: Questa sezione è la vetrina dei patti di collaborazione tra cittadini baresi e Amministrazione. I patti di collaborazione sono contratti stipulati tra Amministrazione Comunale e cittadini attivi, che trovano validità nel Regolamento per la gestione condivisa dei beni comuni urbani, che disciplina l'intervento concreto dei cittadini per quanto concerne la cura di un qualsiasi bene comune.
+        help_text_2: "I patti di collaborazione sono attuati nel pieno rispetto del principio di sussidiarietà di cui all'art. 118 della Costituzione Italiana, e hanno come finalità il riutilizzo sociale di immobili, da recuperare come strumento di sviluppo, crescita ed emancipazione del territorio (per maggiori info: <a href='#'>regolamento</a>)."
+        help_text_3: ''
+        title: Aiuto sui Patti di Collaborazione
+    agreements:
+      index:
+        filters:
+          opens: Aperti
+          next: A breve
+          past: Terminati
+        no_next_agreements: Nessun Patto di Collaborazione a breve
+        no_past_agreements: Nessun Patto di Collaborazione terminato
+        no_opens_agreements: Nessun Patto di Collaborazione aperto
+        section_header:
+          title: Patti di Collaborazione
+          title_collaboration: Mappa Patti di Collaborazione
+        subnav:
+          info: Informazione
+          consultation: Allegati obbligatori
+      header:
+        additional_info: Informazioni aggiuntive
+        description: Descrizione
+        asset_description: Descrizione Spazio Prenotabile
+      agreement:
+        see_latest_comments: Visualizza dettaglio
+        see_latest_comments_title: dettaglio patto di collaborazione
+      new:
+        start_new: Inserisci l'adesione
+        more_info: Come funzionano le adesioni
+        detail: Informazioni patti di collaborazione
+        title: Titolo
+        summary: Sommario
+        start_date: Data inizio presentazione adesioni
+        end_date: Data fine presentazione adesioni
+      shared:
+        membership_submission_start_date: Data Inizio Presentazione Adesione
+        membership_submission_end_date: Data Fine Presentazione Adesione
+        number_of_registrations: Adesioni Inviate
+        key_dates: Data chiave
+      show:
+        title: Adesione
+    subscriptions:
+      new:
+        detail: Allegati modulo adesioni
+        detail_info: Di seguito gli allegati obbligatori da includere nel modulo di adesione, per tutte le altre tipologie di documenti l'utente potrà allegarli indicando la tipologia "ALTRO".
+        detail_info_no_requirements: Per l'invio di questa adesione non è necessario includere allegati obbligatori.
+        title: Titolo
+        recommendations_title: Suggerimenti per creare un'adesione
+        recommendation_one: Non scrivere in maiuscolo il titolo dell'adesione o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+        recommendation_three: Le critiche spietate sono bene accette. Questo è uno spazio di pensiero. Però ti raccomandiamo di conservare l'eleganza e l'intelligenza, fanno del mondo un posto migliore.
+        recommendation_two: Qualsiasi tema offensivo, palesemente illegale o che non rientri nella competenza comunale, verrà rimosso. Lo stesso si applica ai commenti.
+        format: Compilazione adesione
+        user: Anagrafica utente
+        name: Nome
+        cf: Codice fiscale
+      create:
+        notice: Modulo di adesione inviato correttamente
+      show:
+        title: Allegati modulo adesione
+    requirements:
+      new:
+        insert: Compila allegati
+        info: Tipologia allegato
+        submit_button: Invia adesione
+      form:
+        note: Note adesione
+        note_info: Puoi aggiungere una nota sull'adesione a questo patto di collaborazione
+        info: Tipologia allegato
+  events:
+    map:
+      info: La seguente mappa offre all'utente una visione generale su quali siano gli eventi in fase di svolgimento o archiviate sull'intero territorio.
+      count_markers: "Il numero di eventi totali visualizzate in mappa: "
+  map:
+    start_proposal: Crea una petizione
+    proposal_for_district: Crea una petizione per il tuo municipio
+    start_crowdfunding: Crea un crowdfunding
+    crowdfunding_for_district: Crea un crowdfunding per il tuo municipio
+  zone:
+    pon_title: Enti disponibili
+  account:
+    show:
+      email_digest_label: Ricevi un riepilogo delle notifiche sulle petizioni
+      user_permission_proposal: Creare nuove petizioni
+      user_permission_support_proposal: Sostenere le petizioni*
+      email_notifications: Servizio di ricezione notifiche a mezzo email
+      email_global_notifications_label: Attiva il servizio di ricezione notifiche a mezzo email
+  legislation_proposals:
+    form:
+      geozone: Ambito di esecuzione
+      proposal_title: Titolo della proposta
+      proposal_summary: Sommario della proposta
+      proposal_summary_note: (massimo 200 caratteri)
+      proposal_text: Contenuto della proposta per esteso
+      proposal_video_url: Link a video esterno
+      proposal_video_url_note: Puoi aggiungere un link a YouTube o a Vimeo
+      tags_instructions: Etichetta questa proposta. Puoi introdurre quelle che desideri
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+    new:
+      start_new: Crea una proposta
+      more_info: Come funzionano le proposte cittadine?
+      form:
+        submit_button: Crea proposta
+      recommendations_title: Suggerimenti per creare una proposta
+      recommendation_one: Non scrivere in maiuscolo il titolo della proposta o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_two: Qualsiasi proposta offensiva, palesemente illegale o che non rientri nella competenza comunale, verrà rimossa. Lo stesso si applica ai commenti.
+      recommendation_three: Usa bene questo spazio e le voci che lo compongono, sono a tua disposizione.
+  asset:
+    form:
+      map_skip_checkbox: Questo Spazio Prenotabile non ha una posizione concreta o non ricordo quale sia.
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+  debates:
+    index:
+      recommendations:
+        without_interests: Segui le discussioni per ricevere suggerimenti
+      section_footer:
+        #help_text_2: Le discussioni possono essere valutate utilizzando i pulsanti Sono d'accordo o Non sono d'accordo che si trovano accanto a ciascuno di essi. Puoi anche valutare i commenti che sono già stati proposti.
+        #help_text_3: Vi ricordiamo che l'area discussioni è una zona di libera discussione tra utenti. Per formulare petizioni di cui la Città si impegna a valutare tecnicamente la fattibilità, anche in termini di risorse, sarà prossimanente attiva, non appena approvate le regole di partecipazione, la sezione petizioni dove potranno essere formulate idee e progetti da commentare ed appoggiare.
+        description: Nella sezione “Forum” puoi proporre e condividere la tua opinione su questioni di interesse pubblico riguardanti la tua città.
+        help_text_1: "Registrati/Accedi; clicca su <strong>“Inizia una discussione”</strong> e compila i campi; per condividerla sui social clicca sul titolo della discussione e clicca sul simbolo del canale social preferito; per valutare una discussione, clicca sui tasti <strong>mi piace/non mi piace</strong>; per Registrarti, clicca il tasto accedi in alto a destra e procedi."
+        help_text_2: ''
+        help_text_3: ''
+        help_text_4: ''
+        proposals_link: petizione
+    map:
+      info: La seguente mappa offre all'utente una visione generale su quali siano le discussioni in fase di svolgimento o archiviate sull'intero territorio.
+      count_markers: "Il numero di discussioni totali visualizzate in mappa: "
+    new:
+      info: Se vuoi fare una petizione, ti trovi nella sezione sbagliata, entra in %{info_link}.
+      info_link: crea nuova petizione
+    show:
+      login_to_comment: È necessario %{signin} per commentare.
+      login_as_spid_to_comment: Non è possibile commentare per gli utenti social. E' probabile che il servizio sia disattivo per gli utenti che hanno accesso al portale tramite un social network.
+      login_as_spid_to_send_reporting: Non è possibile inviare una segnalazione per gli utenti social. E' probabile che il servizio sia disattivo per gli utenti che hanno accesso al portale tramite un social network.
+  processes:
+    processes_proposals:
+      form:
+        geolocation: Mappe proposte e iniziative
+    sgap_label: SIS Gestione Spazi Prenotabili Pubblici
+    process_sgap:
+      label: SGAP
+      finances_list_title: Riepilogo degli Investimenti
+      phases_list_title: Riepilogo delle Fasi
+      financed_amount: Importo Finanziato
+      sal_amount: Importo SAL
+      base_auction_amount: Importo base asta
+      realized_amount: Importo realizzato
+      amount_to_realize: Importo da realizzare
+      start_date: Data inizio progetto
+      end_date: Data fine progetto
+    index:
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      start_processes_proposal: Crea una nuova proposta
+      search_form:
+        button: Cerca
+        placeholder: Cerca Lavori...
+        title: Cerca
+      section_footer:
+        help_text_1: In questa sezione è possibile presentare una proposta di policy o un’iniziativa di interesse collettivo e portarla all’attenzione dei cittadini baresi.
+        help_text_2: 'Le proposte e le iniziative possono configurarsi anche come ipotesi di "patti di collaborazione" (ai sensi del Regolamento comunale per la cura e rigenerazione dei beni comuni) o essere candidate a finanziamento diffuso (crowdfunding civico): in questi casi sarà necessario selezionare la categoria scelta tra quelle indicate.'
+        help_text_3: Per presentare una proposta o un'iniziativa è necessario registrarsi alla piattaforma attraverso il sistema SPID. <br>Dopo l'autenticazione per avanzare una proposta basterà cliccare su “Crea progetto” e compilare i campi. Per condividerla dovrai selezionare il canale social preferito e per valutarla selezionare mi piace/non mi piace.
+        help_text_4: ''
+    form:
+      map_skip_checkbox: Questo progetto non ha una posizione concreta o non ricordo quale sia
+  form:
+    proposal: la petizione
+    sector: Associazione
+  layouts:
+    header:
+      html: 'Inizia a partecipare: contribuisci con le tue idee e le tue opinioni, accedendo alle azioni attive'
+      titolo: Benvenuto
+      proposals: petizioni
+      pon_list: Seleziona Ente
+      collaboration_agreement: Patti di Collaborazione
+    menu:
+      label_menu: Enti
+  polls:
+    show:
+      questions_group: Domande
+    index:
+      section_footer:
+        description: Registrati per poter votare le petizioni cittadine e le questioni per le quali il Consiglio Comunale interpella la cittadinanza. Decidi direttamente.
+        help_text_1: Nella sezione “Consultazioni” l’Amministrazione propone ai cittadini questionari e sondaggi inerenti servizi o iniziative, con l’obiettivo di migliorare l’offerta, in un’ottica di efficienza, efficacia e trasparenza.
+        help_text_2: "Per partecipare alla sezione “Consultazioni” è necessario registrarsi su Bari Partecipa e <strong>verificare il proprio account</strong> attraverso il sistema SPID."
+        help_text_3: ''
+        help_text_4: ''
+        help_text_5: ''
+  proposal_notifications:
+    new:
+      body_label: Messaggio
+      info_about_receivers_html: Questo messaggio sarà inviato a <strong>%{count} utenti</strong> e sarà pubblicato nella %{proposal_page}.<br>
+      proposal_page: pagina della petizione
+  related_content:
+    content_title:
+      proposal: Petizioni
+  shared:
+    followable:
+      proposal:
+        create:
+          notice_html: Adesso stai seguendo questa petizione cittadina! </br> Ti saranno notificate le modifiche man mano che si realizzano per tenerti aggiornato.
+        destroy:
+          notice_html: Hai smesso di seguire questa petizione cittadina! </br> Non riceverai più le notifiche relazionate con questa petizione.
+      event:
+        create:
+          notice_html: Adesso stai seguendo questo Evento! </br> Ti saranno notificate le modifiche man mano che si realizzano per tenerti aggiornato.
+        destroy:
+          notice_html: Hai smesso di seguire questa Evento! </br> Non riceverai più le notifiche relazionate con questo evento.
+    suggest:
+      proposal:
+        found:
+          one: Esiste una petizione con la parola '%{query}', puoi parteciparvi invece di aprirne una nuova.
+          other: Esistono petizioni con la parola '%{query}', puoi parteciparvi invece di aprirne una nuova.
+      message: Visualizzata %{limit} di %{count} petizioni che contengono la parola '%{query}'
+  stats:
+    index:
+      proposal_votes: Voti nelle petizioni
+      proposals: Petizioni cittadine
+  users:
+    reportings:
+      approval: In approvazione
+    proposals:
+      see: Vedi petizione
+      approval: In approvazione
+    show:
+      actions: Azioni
+      comments: Commenti
+      debates: Discussioni
+      deleted: Eliminato
+      deleted_proposal: Questa petizione è stata eliminata
+      filters:
+        proposals:
+          one: 1 Petizione
+          other: "%{count} Petizioni"
+        processes:
+          one: 1 Proposta e Iniziativa
+          other: "%{count} Proposte e Iniziative"
+        processes_proposals:
+          one: 1 Proposta
+          other: "%{count} Proposte"
+      proposals: Petizioni
+  welcome:
+    decide:
+      description: La cittadinanza decide se accettare o rifiutare le petizioni più sostenute.
+    do:
+      description: Se la petizione è accettata dalla maggioranza, il Comune la assume come propria e la mette in pratica.
+    proposal:
+      description: Spazio aperto per le petizioni cittadine a proposito del tipo di città nella quale vogliamo vivere.
+    recommended:
+      proposals:
+        btn_text_link: Tutte le petizioni consigliate
+        title: Petizioni consigliate
+    schede:
+      scheda1:
+        description: On line la nuova sezione <i>Petizioni</i> dove è possibile inserire una petizione di ciò che vorresti che la Città realizzasse e dove puoi appoggiare le petizioni inserite dagli altri cittadini. Ogni petizione che raggiungerà una soglia prefissata di appoggi (vedi FAQ %{link1}) sarà oggetto di studio di fattibilità da parte degli uffici dell'Amministrazione Comunale. Per saperne di più sulle petizioni vai su %{link2}
+        label: Petizioni
+        link: Vai alle petizioni
+        title: Fai una petizione
+      scheda2:
+        description: Vi ricordiamo che l'area discussioni è una zona di libera discussione tra utenti. Per formulare petizioni di cui la Città si impegna a valutare tecnicamente la fattibilità, anche in termini di risorse, è attiva la sezione <i>Petizioni</i> dove potranno essere formulate idee e progetti da commentare ed appoggiare.
+      scheda3:
+        description: Registrati per poter votare le petizioni cittadine e le questioni per le quali il Consiglio Comunale interpella la cittadinanza. Decidi direttamente.
+    welcome:
+      user_permission_proposal: Creare nuove petizioni
+      user_permission_support_proposal: Sostenere petizioni*
+  mailers:
+    proposal_notification_digest:
+      comment: Commenta la petizione
+      info: Di seguito ti mostriamo le nuove notifiche che hanno pubblicato gli autori delle petizione che stai sostenendo su %{org_name}.
+      share: Condividi la petizione
+      title: Notifiche delle petizione su %{org_name}
+      unsubscribe: Se non intendi ricevere le notifiche delle petizione, puoi entrare in %{account} e togliere la spunta all'opzione 'Ricevi un riepilogo delle notifiche sulle petizione'.
+      unsubscribe_account: Il mio account
+  management:
+    menu:
+      create_proposal: Crea petizione
+      print_proposals: Stampa petizione
+    permissions:
+      create_proposals: Crea nuove petizione
+      debates: Partecipa alle discussioni
+      support_proposals: Sostieni petizione
+    print:
+      proposals_info: Fai la tua petizione su http://url.consul
+      proposals_note: Le petizione maggiormente sostenute passeranno alla fase di votazione. Se saranno accettate dalla maggioranza, il Comune si impegnerà a realizzarle.
+      proposals_title: 'Petizioni:'
+    proposals:
+      create_proposal: Crea petizione
+  admin:
+    polls:
+      new:
+        flag_cookie: Attiva controllo cookie per voto univoco
+    agreements:
+      index:
+        no_hidden_agreements: Non sono presenti Patti di Collaborazione nascosti.
+        title: Patti di Collaborazione
+        filters:
+          without_confirmed_hide: In sospeso
+          all_admin: Tutti
+          with_confirmed_hide: Confermati
+    collaboration:
+      agreements:
+        agreement:
+          title: Patti di Collaborazione
+          status: Stato
+          creation_date: Data creazione
+          comments: Commenti
+          actions: Azione
+          status_open: Aperto
+          status_closed: Chiuso
+          status_planned: A breve
+        create:
+          notice: Patto di Collaborazione creato correttamente.
+          error: Non è stato possibile creare il Patto di Collaborazione
+        edit:
+          back: Indietro
+          submit_button: Salva modifiche
+        form:
+          agreement: Patto di Collaborazione
+          allegations_phase: Fase degli aggiornamenti
+          debate_phase: Invio adesioni
+          proposals_phase: Fase delle proposte
+          map_location: Localizzazione nella mappa
+          map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+          agreement_sectorable: Inizio Patto di Collaborazione come Terzo Settore
+          title_placeholder: Scrivi il titolo del Patto di Collaborazione
+          summary_placeholder: Sommario breve della descrizione
+          description_placeholder: Aggiorna la descrizione del Patto di Collaborazione
+          additional_info_placeholder: Aggiungi qualsiasi informazione aggiuntiva che possa essere di interesse
+          start: Inizio
+          end: Fine
+          enabled: Abilitato
+          use_markdown: Usa Markdown per aggiungere la formattazione al testo
+        index:
+          title: Patti di Collaborazione
+          create: Crea nuovo Patto di collaborazione
+          delete: Elimina
+          filters:
+            opens: Aperti
+            next: A breve
+            past: Passati
+            all: Tutti
+        new:
+          back: Indietro
+          title: Patti di Collaborazione
+          submit_button: Crea Patto di collaborazione
+        subnav:
+          info: Informazioni
+        update:
+          notice: Patto di Collaborazione aggiornato correttamente.
+    comments:
+      index:
+        filters:
+          all_admin: Tutte
+    debates:
+      index:
+        filters:
+          all_admin: Tutte
+    reportings:
+      index:
+        filters:
+          all_admin: Tutte
+    crowdfundings:
+      index:
+        filters:
+          all_admin: Tutti
+    legislation_proposals:
+      index:
+        no_hidden_legislation_proposals: Non sono presenti proposte nascoste
+        title: Proposte
+        filters:
+          without_confirmed_hide: In sospeso
+          all_admin: Tutte
+          with_confirmed_hide: Confermate
+    users:
+      index:
+        no_users: Nessun rapprensetante legale associato.
+      columns:
+        actions: Azione
+        name: Rappresentante legale
+        email: Email
+        cod_fiscale: Cod Fiscale
+        roles: Ruoli
+        verification_level: Livello di verifica
+    third_sector:
+      index:
+        title: Terzo Settore
+        new: Carica
+        uploaded: Caricamento Completato, sto elaborando il file, i dati aggiornati verranno mostrati a breve
+        wrong_format: Errore nel caricamento, formati accettati .xls o .xlsx
+        completed: Dati terzo settore elaborati, disponibili nella tabella
+        search:
+          modify: Modifica
+      update:
+        no_modify: L'associazione è in fase di moderazione
+        manual_insert: Inserisci manualmente i dati dell'utente Legale Rappresentante
+      button:
+        join: Associa utente
+        unbind: Rimuovi associazione
+      name: Nome
+      address: Indirizzo
+      vat_code: CF o P.IVA
+      legal_representative: Legale rappresentante
+      email_legal_representative: Email Legale rappresentante
+      phone_number: "Numero di telefono: "
+      email: "Email: "
+      cf_rappr_legale: "Codice Fiscale Rappresentante Legale: "
+      no_third_sector: Nessuna Organizzazione Terzo Settore trovata.
+      type: Tipologia
+      edit: Dettaglio
+      registered_office: "Sede legale: "
+      vat_number: "Partita IVA: "
+      search_label: Cerca un utente da selezionare come rappresentate legale
+      subentri: Gestione subentro
+      subentro_button: Sostituisci
+      upload_file: Carica file Organizzazione Terzo Settore
+      choose_file: Scegli un file
+      list: Lista Organizzazione Terzo Settore
+      template: Scarica il template per il Terzo Settore
+    tags:
+      index:
+        add_tag: Aggiungi un nuovo argomento
+        title: Argomenti di petizione
+    stats:
+      proposal_notifications:
+        proposals_with_notifications: Petizioni con notifiche
+        title: Notifiche delle petizioni
+      show:
+        proposal_notifications: Notifiche di petizioni
+        summary:
+          proposal_votes: Voti nelle petizioni
+          proposals: Petizioni
+          verified_users_who_didnt_vote_proposals: Utenti verificati che non hanno votato petizioni
+    shared:
+      proposal_search:
+        placeholder: Cerca petizione per titolo, codice, descrizione o domanda
+    segment_recipient:
+      proposal_authors: Autori di petizioni
+    answers:
+      new:
+        error_max: Non è possibile aggiungere più di dieci risposte per i quesiti di tipo tabellari
+    questions:
+      new:
+        optional_question: Quesito della precondizione
+        optional_answer: Risposta per la verifica della precondizione
+        question_type: Tipo Quesito
+        title: Crea un quesito
+        new_underquestion: Nuova domanda
+        error: Impossibile aggiungere una domanda, quesito inesistente
+        no_polls_error: Impossibile aggiungere un quesito, nessuna Consultazione presente
+      show:
+        proposal: Petizione cittadina originale
+        optional_question: Quesito della precondizione
+        optional_answer: Risposta per la verifica della precondizione
+        question_type: Tipo Quesito
+        question_group: Domande
+        answer_group: Risposte
+        add_question_group: Aggiungi domanda
+    proposals:
+      index:
+        filters:
+          all_admin: Tutte
+        no_hidden_proposals: Non sono presenti petizioni nascoste.
+        title: Petizioni nascoste
+    menu:
+      hidden_agreements: Patti di Collaborazione
+      hidden_proposals: Petizioni
+      hidden_legislation_proposals: Proposte
+      hidden_processes: Proposte e Iniziative
+      processes_proposals: Proposte e Iniziative
+      agreements: Patti di Collaborazione
+      menage_processes_proposals: Proposte e Iniziative
+      process_typologies: Categorie proposte
+    legislation:
+      process_typologies:
+        index:
+          title: Categorie Proposte
+          name: Nome
+          active: Attivo
+          new_typology: Nuova Categoria
+          actions:
+            confirm: Si
+            nope: "No"
+            modify: Modifica
+        new:
+          create: Crea nuova categoria proposte
+          name: Nome
+          active: Attivo
+          submit_button_typology: Crea Categoria
+        edit:
+          submit_button_typology: Modifica Categoria
+          modify: Modifica categoria proposte
+        list:
+          typologies: Categorie esistenti
+      draft_versions:
+        create:
+          notice_user: Bozza creata correttamente e in attesa di approvazione.
+        update:
+          notice_user: Bozza aggiornata correttamente e in attesa di approvazione.
+      questions:
+        create:
+          notice_user: Domanda creata correttamente e in attesa di approvazione.
+        update:
+          notice_user: Domanda aggiornata correttamente e in attesa di approvazione.
+      proposals:
+        form:
+          custom_categories: Categorie che l'utente può selezionare durante la creazione della petizione.
+          header_information_description: Fornisci informazioni sul percorso delle petizioni. Questo testo sarà visualizzato, sotto forma di avviso, al responsabile della sezione Petizioni all'interno di questo processo. Usa Markdown per aggiungere la formattazione al testo.
+          header_information_placeholder: Aggiungi informazioni per il responsabile delle petizioni
+        index:
+          title: Petizioni
+      processes:
+        proposals:
+          update:
+            notice: Proposta di un progetto creata correttamente.
+            notice_user: Proposta di un progetto creata correttamente e in attesa di approvazione.
+        index:
+          filters:
+            waiting_moderation: In attesa di moderazione
+        subnav:
+          proposals: Proposte
+        form:
+          proposals_phase: Fase delle proposte
+          sectorable: Inizia petizione come Terzo settore
+          process_sectorable: Inizia progetto come Terzo Settore
+          process_proposals_sectorable: Inizia proposta come Terzo Settore
+          typology: Tipologia
+        update:
+          notice: Proposta o iniziativa aggiornata. In attesa di approvazione prima della pubblicazione.
+          notice_admin: Proposta o iniziativa aggiornata correttamente.
+        create:
+          notice: Proposta o iniziativa creata correttamente. In attesa di approvazione prima della pubblicazione.
+          notice_admin: Proposta o iniziativa creata correttamente.
+        process:
+          status_waiting_approval: In attesa di approvazione
+          actions: Azione
+      process_processes_proposal:
+        title: Proposte e Iniziative
+        new:
+          title: Crea un nuovo proposta e progetto
+    comments:
+      index:
+        hidden_proposal: petizione nascosta
+      winners:
+        calculate: Calcola petizioni vincitrici
+        calculated: In elaborazione delle petizioni vincitrici, può durare un minuto.
+    activity:
+      show:
+        filters:
+          on_proposals: Petizioni
+    settings:
+      job:
+        notice:
+        reportings_download_data_job: Hai aggiornato le Segnalazioni geo-localizzate
+        all_reportings_download_data_job: Hai aggiorna tutte le Segnalazioni
+      reportings_download_data_job: Aggiorna le Segnalazioni geo-localizzate
+      all_reportings_download_data_job: Aggiorna tutte le Segnalazioni
+      bis_process_download_data_job: Aggiorna tutti i Progetti importati da BIS
+      index:
+        categories:
+          disable: Smetti di seguire
+          disabled: Categoria da seguire
+          enable: Segui
+          enabled: Categoria seguita
+    processes:
+      index:
+        title: Proposte e Iniziative
+        start_processes_proposal: Crea un nuovo progetto
+        no_hidden_processes: Non sono presenti proposte e iniziative nascoste.
+        filters:
+          new_mod_hidden: Da moderare
+          without_confirmed_hide: In sospeso
+          all_admin: Tutti
+          all: Tutti
+          with_confirmed_hide: Confermate
+  moderation:
+    agreements:
+      index:
+        block_authors: Blocca autori
+        hide_agreements: Nascondi patti
+        ignore_flags: Segna come esaminati
+        title: Patti di Collaborazione
+        created_at: Data creazione
+        order: Ordina per
+        orders:
+          start_date: Data di creazione
+          created_at: Più recenti
+        filters:
+          new_hidden: Da approvare
+        headers:
+          agreement: Patti di Collaborazione
+          moderate: Modera
+    legislation_proposals:
+      index:
+        hide_proposals: Nascondi proposte
+        title: Proposte
+        headers:
+          legislation_proposal: Proposta
+    menu:
+      proposals: Petizioni
+      legislation_proposals: Proposte
+      titles: Petizioni / Segnalazioni / Dibattiti / Commenti
+      agreements: Patti di Collaborazione
+      sectors: Associazioni Terzo Settore
+    proposals:
+      index:
+        headers:
+          proposal: Petizione
+        hide_proposals: Nascondi Petizioni
+        title: Petizione
+    st_sectors:
+      outcome:
+        form:
+          submit_button: Conferma
+      index:
+        block_authors: Blocca autori
+        confirm: Sei sicuro?
+        filter: Filtra
+        filters:
+          new_adds: Nuovi inserimenti
+          change_requests: Richieste di modifica
+          cancellation_requests: Richieste di cancellazione
+          all: Tutti
+          new_hidden: Da approvare
+          all_moderate: Tutte
+          pending_flag_review: In sospeso
+          with_ignored_flag: Marcati come esaminati
+        headers:
+          data: Dati
+          moderate: Modera
+        order: Ordine
+        orders:
+          created_at: Più nuovi
+        title: Associazioni Terzo Settore
+    sectors:
+      form:
+        note: Nota
+        help_button: Cliccando sul pulsante 'Conferma' accetti di voler approvare/annullare l'Associazione
+      sidebar:
+        title: Informazioni
+      index:
+        button:
+          modify: Richiedi Integrazioni
+          clean: Respingi
+      outcome:
+        title: Informazioni richiesta
+        sector_name: Associazione
+        legal_representative: Legale Rappresentante
+        date: Data
+        request: Tipo richiesta
+      show:
+        map: Mappa Associazione
+  pages:
+    more_info:
+      menu:
+        proposals: Petizioni
+      polls:
+        description: Le petizioni cittadine che raggiungono l'1% di appoggi saranno sottoposte a consultazione.
+      proposals:
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia le petizioni degli altri utenti.
+        feature_1_html: Le petizioni devono riguardare temi inerenti la Città, e se richiedono all'Amministrazione di realizzarla devono rientrare nelle competenze attribuite ai comuni.
+        feature_2: Per creare le petizioni è necessario %{link1}, invece per appoggiarle bisogna aver certificato il proprio account (vedi la %{link2}).
+        feature_2_link1: registrarsi su %{org_name}
+        feature_2_link2: pagina delle FAQ
+        feature_3_html: Le petizioni che raggiungono <strong>l'appoggio di 5.000 utenti certificati</strong> (ovvero residenti nel comune/regione di una età maggiore di 16 anni) saranno oggetto di studio di fattibilità da parte degli uffici dell'Amministrazione comunale.
+        feature_4_html: Se lo studio di fattibilità è positivo la Città si impegna a realizzare la petizione.
+        feature_5_html: Nel primo anno la Città valuterà comunque, qualora nessuna petizione raggiunga i 5.000  appoggi, le prime tre petizioni se superano almeno i 1.000 appoggi.
+        feature_6_html: La Città si riserva di prendere in considerazione le petizioni comunque meritevoli di analisi di fattibilità se tali soglie non saranno raggiunte al 30/6 e al 31/12.
+        feature_7: Ulteriori informazioni sulle petizioni e sulle modalità di registrazione sono disponibili nella %{link}
+        feature_7_link: pagina delle FAQ
+        feature_html: Per creare le petizioni è necessario %{link1}, invece per appoggiarle bisogna aver certificato il proprio account (vedi la %{link2}).
+        figcaption_html: Pulsante per "Appoggiare" una petizione.<br>Quando raggiunge il numero di appoggi necessari passerà a votazione.
+        image_alt: Pulsante per appoggiare una petizione
+        link: registrarsi su %{org_name}
+        title: Petizioni
+    help:
+      menu:
+        proposals: Petizioni
+      proposals:
+        description: Nella sezione %{link} puoi creare petizioni per il Consiglio Comunale. Le petizioni richiedono sostegno e, se raggiungono un sostegno sufficiente, vengono sottoposte a votazione pubblica. Le petizioni approvate con questi voti dei cittadini sono accettate dal Consiglio Comunale e portate a termine.
+        feature_html: Per creare una petizione devi registrarti in %{org}. Le petizioni che ottengono il sostegno sul portale del 1% delle persone con il diritto al voto (%{supports} sostegni di persone aventi più di 16 anni già registrate) vanno al voto. Per sostenere le petizioni è necessario verificare il tuo account.
+        figcaption_html: Pulsante per "Votare" una petizione. <br> Quando raggiunge il numero di sostengni andrà al voto.
+        link: Petizioni
+        title: Petizioni
+  flash:
+    actions:
+      create:
+        legislation_proposal_in_approval: Proposta creata correttamente. In attesa di approvazione prima della pubblicazione.
+        proposal: Petizione creata correttamente.
+        event: Evento creato correttamente.
+        legislation_proposal: Proposta creata correttamente.
+        proposal_in_approval: Petizione creata correttamente. In attesa di approvazione prima della pubblicazione.
+        question: Quesito creato correttamente.
+      update:
+        proposal: Petizione aggiornata correttamente.
+        proposal_in_approval: Petizione aggiornata correttamente. In attesa di approvazione prima della ripubblicazione.
+  settings:
+    job:
+      reportings_download_data_job: Aggiorna le Segnalazioni geo-localizzate
+      all_reportings_download_data_job: Aggiorna tutte le Segnalazioni
+      notice:
+        reportings_download_data_job: Hai aggiornato le Segnalazioni geo-localizzate
+        all_reportings_download_data_job: Hai aggiorna tutte le Segnalazioni
+    moderation:
+      proposals: Petizioni
+    proposals: Petizioni
+    max_votes_for_proposal_edit: "Numero di voti necessari per non poter più modificare una petizione"
+    proposal_code_prefix: "Prefisso per i codici delle petizione"
+    moderable_booking_code_prefix: "Prefisso per i codici delle prenotazioni"
+    votes_for_proposal_success: "Numero di voti necessari per approvare una petizione"
+    months_to_archive_proposals: "Mesi per archiviare le petizioni"
+    service:
+      proposals: Petizioni
+    feature:
+      proposals: Petizioni
+    proposal_improvement_path: Informazioni su come migliorare le petizioni
+  activerecord:
+    attributes:
+      signature_sheet:
+        signable_id: ID Petizione
+    errors:
+      models:
+        signature:
+          attributes:
+            document_number:
+              already_voted: Petizione già votata
+    models:
+      proposal:
+        one: Petizione cittadina
+        other: Petizioni cittadine
+      event:
+        one: Evento
+        other: Eventi
+  community:
+    show:
+      back_c: Torna indietro alla community del crowdfunding
+      back_p: Torna indietro alla community della petizione
+      back: Torna indietro alla community
+      description:
+        proposal: Partecipa alla Community di questa petizione. Una Community attiva può aiutare a migliorare il contenuto della petizione così come può aumentare la sua diffusione allo scopo di ricevere più appoggi.
+      title:
+        proposal: Community petizione
+    sidebar:
+      description:
+        proposal: Partecipa alla community di utenti di questa petizione.
+  devise_views:
+    menu:
+      login_items:
+        login: Accedi
+        logout: Esci
+    users:
+      registrations:
+        delete_form:
+          info: Non è possibile annullare questa operazione. Una volta cancellato, non potranno più essere recuperati i dati associati all’ attuale utenza. Al prossimo accesso sarà creata una nuova utenza.
+    organizations:
+      registrations:
+        new:
+          responsible_name_note: Sarà la persona che rappresenta l'associazione/collettivo in noe della quale sono presentate le petizioni
+  proposals:
+    create:
+      form:
+        submit_button: Crea petizioni
+    edit:
+      editing: Modifica petizione
+      form:
+        submit_button: Salva modifiche
+      show_link: Vedi petizione
+    new:
+      form:
+        submit_button: Crea petizione
+      more_info: Come funzionano le petizioni cittadine?
+      recommendation_one: Non scrivere in maiuscolo il titolo della petizione o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_three: Usa bene questo spazio e le voci che lo compongono, sono a tua disposizione.
+      recommendation_two: Qualsiasi petizione offensiva, palesemente illegale o che non rientri nella competenza comunale, verrà rimossa. Lo stesso si applica ai commenti.
+      recommendations_title: Suggerimenti per creare una petizione
+      start_new: Crea una petizione
+    form:
+      account_proposals: Indirizzo petizione
+      geolocation: Mappa petizioni
+      geozone: Ambito di esecuzione
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questa petizione non ha una posizione concreta o non ricordo quale sia.
+      proposal_external_url: Link alla documentazione aggiuntiva
+      proposal_question: Domanda della petizione
+      proposal_question_example_html: Riassumi la petizione come una domanda a cui si risponde con un SI o con un NO.<br>Se non vuoi porre nessuna domanda inserirsci 10 trattini.
+      proposal_responsible_name: Nome e cognome della persona che fa questa petizione
+      proposal_responsible_name_note: "(individualmente o come reppresentante di un collettivo; tale dato resterà nascosto)"
+      proposal_summary: Sommario della petizione
+      proposal_summary_note: "(massimo 200 caratteri)"
+      proposal_text: Contenuto della petizione per esteso
+      proposal_title: Titolo della petizione
+      proposal_video_url: Link a video esterno
+      proposal_video_url_note: Puoi aggiungere un link a YouTube o a Vimeo
+      tag_category_label: Tags
+      tags_instructions: Etichetta questa petizione. Puoi scegliere fra le categorie che ti sono presentate o puoi introdurre quelle che desideri
+      tags_label: Temi
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+      value:
+        proposal_question: Firma anche tu la petizione!
+    index:
+      filters:
+        all_admin: Tutte
+      title: E-petitioning
+      start_proposal: Lancia una petizione
+      start_legislation_proposal: Crea una proposta
+      search_form:
+        placeholder: Cerca petizioni...
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_header:
+        title: Petizioni
+        help: Aiuto sulle petizioni
+        icon_alt: Icona delle petizioni
+      top_link_proposals: Petizioni più appoggiate per categoria
+      retired_proposals: Petizioni ritirate
+      retired_proposals_link: Petizioni ritirate dagli autori
+      section_footer:
+        title: Aiuto sulle petizioni
+        description: Nella sezione “Petizioni” puoi creare una petizione, rivolta all’amministrazione, per sollecitare l’intervento su temi di interesse comune, o per esprimere esigenze di carattere collettivo.
+        help_text_1: Ai sensi dell’art 42, c 2, dello Statuto della Città di Bari, “La petizione è rivolta al Sindaco, il quale, entro quindici giorni, la assegna in esame all'organo competente e ne invia copia ai gruppi presenti in Consiglio Comunale. Se la petizione è sottoscritta da almeno duecento persone, l'organo competente deve pronunciarsi in merito entro trenta giorni dal ricevimento. Il contenuto della decisione dell'organo competente, unitamente al testo della petizione, è pubblicizzato mediante affissione negli appositi spazi e, comunque, in modo tale da permetterne la conoscenza a tutti i firmatari del territorio del Comune. Copia viene inviata ai Gruppi Consiliari. Se la petizione è sottoscritta da almeno mille persone, ciascun Consigliere Comunale può richiedere, con apposita istanza rivolta al Presidente del Consiglio Comunale, con apposita istanza rivolta al Presidente del Consiglio Comunale, che il testo della petizione venga posto in discussione nella prima seduta utile di Consiglio.” <a href='https://www.comune.bari.it/statuto' target='_blank'>Statuto della città di Bari</a>
+        help_text_2: "Le petizioni, quindi, richiedono sostegno, da esprimersi attraverso il tasto <strong>FIRMA</strong>, a seguito di accesso effettuato alla piattaforma e verifica dell’account attraverso il sistema SPID."
+        help_text_3: "Registrati/Accedi; per lanciare una petizione, clicca su <strong>“lancia una petizione”</strong>; per sostenere una petizione, clicca su firma."
+        help_text_4: ''
+    proposal:
+      already_supported: Hai firmato questa petizione, condividila!
+      archived: Questa petizione è stata archiviata e non può più essere sostenuta.
+      support_title: Sostieni questa petizione
+      successful: Questa petizione ha ottenuto gli appoggi necessari ed è all'attenzione dell'amministrazione comunale.
+      created: Hai creato una petizione!
+    map:
+      info: La seguente mappa offre all'utente una visione generale su quali siano le proposte in fase di svolgimento o archiviate sull'intero territorio.
+      count_markers: "Il numero di proposte totali visualizzate in mappa: "
+  map:
+    start_proposal: Lancia una petizione
+  verification:
+    letter:
+      edit:
+        see_all: Vedi petizioni
+    user_permission_proposal: Creare nuove petizioni
+    user_permission_support_proposal: Sostenere le petizioni
+  reportings:
+    form:
+      apps_download: Download Barisolve
+      download_from_barisolve: Inserisci le tue segnalazioni geolocalizzate direttamente dall'app BaRisolve. L’app è disponibile su Google Play e su App Store. Ti aspettiamo!
+    index:
+      section_footer:
+        description: Controlla lo stato delle segnalazioni effettuate attraverso l’app Barisolve.
+        help_text_1: '' #In questa sezione puoi effettuare segnalazioni geo localizzate relative a dissesti e disservizi nelle aree della tua città.
+        help_text_2: '' #Per accedere a questa sezione devi essere registrato ed effettuare l’accesso.
+        help_text_3: '' #Per Registrarti, clicca il tasto accedi in alto a destra e procedi.
+        help_text_4: ''
+      orders:
+        all: Tutte
+        forward: Inoltrate
+        at_work: In lavorazione
+        closed: Chiuse
+        resolved: Risolte
+    map:
+      info: La seguente mappa offre all'utente una visione generale su quali siano le segnalazioni sull'intero territorio.
+      count_markers: "Il numero di segnalazioni totali visualizzate in mappa: "
+  crowdfundings:
+    index:
+      section_footer:
+        help_text_1: 'Nella sezione “Crowdfundings” puoi sostenere un progetto o una iniziativa promossi dalla tua amministrazione'
+        help_text_2: ''
+        help_text_3: ''
+    map:
+      info: La seguente mappa offre all'utente una visione generale su quali siano i crowdfundings in fase di svolgimento o archiviate sull'intero territorio.
+      count_markers: "Il numero di crowdfundings totali visualizzate in mappa: "
+  chances:
+    index:
+      section_footer:
+        description:
+        help_text_1: In questa sezione puoi restare sempre informato o controllare i bandi diretti ai cittadini.
+        help_text_2: Per accedere a questa sezione devi effettuare l’accesso cliccando il tasto accedi in alto a destra e scegliendo tra le modalità disponibili.
+        help_text_3: ''
+    map:
+      info: "La seguente mappa offre all'utente una visione generale su quali siano le opportunità sul territorio. "
+      count_markers: " Il numero di opportunità totali da visualizzate in mappa:  "
+  works:
+    index:
+      section_footer:
+        description:
+        help_text_1: In questa sezione sarà possibile seguire lo stato di avanzamento dei lavori pubblici e conoscere i progetti in via di sviluppo.
+        help_text_2: Sarà inoltre possibile aprire forum di discussione cliccando sul tasto “partecipa”; per utilizzare questa funzionalità è necessario essere registrati alla piattaforma.
+        help_text_3: Per visualizzare un progetto, clicca sul titolo; per aprire o partecipare a una discussione sul progetto, clicca “partecipa”.
+    map:
+      info: "La seguente mappa offre all'utente una visione generale su quali siano le proposte e iniziative sul territorio. "
+      count_markers: " Il numero di proposte e iniziative totali da visualizzate in mappa:  "
+  sectors:
+    map:
+      info: "La seguente mappa offre all'utente una visione generale su quali siano le organizzazioni del Terzo settore sul territorio. "
+      count_markers: " Il numero di settori totali da visualizzate in mappa:  "
+    new:
+      recommendations_title: "Suggerimenti per registrare una nuova Associazione"
+      sector_type: "Categoria"
+      name: Ragione Sociale
+      description: Descrizione
+      vat_code: P. IVA / Codice Fiscale
+      address: Sede legale
+      email: Email
+      cf_rappr_legale: Codice Fiscale
+      phone_number: Telefono
+      sector_address: Indirizzo Associazione
+      attorney: Rappresentante legale
+      placeholder_name: "Titolo dell'Associazione"
+      name_surname: Nome e Cognome
+      form:
+        submit_button: Crea Associazione
+    create:
+      form:
+        submit_button: Crea Associazione
+    edit:
+      form:
+        submit_button: Salva modifiche
+      sector_modify: Modifica Associazione
+    index:
+      section_footer:
+        stsector: QUI
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia i settori degli altri utenti.
+        help_text_1: "In questa sezione puoi iscrivere la tua Associazione nell’elenco pubblico degli enti del terzo settore del tuo comune. Clicca %{stsector} per iscrivere la tua Associazione."
+        help_text_2: "Per qualsiasi modifica inerente l'assetto dell'associazione, nello specifico il cambio di legale rappresentante, è necessario inviare mail all' indirizzo %{email_sectors} con la documentazione richiesta (cioè o nuovo atto costitutivo o documentazione attestante il subentro)."
+  st_sectors:
+    notification:
+      of: del
+    form:
+      map_skip_checkbox: Questa Associazione non ha una posizione concreta o non ricordo quale sia.
+    st_sector:
+      created: "L'associazione %{sector} è stata creata correttamente nella categoria %{sector_type}"
+      in_approval: In attesa di approvazione prima della pubblicazione.
+      share:
+        view_st_sector: Vai all'associazione
+    show:
+      erase_sector: Cancella Associazione
+      description: Descrizione
+      operations: Storico operazioni
+      no_operations: Non sono presenti operazioni
+      request_date: Data richiesta
+      table:
+        date: Data
+        request: Tipo Richiesta
+        state: Stato
+        note: Nota
+        actions: Azioni
+        button:
+          views: Visualizza
+  processes_proposals:
+    map:
+      info: "La seguente mappa offre all'utente una visione generale su quali siano le proposte e iniziative sul territorio. "
+      count_markers: " Il numero di proposte e iniziative totali da visualizzate in mappa:  "
+  helpers:
+    label:
+      st_sector_notification:
+        request: "Tipo richiesta: "
+        state: "<br> Esito: "
+        note: "<br> Nota: "

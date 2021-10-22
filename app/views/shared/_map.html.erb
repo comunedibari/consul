@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="small-12 medium-9 column margin-top">
+
+    <h1><%= t("map.title") %></h1>
+
+    <div class="row">
+      <div class="small-12 medium-3 column">
+        <ul id="geozones" class="list-unstyled">
+          <% @geozones.sort.each do |geozone| %>
+           <li><%= link_to geozone.name, :controller =>i18n_namespace, :search => geozone.name %></li>
+           <li><hr></li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="show-for-medium medium-9 column text-center">
+        <%= image_tag("#{Rails.application.config.cm}/pon_"+User.pon_id.to_s+".jpg", usemap: "#map") %>
+      </div>
+
+      <map name="map" id="html_map">
+        <% @geozones.each do |geozone| %>
+          <area shape="poly"
+                coords="<%= geozone.html_map_coordinates %>"
+                href="<%= polymorphic_url(@resource, search: geozone.name) %>"
+                title="<%= geozone.name %>"
+                alt="<%= geozone.name %>">
+        <% end %>
+      </map>
+    </div>
+
+    <h2><%= t("map.#{parent_class}_for_district") %></h2>
+
+    <%= form_for(@resource, url: new_url_path, method: :get ) do |f| %>
+      <div class="small-12 medium-4">
+        <%= f.label :geozone_id,  t("map.select_district") %>
+        <%= f.select :geozone_id, geozone_select_options,
+                     {include_blank: t("geozones.none"), label: false} %>
+      </div>
+    <% if parent_class != "reporting" %>
+        <div class="actions small-12">
+          <%= f.submit(class: "btn btn-primary rounded mb-3", value: t("map.start_#{parent_class}")) %>
+        </div>
+        <% end %>
+    <% end %>
+  </div>
+
+  <div class="small-12 medium-3 column">
+    <aside class="sidebar">
+      <%= render "shared/tag_cloud", taggable: parent_class %>
+    </aside>
+  </div>
+</div>

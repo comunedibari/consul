@@ -1,0 +1,60 @@
+  <% answers_list = question.group_id.nil? ? question.question_answers : question.question_group.question_answers%>
+  <% if (current_user and can?(:answer, question.poll) and !(current_user.administrator? || current_user.moderator?)) or (!current_user and !check_cookies_poll(question.poll)) %>
+    <% block_btn = question.num_max_answers == 1 ? false : true %>
+    <%# question.question_answers.each do |answer| %>    
+    <% answers_list.each do |answer| %>    
+      <% val = rand(1..999999).to_s %>    
+      <% val = answer.id.to_s %>    
+      <% if @answers_by_question_id[question.id] && @answers_by_question_id[question.id][answer.title.to_s] == answer.title
+        # && (!voted_before_sign_in(question) || question.poll.voted_in_booth?(current_user)) 
+        %> 
+        <div id=<%= val %> class="col-1 ml-0 p-0"  style="margin:0 auto;">
+            <%= button_to "", answer_question_path(question, answer: answer.title, token: token),
+                method: :post,
+                remote: true,
+                id: val,
+                class: "btn btn-dark btn-block mr-2 mb-2",
+                style: block_btn ? "width: 31px; height: 31px;" : "width: 31px; height: 31px; border-radius: 31px;"
+                 %>
+            <%#= answer.title %>
+        </div>
+
+      <% else %>
+        <div id=<%= val %> class="col-1 ml-0 p-0"  style="margin:0 auto;">
+          <div class="column p-0">          
+            <div class="row ml-0">
+            <% if current_user.nil? || check_count_votes(question) || !block_btn %>
+            <%= button_to "", answer_question_path(question, answer: answer.title, token: token),
+                method: :post,
+                remote: true,
+                id: val,
+                class: "btn btn-outline-dark btn-block mb-2 mr-2",
+                style: block_btn ? "width: 31px; height: 31px;" : "width: 31px; height: 31px; border-radius: 31px;"
+                %>
+            <%#= answer.title %>
+            <% else %>              
+              <%= button_to "", answer_question_path(question, answer: answer.title, token: token),
+                  method: :post,
+                  remote: true,
+                  disabled: 'disabled',
+                  id: val,
+                  class: "btn btn-outline-dark btn-block mb-2 mr-2",
+                  style: block_btn ? "width: 31px; height: 31px;" : "width: 31px; height: 31px; border-radius: 31px;"
+                  %>
+              <%#= answer.title %>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    <% end %>
+
+  <% else %>
+    <%# question.question_answers.each do |answer| %>
+    <% answers_list.each do |answer| %>    
+      <div class="col-1 ml-0 p-0"  style="margin:0 auto;">
+        <span class="button secondary hollow disabled"></span><%#= answer.title %><br>
+      </div>
+    <% end %>
+  <% end %>

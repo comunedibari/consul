@@ -1,0 +1,70 @@
+---
+it:
+  flash:
+    actions:
+      create:
+        budget_investment: Proposta di investimento creata correttamente.
+        debate: Discussione creata correttamente.
+        debate_in_approval: Discussione creata correttamente. In attesa di approvazione prima della pubblicazione.
+        direct_message: Il messaggio è stato inviato correttamente.
+        comment_in_approval: Commento inserito correttamente. In attesa di approvazione prima della pubblicazione.
+        notice: "%{resource_name} creato con successo."
+        poll: Consultazione creata con successo.
+        poll_booth: Seggio creato correttamente.
+        poll_question_answer: Risposta creata con successo. Verifica il numero minimo e massimo delle risposte selezionabili.
+        poll_question_answer_image: Immagine caricata correttamente
+        poll_question_answer_video: Video creato correttamente
+        proposal: Proposta creata correttamente.
+        proposal_in_approval: Proposta creata correttamente. In attesa di approvazione prima della pubblicazione.
+        event: Evento creato correttamente.
+        event_in_approval: Evento creato correttamente. In attesa di approvazione prima della pubblicazione.
+        crowdfunding: Crowdfunding creato correttamente.
+        crowdfunding_in_approval: Crowdfunding creato correttamente. In attesa di approvazione prima della pubblicazione.
+        reporting: Segnalazione creata correttamente.
+        reporting_in_approval: Segnalazione creata correttamente. In attesa di approvazione prima della pubblicazione.
+        proposal_notification: Il tuo messaggio è stato inviato correttamente.
+        crowdfunding_notification: Il tuo messaggio è stato inviato correttamente.
+        signature_sheet: Foglio per le firme creato correttamente
+        spending_proposal: Proposta di investimento è stata creata. È possibile accedervi da %{activity}
+        topic: Tema creato con successo.
+        user_investment: Investimento creato correttamente.
+        valuator_group: Gruppo valutatori creato correttamente
+        sector: Associazione creata correttamente.
+        sector_in_approval: Associazione creata correttamente. In attesa di approvazione prima della pubblicazione.
+      destroy:
+        question: Quesito eliminato con successo.
+        budget_investment: Proposta di investimento eliminata.
+        crowdfunding: Crowdfunding eliminato.
+        error: Non è stato possibile eliminare
+        poll_question_answer_video: Video di risposta eliminato.
+        spending_proposal: Proposta di investimento eliminata.
+        topic: Tema eliminato.
+        poll_question_answer: Risposta eliminata correttamente. Verifica il numero minimo e massimo delle risposte selezionabili.
+        valuator_group: Gruppo valutatori eliminato correttamente
+        st_sector_in_approval: Richiesta di cancellazione inserita correttamente. In attesa di approvazione da parte del moderatore.
+        error_request: Impossibile procedere con la richiesta di cancellazione.
+      save_changes:
+        notice: Modifiche salvate
+      update:
+        agreement: Patto aggiornato con successo.
+        question: Quesito aggiornato con successo.
+        budget_investment: Proposta di investimento aggiornata correttamente.
+        debate: Discussione aggiornata correttamente.
+        debate_in_approval: Discussione aggiornata correttamente. In attesa di approvazione prima della ripubblicazione.
+        notice: "%{resource_name} aggiornato con successo."
+        poll: Consultazione aggiornata correttamente.
+        poll_booth: Seggio aggiornato correttamente.
+        proposal: Proposta aggiornata correttamente.
+        proposal_in_approval: Proposta aggiornata correttamente. In attesa di approvazione prima della ripubblicazione.
+        event: Evento aggiornato correttamente.
+        event_in_approval: Evento aggiornato correttamente. In attesa di approvazione prima della pubblicazione.
+        crowdfunding: Crowdfunding aggiornato correttamente.
+        crowdfunding_in_approval: Crowdfunding aggiornato correttamente. In attesa di approvazione prima della ripubblicazione.
+        reporting: Segnalazione aggiornata correttamente.
+        reporting_in_approval: Segnalazione aggiornata correttamente. In attesa di approvazione prima della ripubblicazione.
+        spending_proposal: Proposta di investimento aggiornata correttamente.
+        topic: Tema aggiornato con successo.
+        valuator_group: Gruppo valutatori aggiornato con successo.
+        st_sector: Associazione aggiornata correttamente.
+        error_edit: Impossibile procedere con la richiesta di modifica.
+        error_edit_a: Impossibile procedere con la richiesta di modifica 2.

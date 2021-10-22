@@ -1,45 +1,56 @@
-version: "3"
-services:
-  # service configuration for our database
-  database:
+# service configuration for our database
+database:
 
-    # use the preferred version of the official Postgres image
-    # see https://hub.docker.com/_/postgres/
-    image: postgres:9.6.21
-    environment:
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-    # persist the database between containers by storing it in a volume
-    volumes:
-      - docker-example-postgres:/var/lib/postgresql/data
+  # use the preferred version of the official Postgres image
+  # see https://hub.docker.com/_/postgres/
+  image: postgres:9.4.5
 
-  # service configuration for our dockerized Rails app
-  app:
+  ports:
+    - 5432:5432
 
-    # use the Dockerfile next to this file
-    build: .
-    entrypoint: /usr/local/bin/entrypoint.sh
-    command: bundle exec rails s -p 3000 -b "0.0.0.0"
-    working_dir: /var/www/consul
+  # persist the database between containers by storing it in a volume
+  volumes:
+    - bari-partecipa-postgres:/var/lib/postgresql/data
+  environment:
+    - POSTGRES_USER=eu
+    - POSTGRES_PASSWORD=alma2018
+    - POSTGRES_DB=
 
-    # rely on the RAILS_ENV value of the host machine
-    # environment:
-    #RAILS_ENV: $RAILS_ENV
+smtp:
+  image: reachfive/fake-smtp-server
+  ports:
+    - 1080:1080
+    - 1025:1025
 
-    # makes the app container aware of the DB container
-    depends_on:
-      - database
+redis:
+  image: 'docker.io/bitnami/redis:6.2-debian-10'
+  environment:
+    # ALLOW_EMPTY_PASSWORD is recommended only for development.
+    - ALLOW_EMPTY_PASSWORD=yes
+    - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+  ports:
+    - '6379:6379'
 
-    # expose the port we configured Unicorn to bind to
-    ports:
-      - "3000:3000"
-    # map our application source code, in full, to the application root of our container
-    volumes:
-      - .:/var/www/consul:delegated
-      - bundle:/usr/local/bundle:delegated
-      - "$SSH_AUTH_SOCK:/tmp/agent.sock"
-    environment:
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - SSH_AUTH_SOCK=/tmp/agent.sock
-volumes:
-  docker-example-postgres: {}
-  bundle: {}
+
+# service configuration for our dockerized Rails app
+#app:
+#
+#  # use the Dockerfile next to this file
+#  build: .
+#
+#  # rely on the RAILS_ENV value of the host machine
+#  # environment:
+#  #RAILS_ENV: $RAILS_ENV
+#
+#  # makes the app container aware of the DB container
+#  links:
+#    - database
+#
+#  # expose the port we configured Unicorn to bind to
+#  ports:
+#    - "3000:3000"
+#  # map our application source code, in full, to the application root of our container
+#  volumes:
+#    - .:/var/www/consul
+#  environment:
+#    - "RAILS_ENV=development"

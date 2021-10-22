@@ -1,0 +1,188 @@
+<div id="<%= dom_id(process) %>" class="legislation clear" style="padding-top: 0rem !important;">
+  <div class="column row legislation-text" style="margin-bottom: 0rem !important;">
+
+    <div class="small-12 medium-3 large-2 column text-center" style="padding: 0px !important;margin: 0px !important;">
+      <div data-equalizer-watch>
+        <% if feature?(:allow_images) && process.images.present? %>
+        <%= image_tag process.image_url(:thumb), class: 'hide-for-small-only', style:"width: 100%;",
+                        alt: process.images.first.title.unicode_normalize %>
+        <%= image_tag process.image_url(:thumb), class: 'show-for-small-only', style:"width: 50%;",
+          alt: process.images.first.title.unicode_normalize %>
+        <% else %>
+        <% image_h = "#{Rails.application.config.cm}/template/progetti.png" %>
+        <%= image_tag(image_h, class: 'hide-for-small-only', style:"width: 100%;") %>
+        <%= image_tag(image_h, class: 'show-for-small-only', style:"width: 50%;") %>
+        <% end%>
+      </div>
+    </div>
+
+    <div class="small-12 medium-9 large-10 column" style="padding: 0.5rem 0px 0px 0px !important;">
+
+      <div class="column row" style="height: 73.5%;">
+
+        <div class="small-12 medium-9 large-9 column" style="height: 40%;">
+          <div class="legislation-text">
+            <% if process.process_type != 4 %>
+            <h3><%= link_to process.title.html_safe, process %></h3>
+            <p class="proposal-info">
+
+              <% if process.author.virtual %>
+              <span class="author">
+                <%= "Importato da Bari innovazione Sociale" %>
+              </span>
+              <% else %>
+
+              <%= l process.created_at.to_date %>
+
+              <% if process.author.hidden? || process.author.erased? %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="author">
+                <%= t("proposals.show.author_deleted") %>
+              </span>
+              <% elsif process.sector_content.presence %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="author">
+                <%= process.sector_content.sector.name %>
+              </span>
+              <% else %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="author">
+                <%= process.author.name %>
+              </span>
+              <% if process.author.display_official_position_badge? %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="label round level-<%= process.author.official_level %>">
+                <%= process.author.official_position %>
+              </span>
+              <% end %>
+              <% end %>
+
+              <% if process.author.verified_organization? %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <span class="label round is-association">
+                <%= t("shared.collective") %>
+              </span>
+              <% end %>
+
+              <% end %>
+            </p>
+            <% else %>
+            <!-- <h3><%= link_to("Progetto #{process.external_id}", process) %></h3> -->
+            <h3><%= link_to process.title.html_safe, process %></h3>
+            <!--
+                  <span class="label round is-author " title="<%= t("processes.sgap_label") %>">
+                    <%= t("processes.process_sgap.label") %>
+                  </span>
+                -->
+            <% end %>
+          </div>
+        </div>
+
+        <div class="small-12 medium-3 large-3 column" style="height: 25%; margin-top: 5%;">
+          <%= link_to process, class: "btn btn-outline-primary btn-block btn", title: t("legislation.processes.process.see_latest_comments_title") do %>
+          <span class="icon-comments"></span>&nbsp; <%= t("legislation.processes.process.see_latest_comments") %>
+          <% end %>
+        </div>
+
+        <div class="small-12 medium-11 large 12 column end" style="text-align: justify; height: 60%;">
+          <% testo = first_paragraph(process.description)
+            if testo.include? "<div" and !testo.include? "</div"
+              testo = testo + "</div>"
+            end %>
+
+          <%= markdown(process.summary.present? ? process.summary : testo) %>
+          <%= render "tags", taggable: process, taggable_name: taggable_name, limit: 5 %>
+        </div>
+      </div>
+
+      <% if process.process_type == 2 %>
+      <% if process.enabled_phases_and_publications_count.positive? %>
+      <% column_width = 12 / process.enabled_phases_and_publications_count + 1 %>
+      <% if (process.draft_publication.enabled?) || (process.proposals_phase.enabled?) || (process.allegations_phase.enabled?) || (process.result_publication.enabled?) %>
+      <div class="column row hide-for-small-only" >
+
+        <div class="column row small-collapse medium-uncollapse legislation-calendar">
+
+
+          <% if process.draft_publication.enabled? %>
+          <div class="small-6 medium-<%= column_width %> column">
+            <h4 class="hide-for-medium-only " style="color: white !important;"><%= t("legislation.processes.shared.draft_publication_date") %></h4>
+            <h4 class="show-for-medium-only " style="color: white !important;"><%= t("legislation.processes.shared.rid_draft_publication_date") %></h4>
+            <p><%= format_date(process.draft_publication_date) %></p>
+          </div>
+          <% end %>
+
+          <% if process.proposals_phase.enabled? %>
+          <div class="small-6 medium-<%= column_width %> column">
+            <h4 style="color: white !important;"><%= t("legislation.processes.shared.proposals_dates") %></h4>
+            <p><%= format_date(process.proposals_phase_start_date) %>
+              - <%= format_date(process.proposals_phase_end_date) %></p>
+          </div>
+          <% end %>
+
+          <% if process.allegations_phase.enabled? %>
+          <div class="small-6 medium-<%= column_width %> column">
+            <h4 style="color: white !important;"><%= t("legislation.processes.shared.allegations_dates") %></h4>
+            <p><%= format_date(process.allegations_start_date) %>
+              - <%= format_date(process.allegations_end_date) %></p>
+          </div>
+          <% end %>
+
+          <% if process.result_publication.enabled? %>
+          <div class="small-6 medium-<%= column_width %> column">
+            <h4 style="color: white !important;"><%= t("legislation.processes.shared.result_publication_date") %></h4>
+            <p><%= format_date(process.result_publication_date) %></p>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <% if process.process_type == 2 %>
+  <% if process.enabled_phases_and_publications_count.positive? %>
+  <% column_width = 12 / process.enabled_phases_and_publications_count + 1 %>
+  <% if (process.draft_publication.enabled?) || (process.proposals_phase.enabled?) || (process.allegations_phase.enabled?) || (process.result_publication.enabled?) %>
+  <div class="column row show-for-small-only small-collapse medium-uncollapse legislation-calendar">
+
+
+    <% if process.draft_publication.enabled? %>
+    <div class="small-6 medium-<%= column_width %> column">
+      <h4 style="color: white !important;"><%= t("legislation.processes.shared.draft_publication_date") %></h4>
+      <p><%= format_date(process.draft_publication_date) %></p>
+    </div>
+    <% end %>
+
+    <% if process.proposals_phase.enabled? %>
+    <div class="small-6 medium-<%= column_width %> column">
+      <h4 style="color: white !important;"><%= t("legislation.processes.shared.proposals_dates") %></h4>
+      <p><%= format_date(process.proposals_phase_start_date) %>
+        - <%= format_date(process.proposals_phase_end_date) %></p>
+    </div>
+    <% end %>
+
+    <% if process.allegations_phase.enabled? %>
+    <div class="small-6 medium-<%= column_width %> column">
+      <h4 style="color: white !important;"><%= t("legislation.processes.shared.allegations_dates") %></h4>
+      <p><%= format_date(process.allegations_start_date) %>
+        - <%= format_date(process.allegations_end_date) %></p>
+    </div>
+    <% end %>
+
+    <% if process.result_publication.enabled? %>
+    <div class="small-6 medium-<%= column_width %> column">
+      <h4 style="color: white !important;"><%= t("legislation.processes.shared.result_publication_date") %></h4>
+      <p><%= format_date(process.result_publication_date) %></p>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
+  <% end %>
+  <% end %>
+
+</div>

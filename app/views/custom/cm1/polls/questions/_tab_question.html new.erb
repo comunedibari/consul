@@ -1,0 +1,41 @@
+<table>
+  <thead>
+    <tr>
+      <th class="col-2">
+        <i>Domande</i>
+      </th>
+
+      <th colspan="8">
+        <div class="row padding  ml-0 p-0">
+          
+        <% @questions_tab.first.question_group.question_answers.each do |answer| %>    
+          <div class="col-1 ml-0 p-0" style="margin:0 auto;">
+            <div class="column p-0">          
+              <div class="row ml-0" style="overflow: hidden;">
+                <%=  answer.title %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @questions_tab.each do |question_child| %>
+    <tr>
+      <td>
+        <strong><%= question_child.title %></strong>
+      </td>
+
+      <td colspan="<%= @questions_tab.first.question_group.question_answers.count %>">
+        <div id="<%= dom_id(question_child) %>" class="row padding  ml-0 p-0" data-num_max_answers=<%= question_child.num_max_answers %>>
+          <%= render 'polls/questions/tab_answers', question: question_child, token: token, optional: false, opt_question: question_child  %>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

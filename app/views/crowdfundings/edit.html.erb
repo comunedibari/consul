@@ -1,0 +1,14 @@
+<div class="service-edit row">
+
+  <div class="small-12 column">
+    <%= back_link_to %>
+
+    <div class="float-right">
+      <%= link_to t("crowdfundings.edit.show_link"), @crowdfunding %>
+    </div>
+
+    <h1><%= t("crowdfundings.edit.editing") %></h1>
+
+    <%= render "form", form_url: crowdfunding_url(@crowdfunding) %>
+  </div>
+</div>

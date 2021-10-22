@@ -1,0 +1,10 @@
+
+<div id="documents" class="documents">
+  <h2 style="font-size: 90%;"><span class="icon-document"></span>&nbsp;<%= t("documents.title") %>&nbsp;<span>(<%= documents.count %>)</span></h2>
+
+  <% if documents.any? %>
+    <ul class="list-unstyled document-link">
+      <%= render partial: "documents/document", collection: documents %>
+    </ul>
+  <% end %>
+</div>

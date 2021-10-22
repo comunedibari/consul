@@ -1,0 +1,36 @@
+﻿    <% if service_present?(:debates) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/discussione-informata.png", href: nil, title: t("settings.service.debates"),description: description(:debates)%>
+    <% end %>
+    <% if service_present?(:proposals) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/e-petitioning.png", href: nil, title: t("settings.service.petitioning"),description: description(:proposals) %>
+    <% end %>
+    <% if service_present?(:works) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/lavori-pubblici.png", href: nil, title: t("settings.service.process_works"),description: description(:works) %>
+    <% end %>
+    <% if service_present?(:chances) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/opportunità.png", href: nil, title: t("settings.service.process_chances"),description: description(:chances)  %>
+    <% end %>
+    <% if service_present?(:reportings) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/segnalazioni-geolocalizzate.png", href: nil, title: t("settings.service.reportings"),description: description(:reportings) %>
+    <% end %>
+    <% if service_present?(:processes) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/proposte-progetti.png", href: nil, title: t("settings.service.processes"),description: description(:processes) %>
+    <% end %>
+    <% if service_present?(:events) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/eventi.png", href: nil, title: t("settings.service.events"),description: description(:events) %>
+    <% end %>
+    <% if service_present?(:polls) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/consultazione-certificata.png", href: nil, title: t("settings.service.polls"),description: description(:polls) %>
+    <% end %>
+    <% if service_present?(:collaboration) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/patto-di-collaborazione.png", href: nil, title: t("settings.service.collaboration"),description: description(:collaboration) %>
+    <% end %>
+    <% if service_present?(:crowdfundings) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/crownfounding.png", href: nil, title: t("settings.service.crowdfunding"),description: description(:crowdfundings)  %>
+    <% end %>
+    <% if service_present?(:assets) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/prenotazioni.png", href: nil, title: t("settings.service.reservations"),description: description(:assets)  %>
+    <% end %>
+    <% if service_present?(:third_sector_platform) %>
+      <%= render "card_incoming", image:"#{Rails.application.config.cm}/services/terzo-settore.png", href:  nil, title: t("settings.service.third_sector_platform") ,description: description(:third_sector_platform) %>
+    <% end %>

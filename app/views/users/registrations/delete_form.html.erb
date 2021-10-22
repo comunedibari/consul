@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <%= back_link_to %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6" style="text-align: -webkit-center;">
+      <h2><%= t("devise_views.users.registrations.delete_form.title") %></h2>
+
+      <%= form_for(resource, as: resource_name,
+                   url: users_registrations_path,
+                   html: {method: :delete}) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="callout danger">
+          <div class="callout-title"><svg class="icon icon-primary"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-close-circle"></use></svg>ATTENZIONE</div>
+          <p><%= t("devise_views.users.registrations.delete_form.info") %></p>
+        </div>
+        <p>
+          <%= t("devise_views.users.registrations.delete_form.info_reason") %>
+        </p>
+
+        <%= f.text_field :erase_reason,
+                         autofocus: true,
+                         placeholder: t("devise_views.users.registrations.delete_form.erase_reason_label"),
+                         label: t("devise_views.users.registrations.delete_form.erase_reason_label") %>
+
+        <%= f.submit t("devise_views.users.registrations.delete_form.submit"), class: "button alert expanded" %>
+      <% end %>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>

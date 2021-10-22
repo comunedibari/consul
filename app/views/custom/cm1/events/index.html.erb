@@ -1,0 +1,181 @@
+<% provide :title do %><%= t('events.index.title') %><% end %>
+
+
+<% if User.pon_id == 0 %>
+<%= render "shared/section_header", i18n_namespace: "events.index.section_header", image: "events" %>
+    <div class="row">
+      <div class="column">
+      <%= render "shared/pon_list", resource: "events" %>
+      </div>  
+    </div>
+
+<% else %>
+
+  <% content_for :header_addon do %>
+    <%= render "shared/search_form",
+              search_path: events_path(page: 1),
+              i18n_namespace: "events.index.search_form" %>
+  <% end %>
+  <% content_for :header_small_addon do %>
+    <%= render "shared/search_form_small",
+                search_path: events_path(page: 1),
+                i18n_namespace: "events.index.search_form" %>
+  <% end %>  
+  <% content_for :canonical do %>
+    <%= render "shared/canonical", href: events_url %>
+  <% end %>
+
+  <script>
+    
+    $(document).ready(function() {
+      var initialLocaleCode = 'it';//document.documentElement.lang;
+      var url_to_json=window.location.href.split('eventi')[1];
+    
+
+      $('#calendar').fullCalendar({
+        //titleFormat: 'MMM / YYYY',
+        //columnHeaderFormat: 'dddd',
+        lang: 'it',
+        height: "auto",
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay,listMonth'
+        },
+        defaultDate: new Date(),
+        locale: initialLocaleCode,
+        buttonIcons: false, // show the prev/next text
+        weekNumbers: false,
+        navLinks: true, // can click day/week names to navigate views
+        editable: false,
+        eventLimit: true, // allow "more" link when too many events
+        events: '/eventi.json'+url_to_json,
+
+        eventClick: function(event, element) {
+          window.open(event.link,"_self")
+        },
+
+
+      });
+
+      // build the locale selector's options
+      $.each($.fullCalendar.locales, function(localeCode) {
+        $('#locale-selector').append(
+          $('<option/>')
+            .attr('value', localeCode)
+            .prop('selected', localeCode == initialLocaleCode)
+            .text(localeCode)
+        );
+      });
+
+      // when the selected option changes, dynamically change the calendar option
+      $('#locale-selector').on('change', function() {
+        if (this.value) {
+          $('#calendar').fullCalendar('option', 'locale', this.value);
+        }
+      });
+
+    });
+
+
+
+
+
+  </script>
+
+  <main>
+    <%= render "shared/section_header", i18n_namespace: "events.index.section_header", image: "events" %>
+    <%= render "shared/search_results",
+          resources:  @events,
+          total_resources_num: @tot_resources,
+          search_terms: @search_terms,
+          advanced_search_terms: @advanced_search_terms,
+          tag_filter: @tag_filter
+            %>
+
+
+  <div class="row">
+      <div id="events" class="events-list small-12 medium-7 column">
+
+        <%# unless @search_terms || @advanced_search_terms || @tag_filter %>
+          <div id="section_help" class="margin" data-magellan-target="section_help">
+            <!-- <p class="lead">
+              <strong><%#= t("events.index.section_footer.title") %></strong>
+            </p> -->
+            <p><%= Setting["service_description.events",User.pon_id] %></p>
+            <p><%= t("events.index.section_footer.help_text_1") %></p>
+          </div>
+        <%# end %>
+
+        <% if has_banners? %>
+          <%#= render "shared/banner" %>
+        <% end %>
+
+        <% unless @tag_filter || @search_terms || !has_featured? %>
+          <%= render "featured_events" %>
+        <% end %>
+
+        <div class="row">
+          <div class="small-12 column">
+            <%= render "view_mode" %>
+          </div>
+        </div>
+
+        <%= render "shared/advanced_search", search_path: events_path(page: 1),
+                                                  class_name: "Event" ,
+                                                  resource: @event %>
+
+        <%= render 'shared/order_links', i18n_namespace: "events.index" %>
+
+        <div class="show-for-small-only">
+            <% if current_user && (  (service_social?(:events) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator? )%>
+              <%= link_to t("events.index.start_event"), new_event_path, class: 'btn btn-primary btn-block' %>
+            <% end %>
+        </div>
+  
+        <% if @events.any? || current_user.blank? %>
+          <% if events_default_view? %>
+          <%= render partial: 'events/event', collection: @events %>
+          <% else %>
+            <% @events.each do |event| %>
+              <%= render partial: 'events/event_minimal', locals: { event: event } %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= empty_recommended_events_message_text(current_user) %>
+        <% end %>
+        <%= paginate @events %>
+      
+      </div>
+          <div class="small-12 medium-5 column">
+
+        <aside class="margin-bottom">
+              <div class="sidebar-divider"></div>
+                <h2 class="sidebar-title"><%= "Calendario "%></h2>
+                  <div id='calendar' class='calendar'></div>
+                  
+                <% if current_user && (  (service_social?(:events) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator? )%>
+                  <%= link_to t("events.index.start_event"), new_event_path, class: 'btn btn-primary btn-block' %>
+                <% end %>
+
+                <div class="sidebar-divider"></div>
+                <h2 class="sidebar-title"><%= t("events.form.geolocation") %></h2>
+                <p><%= render_geolocation(@events, "event")  %></p>
+          <%= link_to "Visualizza dettaglio mappa",
+                      large_map_events_path
+                      %>
+          <%= render 'categories' %>
+          <%= render "shared/tag_cloud", taggable: 'event' %>
+          <%= render "shared/gamification_result", resource: 'Event' %>
+        </aside>
+      </div>
+
+    </div>
+
+
+
+    </div>
+  </main>
+<% end %>
+      
+     

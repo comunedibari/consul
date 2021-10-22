@@ -1,0 +1,30 @@
+<table class="margin-top">
+  <tr>
+    <th colspan="5" scope="col" class="with-button">     
+      <%= link_to t("admin.questions.show.add_question_group"),
+                  #admin_question_underquestion_path(question.id),
+                  new_admin_question_path(question_id: question.id),
+                  #method: :get,
+                  class: "button float-right" %>
+    </th>
+  </tr>
+
+  <tr>
+    <th style="width: 70%;"><%= t("admin.questions.show.question_group") %></th>
+    <th style="width: 30%;" scope="col" class="text-center"><%= t("admin.actions.actions") %></th>
+  </tr>
+
+  <tbody class="sortable" data-js-url="<%= admin_question_answers_order_answers_path(@question.id) %>">
+    <% @questions.each do |question| %>
+      <tr id="<%= dom_id(question) %>" class="poll_question_answer" data-answer-id="<%= question.id %>">
+        <td style="width: 70%;" class="align-top"><%= question.title %></td>
+        <td class="text-right" style="width: 30%;">          
+          <%= link_to t('shared.edit'), editunderquestion_admin_question_path(question), class: "button hollow", method: :post %>
+          <%= link_to t('shared.delete'), delunderquestion_admin_question_path(question), class: "button hollow alert", method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @questions %>

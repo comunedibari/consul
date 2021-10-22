@@ -1,0 +1,44 @@
+<%= form_for(@sector, url: form_url) do |f| %>
+  <%= render 'shared/errors', resource: @sector %>
+
+  <% if @sector.errors.any? %>
+
+    <div id="error_explanation" data-alert class="callout alert" data-closable>
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <strong>
+        <%= @sector.errors.count %>
+        <%= t("admin.asset.errors.form.error", count: @moderable_booking.errors.count) %>
+      </strong>
+    </div>
+
+  <% end %>
+
+  <div class="row">
+    <div class="large-12 column margin-top">
+      <%= f.label :note, t("moderation.sectors.form.note") %>
+      <%= f.text_area :note, label: false,
+                      required: params[:approved] != "true" ? true : false %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 column">
+      <%= f.hidden_field :state, value: params[:approved]  %>
+    </div>
+  </div>
+
+  <div class="large-12 column">
+    <%= f.hidden_field :st, value: params[:st] %>
+  </div>
+
+
+  <div class="actions small-12 column">
+    <p class="help-text"> <%= t("moderation.sectors.form.help_button") %></p>
+    <%= f.submit(class: "button margin-top", value: t("moderation.st_sectors.#{action_name}.form.submit_button")) %>
+  </div>
+
+
+<% end %>

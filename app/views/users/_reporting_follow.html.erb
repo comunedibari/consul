@@ -1,0 +1,6 @@
+<li id="reporting_<%= reporting.id %>">
+  <%= link_to reporting.title, reporting, reporting.retired? ? { class: 'retired' } : {} %>
+  <% if reporting.retired? %>
+    <span class="label alert"><%= t('users.reportings.retired') %></span>
+  <% end %>
+</li>

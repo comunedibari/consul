@@ -1,0 +1,345 @@
+<div class="row account">
+  <div class="small-12 column">
+
+
+      <div class="float-right text-right">
+        <% if Rails.application.config.sign_up_service %>
+          <%= link_to t("account.show.change_credentials_link"), edit_user_registration_path, class: "button hollow" %>
+          <br>
+        <% end %>
+        <%= link_to t("account.show.erase_account_link"), users_registrations_delete_form_path, class: "delete" %>
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= avatar_image(@account, seed: @account.id, size: 100, class: "margin-bottom") %>
+          <h1 class="inline-block"><%= t("account.show.title") %></h1>
+        </div>
+
+        <% if Rails.application.config.show_provider && current_user.provider.present? && current_user.provider !="openam"  %>
+          <div class="small-12 medium-6 column">
+            <h3><span class="badge badge-pill badge-success" style="margin-top: 50px;">
+
+                <%= t("layouts.header.social_login",social:current_user.provider) %>
+              </span>
+            </h3>
+          </div>
+        <% end %>
+      </div>
+
+
+    <% if current_user && current_user.provider.present? %>
+      <div id="manage_privacy">
+          <%= form_tag setPrivacy_account_path, method: "post" do %>
+            <h3><%= "Gestione della privacy" %></h3>
+            <% if isBlockedPrivacy %>
+              <div data-alert class="callout alert">
+                <%= "Per poter usufluire dei servizi della piattaforma è necessario acconsentire alle normative sulla privacy" %>
+              </div>
+            <% end %>
+            <br>
+
+            <div>
+              <%= check_box_tag :privacy, "1",  @account.privacy %>
+              <%= t("form.accept_terms",
+                  policy: link_to(t("form.policy"), "/privacy", target: "blank"),
+                  conditions: link_to(t("form.conditions"), "/conditions", target: "blank")).html_safe %>
+            </div>
+
+            <br>
+            <%# Descrizione privacy%>
+            <div>
+              <p><%=  %></p>
+            </div>
+
+
+            <!-- <input name="commit" type="submit" value="Modifica1" class="button answered hollow js-question-answer" style="min-width: 1rem; height: 1rem;"> -->
+            <%= submit_tag "Modifica", class: "button" %>
+
+            <br>
+            <hr>
+
+          <% end %>
+      </div>
+    <% end %>
+
+
+
+
+    <%= form_for(@account, as: :account, url: account_path)  do |f| %>
+      <%= render "shared/errors", resource: @account %>
+
+      <div class="row">
+        <div class="small-12 medium-6 column">
+
+          <h3><%= t("account.show.personal")%></h3>
+
+          <div class="small-12 medium-10">
+            <% if @account.organization? %>
+              <%= f.fields_for :organization do |fo| %>
+                <%= fo.text_field :name, autofocus: true, maxlength: Organization.name_max_length, placeholder: t("account.show.organization_name_label") %>
+                <%= fo.text_field :responsible_name, autofocus: true, maxlength: Organization.responsible_name_max_length, placeholder: t("account.show.organization_responsible_name_placeholder") %>
+              <% end %>
+              <%= f.text_field :phone_number, placeholder: t("account.show.phone_number_label") %>
+
+            <% else %>
+              <%= f.text_field :username, maxlength: User.username_max_length, placeholder: t("account.show.username_label") %>
+            <% end %>
+          </div>
+
+          <div>
+            <%= f.label :public_activity do %>
+              <%= f.check_box :public_activity, title: t('account.show.public_activity_label'), label: false %>
+              <span class="checkbox">
+                <%= t("account.show.public_activity_label") %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="margin-bottom">
+            <%= f.label :public_interests do %>
+              <%= f.check_box :public_interests, title: t('account.show.public_interests_label'), label: false %>
+              <span class="checkbox">
+                <%= t("account.show.public_interests_label") %>
+              </span>
+            <% end %>
+          </div>
+
+
+          <% sectors = sectorsObject_by_user %>
+          <% if sectors.count > 0 #@account.can_sector_content? %>
+            <h3><%= t("account.show.sectors")%></h3>
+            <p class="help-text" ><%= t("account.show.sectors_help") %></p>
+
+            <% sectors.each do |sector| %>
+
+              <%= f.label :sector_element do %>
+
+                <p><span ><%= sector.sector_type.name %> -
+                  <%= link_to sector.name, sector %></span></p>
+
+               <% end %>
+
+            <% end %>
+          <% end %>
+
+
+          <% if Rails.application.config.notification_email && @account.email.present? %>
+            <h3><%= t("account.show.email_notifications")%></h3>
+
+            <div>
+              <%= f.label :email_global_notifications do %>
+                <%= f.check_box :email_global_notifications, title: t('account.show.email_global_notifications_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_global_notifications_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <!-- <div>
+              <%= f.label :email_on_comment do %>
+                <%= f.check_box :email_on_comment, title: t('account.show.email_on_comment_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_on_comment_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_on_comment_reply do %>
+                <%= f.check_box :email_on_comment_reply, title: t('account.show.email_on_comment_reply_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_on_comment_reply_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_newsletter_subscribed do %>
+                <%= f.check_box :newsletter, title: t('account.show.subscription_to_website_newsletter_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.subscription_to_website_newsletter_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_digest do %>
+                <%= f.check_box :email_digest, title: t('account.show.email_digest_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_digest_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_on_direct_message do %>
+                <%= f.check_box :email_on_direct_message, title: t('account.show.email_on_direct_message_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_on_direct_message_label") %>
+                </span>
+              <% end %>
+            </div>
+            -->
+          <% end %>
+
+          <% if @account.official_level == 1 %>
+            <div>
+              <%= f.label :official_position_badge do %>
+                <%= f.check_box :official_position_badge,
+                                  title: t('account.show.official_position_badge_label'),
+                                  label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.official_position_badge_label") %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+
+            <% if Rails.application.config.coord_user_address %>
+              <br>
+              <div class="small-12">
+                <%= render 'map_locations/form_fields_user',
+                  form:     f,
+                  map_location: @account.map_location || MapLocation.new,
+                  label:    t("account.form.map_location"),
+                  help:     t("account.form.map_location_instructions"),
+                  remove_marker_label: t("account.form.map_remove_marker"),
+                  parent_class: "user",
+                  i18n_namespace: "account",
+                  geo_coding_addr: "#account_address" %>
+              </div>
+              <!-- finee mappa -->
+            <% else %>
+              <br>
+              <div class="small-12">
+                <%= render 'map_locations/form_fields_user',
+                  form:     f,
+                  label:    t("account.form.map_location"),
+                  help:     t("account.form.map_location_instructions"),
+                  remove_marker_label: t("account.form.map_remove_marker"),
+                  parent_class: "user",
+                  i18n_namespace: "account",
+                  geo_coding_addr: "#account_address" %>
+              </div>
+              <!-- finee mappa -->
+            <% end %>
+
+          <%= f.submit t("account.show.save_changes_submit"), class: "btn btn-primary mt-3" %>
+        </div>
+
+        <div class="user-permissions small-12 medium-6 column">
+
+          <% if Rails.application.config.cm == 'cm1' %>
+          <div class="mt-2">
+            <h3><%= t("account.show.user_categories_preference_title") %></h3>
+            <label>&nbsp;</label>
+            <%= link_to t("account.show.user_categories_preference"),
+                preferences_account_path, class: "btn btn-success mb-3 float-left" %>
+          </div>
+          <% end %>
+
+          <div class="mt-2">
+            <h3><%= t("account.show.user_permission_title") %></h3>
+
+            <p><%= t("account.show.user_permission_info") %></p>
+
+            <ul>
+              <%if service?(:debates) %>
+                <li><span class="icon-check"></span>&nbsp;<%= t("account.show.user_permission_debates") %></li>
+              <% end %>
+              <%if service?(:proposal) %>
+                <li><span class="icon-check"></span>&nbsp;<%= t("account.show.user_permission_proposal") %></li>
+                <li>
+                  <% if current_user.level_two_or_three_verified? %>
+                    <span class="icon-check"></span>
+                  <% else %>
+                    <span class="icon-x"></span>
+                  <% end %>
+                  <%= t("account.show.user_permission_support_proposal") %>
+                </li>
+              <% end %>
+              <%if service?(:polls) %>
+                <li>
+                  <span class="icon-check"></span>
+                  Partecipare alle Consultazioni
+                </li>
+              <% end %>
+
+              <%if service?(:works) %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Commentare Progetti e lavori pubblici
+                </li>
+              <% end %>
+
+              <%if service?(:processes) %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Creare Proposte e iniziative
+                </li>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Commentare Proposte e iniziative
+                </li>
+              <% end %>
+
+              <%if service?(:chances) %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Commentare Opportunità
+                </li>
+              <% end %>
+
+              <%if service?(:events) %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Inserire nuovi Eventi
+                </li>
+              <% end %>
+
+              <%if service?(:crowdfundings) and (current_user.administrator? or current_user.moderator?) %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Creare progetti di crowdfundings
+                </li>
+              <% else %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Partecipare a progetti di crowdfundings
+                </li>
+
+              <% end %>
+
+              <%if service?(:assets) %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Prenotare spazi pubblici
+                </li>
+              <% end %>
+
+              <%if service?(:collaboration) %>
+                <li>
+                  <span class="icon-check"></span>&nbsp;Partecipare a patti di collaborazione
+                </li>
+              <% end %>
+
+            </ul>
+
+            <br>
+
+            <% if !current_user.administrator? %>
+
+              </div>
+                <h3><%= t("account.show.gamification") %></h3>
+                <%= link_to t("account.show.gamification_stats"),
+                { controller: "gamifications", action: :user,
+                                            user_id: @account.id },
+                                            method: :get,
+                                            class: "btn btn-primary float-left" %>
+              <div>
+            <% end %>
+
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

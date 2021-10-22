@@ -1,0 +1,57 @@
+<h2><%= t("admin.crowdfundings.index.title") %></h2>
+
+<%= render 'shared/filter_subnav', i18n_namespace: "admin.crowdfundings.index" %>
+
+<% if @crowdfundings.any? %>
+  <h3 class="margin"><%= page_entries_info @crowdfundings %></h3>
+
+  <table>
+    <thead>
+      <th scope="col"><%= t("admin.shared.title") %></th>
+      <th scope="col" class="small-6"><%= t("admin.shared.description") %></th>
+      <th scope="col" class="small-3" colspan=2><%= t("admin.shared.actions") %></th>
+    </thead>
+    <tbody>
+    <% @crowdfundings.each do |crowdfunding| %>
+      <tr id="<%= dom_id(crowdfunding) %>">
+        <td class="align-top">
+          <%= link_to crowdfunding.title, crowdfunding, target: "_blank" %>
+        </td>
+        <td>
+          <div class="moderation-description">
+            <p><small><%= crowdfunding.summary %></small></p>
+            <%= crowdfunding.description %>
+            <% if crowdfunding.external_url.present? %>
+              <p><%= text_with_links crowdfunding.external_url %></p>
+            <% end %>
+            <% if crowdfunding.video_url.present? %>
+              <p><%= text_with_links crowdfunding.video_url %></p>
+            <% end %>
+            <p><%= crowdfunding.question %></p>
+          </div>
+        </td>
+         <td class="align-middle">
+          <%= link_to t("admin.actions.restore"),
+                restore_admin_moderation_crowdfunding_path(crowdfunding, request.query_parameters),
+                method: :put,
+                data: { confirm: t("admin.actions.confirm") },
+                class: "button hollow warning" %></td>
+                 <td class="align-middle">
+          <% unless (crowdfunding.confirmed_hide?) %>
+            <%= link_to t("admin.actions.confirm_hide"),
+                  confirm_hide_admin_moderation_crowdfunding_path(crowdfunding, request.query_parameters),
+                  method: :put,
+                  class: "button" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @crowdfundings %>
+<% else %>
+  <div class="callout primary margin">
+    <%= t("admin.crowdfundings.index.no_hidden_crowdfundings") %>
+  </div>
+<% end %>

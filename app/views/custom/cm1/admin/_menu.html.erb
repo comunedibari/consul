@@ -1,0 +1,339 @@
+<%#= controller.class %>
+<%#br>
+<%= service?(:collaboration) %>
+<%#br>
+<%= controller_path %>
+<%#br>
+<%= controller_name %>
+<%#br%>
+<% if current_user.administrator? %>
+  <div class="admin-sidebar" data-equalizer-watch>
+    <ul id="admin_menu" data-accordion-menu data-multi-open="false">
+
+      <li class="section-title">
+        <a href="#">
+          <span class="icon-proposals"></span>
+          <strong><%= t("admin.menu.title_categories") %></strong>
+        </a>
+        <ul <%= "class=is-active" if menu_tags? %>>
+          <li <%= "class=active" if controller_name == "tags" %>>
+            <%= link_to t("admin.menu.proposals_topics"), admin_tags_path %>
+          </li>
+        </ul>
+      </li>
+
+      <li class="section-title">
+        <a href="#">
+          <span class="icon-eye"></span>
+          <strong><%= t("admin.menu.title_moderated_content") %></strong>
+        </a>
+        <ul <%= "class=is-active" if menu_moderated_content? %>>
+          <% if service?(:proposals) %>
+            <li <%= "class=active" if controller_path == "admin/moderation/proposals" %>>
+              <%= link_to t("admin.menu.hidden_proposals"), admin_moderation_proposals_path %>
+            </li>
+          <% end %>
+
+          <% if service?(:crowdfundings) %>
+            <li <%= "class=active" if controller_name == "crowdfundings" && controller.class.parent != Admin::Legislation %>>
+              <%= link_to t("admin.menu.hidden_crowdfundings"), admin_moderation_crowdfundings_path %>
+            </li>
+          <% end %>
+
+          <% if service?(:events) %>
+            <li <%= "class=active" if controller_path == "admin/moderation/events" %>>
+              <%= link_to t("admin.menu.events"), admin_moderation_events_path %>
+            </li>
+          <% end %>
+
+          <%# moderazione su reporting %>
+          <% if service?(:reportings) %>
+            <li <%= "class=active" if controller_name == "reportings" %>>
+              <%= link_to t("admin.menu.hidden_reportings"), admin_moderation_reportings_path %>
+            </li>
+          <% end %>
+
+          <%# moderazione su process %>
+          <% if service?(:processes) %>
+            <li <%= "class=active" if controller_path == "admin/moderation/legislation/proposals" %>>
+              <%= link_to t("admin.menu.hidden_legislation_proposals"), admin_moderation_legislation_proposals_path %>
+            </li>
+          <% end %>
+
+          <%# moderazione su process %>
+          <% if service?(:processes) %>
+            <li <%= "class=active" if controller_name == "processes" %>>
+              <%= link_to t("admin.menu.hidden_processes"), admin_moderation_processes_path %>
+            </li>
+          <% end %>
+
+          <%# moderazione su agreement %>
+          <% if service?(:collaboration) %>
+            <li <%= "class=active" if controller_name == "agreements" %>>
+              <%= link_to t("admin.menu.hidden_agreements"), admin_moderation_agreements_path %>
+            </li>
+          <% end %>
+
+          <% if service?(:debates) %>
+            <li <%= "class=active" if controller_name == "debates" %>>
+              <%= link_to t("admin.menu.hidden_debates"), admin_moderation_debates_path %>
+            </li>
+          <% end %>
+
+          <li <%= "class=active" if controller_name == "comments" %>>
+            <%= link_to t("admin.menu.hidden_comments"), admin_moderation_comments_path %>
+          </li>
+
+          <li <%= "class=active" if controller_name == "hidden_users" %>>
+            <%= link_to t("admin.menu.hidden_users"), admin_moderation_hidden_users_path %>
+          </li>
+        </ul>
+      </li>
+
+      <% if feature?(:spending_proposals) %>
+        <li class="section-title">
+          <a href="#">
+            <span class="icon-budget"></span>
+            <strong><%= t("admin.menu.title_budgets") %></strong>
+          </a>
+          <ul <%= "class=is-active" if menu_budget? %>>
+            <li <%= "class=active" if controller_name == "spending_proposals" %>>
+              <%= link_to t("admin.menu.spending_proposals"), admin_spending_proposals_path %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+
+      <% if service?(:assets) %>
+        <li class="section-title">
+          <a href="#">
+            <span class="fa fa-clock-o fa-lg"></span> &nbsp;
+            <strong><%= t("admin.menu.assets") %></strong>
+          </a>
+          <ul <%= "class=is-active" if menu_asset? %>>
+            <li <%= "class=active" if controller_name == "assets" %>>
+              <%= link_to t("admin.menu.assets_n"), admin_assets_path %>
+            </li>
+            <li <%= "class=active" if controller_name == "moderable_bookings" %>>
+              <%= link_to t("admin.menu.moderable_bookings"), admin_moderable_bookings_path %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+
+
+
+      <% if feature?(:polls) %>
+        <li class="section-title">
+          <a href="#">
+            <span class="icon-checkmark-circle"></span>
+            <strong><%= t("admin.menu.title_polls") %></strong>
+          </a>
+          <ul id="polls_menu" <%= "class=is-active" if menu_polls? && controller.class.parent == Admin::Poll %>>
+            <li <%= "class=active" if controller_name == "polls" && action_name != "booth_assignments" ||
+              %w(booth_assignments officer_assignments recounts results).include?(controller_name) %>>
+              <%= link_to t('admin.menu.polls'), admin_polls_path %>
+            </li>
+
+            <li <%= "class=active" if %w(questions answers).include?(controller_name) ||
+              controller.class.parent == Admin::Poll::Questions::Answers %>>
+              <%= link_to t("admin.menu.poll_questions"), admin_questions_path %>
+            </li>
+
+            <!--    hide_votazioni
+            <li <%= "class=active" if controller_name == "officers" %>>
+              <%= link_to t('admin.menu.poll_officers'), admin_officers_path %>
+            </li>
+
+            <li <%= "class=active" if controller_name == "booths" &&
+            action_name != "available" %>>
+              <%= link_to t('admin.menu.poll_booths'), admin_booths_path %>
+            </li>
+
+            <li <%= "class=active" if (controller_name == "polls" && action_name == "booth_assignments") ||
+            (controller_name == "booth_assignments" && action_name == "manage") %>>
+              <%= link_to t('admin.menu.poll_booth_assignments'), booth_assignments_admin_polls_path %>
+            </li>
+
+            <li <%= "class=active" if %w(shifts booths).include?(controller_name) &&
+            action_name == "available" %>>
+              <%= link_to t('admin.menu.poll_shifts'), available_admin_booths_path %>
+            </li>
+            -->
+
+          </ul>
+        </li>
+      <% end %>
+
+      <% if feature?(:budgets) %>
+        <li class="section-title <%= "active" if controller_name == "budgets" %>">
+          <%= link_to admin_budgets_path do %>
+            <span class="icon-budget"></span>
+            <strong><%= t("admin.menu.budgets") %></strong>
+          <% end %>
+        </li>
+      <% end %>
+
+      <li class="section-title">
+        <a href="#">
+          <span class="icon-organizations"></span>
+          <strong><%= t("admin.menu.title_profiles") %></strong>
+        </a>
+        <ul <%= "class=is-active" if menu_profiles? %>>
+          <li <%= "class=active" if controller_name == "administrators" %>>
+            <%= link_to t("admin.menu.administrators"), admin_administrators_path %>
+          </li>
+
+          <li <%= "class=active" if %w(moderators activity).include?(controller_name) %>>
+            <%= link_to t('admin.menu.moderators'), admin_moderators_path %>
+          </li>
+
+          <li <%= 'class=active' if controller_name == 'users' %>>
+            <%= link_to t('admin.menu.users'), admin_users_path %>
+          </li>
+        </ul>
+      </li>
+
+      <% if service?(:collaboration) %>
+        <li class="section-title <%= "active" if ["admin/collaboration/agreements", "admin/collaboration/agreement_requirements", "admin/collaboration/subscriptions"].include?(controller_path) %>">
+          <%= link_to admin_collaboration_agreements_path do %>
+            <i class="fa fa-handshake-o fa-sm"></i>
+            <strong><%= t("admin.menu.agreements") %></strong>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if service?(:third_sector_platform) %>
+        <li class="section-title <%= "active" if controller_name == "sectors" %>">
+          <%= link_to admin_sectors_path do %>
+            <span class="icon-file-text-o"></span>
+            <strong><%= t("admin.menu.third_sector_platform") %></strong>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if service?(:crowdfundings) %>
+        <li class="section-title <%= "active" if controller_name == "crowdfundings" %>">
+          <%= link_to admin_crowdfundings_path do %>
+            <span class="fa fa-money fa-lg"></span>
+            <strong><%= t("admin.menu.crowdfundings") %></strong>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if service?(:processes) %>
+        <li class="section-title">
+          <a href="#">
+            <span class="fa fa-pencil fa-lg"></span>
+            <strong><%= t("admin.menu.menage_processes_proposals") %></strong>
+          </a>
+          <ul <%= "class=is-active" if menu_content_management? || (@process and @process.process_type == 1) %>>
+
+            <% if service?(:processes) %>
+              <li class="section-title <%= "active" if controller_name == "process_processes_proposals" %>">
+                <%= link_to t("admin.menu.legislation_process_processes_proposals"), admin_legislation_process_processes_proposals_path %>
+              </li>
+              <li <%= "class=active" if controller_name == "process_typologies" %>>
+                <%= link_to t("admin.menu.process_typologies"), admin_legislation_process_typologies_path %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+
+      <% if service?(:works) || service?(:chances) %>
+        <li class="section-title">
+          <a href="#">
+            <span class="icon-file-text"></span>
+            <strong><%= t("admin.menu.legislation") %></strong>
+          </a>
+          <ul <%= "class=is-active" if menu_legislation_processes? || (@process and (@process.process_type == 2 || @process.process_type == 3)) %>>
+            <% if service?(:works) %> <%# disattivazione servizio lavori publici%>
+              <li <%= "class=active" if controller_name == "process_works" || (@process and @process.process_type == 2) %>>
+                <%= link_to t("admin.menu.works"), admin_legislation_process_works_path %>
+              </li>
+            <% end %>
+            <% if service?(:chances) and Rails.application.config.cm == 'cm1' %> <%# disattivazione servizio opportunità%>
+              <li <%= "class=active" if controller_name == "process_chances" || (@process and @process.process_type == 3) %>>
+                <%= link_to t("admin.menu.chances"), admin_legislation_process_chances_path %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+
+      <li class="section-title <%= "active" if controller_name == "geozones" %>">
+        <%= link_to admin_geozones_path do %>
+          <span class="icon-map-marker"></span>
+          <strong><%= t('admin.menu.geozones') %></strong>
+        <% end %>
+      </li>
+
+    </ul>
+  </div>
+<% else %>
+
+  <div class="admin-sidebar" data-equalizer-watch>
+    <ul id="admin_menu" data-accordion-menu data-multi-open="false">
+
+      <% if service?(:polls) && current_user.moderator? %>
+        <li class="section-title">
+          <a href="#">
+            <span class="icon-checkmark-circle"></span>
+            <strong><%= t("admin.menu.title_polls") %></strong>
+          </a>
+          <ul id="polls_menu" <%= "class=is-active" if menu_polls? || controller.class.parent == Admin::Poll::Questions::Answers %>>
+            <li <%= "class=active" if controller_name == "polls" && action_name != "booth_assignments" ||
+              %w(booth_assignments officer_assignments recounts results).include?(controller_name) %>>
+              <%= link_to t('admin.menu.polls'), admin_polls_path %>
+            </li>
+
+            <li <%= "class=active" if %w(questions answers).include?(controller_name) ||
+              controller.class.parent == Admin::Poll::Questions::Answers %>>
+              <%= link_to t("admin.menu.poll_questions"), admin_questions_path %>
+            </li>
+
+          </ul>
+        </li>
+      <% end %>
+
+
+      <% if service?(:processes) or service?(:crowdfundings) %>
+
+        <% if service?(:crowdfundings) %>
+          <li class="section-title <%= "active" if controller_name == "crowdfundings" %>">
+            <%= link_to admin_crowdfundings_path do %>
+              <span class="fa fa-money fa-lg"></span>
+              <strong><%= t("admin.menu.crowdfundings") %></strong>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if service?(:processes) %>
+          <li class="section-title">
+            <a href="#">
+              <span class="fa fa-pencil fa-lg"></span>
+              <strong><%= t("admin.menu.menage_processes_proposals") %></strong>
+            </a>
+            <ul <%= "class=is-active" if menu_content_management? || (@process and @process.process_type == 1) %>>
+
+              <% if service?(:processes) %>
+                <li class="section-title <%= "active" if controller_name == "process_processes_proposals" %>">
+                  <%= link_to t("admin.menu.legislation_process_processes_proposals"), admin_legislation_process_processes_proposals_path %>
+                </li>
+                <li <%= "class=active" if controller_name == "process_typologies" %>>
+                  <%= link_to t("admin.menu.process_typologies"), admin_legislation_process_typologies_path %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+
+      <% end %>
+
+
+    </ul>
+  </div>
+
+<% end %>
+

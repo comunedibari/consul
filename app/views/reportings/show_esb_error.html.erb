@@ -1,0 +1,36 @@
+<% provide :title do %><%= t("reportings.index.title") %><% end %>
+
+    <main>
+    
+      <%= render "shared/section_header", i18n_namespace: "reportings.index.section_header", image: "reportings" %>
+      <div class="row">
+
+        <div id="featured-reportings" class="row featured-reportings">
+          <div class="small-12 col-12">
+            <h2>
+              <br>
+              <%= t("reportings.index.featured_reportings_error") %>
+              <br><br><br>
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="reportings-list" class="row featured-reportings">
+          <%# unless @search_terms || @advanced_search_terms || @tag_filter %>
+            <div id="section_help" class="margin" data-magellan-target="section_help">
+              <!-- <p class="lead">
+              <strong><%#= t("reportings.index.section_footer.title") %></strong>
+            </p> -->
+            <p><%= t("reportings.index.section_footer.description") %><%#= Setting["service_description.reportings",User.pon_id] %></p>
+            <p><%= t("reportings.index.section_footer.help_text_1") %></p>
+            <p><%= t("reportings.index.section_footer.help_text_2",
+                      org: link_to(Setting['org_name',User.pon_id].to_s, new_user_registration_path),
+                      supports: setting["votes_for_reporting_success"]).html_safe %></p>
+            <p><%= t("reportings.index.section_footer.help_text_3") %></p>
+            </div>
+          <%# end %>
+        </div>
+      </div>
+    </main>

@@ -1,0 +1,23 @@
+<div class="row section-content">
+  <div class="small-12 column">
+    <h3 id="crowdfundings" data-magellan-target="crowdfundings">
+      <%= t("pages.help.crowdfundings.title") %>
+    </h3>
+    <p>
+      <%= t("pages.help.crowdfundings.description",
+              link: link_to(t("pages.help.crowdfundings.link"), crowdfundings_path)).html_safe %>
+    </p>
+    <ul class="features">
+      <li>
+        <%= t("pages.help.crowdfundings.feature_html",
+              org: Setting['org_name',User.pon_id].to_s,
+              supports: setting['votes_for_crowdfunding_success']).html_safe %>
+      </li>
+    </ul>
+
+    <figure>
+      <%= image_tag "help/crowdfundings_#{I18n.locale}.png", alt: t("pages.help.crowdfundings.image_alt") %>
+      <figcaption><%= t("pages.help.crowdfundings.figcaption_html") %></figcaption>
+    </figure>
+  </div>
+</div>

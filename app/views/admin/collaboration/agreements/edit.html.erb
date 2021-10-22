@@ -1,0 +1,16 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= @agreement.title %>
+<% end %>
+
+<div class="legislation-admin legislation-process-edit row">
+
+  <div class="small-12 column">
+    <%= back_link_to admin_collaboration_agreements_path, t("admin.collaboration.agreements.edit.back") %>
+
+    <h2><%= @agreement.title %></h2>
+
+    <%= render 'subnav', agreement: @agreement, active: 'info' %>
+
+    <%= render "form" %>
+  </div>
+</div>

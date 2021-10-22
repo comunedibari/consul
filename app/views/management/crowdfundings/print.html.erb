@@ -1,0 +1,28 @@
+<main>
+  <div class="row">
+    <div class="crowdfundings-list small-12 column">
+      <a id="print_link" href="javascript:window.print();" class="button warning float-right">
+        <%= t('management.crowdfundings.print.print_button') %>
+      </a>
+
+      <%= image_tag "header_print_crowdfundings.jpg", class: "for-print-only" %>
+
+      <div class="filters">
+        <span class="for-print-only date-for-print"><%= l Date.current, format: :long %></span>
+
+        <h2 class="inline-block">
+          <span class="not-print"><%= t("crowdfundings.index.select_order_long") %></span>
+          <span class="for-print-only"><%= t("management.print.crowdfundings_title") %></span>
+        </h2>
+        <%= render 'shared/order_selector', i18n_namespace: "crowdfundings.index" %>
+      </div>
+
+      <%= render @crowdfundings %>
+
+      <div class="for-print-only">
+        <p><strong><%= t("management.print.crowdfundings_info") %></strong><br>
+        <%= t("management.print.crowdfundings_note") %></p>
+      </div>
+    </div>
+  </div>
+</main>

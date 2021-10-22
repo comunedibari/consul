@@ -1,0 +1,71 @@
+<% provide :title do %><%= @st_sector.name %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: st_sector_url(@st_sector) %>
+<% end %>
+
+<%# cache [locale_and_user_status(@st_sector)] do %>
+  <div class="debate-show">
+    <div id="<%= dom_id(@st_sector) %>" class="row">
+      <div class="small-12 medium-9 column">
+        <%= back_link_to  sectors_path(sector_type: @st_sector.sector_type_id) %>
+
+        <h1><%= @st_sector.name %></h1>
+
+        <% if @st_sector.images.any? %>
+          <%= render "gallery", st_sector: @st_sector %>
+        <% end %>
+
+        <%= safe_html_with_links @st_sector.description %>
+
+      </div>
+      <div class="small-12 medium-3 column">
+        <aside class="">
+
+
+          <% if current_user && @st_sector.editable_by?(current_user)%>
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= t("proposals.show.actions") %></h2>
+            <%= link_to edit_st_sector_path(@st_sector), class: 'btn btn-outline-primary btn-block' do %>
+              <span class="icon-edit"></span>
+              <%= t("processes.show.edit_process_link") %>
+            <% end %>
+            <%= link_to t("st_sectors.show.erase_sector"), delete_st_sector_path(@st_sector), method: :put, data: {confirm: t('moderation.proposals.index.confirm')}, class: "btn btn-outline-danger btn-block" %>
+          <% end %>
+
+          <div class="margin-top">
+            <%= render 'sidebar', st_sector: @st_sector %>
+          </div>
+
+          <% if @st_sector.documents.count >0 %>
+            <div class="margin-top">
+              <div class="sidebar-divider"></div>
+              <h2 class="sidebar-title"><%= t('proposals.show.title_external_url') %></h2>
+              <%= render 'documents/additional_documents', documents: @st_sector.documents %>
+            </div>
+          <% end %>
+
+          <% if feature?(:map) && map_location_available?(@st_sector.map_location)   %>
+            <div class="margin-top">
+              <div class="sidebar-divider"></div>
+              <h2 class="sidebar-title"><%= "Mappa Associazione" %></h2>
+              <%= render_map(@st_sector.map_location, "st_sector", false, nil) %>
+            </div>
+          <% end %>
+
+          <div class="margin-top">
+            <%= render partial: 'shared/social_share', locals: {
+              share_title: t("proposals.show.share"),
+              title: @st_sector.name,
+              url: st_sector_url(@st_sector),
+              description: @st_sector.name
+            } %>
+          </div>
+
+        </aside>
+      </div>
+
+    </div>
+
+  </div>
+<%# end %>

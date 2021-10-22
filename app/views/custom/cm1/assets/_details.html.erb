@@ -1,0 +1,44 @@
+<div class="row margin-top">
+    <div class="small-12 medium-12 column">
+        <h4><span class="float-left"></span><%= t("admin.moderable_bookings.edit.detail") %></h4>
+        <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+          <thead>
+          </thead>
+          <tbody>        
+            <tr>
+              <td><%= t("assets.moderable_bookings.new.table.description") %>:</td>
+              <td><%= safe_html_with_links @asset.description %></td>
+            </tr>              
+            <tr>
+              <td><%= t("assets.moderable_bookings.new.table.address") %>:</td>
+              <td><%= @asset.address.to_s %></td>
+            </tr>
+            <tr>
+              <td><%= t("assets.moderable_bookings.new.table.contact") %>:</td>
+              <td><%= @asset.contacts.to_s %></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-12 column">
+    <h4><span class=" float-left"></span><%= t("assets.moderable_bookings.new.table.format") %></h4>
+    <p class="help-text"></span><%= t("collaboration.subscriptions.new.user") %></p>
+    <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+          <thead>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= t("collaboration.subscriptions.new.name") %>:</td>
+              <td><%= current_user.username.to_s %></td>
+            </tr>
+            <tr>
+              <td><%= t("collaboration.subscriptions.new.cf") %>:</td>
+              <td><%= current_user.cod_fiscale.to_s %></td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>

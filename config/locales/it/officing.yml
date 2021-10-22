@@ -1,0 +1,67 @@
+---
+it:
+  officing:
+    dashboard:
+      index:
+        info: Qui puoi validare i documenti dei cittadini e salvare i risultati delle urne
+        title: Presiedere il seggio delle consultazioni
+    header:
+      title: Votazione
+    menu:
+      total_recounts: Riconteggio totale e scrutinio
+      voters: Validare documento e votare
+    polls:
+      final:
+        add_results: Aggiungi risultati
+        no_polls: Non si dispone dei permessi per il riconteggio finale nelle consultazioni recenti
+        select_poll: Seleziona votazione
+        title: Elenco delle consultazioni concluse
+    residence:
+      flash:
+        create: Documento verificato in Anagrafe
+        not_allowed: Oggi non hai turno come presidente di seggio
+      new:
+        document_number: Numero di documento
+        error_verifying_census: Non è stato possibile verificare il documento in Anagrafe.
+        form_errors: evitaron verificar este documento
+        no_assignments: Oggi non hai turno come presidente di seggio
+        submit: Valida documento
+        title: Valida documento
+    results:
+      flash:
+        create: Dati salvati
+        error_create: Risultati NON aggiunti. Errore nei dati
+        error_wrong_booth: Urna errata. Risultati NON salvati.
+      index:
+        no_results: Non ci sono risultati
+        results: Risultati
+        table_answer: Risposta
+        table_nulls: Schede nulle
+        table_total: Schede totali
+        table_votes: Voti
+        table_whites: Schede totalmente bianche
+      new:
+        ballots_null: Schede nulle
+        ballots_total: Schede totali
+        ballots_white: Schede totalmente bianche
+        booth: Urna
+        date: Giorno
+        not_allowed: Non hai i permessi per introdurre i risultati
+        results_list: I tuoi risultati
+        see_results: Vedi risultati
+        select_booth: Scegli urna
+        submit: Salva
+        title: "%{poll} - Aggiungi risultati"
+    voters:
+      can_vote:
+        submit_disable_with: Attendi, processo di conferma del voto in corso...
+      new:
+        table_actions: Azioni
+        table_poll: Consultazione
+        table_status: Stato delle consultazioni
+        title: Consultazioni
+      show:
+        can_vote: Puoi votare
+        error_already_voted: Hai già partecipato a questa consultazione.
+        submit: Conferma voto
+        success: Voto aggiunto!

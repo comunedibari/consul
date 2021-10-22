@@ -1,0 +1,10 @@
+<div class="debate-form row">
+
+  <div class="small-12 column">
+    <%= back_link_to clean_st_sector_path(st: @sector.id) %>
+
+    <h1><%= t("sectors.edit.sector_modify") %></h1>
+
+    <%= render "form" %>
+  </div>
+</div>

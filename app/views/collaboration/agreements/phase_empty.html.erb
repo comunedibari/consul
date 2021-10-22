@@ -1,0 +1,15 @@
+<% provide :title do %><%= @collaboration_agreement.title %><% end %>
+
+<%= render 'collaboration/agreements/header', agreement: @collaboration_agreement, header: :full %>
+
+<%#= render 'collaboration/agreements/key_dates', agreement: @collaboration_agreement, phase: @phase %>
+
+<div class="debate-chooser">
+  <div class="row">
+    <div class="small-12 column">
+      <div class="callout primary">
+        <p><%= t(".empty") %></p>
+      </div>
+    </div>
+  </div>
+</div>

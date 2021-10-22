@@ -1,0 +1,33 @@
+<div id="<%= dom_id(f.object) %>" class="nested-fields">
+      <%= f.hidden_field :id %> 
+
+      <div class="small-12 medium-1 column legislation-process-start">
+        <%= t('admin.legislation.processes.form.start') %>
+      </div>
+
+      <div class="small-12 medium-2 column ">
+        <%= f.text_field :start_event,
+                          label: false,
+                          #value: format_date_for_calendar_form(event_slot_dati.start_event),
+                          #class: "js-calendar-full",
+                          id: "start_date_" + rand(1..999999).to_s
+                          %>
+      </div>
+      <div class="small-12 medium-1 column legislation-process-end" id="tag_end">
+        <%= t('admin.legislation.processes.form.end') %>
+      </div>
+      <div class="small-12 medium-2 column">
+          <%= f.text_field :end_event,
+                            label: false,
+                            #value: format_date_for_calendar_form(event_slot_dati.end_event),
+                            #class: "js-calendar-full",
+                            id: "end_date_" + rand(1..999999).to_s
+                            %>
+      </div>
+      <div class="small-3 column action-remove text-right">
+        <%= render_destroy_slot_link(f, f.object) %>
+      </div>
+
+  <hr>
+
+</div>

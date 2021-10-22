@@ -1,0 +1,38 @@
+<div id="pon_list">
+
+  <div class="row">
+    <div class="column">
+      <div id="section_help" class="margin" data-magellan-target="section_help">
+        <p><%= Setting["service_description.#{resource}", 0] %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_1", default: "") %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_2", default: "",
+                 org: link_to(Setting['org_name', User.pon_id].to_s, new_user_registration_path)).html_safe %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_3", default: "",
+                 proposal: link_to(t("#{resource}.index.section_footer.proposals_link"), proposals_path),
+                 budget: link_to(t("#{resource}.index.section_footer.budget_link"), budgets_path)).html_safe %>
+        </p>
+        <p><%= t("#{resource}.index.section_footer.help_text_4", default: "") %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_5", default: "") %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_6", default: "") %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_7", default: "") %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_8", default: "") %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_9", default: "") %></p>
+        <p><%= t("#{resource}.index.section_footer.help_text_10", default: "") %></p>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <% pon_for_service(resource) %>
+  <h3>Seleziona municipio</h3>
+  <div class="row">
+    <% @serv_pon.each do |pon| %>
+      <div class="small-12 medium-6 column my-2">
+        <%#= link_to ".?pon_id="+(pon.pon_id.to_s) do %>
+        <%= link_to params.merge(pon_id: pon.pon_id.to_s) do %>
+          <strong> </strong><%= pon_name(pon.pon_id).name %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

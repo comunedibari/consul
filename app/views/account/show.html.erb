@@ -1,0 +1,279 @@
+<div class="row account">
+  <div class="small-12 column">
+    
+
+      <div class="float-right text-right">
+        <% if Rails.application.config.sign_up_service %>
+          <%= link_to t("account.show.change_credentials_link"), edit_user_registration_path, class: "button hollow" %>
+          <br>
+        <% end %>
+        <%= link_to t("account.show.erase_account_link"), users_registrations_delete_form_path, class: "delete" %>
+      </div>
+
+      <%= avatar_image(@account, seed: @account.id, size: 100, class: "margin-bottom") %>
+
+      <h1 class="inline-block"><%= t("account.show.title") %></h1>
+
+
+    <%= form_for @account, as: :account, url: account_path do |f| %>
+      <%= render "shared/errors", resource: @account %>
+
+      <div class="row">
+        <div class="small-12 medium-6 column">
+
+          <h3><%= t("account.show.personal")%></h3>
+
+          <div class="small-12 medium-10">
+            <% if @account.organization? %>
+              <%= f.fields_for :organization do |fo| %>
+                <%= fo.text_field :name, autofocus: true, maxlength: Organization.name_max_length, placeholder: t("account.show.organization_name_label") %>
+                <%= fo.text_field :responsible_name, autofocus: true, maxlength: Organization.responsible_name_max_length, placeholder: t("account.show.organization_responsible_name_placeholder") %>
+              <% end %>
+              <%= f.text_field :phone_number, placeholder: t("account.show.phone_number_label") %>
+
+            <% else %>
+              <%= f.text_field :username, maxlength: User.username_max_length, placeholder: t("account.show.username_label") %>
+            <% end %>
+          </div>
+
+          <div>
+            <%= f.label :public_activity do %>
+              <%= f.check_box :public_activity, title: t('account.show.public_activity_label'), label: false %>
+              <span class="checkbox">
+                <%= t("account.show.public_activity_label") %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="margin-bottom">
+            <%= f.label :public_interests do %>
+              <%= f.check_box :public_interests, title: t('account.show.public_interests_label'), label: false %>
+              <span class="checkbox">
+                <%= t("account.show.public_interests_label") %>
+              </span>
+            <% end %>
+          </div>
+
+
+
+          <% if @account.can_sector_content? %>
+            <h3><%= t("account.show.sectors")%></h3>
+            <p class="help-text" ><%= t("account.show.sectors_help") %></p>
+            <% sectors = sectorsObject_by_user %>
+            <% sectors.each do |sector| %>
+
+              <%= f.label :sector_element do %>
+              
+                <p><span ><%= sector.sector_type.name %> -
+                <%= sector.name %></span></p>
+              
+               <% end %>
+
+            <% end %>
+          <% end %>
+
+
+
+
+
+
+
+          <% if @account.email.present? %>
+            <h3><%= t("account.show.notifications")%></h3>
+
+            <div>
+              <%= f.label :email_on_comment do %>
+                <%= f.check_box :email_on_comment, title: t('account.show.email_on_comment_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_on_comment_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_on_comment_reply do %>
+                <%= f.check_box :email_on_comment_reply, title: t('account.show.email_on_comment_reply_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_on_comment_reply_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_newsletter_subscribed do %>
+                <%= f.check_box :newsletter, title: t('account.show.subscription_to_website_newsletter_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.subscription_to_website_newsletter_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_digest do %>
+                <%= f.check_box :email_digest, title: t('account.show.email_digest_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_digest_label") %>
+                </span>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :email_on_direct_message do %>
+                <%= f.check_box :email_on_direct_message, title: t('account.show.email_on_direct_message_label'), label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.email_on_direct_message_label") %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if @account.official_level == 1 %>
+            <div>
+              <%= f.label :official_position_badge do %>
+                <%= f.check_box :official_position_badge,
+                                  title: t('account.show.official_position_badge_label'),
+                                  label: false %>
+                <span class="checkbox">
+                  <%= t("account.show.official_position_badge_label") %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+
+          <div class="margin-top">
+            <h3><%= t("account.form.user_position")%></h3>
+            <div class="small-12">
+              <%=  t("account.form.account_address") %>
+                <div class="input-group">
+                  <input type="text" id='account_address' placeholder='<%=  t("account.form.account_address") %>' />
+                  <div class="input-group-button">
+                    <%= map_location_search('') %>
+                  </div>
+                </div>
+                <div id="no-text-insert" class="callout alert no-text-insert primary text-center hide">
+                  <%= t "account.no_text_insert_html" %>
+                </div>      
+            </div>
+          </div>
+          <!-- miaaaaaaa mappa -->
+          <div class="small-12">
+              <%= render 'map_locations/form_fields',
+                form:     f,
+                map_location: @account.map_location || MapLocation.new,
+                label:    t("account.form.map_location"),
+                help:     t("account.form.map_location_instructions"),
+                remove_marker_label: t("account.form.map_remove_marker"),
+                parent_class: "proposal",
+                i18n_namespace: "account",
+                geo_coding_addr: "#account_address" %>
+          </div>
+          <!-- finee mappa -->
+             <td>
+                <div class= "moderation-description" style="text-align: justify; min-height: 7rem;" >
+                  <%= f.label :public_map do %>
+
+                    <%= f.label :privacy_locacalizzation, t("account.form.privacy"), class: "margin-top:20px ;"%>
+                      <p class="help-text" style=" margin-bottom:20px;" ><%= t("account.form.privacy_help") %></p>
+
+ 
+                    <%= f.check_box :public_map, title: t('account.show.public_map_title'), label: false %>
+                      
+                      <span class="checkbox">
+                          <%= t('account.show.public_map_title') %>
+                      </span>
+                      <br>
+                      <p>
+                        <%= t('account.show.public_map_label_one') %>
+                        <%= t('account.show.public_map_label_two') %>
+                        <%= t('account.show.public_map_label_three') %>
+                        <%= t('account.show.public_map_label_four') %>
+                        <%= t('account.show.public_map_label_five') %>
+                        <%= t('account.show.public_map_label_six') %>
+                        <%= t('account.show.public_map_label_seven') %>
+                        <%= t('account.show.public_map_label_eight') %>
+                      </p>                  
+                  </div>
+                <% end %>
+              </td>          
+
+          <%= f.submit t("account.show.save_changes_submit"), class: "btn btn-primary mt-3" %>
+        </div>
+
+        <div class="user-permissions small-12 medium-6 column">
+          
+          <% if Rails.application.config.cm == 'cm1' %> 
+          <div class="row margin-bottom">
+            <h3><%= t("account.show.user_categories_preference_title") %></h3>
+            <label>&nbsp;</label>
+            <%= link_to t("account.show.user_categories_preference"),
+                preferences_account_path, class: "btn btn-success mb-3 float-left" %>
+          </div>
+          <% end %>
+          
+          <div class="row">
+            <h3><%= t("account.show.user_permission_title") %></h3>
+
+            <p><%= t("account.show.user_permission_info") %></p>
+
+            <ul>
+              <li><span class="icon-check"></span>&nbsp;<%= t("account.show.user_permission_debates") %></li>
+              <li><span class="icon-check"></span>&nbsp;<%= t("account.show.user_permission_proposal") %></li>
+              <li>
+                <% if current_user.level_two_or_three_verified? %>
+                  <span class="icon-check"></span>
+                <% else %>
+                  <span class="icon-x"></span>
+                <% end %>
+                <%= t("account.show.user_permission_support_proposal") %>
+              </li>
+              <li>
+                <% if current_user.level_three_verified? %>
+                  <span class="icon-check"></span>
+                <% else %>
+                  <span class="icon-x"></span>
+                <% end %>
+                <%= t("account.show.user_permission_votes") %>
+              </li>
+            </ul>
+
+            <p>
+              <span><%= t("account.show.user_permission_verify_info") %></span>
+            </p>
+            <p>
+              <%= t("account.show.user_permission_verify") %>
+            </p>
+
+            <% unless @account.organization? %>
+              <div>
+                <span class="verify-account">
+                  <% if current_user.level_three_verified? %>
+                    <p class="already-verified">
+                      <span class="icon-check"></span>
+                      <%= t("account.show.verified_account") %>
+                    </p>
+                  <% elsif current_user.level_two_verified? %>
+                    <%= link_to t("account.show.finish_verification"), verification_path, class: "button success" %>
+                  <% else %>
+                    <%= link_to t("account.show.verify_my_account"), verification_path, class: "button success" %>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+
+              </div>
+                <h3><%= t("account.show.gamification") %></h3>
+                <%= link_to t("account.show.gamification_stats"),
+                { controller: "gamifications", action: :user,
+                                            user_id: @account.id },
+                                            method: :get,
+                                            class: "btn btn-primary float-left" %>
+              <div>
+
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

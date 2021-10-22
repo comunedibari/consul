@@ -1,0 +1,13 @@
+<table class="margin-top">
+  <thead>
+    <th scope="col"><%= t("users.show.processes") %></th>
+    <th scope="col" colspan="2"><%= t("users.show.actions") %></th>
+  </thead>
+  <tbody>
+    <% @processes.each do |process| %>
+      <%= render "process", process: process %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @processes %>

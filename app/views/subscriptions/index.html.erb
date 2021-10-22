@@ -1,0 +1,80 @@
+  <% provide :title do %>
+    <%= t("layouts.header.collaborative_legislation") %> - <%= t("collaboraion.agreements.index.filters.#{@current_filter}") %>
+  <% end %>
+
+  <% content_for :header_addon do %>
+    <%= render "shared/search_form",
+              search_path: subscriptions_path(page: 1),
+              i18n_namespace: "agreements.index.search_form" %>
+  <% end %>
+  <% content_for :header_small_addon do %>
+    <%= render "shared/search_form_small",
+              search_path: subscriptions_path(page: 1),
+              i18n_namespace: "agreements.index.search_form" %>
+  <% end %>
+  
+    <%= render "shared/section_header", i18n_namespace: "subscriptions.index.section_header", image: "debates" %>
+    <%= render "shared/search_results",
+          resources:  @resources,
+          total_resources_num: @tot_resources,
+          search_terms: @search_terms,
+          advanced_search_terms: @advanced_search_terms,
+          tag_filter: @tag_filter
+            %>
+
+
+<div class="row">
+
+  <div id="legislation" class="legislation-list small-12 medium-9 column">
+
+
+
+  <div>
+    <%= render "shared/advanced_search", search_path: subscriptions_path(page: 1),
+                                        class_name: "Agreement" %>
+  </div>    
+
+    <%= render 'shared/filter_subnav', i18n_namespace: "collaboration.agreements.index" %>
+
+
+    <div id="legislation-list">
+      <% if @resources.any? %>
+        <%= render @resources, taggable_name: 'subscription' %>
+        <%= paginate @resources %>
+      <% else %>
+        <div class="callout primary margin-top">
+          <%= t(".no_#{@current_filter}_agreements") %>
+        </div>
+      <% end %>
+
+
+
+
+      <div id="section_help" class="margin" data-magellan-target="section_help">
+        <p class="lead">
+          <strong><%= t("collaboration.subscriptions.index.section_footer.title") %></strong>
+        </p>
+        <p><%= t("collaboration.agreements.index.section_footer.description") %></p>
+        <p><%= t("legislation.agreements.index.section_footer.help_text_1") %></p>
+        <p><%= t("legislation.agreements.index.section_footer.help_text_2",
+                  org: Setting['org_name',User.pon_id].to_s) %></p>
+        <p><%= t("legislation.agreements.index.section_footer.help_text_3") %></p>
+      </div>
+    </div>
+  </div>
+
+        <div class="small-12 medium-3 column">
+          <aside class="margin-bottom">
+            <% if params[:retired].blank? %>
+              <div class="sidebar-divider"></div>
+              <h2 class="sidebar-title"><%= t("agreements.subscroptions.form.geolocation") %></h2>
+              <p><%= render_geolocation(@resources, "collaboration_agreement")  %></p>
+              <%= link_to "Visualizza dettaglio mappa", large_map_subscriptions_path %>
+            <% end %>
+          </aside>
+           <%= render 'collaboration/agreements/categories', taggable: 'subscription' %>
+           <%= render "shared/tag_cloud", taggable: 'subscription' %>
+
+
+        </div>
+</div>

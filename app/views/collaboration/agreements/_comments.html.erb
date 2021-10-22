@@ -1,0 +1,34 @@
+<%# cache [locale_and_user_status, @current_order, commentable_cache_key(@collaboration_agreement), @comment_tree.comments, @comment_tree.comment_authors, @collaboration_agreement.comments_count, @comment_flags] do %>
+  <div class="row comments">
+    <div id="comments" class="small-12 column">
+      <%= render 'shared/wide_order_selector', i18n_namespace: "comments" %>
+      <br>
+      <% if !isBlockedPrivacy && user_signed_in? && ((current_user.present? && service_social?(:collaboration) && current_user.provider.present? && current_user.is_social? && @collaboration_agreement.social_content.social_access) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator  || current_user.moderator?)%>
+        <%= render 'comments/form', {commentable: @collaboration_agreement, parent_id: nil, toggeable: false} %>
+
+      <% elsif user_signed_in? && ((!service_social?(:collaboration) && current_user.provider.present? && current_user.is_social?) || (service_social?(:collaboration) && current_user.provider.present? && current_user.is_social? && !@collaboration_agreement.social_content.social_access)) %>
+        <div data-alert class="callout primary">
+          <%= t("debates.show.login_as_spid_to_comment") %>
+          </div>
+      <% elsif isBlockedPrivacy && current_user.present? %>
+        <div data-alert class="callout primary">
+          <%= "Non hai dato il tuo pieno consenso alla privacy" %>
+        </div>                
+      <% else %>
+      <br>
+
+      <div data-alert class="callout primary">
+        <%= t("agreements.show.login_to_comment",
+            signin: link_to(t("votes.signin"), go_to_login)).html_safe %>
+        </div>
+      <% end %>
+      <%# vedo comunque i commenti %>
+      <% @comment_tree.root_comments.each do |comment| %>
+        <%= render 'comments/comment', comment: comment  %>
+      <% end %>
+      <%= paginate @comment_tree.root_comments %>
+
+     
+    </div>
+  </div>
+<%# end %>

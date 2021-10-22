@@ -1,0 +1,37 @@
+<div class="proposal-edit row">
+  <div class="small-12 column">
+
+    <h1 class="inline-block"><%= t("moderable_bookings.retire_form.title") %></h1>
+
+    <h3><%= link_to @moderable_booking.code, asset_booking_manager_moderable_booking_path(asset_id: @moderable_booking.bookable_id,id: @moderable_booking.id) %></h3>
+
+    <div data-alert class="callout warning">
+     <%= t("moderable_bookings.retire_form.warning") %>
+    </div>
+
+    <%= form_for(@moderable_booking, url: retire_asset_booking_manager_moderable_booking_path(asset_id: @moderable_booking.bookable_id,id: @moderable_booking.id)) do |f| %>
+      <%= render 'shared/errors', resource: @moderable_booking %>
+      <div class="row">
+        <div class="small-12 medium-6 large-4 column">
+          <%= f.label :retired_reason,  t("moderable_bookings.retire_form.retired_reason_label") %>
+          <%= f.select :retired_reason, retire_proposals_options, {include_blank: t("moderable_bookings.retire_form.retired_reason_blank"), label: false} %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-9 column">
+          <%= f.label :retired_explanation, t("moderable_bookings.retire_form.retired_explanation_label") %>
+          <%= f.text_area :retired_explanation, rows: 4, maxlength: 500, label: false,
+                          placeholder: t('moderable_bookings.retire_form.retired_explanation_placeholder') %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="actions small-12 medium-3 column">
+          <%= f.submit(class: "btn btn-primary btn-block", value: t("moderable_bookings.retire_form.submit_button")) %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

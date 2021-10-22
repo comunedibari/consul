@@ -1,0 +1,167 @@
+---
+it:
+  legislation:
+    chances:
+      index:
+        section_footer:
+          title: Aiuto sulle Opportunità
+    works:
+      index:
+        section_footer:
+          title: Aiuto sui Lavori pubblici          
+    annotations:
+      comments:
+        cancel: Annulla
+        comments_count:
+          one: "%{count} commento"
+          other: "%{count} commenti"
+        publish_comment: Pubblica Commento
+        replies_count:
+          one: "%{count} risposta"
+          other: "%{count} risposte"
+        see_all: Vedi tutti
+        see_complete: Vedi completo
+      form:
+        login_to_comment: È necessario %{signin} per commentare.
+        phase_not_open: Questa fase del progetto non è aperta
+        signin: autenticarsi
+        signup: registrarsi
+      index:
+        comments_about: Commenti su
+        comments_count:
+          one: "%{count} commento"
+          other: "%{count} commenti"
+        see_in_context: Mostra nel contesto
+        title: Commenti
+      show:
+        title: Commento
+      version_chooser:
+        see_text: Mostra la bozza del testo
+        seeing_version: Commenti della versione
+    draft_versions:
+      changes:
+        see_text: Mostra la bozza del testo
+        seeing_changelog_version: Elenco delle modifiche della revisione
+        title: Modifiche
+      show:
+        loading_comments: Caricamento dei commenti in corso
+        see_changes: vedi lista delle modifiche
+        see_comments: Vedi tutti i commenti
+        seeing_version: Stai vedendo la revisione
+        select_draft_version: Seleziona bozza
+        select_version_submit: vedi
+        text_body: Testo
+        text_comments: Commenti
+        text_toc: Indice
+        updated_at: aggiornata il %{date}
+    process_works:
+      index:
+        section_header:
+          help: Aiuto sui lavori pubblici
+          icon_alt: Icona dei Lavori Pubblici
+          title: Lavori Pubblici
+      debate:
+        geozone: MUNICIPIO
+        price: PREZZO
+        financing: FINANZIAMENTO
+        status_works: STATO LAVORI
+        pourpose: OBIETTIVI
+        address_to: A CHI E' RIVOLTO
+        deadline: SCADENZE
+        benefit: BENEFICI
+    processes:
+      debate:
+        empty_questions: Non ci sono domande
+        #participate: Dai uni tuoi contributi alla discussione iniziale partecipando ai seguenti temi.
+        participate: Dai un contributo alla discussione
+      form:
+        geolocation: Mappa
+      header:
+        additional_info: Informazioni aggiuntive
+        description: Descrizione
+        more_info: Vedi informazione del progetto
+        date: "<strong>INZIO:</strong> %{start} <strong>- FINE:</strong> %{end}"
+      index:
+        filter: Filtro
+        filters:
+          next: Pianificati
+          planned: Pianificati
+          opens: Attivi
+          past: Terminati
+          bis: Importati da BIS
+          sgap: Importati da SGAP
+        no_next_processes: Non ci sono progetti pianificati
+        no_open_processes: Non ci sono progetti attivi
+        no_past_processes: Non ci sono progetti terminati
+        section_footer:
+          description: Partecipa alle discussioni e ai progetti precedenti l'approvazione di una norma, di un'opera o di un progetto comunale. La tua opinione sarà tenuta in considerazione da parte del Comune.
+          help_text_1: Nei progetti il Comune offre alla cittadinanza l'opportunità di partecipare all'elaborazione e alla modifica di una norma, di un'opera o di un progetto che interessa la città e di dare la propria opinione su iniziative che ha in previsione di realizzare.
+          help_text_2: Pertanto le persone registrate su CasaDelCittadino possono dare il proprio contributo.
+          help_text_3: 'I commenti sono analizzati dall''area comunale competente e tenuti in considerazione al momento della loro stesura finale. '
+          title: Aiuto sui progetti
+        section_header:
+          help: Aiuto sui progetti
+          icon_alt: Icona dei Progetti
+          title_processes: Mappa Proposte e Iniziative
+          title_works: Mappa Lavori pubblici
+          title_chances: Mappa Opportunità
+          title_collaboration: Mappa Patti di Collaborazione
+      phase_empty:
+        empty: Al momento non c'è nulla di pubblicato
+      phase_not_open:
+        not_open: Questa fase del progetto non è stata ancora aperta
+      process:
+        see_latest_comments: Dettaglio
+        see_latest_comments_title: dettaglio progetto
+      proposals:
+        empty_proposals: Non ci sono proposte
+      shared:
+        allegations_dates: Allegati
+        consultation: Partecipa #Consultazioni
+        debate_dates: Partecipa
+        debate_label: Dibattiti
+        draft_publication_date: Pubblicazione aggiornamenti
+        rid_draft_publication_date: Pubbl. aggiornamenti
+        key_dates: Date chiave
+        proposals_dates: Proposte
+        result_publication_date: Pubblicazione risultati
+    process_chances:
+      process:
+        see_latest_comments: Visualizza dettaglio
+        see_latest_comments_title: Contribuisci a questo progetto
+    proposals:
+      closed: Questo processo è terminato e non può più raccogliere voti.
+      form:
+        tags_label: Categorie
+      not_verified: Per votare le proposte %{verify_account}.
+    questions:
+      comments:
+        comment_button: Pubblica risposta
+        comments_closed: Fase chiusa
+        comments_title: Risposte aperte
+        form:
+          leave_comment: Lascia la tua risposta
+      participation:
+        debate_phase_not_open: La fase della discussione iniziale si è conclusa e in questo momento non si accettano risposte
+        organizations: Le organizzazioni non possono partecipare alla discussione
+        phase_not_open: Questa fase non è aperta
+        signin: accedere
+        signup: registrarsie
+        unauthenticated: È necessario %{signin} per partecipare alla discussione.
+        verified_only: Solamente gli utenti verificati possono partecipare alla discussione, %{verify_account}.
+        verify_account: verifica il tuo account
+      question:
+        comments:
+          one: "%{count} commento"
+          other: "%{count} commenti"
+          zero: Senza commenti
+        debate: Discussione
+      show:
+        answer_question: Invia risposta
+        first_question: Prima domanda
+        next_question: Domanda successiva
+        share: Condividi
+        title: Progetto
+    shared:
+      share: Condividi
+      share_comment: Commento sulla %{version_name} della bozza del progetto %{process_name}

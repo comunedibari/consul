@@ -1,0 +1,32 @@
+<% if search_terms || advanced_search_terms || tag_filter || params[:retired].present? %>
+    <div class="highlight no-margin-top padding margin-bottom">
+        <div class="row">
+            <div class="small-12 column">
+                <% if search_terms || advanced_search_terms || typologies_ids_array %>
+                    <h2><%= t("shared.search_results") %></h2>
+                    <% if search_terms  %>
+                        <p>La ricerca ha individuato <strong><%= total_resources_num %></strong> risultati contenenti il testo <strong>'<%= search_terms %>'</strong></p>
+                    <% end %>
+                    <% if resources != nil %>
+                        <p><%= page_entries_info resources %></p>
+                    <% end %>
+
+                <% elsif tag_filter %>
+                    <h2><%= t("shared.search_results") %></h2>
+                    <p>La ricerca ha individuato <strong><%= total_resources_num %></strong> risultati contenenti il tema <strong>'<%= tag_filter %>'</strong></p>
+
+                <% elsif params[:retired].present? %>
+                    <h2><%= t("crowdfundings.index.retired_crowdfundings") %></h2>
+                <% end %>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+
+
+
+
+
+
+

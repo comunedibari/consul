@@ -1,0 +1,91 @@
+<% if check_process_fase(process)%>
+
+    <div class="row">
+      <nav class="legislation-process-categories">
+        <div class="legislation-process-list">
+          <div class="small-12 column">
+            <ul>
+            <% if @process.process_type == 2 %>
+              <% if process.debate_phase.enabled? %>
+                <li <%= 'class=active' if phase.to_sym == :debate_phase %>>
+                  <%= link_to debate_legislation_process_path(process) do %>
+                    <h4><%= t("legislation.processes.shared.consultation") %></h4>
+                    <p><%= t("legislation.processes.shared.debate_label") %></p>
+                  <% end %>
+                </li>
+              <% end %>
+            <% else %>
+              <% if process.debate_phase.enabled? %>
+                <li <%= 'class=active' if phase.to_sym == :debate_phase %>>
+                  <%= link_to debate_legislation_process_path(process) do %>
+                    <h4><%= t('legislation.processes.shared.debate_dates') %></h4>
+                    <p><%= t("legislation.processes.shared.debate_label") %></p>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+
+            <% if @process.process_type != 1 %>
+              <% if process.proposals_phase.enabled? %>
+                <li <%= 'class=active' if phase.to_sym == :proposals_phase %>>
+                  <%= link_to proposals_legislation_process_path(process) do %>
+                    <h4><%= t('legislation.processes.shared.proposals_dates') %></h4>
+                    <p><%= format_date(process.proposals_phase_start_date) %> - <%= format_date(process.proposals_phase_end_date) %></p>
+                  <% end %>
+                </li>
+              <% else %>
+                <li <%= 'class=active' if phase.to_sym == :proposals_phase %>>
+                  <h4><%= t('legislation.processes.shared.proposals_dates') %></h4>
+                  <p> - </p>
+                </li>
+              <% end %>
+
+              <% if process.draft_publication.enabled? %>
+                <li <%= 'class=active' if phase.to_sym == :draft_publication %>>
+                  <%= link_to draft_publication_legislation_process_path(process) do %>
+                    <h4><%= t('legislation.processes.shared.draft_publication_date') %></h4>
+                    <p><%= format_date(process.draft_publication_date) %></p>
+                  <% end %>
+                </li>
+              <% else %>
+                <li <%= 'class=active' if phase.to_sym == :draft_publication %>>
+                  <h4><%= t('legislation.processes.shared.draft_publication_date') %></h4>
+                  <p> - </p>
+                </li>
+              <% end %>
+
+              <% if process.allegations_phase.enabled? %>
+                <li <%= 'class=active' if phase.to_sym == :allegations_phase %>>
+                  <%= link_to allegations_legislation_process_path(process) do %>
+                    <h4><%= t('legislation.processes.shared.allegations_dates') %></h4>
+                    <p><%= format_date(process.allegations_start_date) %> - <%= format_date(process.allegations_end_date) %></p>
+                  <% end %>
+                </li>
+              <% else %>
+                <li <%= 'class=active' if phase.to_sym == :allegations_phase %>>
+                  <h4><%= t('legislation.processes.shared.allegations_dates') %></h4>
+                  <p> - </p>
+                </li>
+              <% end %>
+
+              <% if process.result_publication.enabled? %>
+                <li <%= 'class=active' if phase.to_sym == :result_publication %>>
+                  <%= link_to result_publication_legislation_process_path(process) do %>
+                    <h4><%= t('legislation.processes.shared.result_publication_date') %></h4>
+                    <p><%= format_date(process.result_publication_date) %></p>
+                  <% end %>
+                </li>
+              <% else %>
+                <li <%= 'class=active' if phase.to_sym == :result_publication %>>
+                  <h4><%= t('legislation.processes.shared.result_publication_date') %></h4>
+                  <p> - </p>
+                </li>
+              <% end %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+<% end %>

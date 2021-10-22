@@ -1,0 +1,37 @@
+@import "scss/bootstrap-italia.min";
+
+@import 'social-share-button';
+@import 'v2/foundation_and_overrides';
+//@import 'fonts';
+@import 'icons';
+@import 'mixins';
+@import 'admin';
+@import 'layout';
+@import 'participation';
+@import 'pages';
+@import 'legislation';
+@import 'legislation_process';
+@import 'community';
+@import 'custom';
+@import 'c3';
+@import 'annotator.min';
+@import 'annotator_overrides';
+@import 'jquery-ui/datepicker';
+@import 'datepicker_overrides';
+@import 'jquery-ui/autocomplete';
+@import 'autocomplete_overrides';
+@import 'jquery-ui/sortable';
+@import 'leaflet';
+@import 'fullcalendar';
+@import 'font-awesome';
+@import 'marker_cluster';
+@import 'L.Control.Locate';
+@import 'L.Control.Locate.ie';
+@import 'leaflet.fullscreen';
+@import 'jquery.datetimepicker';
+@import 'multiple-select';
+
+@import 'v2/custom_agid';
+@import 'v2/custom_agid_cm1';
+
+@import 'dataTables.bootstrap4.min';

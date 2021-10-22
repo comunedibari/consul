@@ -1,0 +1,13 @@
+<div id="featured-events" class="row featured-events">
+
+  <div class="small-12 column">
+    <h2><%= t("events.index.featured_events") %></h2>
+  </div>
+
+  <% @featured_events.each do |event| %>
+    <div class="small-12 medium-6 column end">
+      <h3><%= link_to event.title, event %></h3>
+      <%= link_to event.author.name, user_path(event.author)%>
+    </div>
+  <% end %>
+</div>

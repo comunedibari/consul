@@ -1,0 +1,61 @@
+    <div class="pad-cust">
+      <h2 class="inline-block" style="float:left"><%= t("admin.third_sector.index.title") %></h2>
+      <div class="small-12 medium-12 large-12" style="text-align: end;">
+        <p class="template-edit"><%= t("admin.third_sector.template") %><p>
+      </div>
+      <div>
+        <%= link_to t("documents.buttons.download_document"),
+          downloadxlsx_admin_sectors_url,
+          target: "_blank",
+          rel: "nofollow", class: "btn btn-outline-primary btn-sm float-right" %>
+      </div>
+      <h5><%= t("admin.third_sector.upload_file") %></h5>
+      <%= form_tag '/amministrazione/terzo_settore' , { :multipart => true } do %>
+        <input type="file" name='upload[file]' id="filesector" class="inputfile inputfile-2" accept = 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' />
+        <label for="filesector"><span><%= t("admin.third_sector.choose_file") %></span></label>
+
+        <div class="small-12 medium-6 large-6  column " >
+          <%= select_tag :id_sector_type ,
+                 sector_types_all
+                  %>
+        </div>
+
+        <%= submit_tag t("admin.third_sector.index.new"),  class: "button load-file float-right" %>
+      <% end %>
+      <%= render("shared/advanced_search", search_path: admin_sectors_path(page: 1),
+                                                      class_name: "Sector")  %>
+    </div>
+   <div class="row ">
+    <div class="small-12 column ">                                                  
+      <h5 style="padding-top: 50px;"><%= t("admin.third_sector.list") %></h5>
+      <% if @sectors.any? %>
+        <table class="stack">
+          <tbody>
+            <tr>
+              <th><%= t("admin.third_sector.name") %></th>
+              <th><%= t("admin.third_sector.vat_code") %></th>
+              <th><%= t("admin.third_sector.legal_representative") %></th>
+              <th><%= t("admin.third_sector.email") %></th>
+              <th><%= t("admin.third_sector.type") %></th>
+              <th><%= t("admin.third_sector.edit") %></th>
+            </tr>
+            <% @sectors.each do |sector| %>
+              <tr>
+                <td><%= sector.name %></td>       
+                <td><%= sector.vat_code %></td>
+                <td><%= sector.legal_representative %></td>
+                <td><%= sector_email_verified(sector) %></td>
+                <td><%= SectorType.where("id = ?", sector.sector_type_id).first.name %></td>
+                <td><%= link_to t("admin.third_sector.edit"), edit_admin_sector_path(sector.id), class: "button hollow" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <%= paginate @sectors %>
+<% else %>
+  <div class="callout primary margin-top">
+    <%= t("admin.third_sector.no_third_sector") %>
+  </div>
+<% end %>

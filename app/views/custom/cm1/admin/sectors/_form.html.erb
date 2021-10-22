@@ -1,0 +1,22 @@
+<%= form_for(@sector, url: form_url, method: :put) do |f| %>
+  <%= render 'shared/errors', resource: @sector %>
+
+  <div class="row">
+
+
+    <div class="small-12 column margin-top">
+      <%= f.label :legal_representative, t("sectors.new.name_surname") %>
+      <%= f.text_field :legal_representative,  placeholder:  t("sectors.new.attorney"), label: false, value: ''%>
+    </div>
+
+
+    <div class="small-12 column">
+      <%= f.label :cf_rappr_legale, t("sectors.new.cf_rappr_legale") %>
+      <%= f.text_field :cf_rappr_legale,  placeholder: t("sectors.new.cf_rappr_legale"), label: false, value: '' %>
+    </div>
+
+    <div class="actions small-12">
+      <%= f.submit(class: "button",value: t("admin.third_sector.subentro_button")) %>
+    </div>
+  </div>
+<% end %>

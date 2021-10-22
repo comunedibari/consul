@@ -1,0 +1,19 @@
+<table class="margin-top">
+  <thead>
+    <th scope="col"><%= t("users.show.moderable_bookings") %></th>
+    <th><%= t("users.moderable_bookings.table.asset") %></th>
+    <th><%= t("users.moderable_bookings.table.day") %></th>
+    <th><%= t("users.moderable_bookings.table.time_start") %></th>
+    <th><%= t("users.moderable_bookings.table.time_end") %></th>
+    <th><%= t("users.moderable_bookings.table.status") %></th>
+    <th><%= t("users.moderable_bookings.table.note") %></th>
+    <th scope="col" colspan="2"><%= t("users.show.actions") %></th>
+  </thead>
+  <tbody>
+    <% @moderable_bookings.each do |moderable_booking| %>
+      <%= render "moderable_booking", moderable_booking: moderable_booking %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @moderable_bookings %>

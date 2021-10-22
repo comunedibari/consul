@@ -1,0 +1,45 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= t("admin.legislation.process_typologies.index.title") %>
+<% end %>
+
+<div class="legislation-admin legislation-process-index">
+
+  <h2 class="inline-block"><%= t("admin.legislation.process_typologies.index.title") %></h2>
+
+  <%= link_to t("admin.legislation.process_typologies.index.new_typology"), new_admin_legislation_process_typology_path, class: "button float-right" %>
+
+  <% if @typologies&.any? %>
+    <h3><%= page_entries_info(@typologies) %></h3>
+
+    <table class="stack">
+      <thead>
+      <tr>
+        <th><%= t("admin.legislation.process_typologies.index.name") %></th>
+        <!-- <th><%#= t("admin.legislation.process_typologies.index.active") %></th> -->
+        <th><%= t("admin.legislation.processes.process.actions") %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @typologies.each do |typology| %>
+        <tr>
+          <td><%= typology.name %></td>
+          <!-- <td><%#= typology.active ? t("admin.legislation.process_typologies.index.actions.confirm") : t("admin.legislation.process_typologies.index.actions.nope") %></td> -->
+          <td>
+            <a class="button hollow primary"
+               href="<%= edit_admin_legislation_process_typology_path(typology.id) %>">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+              <%= t("admin.legislation.process_typologies.index.actions.modify") %>
+            </a>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <%= paginate @typologies %>
+  <% else %>
+    <div class="callout primary">
+      <%= page_entries_info @typologies %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,31 @@
+<%= fields_for @question do |f| %>
+<div class="type_questions_box">
+      <div class="small-12 medium-6 large-4">
+      <%#= label_tag :type_question_id, t("admin.questions.index.question_type") %>
+      <%#= select_tag "type_question_id",
+                    options_for_select(@type_questions.pluck(:name, :id),1) %>
+
+      <%= f.select :poll_question_type_id,
+                    options_for_select(@type_questions.pluck(:name, :id),@question.nil? ? 1 : @question.poll_question_type_id),
+                    label: t("admin.questions.show.question_type")%>
+    </div>
+
+</div>
+<% end %>
+
+<script>
+
+$('#poll_question_poll_question_type_id').change(function(){
+  var val = $(this).find('option:selected').val();
+  if (val > 2 && !$('.questions_box').is(':visible')){
+    $('.questions_box').toggle();
+    $('.answers_box').toggle();
+    }
+  else
+    if (val < 3 && $('.questions_box').is(':visible')){
+      $('.questions_box').toggle() 
+      $('.answers_box').toggle()
+    }
+});
+
+</script>

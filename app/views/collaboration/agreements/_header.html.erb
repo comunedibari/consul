@@ -1,0 +1,134 @@
+<div class="jumbo">
+  <div class="row">
+    <div class="small-12 medium-9 column">
+      <!-- customize backlink  -->      
+      <%= back_link_to collaboration_agreements_path %>
+      <% if @collaboration_agreement.agreement_type != 4 %>
+        <h2><%= @collaboration_agreement.title %></h2>
+      <% else %>
+        <h2>Progetto - <%=  @collaboration_agreement.external_id %></h2>
+       <% end %>
+
+      <div class="legislation-hero margin-top">
+        <% if header == :small %>
+          <div id="legislation_info" class="is-hidden" data-toggler=".is-hidden">
+
+            <% if @collaboration_agreement.description.present? %>
+              <p class="title"><%= t("collaboration.agreements.header.description") %></p>
+              <%= markdown @collaboration_agreement.description %>
+            <% end %>
+       
+            <% if @collaboration_agreement.additional_info.present? %>
+              <hr>
+              <p class="title"><%= t("collaboration.agreements.header.additional_info") %></p>
+              <%= markdown @collaboration_agreement.additional_info if @collaboration_agreement.additional_info %>
+            <% end %>
+          </div>
+
+          <a class="btn btn-primary" data-toggle="legislation_info">
+            <%= t("collaboration.agreements.header.more_info") %>
+          </a>
+        <% elsif @collaboration_agreement.agreement_type === 1 %>
+          <%= render 'collaboration/agreements/body_agreement', agreement: @collaboration_agreement %>
+        <% elsif @collaboration_agreement.agreement_type === 2 %>
+          <%= render 'collaboration/agreements/body_subscription', agreement: @collaboration_agreement %>
+        <% end %>
+      </div> 
+
+      <% if @collaboration_agreement.images.any? %>
+        <div class="">
+          <%= render "gallery", agreement: @collaboration_agreement %>
+        </div>
+      <% end %> 
+
+    </div>
+    <div class="small-12 medium-3 column">
+      <aside class="">              
+    <% if @collaboration_agreement.documents.count >0 %>
+      <div class="margin-top">
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title"><%= t('proposals.show.title_external_url') %></h2>
+        <%= render 'documents/additional_documents', documents: @collaboration_agreement.documents %>
+      </div>  
+    <% end %>
+    <% if @collaboration_agreement.agreement_type === 2 %>
+      <div class="margin-top">
+        <%= render 'collaboration/agreements/sidebar_subscription', agreement: @collaboration_agreement %>
+      </div>
+    <% end %>
+    <% if current_user && (author_of_agreement?(@collaboration_agreement) || current_user.administrator? || current_user) %>
+        <div class="margin-top">
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title"><%= t("proposals.show.actions") %></h2>       
+        <% if agreement_current_editable?(@collaboration_agreement) %>
+          <% if current_user && (@collaboration_agreement.editable_by?(current_user) || can_destroy_image?(@collaboration_agreement)) || current_moderable_comments?(@collaboration_agreement)  %> 
+            <% if current_moderable_comments?(@collaboration_agreement) %>
+              <%= link_to moderation_flag_collaboration_agreement_path(@collaboration_agreement), 
+              class: "btn btn-primary btn-block font_size_initial #{@collaboration_agreement.moderation_flag? ? 'btn-alert' : ''}" do %>
+                          <span class="icon-comments"></span>
+                    <%= t("#{@collaboration_agreement.moderation_flag? ?  'proposals.show.moderation_flag_desactive' : 'proposals.show.moderation_flag_active'}") %>
+              <% end %>
+            <% end %>
+           <% end %>              
+          <%= link_to edit_admin_collaboration_agreement_path(@collaboration_agreement), class: 'btn btn-outline-primary btn-block' do %>
+            <span class="icon-edit"></span>
+            <%= t("agreements.show.edit_agreement_link") %>
+          <% end %>
+        <% end %>
+
+        <% if current_user && (current_user.administrator? || current_user.moderator? ) %>
+          <%= link_to social_flag_collaboration_agreement_path(@collaboration_agreement),class: "btn btn-primary btn-block #{@collaboration_agreement.social_content.social_access? ? 'btn-alert' : ''}" do %>
+              <span class="icon-comments"></span>
+              <%= t("#{@collaboration_agreement.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+          <% end %>
+        <% end %>
+
+        <% if current_user &&  !current_user.administrator? && !current_user.moderator? && (service_social?(:collaboration) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test'  %>
+          <% if @collaboration_agreement.already_subscribed(current_user) %>
+            <%= link_to collaboration_agreement_subscription_path(@collaboration_agreement, @collaboration_agreement.subscription(current_user)), class: 'btn btn-outline-primary btn-block' do %>
+              <span class="icon-no-notification"></span>
+              <%= t("agreements.show.already_subscription") %>
+            <% end %>
+          <% else %>
+            <%= link_to new_collaboration_agreement_subscription_path(@collaboration_agreement), class: 'btn btn-outline-primary btn-block' do %>
+              <span class="icon-no-notification"></span>
+              <%= t("agreements.show.subscription") %>
+            <% end %>
+          <% end %>        
+        <% end %>
+      
+    <% end %>
+      <% if author_of_agreement?(@collaboration_agreement) && current_user.administrator? %>
+        <%= link_to new_collaboration_agreement_notification_path(collaboration_agreement_id: @collaboration_agreement.id),class: 'btn btn-outline-primary btn-block' do %>
+          <span class="icon-no-notification"></span>
+          <%= t("agreement_notifications.show.send_notification") %>
+        <% end %>
+      <% end %>
+      </aside>
+      <% if feature?(:map) && map_location_available?(@collaboration_agreement.map_location) &&  @collaboration_agreement.agreement_type != 4  %>
+        <div class="margin-top">
+          <div class="sidebar-divider"></div>
+          <h2 class="sidebar-title"><%= t("agreements.form.geolocation") %></h2>
+          <%= render_map(@collaboration_agreement.map_location, "agreement", false, nil) %>
+        </div>
+      <% end %>
+      <div class="margin-top">
+        <%= render partial: 'shared/social_share', locals: {
+          share_title: t("proposals.show.share"),
+          title: @collaboration_agreement.title,
+          url: collaboration_agreement_url(@collaboration_agreement),
+          description: @collaboration_agreement.title
+        } %>
+      </div>   
+
+      <% if current_user %>
+          <div class="sidebar-divider"></div>
+          <p class="sidebar-title"><%= t("shared.follow") %></p>
+          <%= render 'follows/follow_button', follow: find_or_build_follow(current_user, @collaboration_agreement)  %>
+      <% end %>
+
+
+
+  </div>      
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<% #calcola array marker
+geolocation_arr = []
+    @proposals.each do |proposal|
+        if  proposal.map_location
+            geolocation = proposal.map_location
+            geolocation_arr.push(geolocation) 
+        end 
+    end
+%>
+
+<% provide :title do %><%= t('proposals.index.title') %><% end %>
+
+<% if User.pon_id > 0 %>
+
+
+
+<main>
+   
+<div class="help-header no-margin-top margin-bottom">
+  <div class="row">
+    <div class="small-12 column" data-magellan>
+      <%= image_tag "#{Rails.application.config.cm}/help/help_icon_proposals.png", alt: t("proposals.form.geolocation"), class: "align-top" %>
+      <h1 class="inline-block"><%= t("proposals.form.geolocation") %></h1>
+  
+    </div>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <p><%= back_link_to %></p>
+    </div>
+
+    <p><%= t("#{controller_name}.map.info") %></p>
+    <p><%= t("#{controller_name}.map.count_markers") %><%= count_markers = item_with_maplocation_count(@proposals) %></p>
+
+
+
+<p><%= render_geolocation(@proposals, "proposal","proposal_all")  %></p>
+
+
+  </div>
+</main>
+
+  <% else%>
+    <main>
+      <div class="row">
+      </div>
+    </main>
+  <% end%>
+
+
+
+
+
+
+
+
+

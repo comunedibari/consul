@@ -1,0 +1,34 @@
+<div data-equalizer-watch style="padding:0; border: 1px solid #dcdcdc; border-radius: 3px;" class="card_material panel">
+  <div class="service-card-content">
+    <div class="card__img">
+      <div class="panel" style=" border: 1px solid #dcdcdc; border-radius: 3px;">
+        <div class="row">
+          <div class="small-12 column p-3">
+
+            <h4 style="color:#004a83"><strong><%= link_to sector.name, sector, class: "text-title-sectors" %></strong>
+            </h4>
+
+            <h6 class="label-descriptions-sectors"><%= t("sectors.index.address") %></h6>
+            <div class="p1"><%= sector.address.nil? ? " - " : sector.address %></div>
+
+            <h6 class="label-descriptions-sectors"><%= t("sectors.index.vat_code") %></h6>
+            <div class="p1"><%= sector.vat_code.nil? ? " - " : sector.vat_code %></div>
+
+            <h6 class="label-descriptions-sectors"><%= t("sectors.index.legal_representative") %></h6>
+            <div class="p1"><%= sector.legal_representative.nil? ? " - " : sector.legal_representative %></div>
+
+            <h6 class="label-descriptions-sectors"><%= t("sectors.index.phone_number") %></h6>
+            <div class="p1"><%= sector.phone_number.nil? ? " - " : sector.phone_number %></div>
+
+            <h6 class="label-descriptions-sectors"><%= t("sectors.index.email") %></h6>
+            <div class="p1"><%= sector.email.nil? ? " - " : sector.email %></div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+

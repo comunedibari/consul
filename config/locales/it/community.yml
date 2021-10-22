@@ -1,0 +1,71 @@
+---
+it:
+  community:
+    show:
+      author: Autore
+      actions: Azioni
+      back: Torna indietro alla community della petizione
+      create_first_community_topic:
+        first_theme: Crea il primo tema della community
+        first_theme_not_logged_in: Al momento non ci sono temi disponibili, partecipa alla creazione del primo. Fai click sul bottone Crea nuovo tema.
+        signin: accedere
+        sign_link: accedere a %{org_name}
+        signup: registrarsi
+        sub_first_theme: Per creare un tema è necessario %{signin} o %{signup}
+      description:
+        investment: Partecipa alla Community di questo progetto di investimento. Una Community attiva può aiutare a migliorare il contenuto del progetto di investimento così come può aumentare la sua diffusione allo scopo di ricevere più appoggi.
+        proposal: Partecipa alla Community di questa proposta. Una Community attiva può aiutare a migliorare il contenuto della proposta così come può aumentare la sua diffusione allo scopo di ricevere più appoggi.
+        crowdfunding: Partecipa alla Community di questo crowdfunding. Una Community attiva può aiutare a migliorare il contenuto del crowdfunding così come può aumentare la sua diffusione allo scopo di ricevere più finanziamenti.
+        reporting: Partecipa alla Community di questa segnalazione. Una Community attiva può aiutare a migliorare il contenuto della segnalazione così come può aumentare la sua diffusione allo scopo di ricevere più appoggi.
+      sidebar:
+        new_topic: Crea un tema
+        participate: Partecipa
+      tab:
+        participants: Partecipanti
+      title:
+        investment: Community bilancio partecipativo
+        proposal: Community proposta
+        crowdfunding: Community crowdfunding
+        reporting: Community segnalzione
+      topic:
+        comments:
+          one: 1 Commento
+          other: "%{count} Commenti"
+          zero: Senza commenti
+        destroy: Elimina argomento
+        destroy_button: Elimina
+        edit: Modifica argomento
+        edit_button: Modifica
+    sidebar:
+      button_to_access: Accedi alla community
+      description:
+        investment: Partecipa alla community di utenti di questo progetto di investimento.
+        proposal: Partecipa alla community di utenti di questa proposta.
+        crowdfunding: Partecipa alla community di utenti di questo crowdfunding.
+        reporting: Partecipa alla community di utenti di questa segnalazione.
+      title: Community
+    topic:
+      create: Crea un tema
+      edit: Modifica tema
+      form:
+        create:
+          submit_button: Crea tema
+        edit:
+          submit_button: Salva modifiche
+        new:
+          submit_button: Crea tema
+        topic_text: Descrizione
+        topic_title: Titolo del tema
+        update:
+          submit_button: Aggiorna tema
+      show:
+        tab:
+          comments_tab: Commenti
+      sidebar:
+        recommendation_one: Non scrivere in maiuscolo il titolo del tema o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+        recommendation_three: Usa bene questo spazio e le voci che lo compongono, sono a tua disposizione.
+        recommendation_two: Qualsiasi tema o commento che implichi una azione illegale sarà eliminato, anche quelli scritti con l'intenzione di sabotare gli spazi del tema, tutto il resto è permesso.
+        recommendations_title: Suggerimenti per creare un tema
+  topics:
+    show:
+      login_to_comment: È necessario %{signin} per commentare.

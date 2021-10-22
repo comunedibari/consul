@@ -1,0 +1,59 @@
+<tr id="reporting_<%= reporting.id %>">
+  <td class="small-9">
+
+  <% if !reporting.rejected? %>
+    <strong><%= link_to reporting.title, reporting_path(reporting, pon_id: reporting.pon_id), reporting.retired? ? { class: 'retired' } : {} %></strong>
+  <%# #moderazione su reporting %>
+  <% else %>
+        <strong><%= reporting.title %></strong>
+  <% end %>
+
+    <br>
+    <%= reporting.summary %>
+  </td>
+
+  <% if reporting.retired? %>
+
+    <td class="text-center" colspan="2">
+      <span class="label alert"><%= t('users.reportings.retired') %></span>
+    </td>
+
+  <% elsif author?(reporting) %>
+
+    <td>
+      <% if reporting.in_approval?%>
+          <%= t("users.reportings.approval") %>
+      <% elsif reporting.rejected?%>
+          <%= t("users.reportings.rejected") %>
+      <% else%>
+          <%= link_to t("users.reportings.send_notification"),
+                      new_reporting_notification_path(reporting_id: reporting.id),
+                      class: 'btn btn-outline-primary btn-block' %>
+      <% end %>
+    </td>
+
+    <td>
+      <% if !reporting.in_approval? && !reporting.rejected?%>
+        <% if reporting.retired? %>
+          <span class="label alert"><%= t('users.reportings.retired') %></span>
+        <% else %>
+          <%= link_to t('users.reportings.retire'),
+                      retire_form_reporting_path(reporting),
+                      class: 'btn btn-primary btn-block btn-alert' %>
+        <% end %>
+      <% end %>
+    </td>
+
+  <% else %>
+
+    <td class="text-center" colspan="2">
+    <% if !reporting.in_approval? %>
+      <%= link_to t('users.reportings.see'), reporting, class: 'button hollow' %>
+    <% else %>
+      <%= t("users.reportings.in_approval") %>
+    <% end %>
+    </td>
+
+  <% end %>
+
+</tr>

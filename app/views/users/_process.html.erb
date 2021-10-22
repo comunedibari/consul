@@ -1,0 +1,40 @@
+<tr id="reporting_<%= process.id %>">
+  <td class="small-9">
+
+    <% if !process.rejected? %>
+      <strong><%= link_to process.title, legislation_process_proposals_path(process, pon_id: process.pon_id) %></strong>
+      <%# #moderazione su reporting %>
+    <% else %>
+      <strong><%= process.title %></strong>
+    <% end %>
+
+    <br>
+    <%= process.summary %>
+  </td>
+
+
+  <% if author?(process) %>
+
+    <td>
+      <% if process.in_approval? %>  <%# #moderazione su reporting %>
+        <%= t("users.processes.in_approval") %>
+      <% elsif !process.in_approval? && process.approved? %>
+        <%= t("users.processes.approved") %>
+        <% else %>
+        <%= t("users.processes.rejected") %>
+      <% end %>
+    </td>
+
+  <% else %>
+
+    <td class="text-center" colspan="2">
+      <% if !process.in_approval? %>
+        <%= link_to t('users.processes.see'), process, class: 'button hollow' %>
+      <% else %>
+        <%= t("users.processes.in_approval") %>
+      <% end %>
+    </td>
+
+  <% end %>
+
+</tr>

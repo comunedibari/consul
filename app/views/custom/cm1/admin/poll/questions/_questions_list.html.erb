@@ -1,0 +1,36 @@
+<%= fields_for @question do |f| %>
+
+<% if @question.nil? || @question.poll_question_type_id != 3%>
+  <div class="questions_box" style="display: none;" >
+<% else %>
+  <div class="questions_box">
+<% end %>
+
+    <div class="small-12 medium-6 large-4">
+      <%#= label_tag :question_optional_id, t("admin.questions.index.optional_question") %>
+      <%#= select_tag "question_optional_id",
+                    options_for_select(@questions.pluck(:title, :id),1),
+                    data: {remote: true } %>
+    
+      <%= f.select :question_optional_id,
+                    options_for_select(@questions.pluck(:title, :id),@question.nil? ? 1 : @question.question_optional_id),
+                    label: t("admin.questions.new.optional_question"),
+                    data: {remote: true } %>
+    </div>
+    </div>
+
+</div>
+<% end %>
+  
+<script>
+
+$('#poll_question_question_optional_id').change(function(){
+  var variable = $(this).find('option:selected').val();
+  $.ajax({
+    url: "<%= load_answer_admin_questions_path %>",
+    type: "GET",
+    data: {question_id: variable}
+  });
+});
+
+</script>

@@ -1,0 +1,133 @@
+<% provide :title do %><%= t("crowdfundings.index.title") %>
+<% end %>
+<% if User.pon_id == 0 %>
+  <%= render "shared/section_header", i18n_namespace: "crowdfundings.index.section_header", image: "crowdfundings" %>
+  <div class="row">
+    <div class="column">
+      <%= render "shared/pon_list", resource: "crowdfundings" %>
+    </div>
+  </div>
+<% else %>
+  <% content_for :header_addon do %>
+    <%= render "shared/search_form",
+               search_path: crowdfundings_path(page: 1),
+               i18n_namespace: "crowdfundings.index.search_form" %>
+  <% end %>
+  <% content_for :header_small_addon do %>
+    <%= render "shared/search_form_small",
+               search_path: crowdfundings_path(page: 1),
+               i18n_namespace: "crowdfundings.index.search_form" %>
+  <% end %>
+
+  <% content_for :canonical do %>
+    <%= render "shared/canonical", href: crowdfundings_url %>
+  <% end %>
+
+  <main>
+    <%= render "shared/section_header", i18n_namespace: "crowdfundings.index.section_header", image: "crowdfundings" %>
+    <%= render "shared/search_results",
+               resources: @crowdfundings,
+               total_resources_num: @tot_resources,
+               search_terms: @search_terms,
+               advanced_search_terms: @advanced_search_terms,
+               tag_filter: @tag_filter
+    %>
+
+    <div class="row">
+      <div id="crowdfundings" class="services-list small-12 medium-12 large-9 column">
+
+        <% if has_banners? %>
+          <%#= render "shared/banner" %>
+        <% end %>
+
+        <% if @featured_crowdfundings.present? %>
+          <div id="featured-services" class="row featured-services">
+            <div class="small-12 column">
+              <h2>
+                <%= t("crowdfundings.index.featured_crowdfundings") %>
+              </h2>
+            </div>
+            <% @featured_crowdfundings.each do |featured_crowdfunding| %>
+              <%= render "featured_crowdfunding", crowdfunding: featured_crowdfunding %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <%# unless @search_terms || @advanced_search_terms || @tag_filter %>
+        <div id="section_help" class="margin" data-magellan-target="section_help">
+          <!-- <p class="lead">
+                <strong><%#= t("crowdfundings.index.section_footer.title") %></strong>
+              </p> -->
+          <!-- <p><%= Setting["service_description.crowdfundings", User.pon_id] %></p>  -->
+          <p><%= t("crowdfundings.index.section_footer.help_text_1").html_safe %></p>
+          <p><%= t("crowdfundings.index.section_footer.help_text_2").html_safe %></p>
+          <p><%= t("crowdfundings.index.section_footer.help_text_3") %></p>
+        </div>
+        <%# end %>
+
+        <div class="row">
+          <div class="small-12 column">
+            <%= render "view_mode" %>
+          </div>
+        </div>
+
+        <%= render("shared/advanced_search", search_path: crowdfundings_path(page: 1),
+                   class_name: "Crowdfunding") unless params[:retired].present? %>
+
+        <%= render 'shared/order_links', i18n_namespace: "crowdfundings.index" %>
+
+        <div id="services-list">
+
+          <% if @crowdfundings.any? || current_user.blank? %>
+            <p>Num elementi: <%= @crowdfundings.count %></p>
+            <% if crowdfundings_default_view? %>
+              <div>
+                <div data-equalizer class="row">
+                  <% @crowdfundings.each do |crowdfunding| %>
+                    <div class="small-12 medium-6 large-4 column" style="">
+                      <%= render partial: '/crowdfundings/crowdfunding', locals: {crowdfunding: crowdfunding} %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% else %>
+              <% @crowdfundings.each do |crowdfunding| %>
+                <div class="small-12 column" style="">
+                  <%= render partial: '/crowdfundings/crowdfunding_minimal', locals: {crowdfunding: crowdfunding} %>
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= empty_recommended_crowdfundings_message_text(current_user) %>
+          <% end %>
+          <%= paginate @crowdfundings %>
+
+        </div>
+
+
+      </div>
+      <div class="small-12 medium-12 large-3 column">
+        <aside class="margin-bottom">
+          <%# if current_user && ( (service_social?(:crowdfundings) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator || current_user.moderator?)%>
+          <% if params[:retired].blank? %>
+            <div class="sidebar-divider"></div>
+            <h2 class="sidebar-title"><%= t("crowdfundings.form.geolocation") %></h2>
+            <p><%= render_geolocation(@crowdfundings, "crowdfunding") %></p>
+            <%= link_to "Visualizza dettaglio mappa",
+                        large_map_crowdfundings_path
+            %>
+            <%= render 'categories' %>
+            <%= render "shared/tag_cloud", taggable: 'crowdfunding' %>
+            <% if Geozone.where(pon_id: User.pon_id).count > 0 %>
+              <%= render "geozones" %>
+            <% end %>
+            <%#= render 'popular' %>
+          <% end %>
+          <%#= render 'retired' %>
+          <%= render "shared/gamification_result", resource: 'Crowdfunding' %>
+        </aside>
+      </div>
+    </div>
+  </main>
+<% end %>
+

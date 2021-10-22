@@ -1,0 +1,86 @@
+  <% provide :title do %>
+    <%= t("layouts.header.collaborative_works") %>
+  <% end %>
+<% if User.pon_id == 0 %>
+  <%= render "shared/section_header", i18n_namespace: "works.index.section_header", image: "works" %>
+      <div class="row">
+        <div class="column">
+        <%= render "shared/pon_list", resource: "works" %>
+        </div>  
+      </div>
+<% else %>      
+  <% content_for :header_addon do %>
+    <%= render "shared/search_form",
+              search_path: works_path(page: 1),
+              i18n_namespace: "processes.index.search_form" %>
+  <% end %>
+  <% content_for :header_small_addon do %>
+    <%= render "shared/search_form_small",
+              search_path: works_path(page: 1),
+              i18n_namespace: "processes.index.search_form" %>
+  <% end %>
+
+  <%= render "shared/section_header", i18n_namespace: "works.index.section_header", image: "works" %>
+  
+  <%= render "shared/search_results",
+          resources:  @resources,
+          total_resources_num: @tot_resources,
+          search_terms: @search_terms,
+          advanced_search_terms: @advanced_search_terms,
+          tag_filter: @tag_filter
+            %>
+    
+
+
+  <div class="row">
+
+    <div id="legislation" class="legislation-list small-12 medium-12 large-12 column">
+
+    <div id="section_help" class="margin" data-magellan-target="section_help">
+      <!-- <p class="lead">
+        <strong><%= t("legislation.works.index.section_footer.title") %></strong>
+      </p> -->
+      <!-- <p><%#= Setting["service_description.works",User.pon_id] %></p> -->
+      <p><%= t("works.index.section_footer.help_text_1") %></p>
+      <p><%= t("works.index.section_footer.help_text_2",
+                org: Setting['org_name',User.pon_id].to_s) %></p>
+      <p><%= t("works.index.section_footer.help_text_3") %></p>
+    </div>
+
+    <%= render 'large_map',
+        i18n_namespace: t("legislation.processes.index.section_header.title_works")   %>
+
+
+    <%= render 'legislation/processes/categories', taggable: 'work' %>
+
+    <div>
+      <%= render "shared/advanced_search", search_path: works_path(page: 1),
+                                          class_name: "Process" %>
+    </div>    
+
+      <%= render 'shared/filter_subnav', i18n_namespace: "legislation.processes.index" %>
+
+      <% if @resources.any? %>
+      <div >
+        <div data-equalizer class="row">
+          <% @resources.each do |process| %>
+            <div class="medium-12 small-12 large-12 column" style="">
+              <%= render 'process', process: process, taggable_name: 'work' %>
+            </div>
+          <% end %>
+          </div>
+      </div>
+      <%= paginate @resources %>
+      <% else %>
+      <div class=" row ">
+        <div class="callout primary margin-top">
+          <%= t(".no_#{@current_filter}_processes") %>
+        </div>
+      </div>
+      <% end %>
+
+      </div>
+    </div>
+
+  </div>
+<% end %>

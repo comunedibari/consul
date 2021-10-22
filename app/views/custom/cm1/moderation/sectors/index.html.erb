@@ -1,0 +1,59 @@
+<h2><%= t("moderation.st_sectors.index.title") %></h2>
+<%= render 'shared/filter_subnav', i18n_namespace: "moderation.st_sectors.index" %>
+
+<div class="row">
+  <h3 class="small-8 large-8 columns"><%= page_entries_info @stsectors %></h3>
+  <div class="small-4 large-4 columns">
+    <div class="float-right">
+      <%= t("moderation.debates.index.order") %>
+      <%= render 'shared/order_selector', i18n_namespace: "moderation.st_sectors.index" %>
+    </div>
+  </div>
+</div>
+
+
+<p class="float-left js-check">
+<table class="clear">
+  <tr>
+    <th>
+      <%= t("moderation.st_sectors.index.headers.data") %>
+    </th>
+    <th style="text-align: center;">
+      <%= t("moderation.st_sectors.index.headers.moderate") %>
+    </th>
+  </tr>
+  <% @stsectors.each do |sector| %>
+    <tr id="sector_<%= sector.id %>">
+      <td>
+        <%= link_to sector.name, moderation_sector_path(sector.sector_id, st: sector.id) %>
+        <br>
+        <span class="date"><%= l sector.updated_at.to_date %></span>
+        <span class="bullet">&nbsp;&bull;&nbsp;</span>
+        <%= sector.legal_representative %>
+        <br>
+        <div class="moderation-description">
+          <%= "Categoria" %>: <%= sector.sector_type.name %>
+        </div>
+        <div class="moderation-description">
+          <%= "CF/P.IVA" %>: <%= sector.vat_code %>
+        </div>
+      </td>
+      <% if @current_filter == "new_adds" || @current_filter == "change_requests" %>
+        <td class="text-center">
+          <%= link_to t("admin.moderable_bookings.index.table.approve"), outcome_moderation_sector_path(sector.sector_id, st: sector.id, approved: true), class: "button success hollow" %>
+          <%= link_to t("moderation.sectors.index.button.modify"), outcome_moderation_sector_path(sector.sector_id, st: sector.id, approved: "modify"), class: "button hollow" %>
+          <%= link_to t("moderation.sectors.index.button.clean"), outcome_moderation_sector_path(sector.sector_id, st: sector.id, approved: false), class: "button alert hollow" %>
+        </td>
+      <% else %>
+        <td class="text-center">
+          <%= link_to t("admin.moderable_bookings.index.table.approve"), outcome_moderation_sector_path(sector.sector_id, st: sector.id, approved: true), class: "button success hollow" %>
+          <%= link_to t("moderation.sectors.index.button.clean"), outcome_moderation_sector_path(sector.sector_id, st: sector.id, approved: false), class: "button alert hollow" %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+
+<%= paginate @stsectors %>
+

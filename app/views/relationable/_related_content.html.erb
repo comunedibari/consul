@@ -1,0 +1,24 @@
+<% if !isBlockedPrivacy && user_signed_in? && ((current_user.present? && service_social?(relationable) && current_user.provider.present? && current_user.is_social? && relationable.social_content.social_access) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator  || current_user.moderator?) %>
+  <div class="related-content padding">
+
+    <div class="margin-bottom">
+      <h2 class="inline-block">
+        <%= t("related_content.title") %>&nbsp;<span>(<%= relationable.relationed_contents.count %>)</span>
+      </h2>
+      <% if current_user %>
+        <a>
+          <button type="button" data-toggle="related_content" class="btn btn-outline-primary ml-5" id="add-related-content">
+            <%= t("related_content.add") %>
+          </button>
+        </a>
+      <% end %>
+    </div>
+
+    <%= render 'relationable/form', relationable: relationable %>
+
+    <% if @related_contents.present? %>
+      <%= render 'relationable/related_list', relationable: relationable %>
+    <% end %>
+
+  </div>
+<% end %>

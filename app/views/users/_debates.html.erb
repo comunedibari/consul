@@ -1,0 +1,30 @@
+<table class="margin-top">
+  <thead>
+    <th scope="col"><%= t("users.show.debates") %></th>
+    <th scope="col"><%= t("users.show.debates_status") %></th>
+  </thead>
+  <tbody>
+    <% @debates.each do |debate| %>
+      <tr id="debate_<%= debate.id %>">
+        <td>
+          <% if !debate.rejected?%>
+            <%= link_to debate.title, debate_path(debate, pon_id: debate.pon_id) %>
+          <% else %>
+            <strong><%= debate.title %></strong>
+          <% end %>
+        </td>
+        <td>
+        <% if debate.in_approval?%>
+          <%= t("users.debates.in_approval") %>
+        <% elsif debate.rejected?%>
+          <%= t("users.debates.rejected") %>
+        <% else %>
+         <%= t("users.debates.approved") %>
+        <% end%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @debates %>

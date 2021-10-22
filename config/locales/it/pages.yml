@@ -1,0 +1,221 @@
+---
+it:
+  pages:
+    census_terms: Per confermare la tua utenza (account) devi avere almeno 16 anni ed essere registrato, dopo aver fornito le informazioni richieste in precedenza, che saranno verificate. Accettando il processo di verifica, acconsenti anche alla verifica di tali informazioni, ed autorizzi i metodi di contatto indicati. I dati forniti saranno acquisiti e memorizzati in un archivio, come menzionato in precedenza nei termini e nelle condizioni d'uso del portale.
+    conditions: Condizioni d'uso
+    general_terms: Termini e Condizioni
+    help:
+      budgets:
+        description: The %{link} section helps people make a direct decision on what part of the municipal budget is spent on.
+        feature: In this process, every year people raise, support and vote on projects. The most voted votes are financed by the municipal budget.
+        figcaption_html: Fase degli appoggi e fase della votazione dei bilanci partecipativi.
+        image_alt: Diverse fasi di un bilancio partecipativo
+        link: Bilanci partecipativi
+        phase_1_html: registrarsi su %{org}
+        phase_2_html: In primo luogo inizia la <strong>fase di accettazione</strong> dei progetti di spesa.
+        phase_3_html: Dopo segue una <strong>fase di appoggi</strong> per dare priorità alle questioni più interessanti, i bilanci più appoggiati saranno valutati dal Consiglio Comunale che ne verificherà la fattibilità ed il costo.
+        phase_4_html: In ultimo c'è una <strong>fase di votazione</strong> nella quale si decide in quale progetto investire questa parte del blancio.
+        phase_5_html: From the approval of the budgets the following year the City Council begins to carry out the winning projects.
+        title: Bilanci partecipativi
+      debates:
+        description: Nella sezione %{link} puoi presentare e condividere la tua opinione con altre persone su questioni riguarti la tua città. Inoltre hai la possibilità condividere le tue idee che attraverso le altre sezioni di %{org} potranno essere prese in considerazione da parte del Consiglio Comunale.
+        feature_html: Puoi aprire dibattiti, commentare e valutarli con <strong>Sono d'accordo</strong> o <strong>Non sono d'accordo</strong>. Per questo devi %{link}.
+        feature_link: registrarti su %{org}
+        figcaption: Pulsanti 'Sono d'accordo' e 'Non sono d'accordo' per la valutazione delle discussioni.
+        image_alt: Pulsanti per la valutazione delle discussioni
+        link: Forum
+        title: Forum
+      moderable_bookings:
+        title: Prenotazioni
+        description: Nella sezione %{link} puoi presentare una richiesta di prenotazione riguarte gli spazi pubblici della tua città.
+        feature_html: Per poter prenotare uno spazio devi registrarti in Bari Partecipa.
+        link: Prenotazioni
+      faq:
+        button_html: Visualizzare le <br> domande frequenti (FAQ)
+        description: Leggi le FAQ per risolvere i tuoi dubbi.
+        page:
+          description: Usa questa pagina per risolvere i tuoi dubbi sull'uso di CasaDelCittadino.
+          faq_1_description: Descrizione di esempio della domanda 1.
+          faq_1_title: Domanda 1
+          title: Domande Frequenti
+        title: Problemi tecnici?
+      guide: Questa guida spiega ogni sezione di %{org}. Per maggiori informazioni cliccare su "Informazioni dettagliate".
+      how_to_use:
+        text: |-
+          Utilizzalo nella tua città o aiutaci a migliorarlo, è software libero.
+
+          Questo portale di Governo Aperto usa il software libero [CONSUL](https://github.com/consul/consul 'github consul'), con [licenza AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html 'AGPLv3 gnu' ), in poche parole significa che qualsiasi persona può liberamente usare il codice, copiarlo, vederlo nel dettaglio, modificarlo, e ridistribuirlo con le modifiche che desidera, a condizione che altri possano fare la medesima cosa. Tutto questo perché crediamo che la cultura, quando è libera, è migliore e si arrichisce di continuo.
+
+          Se sei un programmatore, puoi prendere visione del codice e aiutarci a migliorare il [portale CONSUL](https://github.com/consul/consul 'github consul').
+      menu:
+        budgets: Bilanci partecipativi
+        debates: Forum
+        other: Altre informazioni di interesse
+        polls: Consultazioni
+        processes: Lavori
+        events: Eventi
+        proposals: Proposte
+        crowdfundings: Crowdfundings
+        moderable_bookings: Prenotazioni
+        reportings: Segnalazioni Geo-localizzate
+      other:
+        how_to_use: Usa %{org_name} nella tua città
+        title: Altre informazioni di interesse
+      polls:
+        description: La sezione delle %{link} viene attivata ogni volta che una proposta raggiunge l'1% di supporto e passa al voto o quando il Consiglio comunale propone un problema.
+        feature_1: Per partecipare alla prossima consultazione è necessario %{link} e verificare il proprio account.
+        feature_1_link: registrarsi su %{org_name}
+        feature_2: Possono votare gli utenti registrati di età maggiore di 16 anni.
+        feature_3: I risultati di tutti le consultazioni saranno vincolanti per l'Amministrazione Comunale.
+        link: Consultazioni
+        title: Consultazioni
+      processes:
+        description: Nella sezione %{link}, i cittadini partecipano alla stesura e alla modifica dei regolamenti che riguardano la città e possono esprimere la propria opinione sulle politiche municipali nei dibattiti precedenti.
+        feature: Per partecipare a un lavoro devi %{sign_up} e controllare periodicamente la pagina %{link} per vedere quali regolamenti e politiche vengono discussi e consultati.
+        link: lavori
+        sign_up: sign up on %{org}
+        title: Lavori
+      proposals:
+        description: Nella sezione %{link} puoi creare proposte per il Consiglio Comunale. Le proposte richiedono voti e, se raggiungono un sostegno sufficiente, vengono sottoposte a votazione pubblica. Le proposte approvate con questi voti dei cittadini sono accettate dal Consiglio Comunale e portate a termine.
+        feature_html: Per creare una proposta devi registrarti in %{org}. Le proposte che ottengono il sostegno sul portale del 1% delle persone con il diritto al voto (%{supports} sostegni di persone aventi più di 16 anni già registrate) vanno al voto. Per votare le proposte è necessario verificare il tuo account.
+        figcaption_html: Pulsante per "Votare" una proposta. <br> Quando raggiunge il numero di voti andrà al voto.
+        image_alt: Bottone per votare una proposta
+        link: Proposte
+        title: Proposte
+      reportings:
+        feature_html: Per poter inserire una segnalazione geolocalizzata devi registrarti in Bari Partecipa. 
+        link: Segnalazioni
+        title: Segnalazioni Geo-localizzate
+        description: Nella sezione %{link} puoi creare segnalazioni geolocalizzate. Le segnalazioni dopo essere state approvate dal gruppo di moderazione della piattaforma saranno inoltrate al sistema BaRisolve. In qualsiasi momento l'utente potrà visualizzare lo stato di avanzamento della propria segnalazione.  
+      crowdfundings:
+        description: Nella sezione %{link} puoi creare crowdfundings per il Consiglio Comunale. Puoi investire per uno o più crowdfundings, se raggiungono la somma richiesta i crowdfundings verranno realizzati e portati a termine dal Consiglio Comunale.
+        feature_html: Per creare un crowdfunding devi registrarti in %{org}. Per investire su uno o più crowdfundings è necessario verificare il tuo account.
+        figcaption_html: Pulsante per fare un "Finanziamento" per un crowdfunding. <br> Quando raggiunge il numero di finanziamento sarà realizzato.
+        image_alt: Bottone per investire un crowdfunding
+        link: Crowdfundings
+        title: Crowdfundings
+      events:
+        description: Nella sezione %{link} puoi inserire eventi geolocalizzati. Sarà possibile visualizzare eventi creati da altri cittadini, come sagre, eventi rionali, feste, manifestazioni e altre tipologie d'evento. Inoltre saranno mostrate le date più importanti associate a Patti di Collaborazione, Crowdfunding civici e Consultazioni. Saranno altresì disponibili le date di inizio e fine per Lavori Pubblici e Progetti.
+        feature_html: Per creare un evento devi registrarti in %{org}. Ricorda che puoi sostenere o seguire gli eventi attraverso le notifiche del tuo account.
+        figcaption_html: Pulsante per "Sostenere" un crowdfunding. <br> Quando raggiunge il numero di sostengni andrà al voto.
+        image_alt: Button to support a crowdfunding
+        link: Eventi
+        title: Eventi
+      subtitle: In %{org} puoi creare proposte, votare le consultazioni dei cittadini, proporre progetti di bilancio partecipativo, votare leggi comunali e aprire dibattiti per scambiare opinioni con altri.
+      title: "%{org} è una piattaforma per la partecipazione dei cittadini"
+      titles:
+        how_to_use: Utilizzalo nella tua città
+    more_info:
+      budgets:
+        description: Nei primi sei mesi di ogni anno puoi decidere come spendere parte del bilancio.
+        feature: Per presentare un progetto di spesa è necesario %{link} e verificare il proprio account.
+        figcaption_html: Fase degli appoggi e fase della votazione dei bilanci partecipativi.
+        image_alt: Diverse fasi di un bilancio partecipativo
+        link: Budget partecipativi
+        phase_1_html: registrarsi su %{org_name}
+        phase_2_html: In primo luogo inizia la <strong>fase di accettazione</strong> dei progetti di spesa.
+        phase_3_html: Dopo segue una <strong>fase di appoggi</strong> per dare priorità alle questioni più interessanti, i bilanci più appoggiati saranno valutati dal Consiglio Comunale che ne verificherà la fattibilità ed il costo.
+        phase_4_html: In ultimo c'è una <strong>fase di votazione</strong> nella quale si decide in quale progetto investire questa parte del blancio.
+        phase_5_html: From the approval of the budgets the following year the City Council begins to carry out the winning projects.
+        title: Bilanci partecipativi
+      debates:
+        description: Crea un tema sul quale discutere su qualsiasi argomento che intendi condividere con gli altri abitanti della tua città.
+        feature_html: Le Discussioni possono essere valutate utilizzando i pulsanti <strong>Sono d'accordo</strong> o <strong>Non sono d'accordo</strong> che si trovano accanto a ciascuno di essi.
+        feature_link: registrarsi su %{org}
+        figcaption: Pulsanti 'Sono d'accordo' e 'Non sono d'accordo' per la valutazione delle discussioni.
+        image_alt: Pulsanti per la valutazione delle discussioni
+        link: Per creare una discussione è necessario %{link}
+        title: Forum
+      faq:
+        button_html: Visualizzare le <br> domande frequenti (FAQ)
+        description: Leggi le FAQ per risolvere i tuoi dubbi.
+        page:
+          description: Usa questa pagina per risolvere i tuoi dubbi sull'uso di CasaDelCittadino.
+          faq_1_description: Descrizione di esempio della domanda 1.
+          faq_1_title: Domanda 1
+          title: Domande Frequenti
+        title: Problemi tecnici?
+      guide: Questa guida spiega ogni sezione di %{org_name}. Per maggiori informazioni cliccare su "Informazioni dettagliate".
+      how_to_use:
+        text: |-
+          Utilizzalo nella tua città o aiutaci a migliorarlo, è software libero.
+
+          Questo portale di Governo Aperto usa il software libero [CONSUL](https://github.com/consul/consul 'github consul'), con [licenza AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html 'AGPLv3 gnu' ), in poche parole significa che qualsiasi persona può liberamente usare il codice, copiarlo, vederlo nel dettaglio, modificarlo, e ridistribuirlo con le modifiche che desidera, a condizione che altri possano fare la medesima cosa. Tutto questo perché crediamo che la cultura, quando è libera, è migliore e si arrichisce di continuo.
+
+          Se sei un programmatore, puoi prendere visione del codice e aiutarci a migliorare il [portale CONSUL](https://github.com/consul/consul 'github consul').
+      menu:
+        budgets: Bilanci partecipativi
+        debates: Forum
+        other: Altre informazioni di interesse
+        proposals: Proposte
+        crowdfundings: Crowdfundings
+      other:
+        how_to_use: Usa %{org_name} nella tua città
+        title: Altre informazioni di interesse
+      polls:
+        description: Le proposte cittadine che raggiungono l'1% di appoggi saranno sottoposte a consultazione.
+        feature_1: Per partecipare alla prossima consultazione è necessario %{link} e verificare il proprio account.
+        feature_1_link: registrarsi su %{org_name}
+        feature_2: Possono votare gli utenti registrati di età maggiore di 16 anni.
+        feature_3: I risultati di tutti le consultazioni saranno vincolanti per l'Amministrazione Comunale.
+        link: Consultazioni
+        title: Consultazioni
+      processes:
+        description: In the %{link} section, citizens participate in the drafting and modification of regulations affecting the city and can give their opinion on municipal policies in previous debates.
+        feature: To participate in a process you have to %{sign_up} and check the %{link} page periodically to see which regulations and policies are being discussed and consulted.
+        link: processes
+        sign_up: sign up on %{org}
+        title: Processes
+      proposals:
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia le proposte degli altri utenti.
+        feature_1_html: Le proposte devono riguardare temi inerenti la Città, e se richiedono all'Amministrazione di realizzarla devono rientrare nelle competenze attribuite ai comuni.
+        feature_2: Per creare le proposte è necessario %{link1}, invece per appoggiarle bisogna aver certificato il proprio account (vedi la %{link2}).
+        feature_2_link1: registrarsi su %{org_name}
+        feature_2_link2: pagina delle FAQ
+        feature_3_html: Le proposte che raggiungono <strong>l'appoggio di 5.000 utenti certificati</strong> (ovvero residenti nel comune/regione di una età maggiore di 16 anni) saranno oggetto di studio di fattibilità da parte degli uffici dell'Amministrazione comunale.
+        feature_4_html: Se lo studio di fattibilità è positivo la Città si impegna a realizzare la proposta.
+        feature_5_html: Nel primo anno la Città valuterà comunque, qualora nessuna proposta raggiunga i 5.000  appoggi, le prime tre proposte se superano almeno i 1.000 appoggi.
+        feature_6_html: La Città si riserva di prendere in considerazione le proposte comunque meritevoli di analisi di fattibilità se tali soglie non saranno raggiunte al 30/6 e al 31/12.
+        feature_7: Ulteriori informazioni sulle proposte e sulle modalità di registrazione sono disponibili nella %{link}
+        feature_7_link: pagina delle FAQ
+        feature_html: Per creare le proposte è necessario %{link1}, invece per appoggiarle bisogna aver certificato il proprio account (vedi la %{link2}).
+        figcaption_html: Pulsante per "Appoggiare" una proposta.<br>Quando raggiunge il numero di appoggi necessari passerà a votazione.
+        image_alt: Pulsante per appoggiare una proposta
+        link: registrarsi su %{org_name}
+        title: Proposte
+      crowdfundings:
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia i crowdfundings degli altri utenti.
+        feature_1_html: I crowdfundings devono riguardare temi inerenti la Città, e se richiedono all'Amministrazione di realizzarla devono rientrare nelle competenze attribuite ai comuni.
+        feature_2: Per creare i crowdfundings è necessario %{link1}, invece per appoggiarle bisogna aver certificato il proprio account (vedi la %{link2}).
+        feature_2_link1: registrarsi su %{org_name}
+        feature_2_link2: pagina delle FAQ
+        feature_3_html: I crowdfundings che raggiungono <strong>l'appoggio di 5.000 utenti certificati</strong> (ovvero residenti nel comune/regione di una età maggiore di 16 anni) saranno oggetto di studio di fattibilità da parte degli uffici dell'Amministrazione comunale.
+        feature_4_html: Se lo studio di fattibilità è positivo la Città si impegna a realizzare il crowdfunding.
+        feature_5_html: Nel primo anno la Città valuterà comunque, qualora nessun crowdfunding raggiunga i 5.000  appoggi, le prime tre crowdfundings se superano almeno i 1.000 appoggi.
+        feature_6_html: La Città si riserva di prendere in considerazione i crowdfundings comunque meritevoli di analisi di fattibilità se tali soglie non saranno raggiunte al 30/6 e al 31/12.
+        feature_7: Ulteriori informazioni sui crowdfundings e sulle modalità di registrazione sono disponibili nella %{link}
+        feature_7_link: pagina delle FAQ
+        feature_html: Per creare i crowdfundings è necessario %{link1}, invece per appoggiarli bisogna aver certificato il proprio account (vedi la %{link2}).
+        figcaption_html: Pulsante per "Appoggiare" un crowdfunding.<br>Quando raggiunge il numero di appoggi necessari passerà a votazione.
+        image_alt: Pulsante per appoggiare un crowdfunding
+        link: registrarsi su %{org_name}
+        title: Crowdfundings
+      subtitle: Impara tutto ciò che si può fare su questo sito.
+      title: Scopri %{org_name}
+      titles:
+        how_to_use: Utilizzalo nella tua città
+    privacy: Tutela della privacy e cookie
+    titles:
+      accessibility: Accesibilità
+      conditions: Condizioni d'uso
+      help: Cos'è %{org}? - Partecipazione dei cittadini
+      more_info: Scopri %{org_name}
+      privacy: Politica della Privacy
+    verify:
+      code: Codice che hai ricevuto nella lettera
+      email: Email
+      info: 'Per verificare la tua utenza, introduci i dati forniti durante la registrazione:'
+      info_code: 'Ora introduci il codice che hai ricevuto nella lettera:'
+      password: Password
+      submit: Verifica il mio account
+      title: Verifica il tuo account

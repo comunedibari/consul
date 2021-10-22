@@ -1,0 +1,13 @@
+<table class="margin-top">
+  <thead>
+    <th scope="col"><%= t("users.show.events") %></th>
+    <th scope="col" colspan="2"><%= t("users.show.actions") %></th>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <%= render "event", event: event %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @events %>

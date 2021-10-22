@@ -3,3 +3,10 @@
 # * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md#gemfile
 # * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#gemfile
 #
+gem 'omniauth-shibboleth', '~> 1.3.0'
+gem 'omniauth-openam'
+gem 'roo'
+gem 'roo-xls'
+gem 'spreadsheet'
+gem 'creek'
+gem 'sidekiq'

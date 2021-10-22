@@ -1,0 +1,15 @@
+$("#questions_list").html('<%= j render :partial => 'questions_list', object: @question %>');
+$("#answers_list").html('<%= j render :partial => 'answers_list', object: @question %>');
+
+$("#type_questions_list").html('<%= j render :partial => 'type_questions_list', object: @question %>');
+
+var val = $('#poll_question_poll_question_type_id').find('option:selected').val();
+if (val > 2 && !$('.questions_box').is(':visible')){
+    $('.questions_box').toggle();
+    $('.answers_box').toggle();
+}
+else
+    if (val < 3 && $('.questions_box').is(':visible')){
+        $('.questions_box').toggle();
+        $('.answers_box').toggle();
+    }

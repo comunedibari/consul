@@ -1,0 +1,547 @@
+<div class="tabs-content" data-tabs-content="settings-tabs" role="tablist">
+  <% if params[:tab_setting].present? && (params[:tab_setting] == "global" || params[:tab_setting] == "feateure" || params[:tab_setting] == "service" || params[:tab_setting] == "map" || params[:tab_setting] == "job")  %>
+    <div class="row">
+      <div class="small-12 column">
+        <ul class="tabs" data-tabs="c0u7cr-tabs" id="settings-tabs">
+          <li class="tabs-title <%= params[:tab_setting] ==  "global" ? "is-active" : "" %>" role="presentation">
+            <a href="#tab-globals" role="tab" aria-controls="tab-globals" aria-selected="true" id="tab-globals-label">
+              <h3>
+                <%= t("admin.settings.index.title") %>
+                <span class="js-comments-count"></span>
+              </h3>
+            </a>
+          </li>
+
+          <% if Rails.application.config.features %>
+            <li class="tabs-title <%= params[:tab_setting] == "fleature" ? "is-active" : "" %>" role="presentation">
+              <a href="#tab-features" role="tab" aria-controls="tab-features" aria-selected="false" id="tab-features-label">
+                <h3>
+                  <%= t("admin.settings.index.feature_flags") %>
+                </h3>
+              </a>
+            </li>
+          <% end %>
+
+          <li class="tabs-title <%= params[:tab_setting] == "service" ? "is-active" : "" %>" role="presentation">
+            <a href="#tab-services" role="tab" aria-controls="tab-services" aria-selected="false" id="tab-services-label">
+              <h3>
+                <%= t("admin.settings.index.service_flags") %>
+              </h3>
+            </a>
+          </li>
+
+          <% if feature?(:map) %>
+            <li class="tabs-title <%= params[:tab_setting] == "map" ? "is-active" : "" %>" role="presentation">
+              <a href="#tab-map" role="tab" aria-controls="tab-map" aria-selected="false" id="tab-map-label">
+                <h3>
+                  <%= t("admin.settings.index.map.title") %>
+                </h3>
+              </a>
+            </li>
+          <% end %>
+
+          <li class="tabs-title <%= params[:tab_setting] == "job" ? "is-active" : "" %>" role="presentation">
+            <a href="#tab-jobs" role="tab" aria-controls="tab-jobs" aria-selected="false" id="tab-jobs-label">
+              <h3>
+                <%= t("admin.settings.index.job.title") %>
+              </h3>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 column">
+        <div class="tabs-panel <%= params[:tab_setting] == "global" ? "is-active" : "" %>" id="tab-globals" role="tabpanel" aria-hidden="false" aria-labelledby="tab-globals-label">
+          <table>
+            <tbody>
+            <% @settings.each do |setting| %>
+              <tr>
+                <% if setting.key != "home_more_info_description" %>
+
+                  <td class="small-12 medium-4">
+                    <strong><%= t("settings.#{setting.key}") %></strong>
+                  </td>
+                  <td class="small-12 medium-8">
+                    <%= form_for(setting, url: admin_setting_path(setting), html: {id: "edit_#{dom_id(setting)}"}) do |f| %>                   
+                        <div class="small-12 medium-6 large-9 column">
+                          <%= f.text_area :value, label: false, id: dom_id(setting), lines: 1 %>
+                        </div>
+                      <div class="small-12 medium-6 large-3 column">
+                        <%= f.submit(t('admin.settings.index.update_setting'), class: "button hollow expanded") %>
+                      </div>
+                    <% end %>
+                  </td>
+
+                <% else%>
+                  <td class="small-12 medium-4" colspan="3">
+                  <%= form_for(setting, url: admin_setting_path(setting), html: {id: "edit_#{dom_id(setting)}"}) do |f| %>                   
+                  <div class="small-12 medium-6 large-12 column">
+                    <strong><%= t("settings.#{setting.key}") %></strong>
+                    <%= f.cktext_area :value, ckeditor: { language: I18n.locale }, label: false %>
+                    <%= f.submit(t('admin.settings.index.update_setting'), class: "button hollow expanded") %>
+                  </div>
+                  <% end %>
+                  </td>
+                <% end %>                
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+          <%= render "crowdfunding", crowdfundings: @crowdfundings %>
+          <%= render "sub_header", subheader_images: @subheader_images %>
+          <%= render "logo_ente", ente_images: @ente_images %>
+        </div>
+
+        <div class="tabs-panel <%= params[:tab_setting] == "feature" ? "is-active" : "" %>" id="tab-features" role="tabpanel" aria-hidden="true" aria-labelledby="tab-features-label">
+          <table>
+            <tbody>
+            <% @feature_flags.each do |feature_flag| %>
+              <% if feature_flag.editable %>
+                <tr>
+                  <td>
+                    <strong><%= t("settings.#{feature_flag.key}") %></strong>
+                  </td>
+
+                  <td>
+                    <%= feature_flag.enabled? ? t("admin.settings.index.features.enabled") : t("admin.settings.index.features.disabled") %>
+                  </td>
+
+                  <td class="text-right">
+                    <%= form_for(feature_flag, url: admin_setting_path(feature_flag), html: {id: "edit_#{dom_id(feature_flag)}"}) do |f| %>
+
+                      <%= f.hidden_field :value, id: dom_id(feature_flag), value: (feature_flag.enabled? ? "" : "active") %>
+                      <%= f.submit(t("admin.settings.index.features.#{feature_flag.enabled? ? 'disable' : 'enable'}"),
+                                  class: "button hollow expanded #{feature_flag.enabled? ? 'alert' : 'success'}",
+                                  data: {confirm: t("admin.actions.confirm")}) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tabs-panel <%= params[:tab_setting] == "service" ? "is-active" : "" %>" id="tab-services" role="tabpanel" aria-hidden="true" aria-labelledby="tab-services-label">
+          <h2><b> <%= t("admin.settings.index.service.enable_disable") %> </b></h2>
+          <table>
+            <tbody>
+            <% @service_flags.each do |service_flag| %>
+              <% if service_flag.editable %>
+                <tr>
+                  <td>
+                    <strong><%= t("settings.#{service_flag.key}") %></strong>
+                  </td>
+
+                  <td>
+                    <%= service_flag.enabled_service? ? t("admin.settings.index.services.enabled") : t("admin.settings.index.services.disabled") %>
+                  </td>
+
+                  <td class="text-right">
+                    <%= form_for(service_flag, url: admin_setting_path(service_flag), html: {id: "edit_#{dom_id(service_flag)}"}) do |f| %>
+
+                      <%= f.hidden_field :value, id: dom_id(service_flag), value: (service_flag.enabled_service? ? "" : "true") %>
+                      <%= f.submit(t("admin.settings.index.services.#{service_flag.enabled_service? ? 'disable' : 'enable'}"),
+                                  class: "button hollow expanded #{service_flag.enabled_service? ? 'alert' : 'success'}",
+                                  data: {confirm: t("admin.actions.confirm")}) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+
+          <%= render "service_social_table", social: @social %>
+
+          <%= render "description_table", description: @description %>
+
+          <%#= render "sub_header", subheader_images: @subheader_images %>
+          <%#= render "logo_ente", ente_images: @ente_images %>
+
+          <% if false %>
+            <h2><b>Moderazione </b></h2>
+            <table>
+              <tbody>
+              <% @moderation_flags.each do |service_moderation_flag| %>
+                <tr>
+                  <td>
+                    <strong><%= t("settings.#{service_moderation_flag.key}") %></strong>
+                  </td>
+
+                  <td>
+                    <%= service_moderation_flag.enabled_moderation_flag? ? t("admin.settings.index.services.enabled") : t("admin.settings.index.services.disabled") %>
+                  </td>
+
+                  <td class="text-right">
+                    <%= form_for(service_moderation_flag, url: admin_setting_path(service_moderation_flag), html: {id: "edit_#{dom_id(service_moderation_flag)}"}) do |f| %>
+
+                      <%= f.hidden_field :value, id: dom_id(service_moderation_flag), value: (service_moderation_flag.enabled_moderation_flag? ? "" : "active") %>
+                      <%= f.submit(t("admin.settings.index.services.#{service_moderation_flag.enabled_moderation_flag? ? 'disable' : 'enable'}"),
+                                  class: "button hollow expanded #{service_moderation_flag.enabled_moderation_flag? ? 'alert' : 'success'}",
+                                  data: {confirm: t("admin.actions.confirm")}) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
+
+        </div>
+
+
+
+        <div class="tabs-panel <%= params[:tab_setting] == "job" ? "is-active" : "" %>" id="tab-jobs" >
+          <h2><b> <%= t("admin.settings.index.job.enable_disable") %> </b></h2>
+          <table>
+            <tbody>
+
+            <% if @jobs %>
+              <% @jobs.each do |job| %>
+                <% if job.editable %>
+                  <tr>
+                    <td>
+                      <strong><%= t("settings.#{job.key}") %></strong>
+                    </td>
+
+                    <td>
+                      <%= job.enabled_job? ? t("admin.settings.index.jobs.enabled") : t("admin.settings.index.jobs.disabled") %>
+                    </td>
+
+                    <%#td class="text-right">
+                      <%= form_for(job, url: admin_setting_path(job), html: {id: "edit_#{dom_id(job)}"}) do |f| %>
+
+                        <%#= f.hidden_field :value, id: dom_id(job), value: (job.enabled_job? ? "" : "active") %>
+                        <%#= f.submit(t("admin.settings.index.jobs.#{job.enabled_job? ? 'disable' : 'enable'}"),
+                                    class: "button expanded #{job.enabled_job? ? 'hollow alert' : 'success'}",
+                                    method: :put,
+                                    data: {confirm: t("admin.actions.confirm")}) %>
+                      <%# end %>
+                    <%#/td%>
+
+                    <td class="align-middle">
+                        <%= link_to t("admin.settings.index.job.exec_job"),
+                                exec_job_admin_settings_path( key: job.key ),
+                                method: :put,
+                                class: "button" %>       
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <% if feature?(:map) %>
+          <div class="tabs-panel <%= params[:tab_setting] == "map" ? "is-active" : "" %>" id="tab-map" role="tabpanel" aria-hidden="false" aria-labelledby="tab-map-label" >
+            <p><%= t("admin.settings.index.map.help") %></p>
+            <%= render "map_form" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  <% else %>
+
+      <div class="row">
+      <div class="small-12 column">
+        <ul class="tabs" data-tabs="c0u7cr-tabs" id="settings-tabs">
+          <li class="tabs-title is-active" role="presentation">
+            <a href="#tab-globals" role="tab" aria-controls="tab-globals" aria-selected="true" id="tab-globals-label">
+              <h3>
+                <%= t("admin.settings.index.title") %>
+                <span class="js-comments-count"></span>
+              </h3>
+            </a>
+          </li>
+
+          <% if Rails.application.config.features %>
+            <li class="tabs-title" role="presentation">
+              <a href="#tab-features" role="tab" aria-controls="tab-features" aria-selected="false" id="tab-features-label">
+                <h3>
+                  <%= t("admin.settings.index.feature_flags") %>
+                </h3>
+              </a>
+            </li>
+          <% end %>
+
+          <li class="tabs-title" role="presentation">
+            <a href="#tab-services" role="tab" aria-controls="tab-services" aria-selected="false" id="tab-services-label">
+              <h3>
+                <%= t("admin.settings.index.service_flags") %>
+              </h3>
+            </a>
+          </li>
+
+          <% if feature?(:map) %>
+            <li class="tabs-title" role="presentation">
+              <a href="#tab-map" role="tab" aria-controls="tab-map" aria-selected="false" id="tab-map-label">
+                <h3>
+                  <%= t("admin.settings.index.map.title") %>
+                </h3>
+              </a>
+            </li>
+          <% end %>
+
+          <li class="tabs-title" role="presentation">
+            <a href="#tab-jobs" role="tab" aria-controls="tab-jobs" aria-selected="false" id="tab-jobs-label">
+              <h3>
+                <%= t("admin.settings.index.job.title") %>
+              </h3>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 column">
+        <div class="tabs-panel is-active" id="tab-globals" role="tabpanel" aria-hidden="false" aria-labelledby="tab-globals-label">
+          <table>
+            <tbody>
+            <% @settings.each do |setting| %>
+              <tr>
+                <% if setting.key != "home_more_info_description" %>
+
+                  <td class="small-12 medium-4">
+                    <strong><%= t("settings.#{setting.key}") %></strong>
+                  </td>
+                  <td class="small-12 medium-8">
+                    <%= form_for(setting, url: admin_setting_path(setting), html: {id: "edit_#{dom_id(setting)}"}) do |f| %>                   
+                        <div class="small-12 medium-6 large-9 column">
+                          <%= f.text_area :value, label: false, id: dom_id(setting), lines: 1 %>
+                        </div>
+                      <div class="small-12 medium-6 large-3 column">
+                        <%= f.submit(t('admin.settings.index.update_setting'), class: "button hollow expanded") %>
+                      </div>
+                    <% end %>
+                  </td>
+
+                <% else%>
+                  <td class="small-12 medium-4" colspan="3">
+                  <%= form_for(setting, url: admin_setting_path(setting), html: {id: "edit_#{dom_id(setting)}"}) do |f| %>                   
+                  <div class="small-12 medium-6 large-12 column">
+                    <strong><%= t("settings.#{setting.key}") %></strong>
+                    <%= f.cktext_area :value, ckeditor: { language: I18n.locale }, label: false %>
+                    <%= f.submit(t('admin.settings.index.update_setting'), class: "button hollow expanded") %>
+                  </div>
+                  <% end %>
+                  </td>
+                <% end %>
+
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+          <%= render "crowdfunding", crowdfundings: @crowdfundings %>
+          <%= render "sub_header", subheader_images: @subheader_images %>
+          <%= render "logo_ente", ente_images: @ente_images %>
+
+          
+
+
+        </div>
+
+        <div class="tabs-panel" id="tab-features" role="tabpanel" aria-hidden="true" aria-labelledby="tab-features-label">
+          <table>
+            <tbody>
+            <% @feature_flags.each do |feature_flag| %>
+              <% if feature_flag.editable %>
+                <tr>
+                  <td>
+                    <strong><%= t("settings.#{feature_flag.key}") %></strong>
+                  </td>
+
+                  <td>
+                    <%= feature_flag.enabled? ? t("admin.settings.index.features.enabled") : t("admin.settings.index.features.disabled") %>
+                  </td>
+
+                  <td class="text-right">
+                    <%= form_for(feature_flag, url: admin_setting_path(feature_flag), html: {id: "edit_#{dom_id(feature_flag)}"}) do |f| %>
+
+                      <%= f.hidden_field :value, id: dom_id(feature_flag), value: (feature_flag.enabled? ? "" : "active") %>
+                      <%= f.submit(t("admin.settings.index.features.#{feature_flag.enabled? ? 'disable' : 'enable'}"),
+                                  class: "button hollow expanded #{feature_flag.enabled? ? 'alert' : 'success'}",
+                                  data: {confirm: t("admin.actions.confirm")}) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tabs-panel" id="tab-services" role="tabpanel" aria-hidden="true" aria-labelledby="tab-services-label">
+          <h2><b> <%= t("admin.settings.index.service.enable_disable") %> </b></h2>
+          <table>
+            <tbody>
+            <% @service_flags.each do |service_flag| %>
+              <% if service_flag.editable %>
+                <tr>
+                  <td>
+                    <strong><%= t("settings.#{service_flag.key}") %></strong>
+                  </td>
+
+                  <td>
+                    <%= service_flag.enabled_service? ? t("admin.settings.index.services.enabled") : t("admin.settings.index.services.disabled") %>
+                  </td>
+
+                  <td class="text-right">
+                    <%= form_for(service_flag, url: admin_setting_path(service_flag), html: {id: "edit_#{dom_id(service_flag)}"}) do |f| %>
+
+                      <%= f.hidden_field :value, id: dom_id(service_flag), value: (service_flag.enabled_service? ? "" : "true") %>
+                      <%= f.submit(t("admin.settings.index.services.#{service_flag.enabled_service? ? 'disable' : 'enable'}"),
+                                  class: "button hollow expanded #{service_flag.enabled_service? ? 'alert' : 'success'}",
+                                  data: {confirm: t("admin.actions.confirm")}) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+
+          <%= render "service_social_table", social: @social %>
+
+          <%= render "description_table", description: @description %>
+          
+          <%#= render "sub_header", subheader_images: @subheader_images %>
+          <%#= render "logo_ente", ente_images: @ente_images %>
+
+          <% if false %>
+            <h2><b>Moderazione </b></h2>
+            <table>
+              <tbody>
+              <% @moderation_flags.each do |service_moderation_flag| %>
+                <tr>
+                  <td>
+                    <strong><%= t("settings.#{service_moderation_flag.key}") %></strong>
+                  </td>
+
+                  <td>
+                    <%= service_moderation_flag.enabled_moderation_flag? ? t("admin.settings.index.services.enabled") : t("admin.settings.index.services.disabled") %>
+                  </td>
+
+                  <td class="text-right">
+                    <%= form_for(service_moderation_flag, url: admin_setting_path(service_moderation_flag), html: {id: "edit_#{dom_id(service_moderation_flag)}"}) do |f| %>
+
+                      <%= f.hidden_field :value, id: dom_id(service_moderation_flag), value: (service_moderation_flag.enabled_moderation_flag? ? "" : "active") %>
+                      <%= f.submit(t("admin.settings.index.services.#{service_moderation_flag.enabled_moderation_flag? ? 'disable' : 'enable'}"),
+                                  class: "button hollow expanded #{service_moderation_flag.enabled_moderation_flag? ? 'alert' : 'success'}",
+                                  data: {confirm: t("admin.actions.confirm")}) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
+
+        </div>
+
+
+
+        <div class="tabs-panel" id="tab-jobs" >
+          <h2><b> <%= t("admin.settings.index.job.enable_disable") %> </b></h2>
+          <table>
+            <tbody>
+            <% if @jobs %>
+              <% @jobs.each do |job| %>
+                <% if job.editable %>
+                  <tr>
+                    <td>
+                      <strong><%= t("settings.#{job.key}") %></strong>
+                    </td>
+
+                    <td>
+                      <%= job.enabled_job? ? t("admin.settings.index.jobs.enabled") : t("admin.settings.index.jobs.disabled") %>
+                    </td>
+
+                    <%#td class="text-right">
+                      <%= form_for(job, url: admin_setting_path(job), html: {id: "edit_#{dom_id(job)}"}) do |f| %>
+
+                        <%#= f.hidden_field :value, id: dom_id(job), value: (job.enabled_job? ? "" : "active") %>
+                        <%#= f.submit(t("admin.settings.index.jobs.#{job.enabled_job? ? 'disable' : 'enable'}"),
+                                    class: "button expanded #{job.enabled_job? ? 'hollow alert' : 'success'}",
+                                    method: :put,
+                                    data: {confirm: t("admin.actions.confirm")}) %>
+                      <%# end %>
+                    <%#/td%>
+
+                    <td class="align-middle">
+                        <%= link_to t("admin.settings.index.job.exec_job"),
+                                exec_job_admin_settings_path( key: job.key ),
+                                method: :put,
+                                class: "button" %>       
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <% if feature?(:map) %>
+          <div class="tabs-panel" id="tab-map" role="tabpanel" aria-hidden="false" aria-labelledby="tab-map-label" >
+            <p><%= t("admin.settings.index.map.help") %></p>
+            <%= render "map_form" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @banner_styles.present? %>
+  <h2><%= t("admin.settings.index.banners") %></h2>
+
+  <table>
+    <tbody>
+    <% @banner_styles.each do |setting| %>
+      <tr>
+        <td>
+          <strong><%= t("settings.#{setting.key}") %></strong>
+        </td>
+
+        <td>
+          <%= form_for(setting, url: admin_setting_path(setting), html: {id: "edit_#{dom_id(setting)}"}) do |f| %>
+            <%= f.text_area :value, label: false, id: dom_id(setting), lines: 1 %>
+            <%= f.submit(t('admin.settings.index.update_setting'), class: "button hollow") %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if @banner_imgs.present? %>
+  <h2><%= t("admin.settings.index.banner_imgs") %></h2>
+
+  <table>
+    <tbody>
+    <% @banner_imgs.each do |setting| %>
+      <tr>
+        <td>
+          <strong><%= t("settings.#{setting.key}") %></strong>
+        </td>
+
+        <td>
+          <%= form_for(setting, url: admin_setting_path(setting), html: {id: "edit_#{dom_id(setting)}"}) do |f| %>
+            <%= f.text_area :value, label: false, id: dom_id(setting), lines: 1 %>
+            <%= f.submit(t('admin.settings.index.update_setting'), class: "button small success") %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

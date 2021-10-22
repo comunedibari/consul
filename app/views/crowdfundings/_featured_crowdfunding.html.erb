@@ -1,0 +1,28 @@
+<div id="<%= dom_id(crowdfunding) %>" class="service-featured clear">
+  <div class="small-12 medium-9 column">
+    <h3><%= link_to crowdfunding.title, crowdfunding %></h3>
+    <div class="info">
+
+      <% if crowdfunding.author.hidden? || crowdfunding.author.erased? %>
+        <%= t("crowdfundings.show.author_deleted") %>
+      <% else %>
+        <%= crowdfunding.author.name %>
+      <% end %>
+
+      &nbsp;&bull;&nbsp;
+
+      <% if crowdfunding.author.display_official_position_badge? %>
+        <span class="label round level-<%= crowdfunding.author.official_level %>">
+          <%= crowdfunding.author.official_position %>
+        </span>
+        &nbsp;&bull;&nbsp;
+      <% end %>
+
+      <strong><%= t("crowdfundings.crowdfunding.supports", count: crowdfunding.total_votes) %></strong>
+    </div>
+  </div>
+
+  <div id="<%= dom_id(crowdfunding) %>_votes" class="small-12 medium-3 column">
+    <%= render 'featured_votes', crowdfunding: crowdfunding %>
+  </div>
+</div>

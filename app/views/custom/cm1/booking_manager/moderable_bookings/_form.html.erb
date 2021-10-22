@@ -1,0 +1,145 @@
+<%= form_for [@asset, @moderable_booking], method: "post" do |f| %>
+
+  <% if @moderable_booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@moderable_booking.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+        <% @moderable_booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="small-12 medium-1 column legislation-process-start" style="margin-top: 10px;">
+    <%= t('assets.moderable_bookings.form.day') %>
+  </div>
+
+  <div class="small-12 medium-2 column ">
+    <%= f.text_field :data_f,
+                     label: false,
+                     value: params[:data],
+                     #value: format_date_for_calendar_form(event_slot_dati.start_event),
+                     #class: "js-calendar-full",
+                     id: "calendar_" + rand(1..999999).to_s,
+                     :autocomplete => :off
+    %>
+  </div>
+
+
+  <div class="small-12 medium-1 column legislation-process-start" style="margin-top: 10px;">
+    <%= t('assets.moderable_bookings.form.start') %>
+  </div>
+
+
+
+
+  <div class="small-12 medium-2 column ">
+    <%= f.text_field :time_start_f,
+                     label: false,
+                     value: params[:start],
+                     #value: format_date_for_calendar_form(event_slot_dati.start_event),
+                     #class: "js-calendar-full",
+                     id: "start_hours_" + rand(1..999999).to_s,
+                     :autocomplete => :off
+    %>
+  </div>
+  <div class="small-12 medium-1 column legislation-process-end" style="margin-top: 10px;" id="tag_end">
+    <%= t('assets.moderable_bookings.form.end') %>
+  </div>
+  <div class="small-12 medium-2 column">
+    <%= f.text_field :time_end_f,
+                     label: false,
+                     value: params[:end],
+                     #value: format_date_for_calendar_form(event_slot_dati.end_event),
+                     #class: "js-calendar-full",
+                     id: "end_hours_" + rand(1..999999).to_s,
+                     :autocomplete => :off
+    %>
+  </div>
+
+    <% if (current_user.provider.present? && current_user.provider == "openam" ) || current_user.administrator? %>
+      <div class="small-12 medium-9 column">
+        <%= f.fields_for :social_content do |ff| %>
+          <%= ff.label :social_access, t("debates.form.social_access") %>
+          <p class="help-text" id="tag-list-help-text"><%= t("debates.form.social_access_info") %></p>
+          <%= ff.check_box :social_access, checked: social_access?(@moderable_booking.social_content ? @moderable_booking.social_content.social_access : false), title: t('debates.form.social_access'), label: false %>
+          <span class="checkbox">
+                <%= t("debates.form.social_access_check") %>
+            </span>
+        <% end %>
+      </div>
+    <% else %>
+      <%= f.fields_for :social_content do |ff| %>
+        <%= ff.hidden_field :social_access, value: false %>
+      <% end %>
+    <% end %>
+
+  <div class="actions small-12 column">
+    <%= f.submit(class: "btn btn-primary", value: t("reservations.#{action_name}.form.submit_button")) %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+
+  jQuery(function () {
+
+    $("input[id^='calendar_']").each(function (index, input) {
+      //jQuery('#end_date').datetimepicker({
+      $(input).datetimepicker({
+        format: 'd-m-Y',
+        lang: 'it',
+        timepicker: false
+      });
+    });
+
+    $("input[id^='start_hours_']").each(function (index, input) {
+
+      $(input).datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        allowTimes: [
+          '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00',
+          '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00',
+          '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'
+        ]/*,
+        onShow: function (ct) {
+          val = input.id.split('_')[2];
+          if ($('#end_hours_' + val).val()) {
+            dat_s = $('#end_hours_' + val).val();
+          }
+          else {
+            dat_s = '11:31';
+          }
+          this.setOptions({
+            maxTime: dat_s
+          })
+        }
+*/
+      });
+    });
+
+    $("input[id^='end_hours_']").each(function (index, input) {
+
+      $(input).datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        allowTimes: [
+          '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
+          '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30',
+          '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'
+        ]
+        /*,        onShow: function (ct) {
+                  css_id = input.id.split('_')[2];
+                  dat_s = $('#start_hours' + css_id).val();
+
+                  this.setOptions({
+                    minTime: dat_s
+                  })
+                }*/
+      });
+    });
+  })
+</script>

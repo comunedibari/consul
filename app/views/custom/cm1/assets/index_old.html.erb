@@ -1,0 +1,53 @@
+
+  <% provide :title do %><%= t("assets.index.title") %><% end %>
+
+  <% if User.pon_id == 0 %>
+    <%= render "shared/section_header", i18n_namespace: "assets.index.section_header", image: "debates" %>
+        <div class="row">
+          <div class="column">
+          <%= render "shared/pon_list", resource: "assets" %>
+          </div>  
+        </div>
+    <% else %>
+  
+   <main>
+    <%= render "shared/section_header", i18n_namespace: "assets.index.section_header", image: "debates" %>
+    <div id="sectors" class="proposals-list small-12 medium-12 column sectors-list">
+      
+        <div id="asset_help" style="margin-top:50px;" data-magellan-target="asset_help">
+          <!-- <p class="lead">
+            <strong><%#= t("assets.index.section_footer.title") %></strong>
+          </p> -->
+          <p><%= t("assets.index.section_footer.description") %></p>
+          <p><%= t("assets.index.section_footer.help_text_1") %></p>
+          <p><%= t("assets.index.section_footer.help_text_2",
+                    org: link_to(Setting['org_name',User.pon_id].to_s, new_user_registration_path),
+                    supports: setting["votes_for_sector_success"]).html_safe %></p>
+          <p><%= t("assets.index.section_footer.help_text_3") %></p>
+        </div>
+
+
+      <div class="row ">
+        
+        <div data-equalizer > 
+          <% if @assets.any? || current_user.blank? %>
+            <% if assets_default_view? %>
+              <%= render @assets %>
+            <% else %>
+              <% @assets.each do |asset| %>
+                <%#= render partial: 'assets/asset_minimal', locals: { asset: asset } %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= empty_recommended_debates_message_text(current_user) %>
+          <% end %>
+          <%#= paginate @assets %>        
+        </div>
+
+      </div>
+
+    
+
+    </div>
+  </main>  
+<% end %>

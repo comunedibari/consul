@@ -1,0 +1,106 @@
+<%= form_for (@st_sector) do |f| %>
+  <%= render 'shared/errors', resource: @st_sector %>
+
+  <div class="row">
+
+    <div class="small-12 medium-6 column">
+      <%= f.select :sector_type_id,
+                   options_for_select(SectorType.pluck(:name, :id),@st_sector.sector_type_id),
+                   label: t("sectors.new.sector_type") %>
+    </div>
+
+    <div class="small-12 column margin-top">
+      <%= f.label :name, t("sectors.new.name") %>
+      <%= f.text_field :name, maxlength: StSector.title_max_length, placeholder:  t("sectors.new.placeholder_name"), label: false%>
+    </div>
+
+    <div class="ckeditor small-12 column">
+      <%= f.label :description, t("sectors.new.description") %>
+      <%= f.cktext_area :description, maxlength: StSector.description_max_length, ckeditor: { language: I18n.locale }, label: false %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :vat_code, t("sectors.new.vat_code") %>
+      <%= f.text_field :vat_code, placeholder: t("sectors.new.vat_code"), label: false %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :address, t("sectors.new.address") %>
+      <%= f.text_field :address, placeholder: t("sectors.new.address"), label: false %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :email, t("sectors.new.email") %>
+      <%= f.text_field :email, placeholder: t("sectors.new.email"), label: false %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :phone_number, t("sectors.new.phone_number") %>
+      <%= f.text_field :phone_number, placeholder: t("sectors.new.phone_number"), label: false %>
+    </div>
+
+    <% if feature?(:allow_images) and Debate.max_images_allowed > 0 %>
+      <div class="images small-12 column">
+        <%= render 'images/nested_image', imageable: @st_sector, f: f,  isComment: false %>
+      </div>
+    <% end %>
+
+    <% if feature?(:allow_attached_documents) and Debate.max_documents_allowed > 0  %>
+      <div class="documents small-12 column">
+        <%= render 'documents/nested_documents', documentable: @st_sector, f: f, isComment: false %>
+      </div>
+    <% end %>
+
+    <div class="small-12 column" style="display: none;">
+      <strong> <%=  t("sectors.new.sector_address") %> </strong>
+        <div class="input-group">
+          <input type="text" id='debate_address' placeholder='<%=  t("sectors.new.sector_address") %>' />
+            <div class="input-group-button">
+              <%= map_location_search('') %>
+              </div>
+          </div>
+      <div id="no-text-insert" class="callout alert no-text-insert primary text-center hide">
+        <%= t "account.no_text_insert_html" %>
+      </div>
+    </div>
+
+    <% if feature?(:map) %>
+      <div class="small-12 column">
+
+        <%= render 'map_locations/form_fields',
+                   form:     f,
+                   map_location: @st_sector.map_location || MapLocation.new,
+                   label:    t("proposals.form.map_location"),
+                   help:     t("proposals.form.map_location_instructions"),
+                   remove_marker_label: t("proposals.form.map_remove_marker"),
+                   parent_class: "st_sector",
+                   i18n_namespace: "st_sectors",
+                   geo_coding_addr: "#st_sector_address" %>
+
+      </div>
+    <% end %>
+
+
+    <div class="small-12 column">
+      <% if @st_sector.new_record? %>
+        <%= f.label :terms_of_service do %>
+          <%= f.check_box :terms_of_service, title: t('form.accept_terms_title'), label: false %>
+          <span class="checkbox">
+            <%= t("form.accept_terms",
+                policy: link_to(t("form.policy"), "/privacy", target: "blank"),
+                conditions: link_to(t("form.conditions"), "/conditions", target: "blank")).html_safe %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+
+
+
+
+
+
+    <div class="actions small-12 column">
+      <%= f.submit(class: "btn btn-primary", value: t("sectors.#{action_name}.form.submit_button")) %>
+    </div>
+  </div>
+<% end %>

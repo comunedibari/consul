@@ -1,0 +1,24 @@
+<!--
+<span class="label round is-author " title="<%= t("processes.sgap_label") %>">
+     <%#= t("processes.process_sgap.label") %>                
+</span>
+-->
+      <% if @process.title.present? %>
+      <div style=" word-wrap: break-word; margin-top:30px;">
+        <p>
+          <%= markdown @process.title.capitalize %>
+        </p>
+      </div>
+      <% end %>
+
+      <div class="row" style="margin-top:50px;">
+        <div class="column small-12 medium-6">
+          <%= render 'legislation/processes/total_finances', process: @process %>
+        </div>
+      </div>
+     <div class="row" style="margin-top:50px;">
+        <div class="column small-12">
+          <%= render 'legislation/processes/total_phases', process: @process %>
+        </div>
+      </div>
+      

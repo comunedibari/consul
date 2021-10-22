@@ -1,0 +1,39 @@
+---
+en:
+  flash:
+    actions:
+      create:
+        budget_investment: Budget Investment created successfully.
+        debate: Debate created successfully.
+        direct_message: You message has been sent successfully.
+        notice: "%{resource_name} created successfully."
+        poll: Poll created successfully.
+        poll_booth: Booth created successfully.
+        poll_question_answer: Answer created successfully
+        poll_question_answer_image: Image uploaded successfully
+        poll_question_answer_video: Video created successfully
+        proposal: Proposal created successfully.
+        proposal_notification: Your message has been sent correctly.
+        signature_sheet: Signature sheet created successfully
+        spending_proposal: Spending proposal created successfully. You can access it from %{activity}
+        topic: Topic created successfully.
+        valuator_group: Valuator group created successfully
+      destroy:
+        budget_investment: Investment project deleted succesfully.
+        error: Could not delete
+        poll_question_answer_video: Answer video deleted successfully.
+        spending_proposal: Spending proposal deleted succesfully.
+        topic: Topic deleted successfully.
+        valuator_group: Valuator group deleted successfully
+      save_changes:
+        notice: Changes saved
+      update:
+        budget_investment: Investment project updated succesfully.
+        debate: Debate updated successfully.
+        notice: "%{resource_name} updated successfully."
+        poll: Poll updated successfully.
+        poll_booth: Booth updated successfully.
+        proposal: Proposal updated successfully.
+        spending_proposal: Investment project updated succesfully.
+        topic: Topic updated successfully.
+        valuator_group: Valuator group updated successfully

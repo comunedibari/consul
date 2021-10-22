@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="<%= Rails.application.config.namespace %>" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="paymentCallback" targetNamespace="<%= Rails.application.config.namespace %>">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="<%= Rails.application.config.namespace %>" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="<%= Rails.application.config.namespace %>">
+  <xs:element name="paymentBefore" type="tns:paymentBefore"/>
+  <xs:element name="paymentBeforeResponse" type="tns:paymentBeforeResponse"/>
+  <xs:element name="paymentDone" type="tns:paymentDone"/>
+  <xs:element name="paymentDoneResponse" type="tns:paymentDoneResponse"/>
+  <xs:element name="paymentRollback" type="tns:paymentRollback"/>
+  <xs:element name="paymentRollbackResponse" type="tns:paymentRollbackResponse"/>
+  <xs:complexType name="paymentBefore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:callbackPaymentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="callbackPaymentRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="canalePagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataPagamento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idFiscaleCliente" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoCredito" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoOrganizzazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoServizio" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoGateway" type="xs:double"/>
+      <xs:element minOccurs="0" name="importoTotale" type="xs:double"/>
+      <xs:element minOccurs="0" name="infoAggiuntive" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentBeforeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:callbackPaymentResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="callbackPaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="esito" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="infoAggiuntiveServizio" type="xs:string"/>
+      <xs:element minOccurs="0" name="messaggioErrore" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentRollback">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:callbackPaymentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentRollbackResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:callbackPaymentResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentDone">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:callbackPaymentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentDoneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:callbackPaymentResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentAdapterException" type="tns:PaymentAdapterException"/>
+  <xs:complexType name="PaymentAdapterException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="paymentBefore">
+    <wsdl:part element="tns:paymentBefore" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="paymentDoneResponse">
+    <wsdl:part element="tns:paymentDoneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="paymentBeforeResponse">
+    <wsdl:part element="tns:paymentBeforeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="paymentDone">
+    <wsdl:part element="tns:paymentDone" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="paymentRollback">
+    <wsdl:part element="tns:paymentRollback" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PaymentAdapterException">
+    <wsdl:part element="tns:PaymentAdapterException" name="PaymentAdapterException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="paymentRollbackResponse">
+    <wsdl:part element="tns:paymentRollbackResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CallbackPaymentServer">
+    <wsdl:operation name="paymentBefore">
+      <wsdl:input message="tns:paymentBefore" name="paymentBefore">
+    </wsdl:input>
+      <wsdl:output message="tns:paymentBeforeResponse" name="paymentBeforeResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:PaymentAdapterException" name="PaymentAdapterException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="paymentRollback">
+      <wsdl:input message="tns:paymentRollback" name="paymentRollback">
+    </wsdl:input>
+      <wsdl:output message="tns:paymentRollbackResponse" name="paymentRollbackResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:PaymentAdapterException" name="PaymentAdapterException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="paymentDone">
+      <wsdl:input message="tns:paymentDone" name="paymentDone">
+    </wsdl:input>
+      <wsdl:output message="tns:paymentDoneResponse" name="paymentDoneResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:PaymentAdapterException" name="PaymentAdapterException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="paymentCallbackSoapBinding" type="tns:CallbackPaymentServer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="paymentBefore">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="paymentBefore">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="paymentBeforeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PaymentAdapterException">
+        <soap:fault name="PaymentAdapterException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="paymentRollback">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="paymentRollback">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="paymentRollbackResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PaymentAdapterException">
+        <soap:fault name="PaymentAdapterException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="paymentDone">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="paymentDone">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="paymentDoneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PaymentAdapterException">
+        <soap:fault name="PaymentAdapterException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="paymentCallback">
+    <wsdl:port binding="tns:paymentCallbackSoapBinding" name="CallbackPaymentServer">
+      <soap:address location="<%= Rails.application.config.root_path %>/payment_callback/wsdl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,13 @@
+<div id="search_form_small" class="search-form-header">
+  <!-- h1 class="show-for-sr"><%= t("shared.outline.searcher") %></h1> -->
+  <%= form_tag search_path, id: "form_search_small", method: :get do %>
+    <div class="input-group" style="background-color: #fff;  display: flex;">
+      <input type="text" name="search" placeholder='<%= t("#{i18n_namespace}.placeholder") %>' class="form-control squared input-group-field" value="<%= params[:search] %>" id="search_text" style="margin-left: 5px;">
+      <a href="" class="search-link rounded-icon" aria-label="Cerca" onclick="document.getElementById('form_search_small').submit();">
+        <svg class="icon">
+          <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-search"></use>
+        </svg>
+      </a>
+    </div>
+  <% end %>
+</div>

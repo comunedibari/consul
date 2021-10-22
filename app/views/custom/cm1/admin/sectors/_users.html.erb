@@ -1,0 +1,69 @@
+<% if @users and @users.any? %>
+  <!--  <h3 class="margin"><%#= page_entries_info @users %></h3> -->
+  <table class="stack">
+    <tbody>
+    <tr>
+      <th scope="col"><%= t("admin.users.columns.name") %></th>
+      <th scope="col"><%= t("admin.users.columns.email") %></th>
+      <th scope="col"><%= t("admin.users.columns.cod_fiscale") %></th>
+      <th scope="col"><%= t("admin.users.columns.actions") %></th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user_path(user), target: "_blank" %></td>
+        <td><%= user.email %></td>
+        <td><%= user.cod_fiscale %></td>
+        <td>
+          <% if @sector
+               sec_id = @sector.id
+             end %>
+          <% if user.sector? && user.sector.id == sec_id && user.sector.persisted? && @sector.editable_by_admin?(sec_id) %>
+            <%= link_to t("admin.third_sector.button.unbind"),
+                        rem_relation_admin_sector_path(user, request.query_parameters),
+                        method: :put,
+                        class: "button hollow alert" %>
+          <% elsif user.sector? && user.sector.id == sec_id && user.sector.persisted? && !@sector.editable_by_admin?(sec_id) %>
+            <div class="callout primary">
+              <%= t("admin.third_sector.update.no_modify") %>
+            </div>
+          <% else %>
+            <%= link_to t("admin.third_sector.subentro_button"), relation_admin_sector_path(user, request.query_parameters),
+                        method: :put, class: "button hollow alert admin " %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @users, remote: true %>
+
+<% elsif false and (@sector.legal_representative.present? and @sector.cf_rappr_legale.present?) %>
+
+  <table class="stack">
+    <tbody>
+    <tr>
+      <th scope="col"><%= t("admin.users.columns.name") %></th>
+      <th scope="col"><%= t("admin.users.columns.email") %></th>
+      <th scope="col"><%= t("admin.users.columns.cod_fiscale") %></th>
+      <th scope="col"><%= t("admin.users.columns.actions") %></th>
+    </tr>
+    <tr>
+      <td><%= @sector.legal_representative %></td>
+      <td></td>
+      <td><%= @sector.cf_rappr_legale %></td>
+      <td>
+        <%= link_to t("admin.third_sector.button.unbind"),
+                    rem_relation_admin_sector_path(@sector, request.query_parameters),
+                    method: :put, class: "button hollow alert" %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <%= paginate @users, remote: true %>
+<%# else %>
+<% elsif false %>
+  <div class="callout primary">
+    <%= t("admin.users.index.no_users") %>
+  </div>
+
+<% end %>

@@ -1,0 +1,29 @@
+<% provide :title do %><%= @collaboration_agreement.title %><% end %>
+
+<div id="<%= dom_id(@collaboration_agreement) %>">
+
+  <%= render 'collaboration/agreements/header', agreement: @collaboration_agreement, header: :full %>
+  <div class="row">
+    <div class="debate-chooser">
+      <div class="row">
+        <div class="small-12 medium-9 col">
+          <div class="debate-list">
+            <%= render 'shared/tags', taggable: @collaboration_agreement %>      
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="tabs-content" data-tabs-content="proposals-tabs" role="tablist">
+  <%= render "collaboration/agreements/filter_subnav" %>
+  <%= render "collaboration/agreements/notifications" %>
+
+  <div class="tabs-panel is-active" id="tab-comments" >
+      <%= render 'collaboration/agreements/comments' %>
+  </div>
+</div>

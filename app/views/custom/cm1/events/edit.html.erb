@@ -1,0 +1,14 @@
+<div class="event-edit row">
+
+  <div class="small-12 column">
+    <%= back_link_to %>
+
+    <div class="float-right">
+      <%= link_to t("events.edit.show_link"), @event %>
+    </div>
+
+    <h1><%= t("events.edit.editing") %></h1>
+
+    <%= render "form", form_url: event_url(@event) %>
+  </div>
+</div>

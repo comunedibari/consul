@@ -1,0 +1,114 @@
+
+  <h3>
+    <%= question.title %>
+  </h3>
+  <div class="button-telegram hollow" style="margin-bottom: 5px" id=<%= "desc_button_" + question.id.to_s %>>
+    <i class="fa fa-info-circle"></i> Visualizza Dettaglio Domande
+  </div>
+  <div style="display: none; padding: 18px; background-color: #eeeeee; margin-bottom: 18px" id=<%= "desc_question_" + question.id.to_s %>>
+    <% if !question.images.present? && !question.video_url.present? && !question.documents.present? %>
+      Nessuna descrizione presente
+    <% end %>
+    <% if question.images.present? %>
+      <h5> Immagini: </h5>
+      <div class="row">
+        <div class="large-4" style="margin:0 auto;">
+          <%= render "polls/questions/gallery", question: question %>
+        </div>
+      </div>
+    <% end %>
+
+
+
+    <% if question.video_url.present? %>
+      <h5> Video: </h5>
+
+      <div class="small-12 medium-7 small-centered">
+        <div class="flex-video">
+          <% css_id = rand(1..999999).to_s #css_id.nil? ? 1 : css_id %>
+          <div id="js-embedded-video" data-video-code="<%= embedded_video_code(question, css_id) %>"></div>
+        </div>
+      </div>
+
+    <% end %>
+
+    <% if question.documents.present? %>
+      <%= render 'documents/documents',
+                 documents: question.documents
+      %>
+    <% end %>
+
+  </div>
+
+    <p class="help-text" id="video-url-help-text">
+    <% if question.num_min_answers == question.num_max_answers %>
+      <%= t("polls.show.answers_selectable_help" , count: question.num_min_answers)%>
+    <% else %>      
+      <% if question.num_min_answers > 0 %>
+        <%= t("polls.show.min_answers_selectable_help", count: question.num_min_answers) %>
+      <% end %>      
+      <% if question.num_max_answers > 0 %>
+        <span><%= t("polls.show.max_answers_selectable_help", count: question.num_max_answers) %></span>
+      <% end %>
+    <% end %>      
+    </p>
+
+  <div id="<%= dom_id(question) %>_answers" class="padding" data-num_max_answers=<%= question.num_max_answers %>>
+    <%= render 'polls/questions/answers', question: question, token: token %>
+  </div>
+
+  <div class="button-telegram hollow" style="margin-bottom: 5px" id=<%= "desc_answer_button_" + question.id.to_s %>>
+    <i class="fa fa-info-circle"></i>Visualizza Descrizione Risposte
+  </div>
+  <div style="display: none; padding: 18px; background-color: #eeeeee; margin-bottom: 18px" id=<%= "desc_answer_" + question.id.to_s %>>
+    <% question.question_answers.each do |answer| %>
+      Risposta: <h5>  <%= answer.title %></h5>
+      <p><%= answer.description %></p>
+      <% if answer.documents.present? %>
+
+        <%= render 'documents/documents',
+                   documents: answer.documents
+        %>
+      <% end %>
+      <% if answer.images.present? %>
+        <h5> Immagini: </h5>
+        <div class="row">
+          <div class="large-4" style="margin:0 auto;">
+            <%= render "gallery", answer: answer %>
+          </div>
+        </div>
+      <% end %>
+      <% if answer.videos.present? %>
+        <h5> Video: </h5>
+        <% answer.videos.each do |video| %>
+          <div class="row">
+            <div class="small-12 medium-7 small-centered">
+              <div class="flex-video" id="#{css_id}">
+                <% css_id = rand(1..999999).to_s #css_id.nil? ? 1 : css_id %>
+                <div id="js-embedded-video" data-video-code="<%= embedded_video_code(video, css_id, false) %>"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+
+  </div>
+
+<script>
+
+//sript per non visualizzare un quesito erroneamente visualizzato per il verficarsi di determinate condizioni
+$( "#<%= dom_id(question) %>" ).ready(function() {
+  var val = "<%= optional %>"
+  if (val == "true")
+    var val_opt = $("#<%= dom_id(opt_question) %>").is(':visible')
+    var val_opt_tab = <%= opt_question.poll_question_type_id %>
+    if (val_opt == false && val_opt_tab != 2){
+    //if (val_opt == false){
+      $("#<%= dom_id(question) %>").toggle();
+    }
+});
+
+</script>

@@ -1,0 +1,39 @@
+<% #calcola array marker
+geolocation_arr = []
+    @resources_map.each do |process|
+
+        if  process.map_location && process.process_type.to_i==params[:process_type].to_i
+            geolocation = process.map_location
+            geolocation_arr.push(geolocation)
+        end 
+    end
+%>
+
+
+<% if User.pon_id > 0 %>
+
+
+
+<main>
+  <div class="row mx-2">
+    <p><%= t("#{controller_name}.map.count_markers") %> <%= count_markers=item_with_maplocation_count(@resources_map) %></p> 
+      <p><%= render_geolocation(@resources_map, "legislation_process","process_all")  %></p>
+
+  </div>
+</main>
+
+  <% else%>
+    <main>
+      <div class="row">
+      </div>
+    </main>
+  <% end%>
+
+
+
+
+
+
+
+
+

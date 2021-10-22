@@ -1,0 +1,349 @@
+<% provide :title do %><%= @crowdfunding.title %>
+<% end %>
+<% content_for :meta_description do %><%= @crowdfunding.summary %>
+<% end %>
+<% provide :social_media_meta_tags do %>
+  <%= render "shared/social_media_meta_tags",
+             social_url: crowdfunding_url(@crowdfunding),
+             social_title: @crowdfunding.title,
+             social_description: @crowdfunding.summary,
+             twitter_image_url: (@crowdfunding.images.present? ? @crowdfunding.image_url(:thumb) : nil),
+             og_image_url: (@crowdfunding.images.present? ? @crowdfunding.image_url(:thumb) : nil) %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: crowdfunding_url(@crowdfunding) %>
+<% end %>
+
+<div class="service-show">
+  <div id="<%= dom_id(@crowdfunding) %>" class="row">
+    <div class="small-12 medium-7 column">
+
+      <div class="row mb-2">
+        <div class="column">
+
+          <%= back_link_to crowdfundings_path %>
+
+          <h3><%= @crowdfunding.title %></h3>
+
+          <% if @crowdfunding.retired? %>
+            <div data-alert class="callout alert margin-top">
+              <strong>
+                <%= t("crowdfundings.show.retired_warning") %><br>
+                <%= link_to t("crowdfundings.show.retired_warning_link_to_explanation"), "#retired_explanation" %>
+              </strong>
+            </div>
+          <% elsif @crowdfunding.conflictive? %>
+            <div data-alert class="callout alert margin-top">
+              <strong><%= t("crowdfundings.show.flag") %></strong>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!--Intestazione utente note commenti flag  -->
+      <div class="row mb-2">
+        <div class="column">
+          <div class="service-info">
+            <%= render '/shared/author_info', resource: @crowdfunding %>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            <%= l @crowdfunding.created_at.to_date %>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            <span class="icon-comments"></span>&nbsp;
+            <%= link_to t("crowdfundings.show.comments", count: @crowdfunding.comments_count), "#comments" %>
+
+            <% if current_user %>
+              <span class="bullet">&nbsp;&nbsp;</span>
+              <span class="js-flag-actions">
+                          <%= render 'crowdfundings/flag_actions', crowdfunding: @crowdfunding %>
+                        </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!--Fine Intestazione utente note commenti flag  -->
+
+      <!--Inizio riga gallery-->
+      <div class="row mb-lg-2 mb-0">
+        <div class="column small-12">
+          <% if @crowdfunding.images.any? %>
+            <%= render "crowdfundings/gallery", crowdfunding: @crowdfunding %>
+          <% end %>
+        </div>
+      </div>
+      <!--Fine riga gallery-->
+
+      <div class="d-sm-none">
+        <%= render partial: 'crowdfundings/investment_card', crowdfunding: @crowdfunding, investments_percentage: @investments_percentage %>
+      </div>
+
+      <!--Inizio riga sommario-->
+      <div class="row">
+        <div class="column">
+          <h4><%= t("crowdfundings.show.summary") %></h4>
+          <blockquote><%= @crowdfunding.summary %></blockquote>
+        </div>
+      </div>
+      <!--Fine riga sommario        -->
+
+      <!--Inizio riga descrizione        -->
+      <div class="row">
+        <div class="column">
+          <h4><%= t("crowdfundings.show.description") %></h4>
+          <%= safe_html_with_links @crowdfunding.description %>
+        </div>
+      </div>
+      <!--Fine riga descrizione-->
+
+      <!--Inizio riga informazioni di contatto-->
+      <div class="row">
+        <% if @crowdfunding.contacts_info.to_s != "" || @crowdfunding.contacts_info != nil %>
+          <div class="column small-12 medium-12 ">
+            <h4><%= t("crowdfundings.show.crowd_contacts") %></h4>
+            <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+              <thead>
+              </thead>
+              <tbody>
+              <tr>
+                <td><%= safe_html_with_links @crowdfunding.contacts_info %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+      <!--Fine riga informazioni di contatto        -->
+
+      <!--Inizio sezione video        -->
+      <% if @crowdfunding.video_url.present? %>
+        <div class="video-link">
+          <p>
+            <span class="icon-video"></span>&nbsp;
+            <strong><%= t('crowdfundings.show.title_video_url') %></strong>
+          </p>
+          <%= text_with_links @crowdfunding.video_url %>
+        </div>
+      <% end %>
+      <% if @crowdfunding.video_url.present? %>
+        <div class="small-12 medium-7 small-centered">
+          <div class="flex-video">
+            <div id="js-embedded-video" data-video-code="<%= embedded_video_code(@crowdfunding) %>"></div>
+          </div>
+        </div>
+      <% end %>
+      <!--Fine sezione video-->
+
+      <!--Inizio sezione  documentazione aggiuntiva        -->
+      <% if @crowdfunding.external_url.present? %>
+        <div class="document-link">
+          <p>
+            <span class="icon-document"></span>&nbsp;
+            <strong><%= t('crowdfundings.show.title_external_url') %></strong>
+          </p>
+          <%= text_with_links @crowdfunding.external_url %>
+        </div>
+      <% end %>
+      <!--Fine sezione  documentazione aggiuntiva      -->
+
+      <h4><%= @crowdfunding.question %></h4>
+
+      <!--Inizio sezione "ritirato"-->
+      <% if @crowdfunding.retired? %>
+        <div id="retired_explanation" class="callout">
+          <h3><%= t('crowdfundings.show.retired') %>
+            : <%= t("crowdfundings.retire_options.#{@crowdfunding.retired_reason}") unless @crowdfunding.retired_reason == 'other' %></h3>
+          <%= simple_format text_with_links(@crowdfunding.retired_explanation), {}, sanitize: false %>
+        </div>
+      <% end %>
+      <!--Fine sezione "ritirato"        -->
+
+      <!--Inizio allegati        -->
+      <% if @crowdfunding.documents.present? %>
+        <% if feature?(:allow_attached_documents) %>
+          <%= render 'documents/documents',
+                     documents: @crowdfunding.documents,
+                     max_documents_allowed: Crowdfunding.max_documents_allowed %>
+        <% end %>
+      <% end %>
+      <!--Fine allegati-->
+
+      <%= render 'shared/tags', taggable: @crowdfunding %>
+
+      <%= render 'shared/geozone', geozonable: @crowdfunding %>
+
+      <%= render 'relationable/related_content', relationable: @crowdfunding %>
+
+      <div class="js-moderator-crowdfunding-actions margin">
+        <%= render 'crowdfundings/actions', crowdfunding: @crowdfunding %>
+      </div>
+
+    </div>
+
+    <aside class="small-12 medium-5 column">
+
+      <div class="d-none d-sm-block">
+        <%= render partial: 'crowdfundings/investment_card', crowdfunding: @crowdfunding, investments_percentage: @investments_percentage %>
+      </div>
+
+      <% if author_of_crowdfunding?(@crowdfunding) || crowdfunding_current_editable?(@crowdfunding) || can_destroy_image?(@crowdfunding) || current_moderable_comments?(@crowdfunding) %>
+        <div class="sidebar-divider"></div>
+        <h2><%= t("crowdfundings.show.actions") %></h2>
+        <div class="show-actions-menu">
+
+          <% if crowdfunding_current_editable?(@crowdfunding) %>
+            <%= link_to toedit_admin_crowdfunding_path(@crowdfunding), class: 'btn btn-outline-primary btn-block' do %>
+              <span class="icon-edit"></span>
+              <%= t("crowdfundings.show.edit_crowdfunding_link") %>
+            <% end %>
+          <% end %>
+          <% if current_user && (current_user.administrator? || current_user.moderator?) %>
+            <%= link_to social_flag_crowdfunding_path(@crowdfunding), class: "btn btn-primary btn-block #{@crowdfunding.social_content.social_access? ? 'btn-alert' : ''}" do %>
+              <span class="icon-comments"></span>
+              <%= t("#{@crowdfunding.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+            <% end %>
+          <% end %>
+
+          <% if current_moderable_comments?(@crowdfunding) %>
+            <%= link_to moderation_flag_crowdfunding_path(@crowdfunding),
+                        class: "btn btn-primary font_size_initial btn-block #{@crowdfunding.moderation_flag? ? 'btn-alert' : ''}" do %>
+              <span class="icon-comments"></span>
+              <%= t("#{@crowdfunding.moderation_flag? ? 'crowdfundings.show.moderation_flag_desactive' : 'crowdfundings.show.moderation_flag_active'}") %>
+            <% end %>
+          <% end %>
+
+          <% if author_of_crowdfunding?(@crowdfunding) %>
+            <%= link_to new_crowdfunding_notification_path(crowdfunding_id: @crowdfunding.id),
+                        class: 'btn btn-outline-primary btn-block' do %>
+              <span class="icon-no-notification"></span>
+              <%= t("crowdfundings.show.send_notification") %>
+            <% end %>
+          <% end %>
+
+
+          <%# if current_user && ((service_social?(:crowdfundings) && current_user.provider.present? && current_user.is_social?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator?) %>
+          <% if current_user&.administrator? or current_user&.moderator? or author_of_crowdfunding?(@crowdfunding) %>
+            <% if @crowdfunding.flag_rewards %>
+              <%= link_to rewards_admin_crowdfunding_path(@crowdfunding), class: 'btn btn-primary btn-block mb-3' do %>
+                <%= t("crowdfundings.show.go_to_rewards") %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <%#= link_to new_admin_crowdfunding_crowdfunding_reward_path(@crowdfunding), class: 'btn btn-primary btn-block mb-3' do %>
+          <%#= t("crowdfundings.show.go_to_rewards") %>
+          <%# end %>
+
+          <% if can_destroy_image?(@crowdfunding) and false %>
+            <% @crowdfunding.images.each do |image| %>
+              <%= link_to image_path(image, from: request.url),
+                          method: :delete,
+                          class: 'btn btn-primary btn-block btn-alert',
+                          data: {confirm: t('images.actions.destroy.confirm')} do %>
+                <span class="icon-image-service"></span>
+                <%= t("images.remove_image") %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+        </div>
+      <% end %>
+
+      <!--Inizio ricompense-->
+      <% if @crowdfunding.flag_rewards %>
+        <div class="mt-2">
+          <%= render partial: 'crowdfunding_rewards/rewards', crowdfunding: @crowdfunding, crowdfunding_rewards: @crowdfunding_rewards %>
+        </div>
+      <% end %>
+      <!--Fine ricompense-->
+
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-title"><%= t("crowdfundings.show.map") %></p>
+      <%= render_heatmap(@crowdfunding.map_location, @crowdfunding, "crowdfunding", false, nil) %>
+      <% #end %>
+
+      <%= render partial: 'shared/social_share', locals: {
+        share_title: t("crowdfundings.show.share"),
+        title: @crowdfunding.title,
+        url: crowdfunding_url(@crowdfunding),
+        description: @crowdfunding.summary
+      } %>
+
+      <% if current_user %>
+        <div class="sidebar-divider"></div>
+        <p class="sidebar-title"><%= t("shared.follow") %></p>
+
+        <%= render 'follows/follow_button', follow: find_or_build_follow(current_user, @crowdfunding) %>
+      <% end %>
+
+      <%= render 'communities/access_button', community: @crowdfunding.community %>
+
+
+    </aside>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="column col-sm my-4">
+
+    <div id="investmentTabsContentDiv" class="tabs-content" data-tabs-content="crowdfundings-investment-tabs" role="tablist">
+      <!--      Inizio filter subnav-->
+      <div class="row">
+        <div class="small-12 column">
+          <ul class="tabs" data-tabs id="crowdfundings-investment-tabs">
+            <li class="tabs-title <%= !params[:my_inv_list_page] ? 'is-active' : '' %>">
+              <%= link_to "#tab-investment-list" do %>
+                <h3>
+                  <%= t("crowdfundings.show.list_investment").upcase %>
+                </h3>
+              <% end %>
+            </li>
+            <% if current_user and (can? :new, UserInvestment) %>
+              <li class="tabs-title <%= params[:my_inv_list_page] ? 'is-active' : '' %>">
+                <%= link_to "#tab-my-investments" do %>
+                  <h3>
+                    <%= t("crowdfundings.show.list_my_investments").upcase %>
+                  </h3>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <!--    Fine filter subnav-->
+
+      <!--    Tab i miei investimenti-->
+      <% if current_user and (can? :new, UserInvestment) %>
+        <div class="tabs-panel <%= params[:my_inv_list_page] ? 'is-active' : '' %> pl-0" id="tab-my-investments">
+          <%= render "crowdfundings/my_investment_list", crowdfunding: @crowdfunding, current_user_investments: @current_user_investments %>
+        </div>
+      <% end %>
+      <!--    Fine Tab i miei investimenti-->
+
+      <!--Tab investimenti      -->
+      <% if @crowdfunding.flag_investments %>
+        <div class="tabs-panel <%= !params[:my_inv_list_page] ? 'is-active' : '' %> pl-0" id="tab-investment-list">
+          <%= render "crowdfundings/investment_list", crowdfunding: @crowdfunding, investments: @investments %>
+        </div>
+      <% end %>
+    </div>
+    <!--Fine tab investimenti-->
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm column">
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tabsContentDiv" aria-expanded="false" aria-controls="tabsContentDiv">
+      Mostra commenti e notifiche
+    </button>
+  </div>
+</div>
+
+<div id="tabsContentDiv" class="tabs-content collapse" data-tabs-content="crowdfundings-tabs" role="tablist">
+  <%= render "crowdfundings/filter_subnav" %>
+  <%= render "crowdfundings/notifications" %>
+
+  <div class="tabs-panel is-active" id="tab-comments">
+    <%= render "crowdfundings/comments" %>
+  </div>
+</div>

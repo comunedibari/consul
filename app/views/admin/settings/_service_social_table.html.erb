@@ -1,0 +1,29 @@
+<h2><b> <%= t("admin.settings.index.service.social.enable_disable")%> </b></h2>
+<p class="help-text"> <%= t("admin.settings.index.service.social.description")%></p>
+
+<table>
+  <tbody>
+  <% social.each  do |social| %>
+    <% if social.editable %>
+      <tr>
+        <td>
+          <strong><%= t("settings.#{social.key.to_s.sub("_social","")}") %></strong>
+        </td>
+        <td class="small-12 medium-8">
+          <%= form_for(social, url: admin_setting_path(social), html: { id: "edit_#{dom_id(social)}"}) do |f| %>
+
+            <div class="small-12 medium-6 large-3 column">
+              <%= f.hidden_field :value, id: dom_id(social), value: (social.enabled_service_social? ? "" : "true") %>
+              <%= f.submit(t("admin.settings.index.services.#{social.enabled_service_social? ? 'disable' : 'enable'}"),
+                                 class: "button hollow expanded #{social.enabled_service_social? ? 'alert' : 'success'}",
+                                 data: {confirm: t("admin.actions.confirm")}) %>
+            </div>
+
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

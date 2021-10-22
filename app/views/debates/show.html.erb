@@ -1,0 +1,153 @@
+<% provide :title do %><%= @debate.title %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: debate_url(@debate) %>
+<% end %>
+
+<% cache [locale_and_user_status(@debate), @debate, @debate.author, Flag.flagged?(current_user, @debate), @debate_votes] do %>
+  <div class="debate-show">
+    <div id="<%= dom_id(@debate) %>" class="row">
+      <div class="small-12 medium-9 column">
+        <%= back_link_to debates_path %>
+
+        <h1><%= @debate.title %></h1>
+        <% if @debate.conflictive? %>
+          <div data-alert class="callout alert margin-top">
+            <strong><%= t("debates.show.flag") %></strong>
+          </div>
+        <% end %>
+
+        <div class="debate-info">
+          <%= render '/shared/author_info', resource: @debate %>
+
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= l @debate.created_at.to_date %>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <span class="icon-comments"></span>&nbsp;
+          <%= link_to t("debates.show.comments", count: @debate.comments_count), "#comments" %>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <span class="js-flag-actions">
+            <%= render 'debates/flag_actions', debate: @debate %>
+          </span>
+        </div>
+
+        <% if @debate.external_url.present? %>
+          <div class="document-link mb-3">
+            <p>
+              <span class="icon-document"></span>&nbsp;
+              <strong><%= t('proposals.show.title_external_url') %></strong>
+            </p>
+            <%
+              url = @debate.external_url
+              if " ".in? url
+                urls = url.split(' ')
+              elsif ",".in? url
+                urls = url.split(',')
+              else
+                ";".in? url
+                urls = url.split(';')
+              end
+              #urls= @debate.external_url.split(',')
+              urls.each do |u| %>
+              <%= text_with_links u %>
+              <br>
+            <% end %>
+
+
+            <%# <% url= text_with_links @debate.external_url
+                arrayUrl=url.split('</a>')
+                 arrayUrl.each do |u|%>
+            <%#= text_with_links u+'</a>' %>
+            <%# <br>
+            <% end %>
+
+
+          </div>
+        <% end %>
+
+        <% if @debate.images.any? %>
+          <%= render "gallery", debate: @debate %>
+        <% end %>
+        <% if @debate.documents.present? %>
+          <% if feature?(:allow_attached_documents) %>
+            <%= render 'documents/documents',
+                       documents: @debate.documents,
+                       max_documents_allowed: Debate.max_documents_allowed %>
+          <% end %>
+        <% end %>
+
+        <%= safe_html_with_links @debate.description %>
+
+        <% #if feature?(:map) && map_location_available?(@debate.map_location) %>
+        <div class="margin">
+          <%= render_heatmap(@debate.map_location, @debate, "debate", false, nil) %>
+        </div>
+        <% #end %>
+
+        <%= render 'shared/tags', taggable: @debate %>
+        <%= render 'shared/geozone', geozonable: @debate %>
+
+
+        <%= render 'relationable/related_content', relationable: @debate %>
+
+        <div class="js-moderator-debate-actions margin">
+          <%= render 'actions', debate: @debate %>
+        </div>
+      </div>
+
+      <aside class="small-12 medium-3 column">
+        <% if current_user && (@debate.editable_by?(current_user) || can_destroy_image?(@debate) || current_moderable_comments?(@debate)) %>
+          <div class="sidebar-divider"></div>
+          <h2><%= t("debates.show.actions") %></h2>
+          <%= link_to edit_debate_path(@debate), class: 'btn btn-outline-primary btn-block' do %>
+            <span class="icon-edit"></span>
+            <%= t("debates.show.edit_debate_link") %>
+          <% end %>
+
+          <% if current_user && (current_user.administrator? || current_user.moderator?) %>
+            <%= link_to social_flag_debate_path(@debate), class: "btn btn-primary btn-block #{@debate.social_content.social_access? ? 'btn-alert' : ''}" do %>
+              <span class="icon-comments"></span>
+              <%= t("#{@debate.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+            <% end %>
+          <% end %>
+
+
+
+          <% if current_moderable_comments?(@debate) %>
+            <%= link_to moderation_flag_debate_path(@debate),
+                        class: "btn btn-primary btn-block font_size_initial #{@debate.moderation_flag? ? 'btn-alert' : ''}" do %>
+              <span class="icon-comments"></span>
+              <%= t("#{@debate.moderation_flag? ? 'debates.show.moderation_flag_desactive' : 'debates.show.moderation_flag_active'}") %>
+            <% end %>
+          <% end %>
+
+          <% if can_destroy_image?(@debate) && false %>
+            <%= link_to image_path(@debate.image, from: request.url),
+                        method: :delete,
+                        class: 'btn btn-primary btn-block btn-alert',
+                        data: {confirm: t('images.actions.destroy.confirm')} do %>
+              <span class="icon-image"></span>
+              <%= t("images.remove_image") %>
+            <% end %>
+          <% end %>
+
+
+        <% end %>
+
+        <div class="sidebar-divider"></div>
+        <h2><%= t("votes.supports") %></h2>
+        <div id="<%= dom_id(@debate) %>_votes">
+          <%= render 'debates/votes', debate: @debate %>
+        </div>
+        <%= render partial: 'shared/social_share', locals: {
+          share_title: t("debates.show.share"),
+          title: @debate.title,
+          url: debate_url(@debate),
+          description: @debate.title
+        } %>
+      </aside>
+    </div>
+  </div>
+<% end %>
+
+<%= render "comments" %>

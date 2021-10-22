@@ -1,0 +1,43 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= @agreement.title %> - <%= t("admin.legislation.agreement_requirements.index.title") %>
+<% end %>
+
+<div class="legislation-admin legislation-draft-versions-index row">
+  <div class="small-12 column">
+    
+    <%= back_link_to  admin_collaboration_agreements_path , t("admin.collaboration.agreement_requirements.index.back") %>
+
+ 
+    <h2><%= @agreement.title %></h2>
+
+    <%= render 'admin/collaboration/agreements/subnav', agreement: @agreement, active: 'subscriptions' %>
+
+    <div class="row">
+      <div class="small-12 medium-9 column">
+        <p2><%= t("admin.collaboration.subscriptions.index.title") %></p2>
+      </div>
+      <br>
+    <% if @agreement.subscriptions.any? %>
+      <table class="stack">
+       <thead>
+          <tr>
+            <th><%= t("admin.collaboration.subscriptions.table.title") %></th>
+            <th><%= t("admin.collaboration.subscriptions.table.user") %></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @agreement.subscriptions.each do |subscription| %>
+          <tr id="<%= dom_id(subscription) %>">
+             <td> <%= link_to subscription.note, collaboration_agreement_subscription_path(@agreement, subscription.id) %> </td>
+             <td> <%= subscription.user.username %> </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <% else %>
+        <div class="callout primary margin">
+          <%= t("admin.collaboration.subscriptions.index.no_subscriptions") %>
+        </div>      
+    <% end %>
+  </div>
+</div>

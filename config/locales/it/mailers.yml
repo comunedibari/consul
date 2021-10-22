@@ -1,0 +1,108 @@
+---
+it:
+  mailers:
+    budget_investment_created:
+      follow_html: Ti terremo informato su come procede il processo, puoi anche seguirlo sulla pagina <strong>%{link}</strong>.
+      follow_link: Bilanci partecipativi
+      intro_html: Salve <strong>%{author}</strong>,
+      share: Condividi il tuo progetto
+      signatory: DIREZIONE GENERALE DELLA PARTECIPAZIONE CITTADINA
+      sincerely: Cordiali saluti,
+      subject: Grazie per aver creato un progetto!
+      text_html: Grazie mille per aver creato il progetto <strong>%{investment}</strong> per i Bilanci Partecipativi <strong>%{budget}</strong>.
+      title: Grazie per aver creato un progetto!
+    budget_investment_selected:
+      hi: Stimato utente
+      selected_html: Il Consiglio Comunale ti ringrazia calorosamente per la partecipazione, con la tua idea, ai <strong>Bilanci Partecipativi</strong>. Ti informiamo che il tuo progetto <strong>'%{title}'</strong> è stato selezionato e passa alla fase della votazione finale che avrà luogo dal <strong>15 maggio al 30 giugno 2017</strong>.
+      share: Per iniziare a raccogliere voti, condividi il tuo progetto di investimento sui social network. Solo così potrai vederlo realizzato!
+      share_button: Condividi il tuo progetto di investimento
+      signatory: DIREZIONE GENERALE DELLA PARTECIPAZIONE CITTADINA
+      sincerely: Cordiali saluti
+      subject: Il tuo progetto di investimento '%{code}' è stato selezionato
+      thanks: Grazie ancora per aver partecipato.
+    budget_investment_unfeasible:
+      hi: Stimato utente,
+      new_href: nuova proposta di investimento
+      new_html: 'In ragione di ciò, ti invitiamo ad elaborare un <strong>nuovo progetto di spesa</strong> che sia conforme alle condizioni di questo processo. Tale operazione può essere portata a termine facendo click su: %{url}.'
+      reconsider_html: Se credi che il progetto rifiutato abbia i requisiti per continuare ad essere un progetto di spesa, potrai comunicarlo, entro 48 ore, alla email <CasaDelCittadino_email>, indicando nell'oggetto della email il codice del progetto %{code}, necessario per il corretto processamento della tua richiesta.
+      signatory: DIREZIONE GENERALE DELLA PARTECIPAZIONE CITTADINA
+      sincerely: Cordiali saluti
+      sorry: Ci dispiace per l'inconveniente e ringraziamo di nuovo per la partecipazione.
+      subject: La tua proposta di investimento '%{code}' è stata contrassegnata come non realizzabile
+      unfeasible_html: 'Il Consiglio Comunale ringrazia calorosamente per la partecipazione ai <strong>Bilanci Partecipativi</strong>. Ci dispiace informarti che il tuo progetto <strong>''%{title}''</strong> resterà escluso da questo processo partecipativo per il seguente motivo:'
+    budget_investment_unselected:
+      hi: Stimato/a utente
+      participate_html: Puoi continuare partecipando alla votazione finale votando progetti destinati a tutta la città e al municipio che scegli dal <strong>15 maggio al 30 giugno 2017.</strong>
+      participate_url: partecipa alla votazione finale
+      signatory: DIREZIONE GENERALE DELLA PARTECIPAZIONE CITTADINA
+      sincerely: Cordiali saluti
+      subject: Il tuo progetto di investimento '%{code}' non è stato selezionato
+      thanks: Grazie ancora per aver partecipato.
+      unselected_html: Il Consiglio Comunale ti ringrazia calorosamente per la partecipazione, con la tua idea, ai <strong>Bilanci Partecipativi</strong>. Ci dispiace informarti che il tuo progetto <strong>'%{title}'</strong> non è stato selezionato per la fase della votazione finale.
+    comment:
+      hi: Ciao
+      new_comment_by_html: C'è un nuovo commento da <b>%{commenter}</b> in
+      subject: Qualcuno ha commentato sul tuo %{commentable}
+      title: Nuovo commento
+    config:
+      manage_email_subscriptions: Se non vuoi più ricevere questo tipo di e-mail, accedi al tuo profilo e disabilita la ricezione email delle notifiche.
+      partecipate: Partecipa
+    direct_message_for_receiver:
+      reply: Rispondi a %{sender}
+      subject: Hai ricevuto un nuovo messaggio privato
+      unsubscribe: Se non intendi ricevere messaggi privati, puoi entrare in %{account} e togliere la spunta all'opzione 'Ricevi email con messaggi privati'.
+      unsubscribe_account: Il mio account
+    direct_message_for_sender:
+      subject: Hai inviato un nuovo messaggio privato
+      title_html: 'Hai inviato un nuovo messaggio privato a <strong>%{receiver}</strong> con il contenuto:'
+    email_verification:
+      click_here_to_verify: su questo link
+      instructions_2_html: Questa e-mail consente di verificare il tuo account con <b>%{document_type} %{document_number}</b>. Se questi dati non ti appartengono, non cliccare sul link precedente e ignorare questa email.
+      instructions_html: Per completare la verifica dell'account utente, è necessario fare click su %{verification_link}.
+      subject: Verifica la tua email
+      thanks: Grazie.
+      title: Conferma il tuo account utilizzando il seguente link
+    moderable_booking_deleted:
+      image_html: "<strong> %{org_name} Partecipa </strong>"
+      intro_html: Salve <strong>%{author}</strong>,
+      text_html:  "L'Amministratore ha cancellato la disponibilità dello Spazio Pronotabile <strong>%{asset}</strong>, di seguito la tua prenotazione del Giorno <strong>%{day}</strong> con Orario Inizio <strong>%{time_start}</strong> e Orario Fine <strong>%{time_end}</strong> è stata annullata."
+      title_html: La tua prenotazione con codice <strong>%{code}</strong> è stata cancellata!
+    no_reply: Questo messaggio è stato inviato da un indirizzo di posta elettronica che non accetta risposte.
+    proposal_notification_digest:
+      comment: Commenta la proposta
+      info: Di seguito ti mostriamo le nuove notifiche che hanno pubblicato gli autori delle proposte che stai sostenendo su %{org_name}.
+      share: Condividi la proposta
+      title: Notifiche delle proposte su %{org_name}
+      unsubscribe: Se non intendi ricevere le notifiche delle proposte, puoi entrare in %{account} e togliere la spunta all'opzione 'Ricevi un riepilogo delle notifiche sulle proposte'.
+      unsubscribe_account: Il mio account
+    reply:
+      hi: Ciao
+      new_reply_by_html: C'è una nuova risposta da <b>%{commenter}</b> ad un tuo commento in
+      subject: Qualcuno ha risposto al tuo commento
+      title: Nuova risposta al tuo commento
+    unfeasible_spending_proposal:
+      hi: Gentile utente,
+      new_href: nuovo progetto di investimento
+      new_html: 'In ragione di ciò, ti invitiamo a elaborare una <strong>nuova proposta</strong> che sia conforme alle condizioni di questo processo. Tale operazione può essere portata a termine facendo click su: %{url}.'
+      reconsider_html: Se credi che la proposta rifiutata abbia i requisiti per restare una proposta di investimento, potrai comunicarlo, entro 48 ore, alla email <CasaDelCittadino_email>, indicando nell'oggetto della email il codice della proposta %{code}, necessario per il corretto processamento della tua richiesta.
+      signatory: DIREZIONE GENERALE DELLA PARTECIPAZIONE CITTADINA
+      sincerely: Cordiali saluti
+      sorry: Ci scusiamo per l'inconveniente e ancora grazie per la tua preziosa partecipazione.
+      subject: Il tuo progetto di investimento '%{code}' è stato contrassegnato come non realizzabile
+      unfeasible_html: 'Il Consiglio Comunale ringrazia calorosamente per la partecipazione ai <strong>Bilanci Partecipativi</strong>. Ci dispiace informarti che la tua proposta <strong>''%{title}''</strong> resterà esclusa da questo processo partecipativo per il seguente motivo:'
+    user_invite:
+      button: Completa registro
+      ignore: Se non hai richiesto questo invito non ti preoccupare, puoi ignorare questa email.
+      subject: Invita a %{org_name}
+      text: 'Grazie per la richiesta di adesione a %{org}! Tra poco ti sarà possibile iniziare a decidere sui progetti della città, basta compilare il modulo qui sotto:'
+      thanks: Grazie mille.
+      title: Benvenuto a %{org}
+    comments_notification:
+      subject: Ci sono messaggi per te
+      title: Ci sono reazioni alle tue pubblicazioni.
+      access_link: Accedi
+      access: e continua a partecipare
+      regards: Ti aspetto.
+      role: direzione generale della partecipazione cittadina
+    moderation_notification:
+      title: "Aggiornamenti %{moderable}"

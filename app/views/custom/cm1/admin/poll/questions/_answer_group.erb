@@ -1,0 +1,52 @@
+<table class="margin-top">
+  <tr>
+    <th colspan="5" scope="col" class="with-button">
+      <%= t('admin.questions.show.valid_answers') %>
+      <%= link_to t("admin.questions.show.add_answer"),
+                  new_admin_question_answer_path(@question),
+                  class: "button float-right" %>
+    </th>
+  </tr>
+
+  <tr>
+    <th><%= t("admin.questions.show.answers.title") %></th>
+    <th scope="col" class="medium-7"><%= t("admin.questions.show.answers.description") %></th>
+    <th scope="col" class="text-center"><%= t("admin.questions.show.answers.images") %></th>
+    <th scope="col" class="text-center"><%= t("admin.questions.show.answers.documents") %></th>
+    <!--<th scope="col" class="text-center"><%= t("admin.questions.show.answers.videos") %></th>-->
+    <th scope="col" class="text-center"><%= t("admin.actions.actions") %></th>
+
+  </tr>
+
+  <tbody class="sortable" data-js-url="<%= admin_question_answers_order_answers_path(@question.id) %>">
+    <% @question.question_answers.each do |answer| %>
+      <tr id="<%= dom_id(answer) %>" class="poll_question_answer" data-answer-id="<%= answer.id %>">
+        <td class="align-top"><%= link_to answer.title, admin_answer_path(answer) %></td>
+        <td class="align-top break"><%= answer.description %></td>
+        <td class="align-top text-center">
+          (<%= answer.images.count %>)
+          <br>
+          <%= link_to t("admin.questions.show.answers.images_list"),
+                      admin_answer_images_path(answer) %>
+        </td>
+        <td class="align-top text-center">
+          (<%= answer.documents.count rescue 0 %>)
+          <br>
+          <%= link_to t("admin.questions.show.answers.documents_list"),
+                      admin_answer_documents_path(answer) %>
+        </td>
+        <!--
+        <td class="align-top text-center">
+          (<%= answer.videos.count %>)
+          <br>
+          <%= link_to t("admin.questions.show.answers.video_list"),
+                      admin_answer_videos_path(answer) %>
+        </td>
+        -->
+        <td class="text-right">
+          <%= link_to t('shared.delete'), admin_answer_path(answer), class: "button hollow alert", method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

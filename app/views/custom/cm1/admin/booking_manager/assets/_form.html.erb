@@ -1,0 +1,92 @@
+<%= form_for [:admin, @asset] do |f| %>
+
+  <% if @asset.errors.any? %>
+
+    <div id="error_explanation" data-alert class="callout alert" data-closable>
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <strong>
+        <%= @asset.errors.count %>
+        <%= t("admin.asset.errors.form.error", count: @asset.errors.count) %>
+      </strong>
+    </div>
+
+  <% end %>
+
+  <div class="row">
+    <div class="large-12 column">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 column">
+      <%= f.cktext_area :description, rows: "3" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 column">
+      <%= f.text_field :address %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 column">
+      <%= f.text_area :contacts, rows: "3" %>
+    </div>
+  </div>
+  <div class="documents small-12 column" style="margin-top:15px">
+    <%= render 'documents/nested_documents_admin', documentable: @asset, f: f, isComment: false %>
+  </div>
+  <hr>
+  <div class="images small-12 column" >
+    <%= render 'images/nested_image_admin', imageable: @asset, f: f,  isComment: false %>
+    <div class="small-12 column">
+      <hr>
+    </div>
+  </div>
+
+
+  <% if feature?(:map) %>
+    <div class="small-12 column">
+
+      <%= render 'map_locations/form_fields',
+                 form: f,
+                 map_location: @asset.map_location || MapLocation.new,
+                 label: t("asset.form.map_location"),
+                 help: t("asset.form.map_location_instructions"),
+                 remove_marker_label: t("asset.form.map_remove_marker"),
+                 parent_class: "asset",
+                 i18n_namespace: "asset" %>
+
+
+    </div>
+  <% end %>
+
+
+      <div class="small-12 column">
+      <%= f.label :tag_list, t("assets.form.tags_label") %>
+      <p class="help-text" id="tag-list-help-text"><%= t("assets.form.tags_instructions") %></p>
+
+      <div id="category_tags" class="tags">
+        <%= f.label :category_tag_list, t("debates.form.tag_category_label") %>
+        <% @categories.each do |tag| %>
+          <a class="js-add-tag-link"><%= tag.name %></a>
+        <% end %>
+      </div>
+      <br>
+      <%= f.text_field :tag_list, value: @asset.tag_list.to_s,
+                        label: false,
+                        placeholder: t("assets.form.tags_placeholder"),
+                        class: 'js-tag-list tag-autocomplete',
+                        aria: {describedby: "tag-list-help-text"},
+                        data: {js_url: suggest_tags_path} %>
+    </div>
+
+  <div class="row">
+    <div class="small-12 medium-6 column">
+      <%= f.submit t("admin.asset.#{admin_submit_action(@asset)}.submit_button"),
+                   class: "button success expanded" %>
+    </div>
+  </div>
+<% end %>

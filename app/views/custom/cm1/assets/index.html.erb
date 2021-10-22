@@ -1,0 +1,123 @@
+<% provide :title do %><%= t("assets.index.title") %><% end %>
+
+<% if User.pon_id == 0 %>
+  <%= render "shared/section_header", i18n_namespace: "assets.index.section_header", image: "proposals" %>
+      <div class="row">
+        <div class="column">
+        <%= render "shared/pon_list", resource: "assets" %>
+        </div>  
+      </div>
+<% else %>
+
+    <% content_for :header_addon do %>
+      <%= render "shared/search_form",
+                 search_path: assets_path(page: 1),
+                 i18n_namespace: "assets.index.search_form" %>
+    <% end %>
+    <% content_for :header_small_addon do %>
+      <%= render "shared/search_form_small",
+                 search_path: assets_path(page: 1),
+                 i18n_namespace: "assets.index.search_form" %>
+    <% end %>    
+    <% content_for :canonical do %>
+      <%= render "shared/canonical", href: assets_url %>
+    <% end %>
+    
+    <main>
+      <%= render "shared/section_header", i18n_namespace: "assets.index.section_header", image: "asset" %>
+
+      <%= render "shared/search_results",
+          resources:  @assets,
+          total_resources_num: @tot_resources,
+          search_terms: @search_terms,
+          advanced_search_terms: @advanced_search_terms,
+          tag_filter: @tag_filter
+            %>
+    
+      <div class="row">
+        <div id="assets" class="assets-list small-12 medium-12 large-9 column">
+
+          <%# unless @search_terms || @advanced_search_terms || @tag_filter %>
+            <div id="section_help" class="margin" data-magellan-target="section_help">
+              <!-- <p class="lead">
+                <strong><%#= t("assets.index.section_footer.title") %></strong>
+              </p> -->
+              <p><%#= Setting["service_description.assets",User.pon_id] %></p>
+              <p><%= t("assets.index.section_footer.help_text_1") %></p>
+              <p><%= t("assets.index.section_footer.help_text_2") %></p>
+              <p><%= t("assets.index.section_footer.help_text_3") %></p>
+            </div>
+          <%# end %>
+
+          <% if has_banners? %>
+            <%#= render "shared/banner" %>
+          <% end %>
+    
+          <% if @featured_assets.present? %>
+            <div id="featured-assets" class="row featured-assets">
+              <div class="small-12 column">
+                <h2>
+                  <%= t("assets.index.featured_assets") %>
+                </h2>
+              </div>
+              <% @featured_assets.each do |featured_asset| %>
+                <%= render "featured_asset", asset: featured_asset %>
+              <% end %>           
+            </div>
+          <% end %>
+   
+    
+          <%= render("shared/advanced_search", search_path: assets_path(page: 1),
+                                                class_name: "Asset")  %>
+    
+
+    
+
+
+          <div id="assets-list">
+            <% if @assets.any? || current_user.blank? %>
+              <p>Num elementi: <%= @assets.count %></p>                
+              <% if assets_default_view? %>
+                <%= render partial: 'assets/asset', collection: @assets %>
+              <% else %>         
+                <% @assets.each do |asset| %>
+                  <%= render partial: '/assets/asset_minimal', locals: { asset: asset } %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= empty_recommended_assets_message_text(current_user) %>
+            <% end %>
+            <%= paginate @assets %>
+    
+          </div>
+        </div>
+    
+        <div class="small-12 medium-12 large-3 column">
+          <aside class="margin-bottom">
+            <% if  current_user && current_user.administrator?  %>
+              <%= link_to t("assets.index.start_asset"),
+                          new_admin_asset_path,
+                          class: 'btn btn-primary btn-block' %>              
+            <% end %>
+            <% if current_user && current_user.moderable_bookings.present? %>
+              <%= link_to t("assets.index.view_bookings_list"),
+                            user_path(current_user,:filter => "moderable_bookings"),
+                            class: 'btn btn-primary btn-block' %>
+            <% end %>
+            <% if params[:retired].blank? %>
+              <div class="sidebar-divider"></div>
+              <h2 class="sidebar-title"><%= t("assets.form.geolocation") %></h2>
+              <p><%= render_geolocation(@assets, "asset")  %></p>
+              <%= link_to "Visualizza dettaglio mappa",
+                    large_map_assets_path
+                     %>
+            <%= render 'categories' %>
+            <%= render "shared/tag_cloud", taggable: 'asset' %>
+            <% end %>
+               
+          </aside>
+        </div>
+    
+      </div>
+    </main>
+<% end %>

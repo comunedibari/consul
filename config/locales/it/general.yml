@@ -1,0 +1,2415 @@
+---
+it:
+  agreements:
+    show:
+      edit_agreement_link: Modifica Patto di collaborazione
+      login_to_comment: È necessario %{signin} per commentare.
+      notifications_tab: Aggiornamenti
+      comments_tab: Commenti
+      no_notifications: Questo patto di collaborazione non ha notifiche.
+      subscription: Invia adesione
+      already_subscription: Visualizza la tua adesione
+      sub_show: Visualizza adesione
+    agreement:
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+    index:
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_header:
+        title: Patti di Collaborazione
+        help: Aiuto sui Patti di Collaborazione
+        icon_alt: Patti di Collaborazione
+      search_form:
+        button: Cerca
+        placeholder: Cerca Patti ...
+        title: Cerca
+      start_collaboration_agreement: Nuovo Patto di collaborazione
+    form:
+      geolocation: Mappa
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questo patto di collaborazione non ha una posizione concreta o non ricordo quale sia.
+  asset:
+    form:
+      calendar_instructions: Per poter prenotare l'orario di uno spazio selezionare l'intervallo orario desiderato colorato in verde. In rosso sono indicati gli orari già occupati.
+      reserve_instructions: È necessario iniziare %{signin} per inserire una prenotazione.
+  assets:
+    show:
+      description: Descrizione
+      address: Indirizzo
+      contacts: Contatti
+      edit_asset_link: Modifica Spazio Prenotabile
+      map: Mappa
+    moderable_booking:
+      new: Dettaglio Prenotazione
+    create:
+      form:
+        submit_button: Crea uno spazio
+        date_type: Tipo Date
+    moderable_bookings:
+      form:
+        day: Giorno
+        start: Inizio
+        end: Fine
+      new:
+        recommendations_title: Suggerimenti per creare una prenotazione
+        recommendation_one: Controlla che l'orario da te indicato sia conforme alle tue richieste
+        recommendation_two: Eventualmente puoi modificare il giorno e l'orario della prenotazione
+        recommendation_three: Clicca sul pulsante "Prenota" per confermare la tua richiesta di prenotazione
+        more_info: Come funzionano le prenotazioni ?
+        table:
+          description: Descrizione
+          address: Indirizzo
+          contact: Contatti
+          format: Informazione Richiedente
+      show:
+        code: "Codice della prenotazione: #"
+        asset_detail: Informazioni sull'Asset
+        user_detail: Informazioni sul Richiedente
+        detail: Dettaglio sulla prenotazione
+        asset_name: Nome
+        asset_description: Descrizione
+        asset_contacts: Contatti
+        asset_address: Indirizzo
+        user_name: Nome
+        user_cf: Codice Fiscale
+        day: Giorno della Prenotazione
+        time_start: Orario Inizio
+        time_end: Orario Fine
+        status: Stato
+        note: Nota aggiuntiva
+        back: Indietro
+    slots:
+      form:
+        title: Date dello spazio
+        note: 'È possibile aggiungere fino ad un massimo di %{max_slots_allowed} date.'
+        add_new_slots: Aggiungi nuova data
+        max_slots_allowed_reached_html: Hai raggiunto il numero massimo di date consentite!
+        delete_button: Elimina Data
+        cancel_button: Annulla
+    event:
+      comments:
+        one: 1 commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      created: Hai creato uno spazio
+      errors:
+        notSavedLink: Inserimento link non corretto. Per favore separare ogni link con uno di questi caratteri:( ) oppure(;) oppure(,) oppure(/)
+      share:
+        edit: Prima di pubblicarlo potrai modificare il testo a tuo piacimento.
+        guide: Condividilo perché la gente inizi a sostenerlo.
+        view_event: Adesso no, vai allo spazio
+      votes:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+    edit:
+      editing: Modifica spazio prenotabile
+      form:
+        submit_button: Salva modifiche
+      show_link: Vedi spazio prenotabile
+    form:
+      account_events: Indirizzo spazio
+      event_text: Descrizione spazio
+      event_title: Titolo
+      geolocation: Mappa Prenotazioni
+      geozone: Ambito di esecuzione
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questo spazio non ha una posizione concreta o non ricordo quale sia.
+      sectorable: Inizia uno spazio come Terzo settore
+      types: Tipologia
+      tags_label: Temi
+      tag_category_label: Tags
+      tags_instructions: Etichetta questo spazio. Puoi scegliere fra le categorie che ti sono presentate o puoi introdurre quelle che desideri
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+    index:
+      start_asset: Nuovo spazio prenotabile
+      view_bookings_list: Visualizza lista prenotazioni
+      featured_events: In primo piano
+      filter_topic:
+        one: " con il tema '%{topic}'"
+        other: " con il tema '%{topic}'"
+      orders:
+        confidence_score: Valutate meglio
+        created_at: Più recenti
+        hot_score: Più attivi oggi
+        most_commented: Più commentati
+        recommendations: Consigliati
+        relevance: Più rilevanti
+      recommendations:
+        without_interests: Segui gli spazi prenotabili per ricevere suggerimenti
+        without_results: Non esistono spazi relazionati con i tuoi interessi
+      search_form:
+        button: Cerca
+        placeholder: Ricerca spazio...
+        title: Cerca
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_footer:
+        budget_link: bilanci partecipativi
+        description: Prenota uno spazio pubblico che ti interessa.
+        help_text_1: In questa sezione è possibile prenotare uno spazio pubblico tra quelli messi a disposizione dell’Amministrazione e indicati nell’elenco.
+        help_text_2: Per accedere a questa sezione devi essere registrato ed effettuare l’accesso.
+        help_text_3: Per Registrarti, clicca il tasto accedi in alto a destra e procedi.
+        proposals_link: proposta
+        crowdfundings_link: crowdfunding
+        title: Aiuto sulle prenotazioni
+      section_header:
+        help: Aiuto sulle prenotazioni
+        icon_alt: Icona delle prenotazioni
+        title: Prenotazioni
+      select_order: Ordina per
+      start_event: Nuovo Spazio
+      title: Prenotazioni
+    new:
+      form:
+        submit_button: Inizia uno spazio
+        data_select: Data
+        hour_select: Orario
+        all_day: spazio intera giornata
+      info: Se vuoi fare una proposta, ti trovi nella sezione sbagliata, entra in %{info_link}.
+      info_link: crea nuova proposta
+      more_info: Come funzionano gli spazio ?
+      recommendation_four: Sfrutta questo spazio a tua disposizione e delle voci che lo compongono.
+      recommendation_one: Non scrivere in maiuscolo il titolo dello spazio o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_three: Le critiche spietate sono bene accette. Questo è uno spazio di pensiero. Però ti raccomandiamo di conservare l'eleganza e l'intelligenza, fanno del mondo un posto migliore.
+      recommendation_two: Qualsiasi tema offensivo, palesemente illegale o che non rientri nella competenza comunale, verrà rimosso. Lo stesso si applica ai commenti.
+      recommendations_title: Suggerimenti per creare uno spazio prenotabile
+      start_new: Inizia un nuovo spazio
+    show:
+      actions: Azioni
+      date_event_table: Date dello spazio
+      date: data
+      date_of_event: Data dello spazio
+      start_event: Dal
+      end_event: al
+      author_deleted: Utente sconosciuto
+      comments:
+        one: 1 commento
+        other: "%{count} commenti"
+        zero: Senza commenti
+      comments_title: Commenti
+      edit_event_link: Modifica spazio
+      flag: Questo spazio prenotabile è stato contrassegnato come inappropriato da diversi utenti.
+      login_to_comment: È necessario %{signin} o %{signup} per commentare.
+      moderation_flag_active: Attiva moderazione commenti
+      moderation_flag_desactive: Disattiva moderazione commenti
+      share: Condividi
+    update:
+      form:
+        submit_button: Salva modifiche
+        title: Prenotazioni
+        help: Aiuto sulle Prenotazioni
+  collaboration:
+    agreements:
+      index:
+        filters:
+          opens: Aperti
+          next: A breve
+          past: Terminati
+        no_next_agreements: Nessun Patto di Collaborazione a breve
+        no_past_agreements: Nessun Patto di Collaborazione terminato
+        no_opens_agreements: Nessun Patto di Collaborazione aperto
+        section_header:
+          title: Patti di Collaborazione
+          title_collaboration: Mappa Patti di Collaborazione
+        section_footer:
+          description: Aderisci ai Patti di Collaborazione che la tua della tua Città.
+          help_text_1: In questa pagina puoi visualizzare tutti i Patti di Collaborazione che la tua Città ha messo in bando.
+          help_text_2: Per aderire ai patti, occorre che il proprio account sia stato certificato (ovvero che si risulti residenti in un comune abilitato e con età superiore a 16 anni).
+          help_text_3: Per certificare il proprio account, in modo automatico, basta essere utenti registrati.
+          title: Aiuto sui Patti di Collaborazione
+        subnav:
+          info: Informazione
+          consultation: Allegati obbligatori
+      header:
+        additional_info: Informazioni aggiuntive
+        description: Descrizione
+        asset_description: Descrizione Spazio Prenotabile
+      agreement:
+        see_latest_comments: Visualizza dettaglio
+        see_latest_comments_title: dettaglio patto di collaborazione
+      new:
+        start_new: Inserisci l'adesione
+        more_info: Come funzionano le adesioni
+        detail: Informazioni patti di collaborazione
+        title: Titolo
+        summary: Sommario
+        start_date: Data inizio presentazione adesioni
+        end_date: Data fine presentazione adesioni
+      shared:
+        membership_submission_start_date: Data Inizio Presentazione Adesione
+        membership_submission_end_date: Data Fine Presentazione Adesione
+        number_of_registrations: Adesioni Inviate
+        key_dates: Data chiave
+      show:
+        title: Adesione
+    subscriptions:
+      new:
+        detail: Allegati modulo adesioni
+        detail_info: Di seguito gli allegati obbligatori da includere nel modulo di adesione, per tutte le altre tipologie di documenti l'utente potrà allegarli indicando la tipologia "ALTRO".
+        detail_info_no_requirements: Per l'invio di questa adesione non è necessario includere allegati obbligatori.
+        title: Titolo
+        recommendations_title: Suggerimenti per creare un'adesione
+        recommendation_one: Non scrivere in maiuscolo il titolo dell'adesione o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+        recommendation_three: Le critiche spietate sono bene accette. Questo è uno spazio di pensiero. Però ti raccomandiamo di conservare l'eleganza e l'intelligenza, fanno del mondo un posto migliore.
+        recommendation_two: Qualsiasi tema offensivo, palesemente illegale o che non rientri nella competenza comunale, verrà rimosso. Lo stesso si applica ai commenti.
+        format: Compilazione adesione
+        user: Anagrafica utente
+        name: Nome
+        cf: Codice fiscale
+      create:
+        notice: Modulo di adesione inviato correttamente
+      show:
+        title: Allegati modulo adesione
+    requirements:
+      new:
+        insert: Compila allegati
+        info: Tipologia allegato
+        submit_button: Invia adesione
+      form:
+        note: Note adesione
+        note_info: Puoi aggiungere una nota sull'adesione a questo patto di collaborazione
+        info: Tipologia allegato
+  moderable_bookings:
+    all: Tutti gli spazi prenotabili
+  reservations:
+    new:
+      form:
+        submit_button: Prenota
+  collaboration_agreement:
+    index:
+      section_header:
+        title: Patti di Collaborazione
+        help: Aiuto sui Patti di Collaborazione
+  agreement:
+    index:
+      not_subscription: Invia Adesione
+  account:
+    no_text_insert_html: " <strong> Inserire l'indirizzo nel campo di ricerca </strong>"
+    form:
+      account_address: Indirizzo account
+      geolocation: Mappa
+      geozone: Ambito di esecuzione
+      geocoding: Geocodifica
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questo account non ha una posizione concreta o non ricordo quale sia.
+      privacy: Gestione privacy
+      privacy_help: L'opzione "rendi pubblica" la tua localizzazione sarà considerata solo nel caso in cui sia stata definita una localizzazione dall'utente.
+      search_form: Ricerca indirizzo....
+      user_position: Aiutaci a capire da dove partecipi
+      privacy_info: Per utilizzare i servizi offerti dalla piattaforma è necessario fornire il consenso alla privacy per l'utilizzo dei dati personali e geografici dell'utente.
+    show:
+      change_credentials_link: Modificare le mie credenziali
+      email_digest_label: Ricevi un riepilogo delle notifiche sulle proposte
+      email_on_comment_label: Avvisami quando qualcuno commenta le mie proposte o discussioni
+      email_on_comment_reply_label: Avvisami via email quando qualcuno risponde ai miei commenti
+      email_on_direct_message_label: Ricevi email con messaggi privati
+      erase_account_link: Cancellazione utenza
+      finish_verification: Completa la verifica
+      gamification: Distintivi
+      gamification_stats: Visualizza statistiche e punteggi
+      notifications: Notifiche
+      official_position_badge_label: Mostra etichetta del tipo di utente
+      organization_name_label: Nome dell'organizzazione
+      organization_responsible_name_placeholder: Rappresentante dell'associazione o collettivo
+      personal: Dati personali
+      phone_number_label: Telefono
+      public_activity_label: Rendi pubblici i miei dati, la lista delle mie attività e le mie statistiche
+      public_interests_label: Rendi pubblici i miei interessi
+      public_interests_my_empty_list: Non stai seguendo nessun elemento.
+      public_interests_my_title_list: Tags degli elementi che segui.
+      public_interests_user_empty_list: Questo utente al momento non segue nessun elemento.
+      public_interests_user_title_list: Tags degli elementi che questo utente segue.
+      public_map_description: Mappa pubblica
+      public_map_title: Autorizza la tua localizzazione ai sensi dell'informativa sulla privacy
+      public_map_label_one: La localizzazione consente al portale di raccogliere e utilizzare informazioni basate sulla posizione per fornire servizi basati sulla localizzazione. Ad esempio, elaborare una mappa per evidenziare le zone da cui provengono gli utenti che interagiscono con un contenuto del portale.
+      public_map_label_two: Per utilizzare questo tipo di funzionalità, devi inserire la tua geolocalizzazione (identificabile con la tua residenza) e autorizzare il portale all'utilizzo dei tuoi dati di localizzazione. L’utilizzo di questa informazione è limitato all’elaborazione live di mappe statistiche.
+      public_map_label_three: Abilitando Localizzazione, verranno abilitati quindi i servizi di sistema che si basano sulla localizzazione.
+      public_map_label_four: Abilitando Localizzazione, verranno abilitati quindi i servizi di sistema che si basano sulla localizzazione.
+      public_map_label_five: Le informazioni crowd-sourced relative alla posizione sono raccolte dal portale in una maniera che non consente di identificarti personalmente.
+      public_map_label_six: Abilitando Localizzazione, accetti e consenti la raccolta, la conservazione, l'elaborazione e l'utilizzo dei tuoi dati di localizzazione e delle ricerche sulla posizione da parte del portale.
+      public_map_label_seven: Puoi scegliere di disabilitare i servizi di localizzazione in qualsiasi momento. A tal fine, apri le impostazioni del tuo account e disabilita la funzionalità.
+      public_map_label_eight: Le informazioni raccolte da portale verranno trattate secondo le politiche di tutela della privacy del portale.
+      save_changes_submit: Salva modifiche
+      sectors: Terzo settore
+      sectors_large_map: Mappa Terzo Settore
+      sectors_help: "Sei responsabile dei seguenti terzi settori :"
+      subscription_to_website_newsletter_label: Ricevi email con informazioni interessanti circa il sito
+      title: Il mio account
+      user_categories_preference_description: Seleziona i temi d'interesse
+      user_categories_preference_title: Categorie d'interesse
+      user_categories_preference: Gestisci preferenze
+      user_permission_debates: Partecipare alle discussioni
+      user_permission_info: Con il tuo account puoi già...
+      user_permission_proposal: Creare nuove proposte
+      user_permission_support_proposal: Sostenere le proposte*
+      user_permission_crowdfunding: Creare nuovi crowdfundings
+      user_permission_support_crowdfunding: Sostenere i crowdfundings*
+      user_permission_title: Partecipazione
+      user_permission_verify: Per poter eseguire tutte le azioni occorre certificare la propria utenza.
+      user_permission_verify_info: "* Solo per i residenti certificati nei comuni abilitati."
+      user_permission_votes: Partecipare alle consultazioni finali*
+      username_label: Nome utente
+      verified_account: Utenza certificata
+      verify_my_account: Certifica la mia utenza
+  application:
+    close: Chiudi
+    menu: Menu
+  comments:
+    comment:
+      admin: Amministratore
+      author: Autore
+      deleted: Questo commento è stato eliminato
+      moderator: Moderatore
+      sector: Terzo settore
+      responses:
+        one: 1 Risposta
+        other: "%{count} Risposte"
+        zero: Senza risposte
+      user_deleted: Utente sconosciuto
+      votes:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+    comments_closed: I commenti sono chiusi
+    form:
+      comment_as_admin: Commenta come amministratore
+      comment_as_admin_association: "Commenta come Terzo Settore:"
+      none: --Seleziona--
+      comment_as_moderator: Commenta come moderatore
+      leave_comment: Lascia un commento
+    orders:
+      most_commented: Più commentati
+      most_voted: Più votati
+      newest: Prima i più recenti
+      oldest: Prima i meno recenti
+    select_order: Ordina per
+    show:
+      return_to_commentable: 'Torna a '
+    verified_only: Per partecipare %{verify_account}
+    verify_account: certifica la tua utenza
+  comments_helper:
+    comment_button: Pubblica commento
+    comment_link: Commenta
+    comments_title: Commenti
+    reply_button: Pubblica risposta
+    reply_link: Rispondi
+  chances:
+    index:
+      section_header:
+        title: Opportunità
+        help: Aiuto sulle Opportunità
+      no_opens_processes: Nessuna Opportunità attiva
+      no_next_processes: Non ci sono Opportunità pianificate
+      no_past_processes: Non ci sono Opportunità terminate
+      section_footer:
+        title: Aiuto sulle opportunità
+  works:
+      index:
+        section_header:
+          title: Progetti e lavori pubblici
+          help: Aiuto sui Lavori pubblici
+        no_opens_processes: Nessun Lavoro pubblico attivo
+        no_planned_processes: Non ci sono Lavori pubblici pianificati
+        no_past_processes: Non ci sono Lavori pubblici terminati
+        no_sgap_processes: Non sono presenti Lavori pubblici importati da SGAP
+  debates:
+    create:
+      form:
+        submit_button: Inizia una discussione
+    debate:
+      comments:
+        one: 1 commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      created: Hai creato una discussione
+      errors:
+        notSavedLink: Inserimento link non corretto. Per favore separare ogni link con uno di questi caratteri:( ) oppure(;) oppure(,) oppure(/)
+      share:
+        edit: Prima di pubblicarlo potrai modificare il testo a tuo piacimento.
+        guide: Condividilo perché la gente inizi a sostenerlo.
+        view_debate: Adesso no, vai alla discussione
+      votes:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+    edit:
+      editing: Modifica discussione
+      form:
+        submit_button: Salva modifiche
+      show_link: Vedi discussione
+    form:
+      social_access: Attiva interazione social per questa discussione
+      social_access_info: Attivando l'interazione con i social potrai consentire la visualizzazione di tale discussione anche agli utenti che effettuano l'accesso tramite i social.
+      social_access_check:  Interazione con i social
+      account_debates: Indirizzo discussione
+      debate_text: Testo iniziale della discussione
+      debate_title: Titolo della discussione
+      geolocation: Mappa discussioni
+      geozone: Ambito di esecuzione
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questa discussione non ha una posizione concreta o non ricordo quale sia.
+      sectorable: Agisci come Terzo settore
+      tags_label: Temi
+      tag_category_label: Tags
+      tags_instructions: Etichetta questa discussione. Puoi scegliere fra le categorie che ti sono presentate o puoi introdurre quelle che desideri
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+    index:
+      featured_debates: In primo piano
+      filter_topic:
+        one: " con il tema '%{topic}'"
+        other: " con il tema '%{topic}'"
+      orders:
+        confidence_score: Valutate meglio
+        created_at: Più recenti
+        hot_score: Più attivi oggi
+        most_commented: Più commentati
+        recommendations: Consigliati
+        relevance: Più rilevanti
+      recommendations:
+        without_interests: Segui le discussioni per ricevere suggerimenti
+        without_results: Non esistono discussioni relazionate con i tuoi interessi
+      search_form:
+        button: Cerca
+        placeholder: Cerca discussioni...
+        title: Cerca
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_footer:
+        budget_link: bilanci partecipativi
+        description: Crea un tema sul quale discutere su qualsiasi argomento che intendi condividere con gli altri abitanti della tua città.
+        help_text_1: Per creare una discussione è necessario accedere al portale.
+        help_text_2: Le discussioni possono essere valutate utilizzando i pulsanti Sono d'accordo o Non sono d'accordo che si trovano accanto a ciascuno di essi. Puoi anche valutare i commenti che sono già stati proposti.
+        help_text_3: Vi ricordiamo che l'area discussioni è una zona di libera discussione tra utenti. Per formulare proposte di cui la Città si impegna a valutare tecnicamente la fattibilità, anche in termini di risorse, sarà prossimanente attiva, non appena approvate le regole di partecipazione, la sezione proposte dove potranno essere formulate idee e progetti da commentare ed appoggiare.
+        help_text_4: Il titolo e il testo delle discussioni che hanno ricevuto almeno 1 appoggio, non potranno più essere modificati dal proponente.
+        proposals_link: proposta
+        crowdfundings_link: crowdfunding
+        title: Aiuto sul forum
+      section_header:
+        help: Aiuto sul forum
+        icon_alt: Icona del Forum
+        title: Forum
+      select_order: Ordina per
+      start_debate: Inizia una discussione
+      title: Forum
+    new:
+      form:
+        submit_button: Inizia una discussione
+      info: Se vuoi fare una proposta, ti trovi nella sezione sbagliata, entra in %{info_link}.
+      info_link: crea nuova proposta
+      more_info: Ulteriori informazioni
+      recommendation_four: Sfrutta questo spazio a tua disposizione e delle voci che lo compongono.
+      recommendation_one: Non scrivere in maiuscolo il titolo della discussione o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_three: Le critiche spietate sono bene accette. Questo è uno spazio di pensiero. Però ti raccomandiamo di conservare l'eleganza e l'intelligenza, fanno del mondo un posto migliore.
+      recommendation_two: Qualsiasi tema offensivo, palesemente illegale o che non rientri nella competenza comunale, verrà rimosso. Lo stesso si applica ai commenti.
+      recommendations_title: Suggerimenti per creare una discussione
+      start_new: Inizia una discussione
+    show:
+      actions: Azioni
+      author_deleted: Utente sconosciuto
+      comments:
+        one: 1 commento
+        other: "%{count} commenti"
+        zero: Senza commenti
+      comments_title: Commenti
+      edit_debate_link: Modifica discussione
+      social_link_active: Attiva interazione social
+      social_link_disactive: Disattiva interazione social
+      flag: Questa discussione è stata contrassegnata come inappropriata da diversi utenti.
+      login_to_comment: È necessario %{signin} per commentare.
+      moderation_flag_active: Attiva moderazione commenti
+      moderation_flag_desactive: Disattiva moderazione commenti
+      share: Condividi
+    update:
+      form:
+        submit_button: Salva modifiche
+  events:
+    create:
+      form:
+        submit_button: Crea un evento
+        date_type: Tipo Date
+    slots:
+      form:
+        title: Date dell'evento
+        note: 'È possibile aggiungere fino ad un massimo di %{max_slots_allowed} date.'
+        add_new_slots: Aggiungi nuova data
+        max_slots_allowed_reached_html: Hai raggiunto il numero massimo di date consentite!
+        delete_button: Elimina Data
+        cancel_button: Annulla
+    event:
+      comments:
+        one: 1 commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      created: Hai creato un evento
+      errors:
+        notSavedLink: Inserimento link non corretto. Per favore separare ogni link con uno di questi caratteri:( ) oppure(;) oppure(,) oppure(/)
+      share:
+        edit: Prima di pubblicarlo potrai modificare il testo a tuo piacimento.
+        guide: Condividilo perché la gente inizi a sostenerlo.
+        view_event: Adesso no, vai all'evento
+      votes:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+    edit:
+      editing: Modifica evento
+      form:
+        submit_button: Salva modifiche
+      show_link: Vedi evento
+    form:
+      account_events: Indirizzo evento
+      event_text: Descrizione evento
+      event_title: Titolo
+      geolocation: Mappa eventi
+      geozone: Ambito di esecuzione
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questo evento non ha una posizione concreta o non ricordo quale sia.
+      sectorable: Inizia evento come Terzo settore
+      types: Tipologia
+      tags_label: Temi
+      tag_category_label: Tags
+      tags_instructions: Etichetta questa evento. Puoi scegliere fra le categorie che ti sono presentate o puoi introdurre quelle che desideri
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+    index:
+      featured_events: In primo piano
+      filter_topic:
+        one: " con il tema '%{topic}'"
+        other: " con il tema '%{topic}'"
+      orders:
+        confidence_score: Valutate meglio
+        created_at: Più recenti
+        hot_score: Più attivi oggi
+        most_commented: Più commentati
+        recommendations: Consigliati
+        relevance: Più rilevanti
+      recommendations:
+        without_interests: Segui gli eventi per ricevere suggerimenti
+        without_results: Non esistono eventi relazionati con i tuoi interessi
+      search_form:
+        button: Cerca
+        placeholder: Ricerca eventi...
+        title: Cerca
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_footer:
+        budget_link: bilanci partecipativi
+        description: Crea un tema sul quale discutere su qualsiasi argomento che intendi condividere con gli altri abitanti della tua città.
+        help_text_1: Ricorda che per creare un evento devi essere registrato.
+        #help_text_2: Gli eventi possono essere valutati utilizzando i pulsanti Sono d'accordo o Non sono d'accordo che si trovano accanto a ciascuno di essi. Puoi anche valutare i commenti che sono già stati proposti.
+        #help_text_3: Vi ricordiamo che l'area discussioni è una zona di libera discussione tra utenti. Per formulare proposte di cui la Città si impegna a valutare tecnicamente la fattibilità, anche in termini di risorse, sarà prossimanente attiva, non appena approvate le regole di partecipazione, la sezione proposte dove potranno essere formulate idee e progetti da commentare ed appoggiare.
+        #help_text_4: Il titolo e il testo delle discussioni che hanno ricevuto almeno 1 appoggio, non potranno più essere modificati dal proponente.
+        proposals_link: proposta
+        crowdfundings_link: crowdfunding
+        title: Aiuto sugli eventi
+      section_header:
+        help: Aiuto sugli eventi
+        icon_alt: Icona degli eventi
+        title: Eventi
+      select_order: Ordina per
+      start_event: Inizia un evento
+      title: Eventi
+    new:
+      form:
+        submit_button: Inizia un evento
+        data_select: Data
+        hour_select: Orario
+        all_day: Evento intera giornata
+      info: Se vuoi fare una proposta, ti trovi nella sezione sbagliata, entra in %{info_link}.
+      info_link: crea nuova proposta
+      more_info: Come funzionano gli eventi ?
+      recommendation_four: Sfrutta questo spazio a tua disposizione e delle voci che lo compongono.
+      recommendation_one: Non scrivere in maiuscolo il titolo dell' evento o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_three: Le critiche spietate sono bene accette. Questo è uno spazio di pensiero. Però ti raccomandiamo di conservare l'eleganza e l'intelligenza, fanno del mondo un posto migliore.
+      recommendation_two: Qualsiasi tema offensivo, palesemente illegale o che non rientri nella competenza comunale, verrà rimosso. Lo stesso si applica ai commenti.
+      recommendations_title: Suggerimenti per creare un evento
+      start_new: Inizia un evento
+    show:
+      actions: Azioni
+      date_event_table: Date dell'evento
+      date: data
+      date_of_event: Data dell'evento
+      start_event: Dal
+      end_event: al
+      author_deleted: Utente sconosciuto
+      comments:
+        one: 1 commento
+        other: "%{count} commenti"
+        zero: Senza commenti
+      comments_title: Commenti
+      edit_event_link: Modifica evento
+      flag: Questo evento è stata contrassegnata come inappropriata da diversi utenti.
+      login_to_comment: È necessario %{signin} o %{signup} per commentare.
+      moderation_flag_active: Attiva moderazione commenti
+      moderation_flag_desactive: Disattiva moderazione commenti
+      share: Condividi
+    update:
+      form:
+        submit_button: Salva modifiche
+  processes:
+    show:
+      edit_process_link: Modifica
+    works:
+      form:
+        geolocation: Mappa
+    chances:
+      index:
+        search_form:
+          placeholder: Cerca Opportunità...
+      form:
+        geolocation: Mappa
+    index:
+        search_form:
+          button: Cerca
+          placeholder: Cerca Lavori...
+          title: Cerca
+        section_header:
+          title: Proposte e iniziative
+          help: Aiuto su Proposte e iniziative
+    form:
+      geolocation: MAPPA LAVORI
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questa proposta non ha una posizione concreta o non ricordo quale sia.
+      sectorable: Inizia un progetto come Terzo settore
+  errors:
+    messages:
+      no_data_slot_found: Inserire almeno una data per l'evento
+      invalid_date_range: L'intervallo di date non è valido
+      num_min_answers: Il numero minimo di risposte non può esssere maggiore del numero massimo di risposte.
+      user_not_found: Utente non trovato
+  form:
+    reporting: una Segnalazione
+    accept_terms: Accetto la %{policy} e le %{conditions}
+    accept_terms_reporting: "Informativa privacy: inviando la segnalazione, acconsento al trattamento dei miei dati finalizzato alle funzionalità del servizio BaRisolve."
+    accept_terms_title: Accetto la Politica della privacy e le Condizioni d'uso
+    flag_rewards:
+      title: Abilita gestione ricompense
+      help_text: Se abilitato sarà possibile gestire le ricompense.
+    flag_refund:
+      title: Abilita gestione rimborsi
+      help_text: Se abilitato sarà possibile gestire i rimborsi.
+    flag_investments:
+      title: Visualizza finanziamenti
+      help_text: Se abilitato sarà possibile visualizzare i finanziamenti.
+    budget/heading: Budget Heading
+    budget/investment: la proposta di investimento
+    conditions: Condizioni d'uso
+    check_conditions: informativa sulle Condizioni d'uso
+    debate: la discussione
+    direct_message: il messaggio privato
+    document: il documento
+    error: 'errore'
+    errors: 'errori'
+    image: Immagine
+    not_saved: " - impossibile inviare %{resource}:"
+    not_saved_html: 'Impossibile inviare %{resource}. <br>Per favore controllare i campi evidenziati per capire come correggere gli errori:'
+    not_sended_html: 'Impossibile inviare la richiesta. <br>Per favore controllare i campi evidenziati per capire come correggere gli errori.'
+    policy: Politica della privacy
+    check_policy: informativa sulla Privacy
+    poll/question/answer: la risposta
+    poll/question: la domanda
+    poll/shift: il turno
+    proposal: la proposta
+    proposal_notification: la notifica
+    crowdfunding: il crowdfunding
+    crowdfunding_notification: la notifica
+    signature_sheet: il foglio delle firme
+    spending_proposal: la proposta di spesa
+    topic: Tema
+    user: l'account
+    verification/sms: il numero di telefono
+  geozones:
+    all: Tutti gli ambiti di attuazione
+    none: Tutta la città
+  invisible_captcha:
+    sentence_for_humans: Se non sei un robot, per favore ignora questo campo
+    timestamp_error_message: Sei stato troppo rapido. Per favore, invia nuovamente i dati.
+  layouts:
+    admin:
+      watch_form_message: Hai eseguito modifiche che non sono state salvate. Confermi che vuoi abbandonare la pagina?
+    application:
+      chrome: Google Chrome
+      firefox: Firefox
+      ie: Abbiamo rilevato che stai navigando con il browser Internet Explorer. Per una esperienza migliore ti consigliamo di usare %{firefox} o %{chrome}.
+      ie_title: Questo sito web non è ottimizzato per il tuo browser
+    footer:
+      admin_panel: Pannello Amministratore
+      accessibility_link: Dichiarazione di Accessibilità
+      accessibility: Accessibilità – Linee Guida
+      conditions: Condizioni d'uso
+      consul: Consul
+      consul_url: http://consulproject.org/
+      contact_us: Per ottenere assistenza tecnica entra in
+      contacts: Contatti
+      copyright: Innovazione Sociale, %{year}
+      #description: Questo portale utilizza il %{open_source} %{consul} ed è stato realizzato con fondi PON METRO.
+      description: Usiamo il %{open_source} %{consul}.
+      europa_alt: Fondi strutturali e di investimento europei
+      faq: Domande frequenti
+      opendata: Open Data
+      logon: Come registrarsi
+      ministero_alt: Agenzia per la coesione territoriale
+      open_data_text: Tutti i dati del Comune sono tuoi.
+      open_data_title: Dati Aperti
+      open_source: software libero
+      open_source_url: http://www.gnu.org/licenses/agpl-3.0.html
+      participation_text: Decidi come deve essere la città che ami.
+      participation_title: Partecipazione
+      platform: Come usare la piattaforma
+      ponmetro_finanziamento: Progetto cofinanziato dall'Unione Europea - Fondi Strutturali di Investimento Europei - Programma Operativo Città Metropolitane 2014-2020
+      privacy: Tutela della privacy e cookie
+      transparency_text: Ottieni tutte le informazioni sulla città.
+      transparency_title: Trasparenza
+      transparency_url: https://transparency.consul
+    header:
+      administration: Amministrazione
+      administration_menu: Amministratore
+      available_locales: Lingue disponibili
+      budgets: Bilanci partecipativi
+      collaboration_agreement: Patti di Collaborazione
+      collaborative_legislation: Lavori
+      collaborative_works: Progetti e lavori Pubblici
+      collaborative_chances: Opportunità
+      collaborative_processes: Proposte e iniziative
+      crowdfundings: Crowdfunding
+      debates: Discussioni
+      external_link_blog: Blog
+      external_link_opendata: Dati aperti
+      external_link_opendata_url: https://opendata.consul
+      external_link_transparency: Trasparenza
+      external_link_transparency_url: https://transparency.consul
+      follow_us: Seguici su
+      help: Aiuto
+      html: Esistono città governate direttamente dai loro abitanti, che <strong>discutono</strong> di temi verso cui nutrono preoccupazione, <strong>propongono</strong> idee per migliorare le loro vite e <strong>decidono</strong> fra tutte e tutti quelle da realizzare.
+      locale: 'Lingua:'
+      logo: CasaDelCittadino logo
+      management: Gestire
+      moderation: Moderare
+      moderation_menu: Moderatore
+      more_info: Domande e Risposte
+      pon_list: Seleziona Area
+      my_account_link: Il mio account
+      my_activity_link: Le mie attività
+      notification_item:
+        new_notifications:
+          one: Hai una nuova notifica
+          other: Hai %{count} nuove notifiche
+        no_notifications: Non hai nuove notifiche
+        notifications: Notifiche
+      officing: Presidenti di seggio
+      open: aperto
+      open_city_slogan_html: Esistono città governate direttamente dai suoi abitanti, che <strong>discutono</strong> di temi verso cui nutrono preoccupazione, <strong>propongono</strong> idee per migliorare le loro vite e <strong>decidono</strong> fra tutte e tutti quelle da realizzare.
+      open_city_title: La città che ami sarà la città che vuoi.
+      open_gov: Governo %{open}
+      poll_questions: Consultazioni
+      proposals: Proposte
+      social_login: Sei entrato tramite %{social}
+      spid_login: Sei entrato come utente interno
+      spending_proposals: Proposte di investimento
+      titolo: La città che ami sarà la città che vuoi.
+      valuation: Valutare
+    menu:
+      label_menu: Comuni
+  legacy_legislation:
+    help:
+      alt: Seleziona il testo che intendi commentare e fai click sul bottone con la matita.
+      text: Per commentare questo documento devi %{sign_in} o %{sign_up}. Dopo seleziona il testo che vuoi commentare e fai click sul bottone con la matita.
+      text_sign_in: iniziare la sessione
+      text_sign_up: registrarti
+      title: Come posso commentare questo documento?
+  locale: Italiano
+  map:
+    proposal_for_district: Crea una proposta per il tuo municipio
+    crowdfunding_for_district: Crea un crowdfunding per il tuo municipio
+    debate_for_district: Crea una discussione per il tuo municipio
+    select_district: Ambito di esecuzione
+    start_proposal: Crea una proposta
+    start_debate: Crea una discussione
+    start_reporting: Crea una segnalazione
+    reporting_for_district: Crea una segnalazione per il tuo municipio
+    start_crowdfunding: Crea un crowdfunding
+    title: Municipi
+  notifications:
+    index:
+      empty_notifications: Non hai nuove notifiche.
+      mark_all_as_read: Segna tutte come lette.
+      read: Lette
+      title: Notifiche
+      unread: Non lette
+    notification:
+      action:
+        reporting_notification:
+          one: E' stato inserita una nuova notifica per la segnalazione
+          other: Sono state inserite %{count} nuove notifiche per la segnalazione
+        crowdfunding_notification:
+          one: E' stato inserito un nuovo aggiornamento per il crowdfunding
+          other: Sono stati inseriti %{count} nuovi aggiornamenti per il crowdfunding
+        collaboration_agreement_notification:
+          one: E' stato inserito un nuovo aggiornamento per il patto di collaborazione
+          other: Sono stati inseriti %{count} nuovi aggiornamenti per il patto di collaborazione
+        asset_notification:
+          one: E' stato inserito un nuovo Spazio prenotabile in linea con i tuoi interessi
+          other: Sono stati inseriti %{count} nuovi Spazi prenotabili in linea con i tuoi interessi
+        moderable_booking_notification:
+          one: La prenotazione è stata annullata in quanto l'Amministratore ha revocato la disponibilità dello Spazio Prenotabile a cui ti eri prenotato. Clicca qui per maggiori informazioni
+          other: " %{count} prenotazioni sono state annullate in quanto l'Amministratore ha revocato la disponibilità dello Spazio Prenotabile a cui ti eri prenotato."
+        comments_on:
+          one: Qualcuno ha commentato
+          other: Ci sono %{count} nuovi commenti in
+        sector_update:
+          one: Piattaforma Terzo Settore aggiornata correttamente
+          other: Piattaforma Terzo Settore aggiornata correttamente
+        st_sector_notification:
+          one: "Associazione: "
+          other: "Associazioni: "
+        job_xls_finished:
+          one: Piattaforma Terzo Settore aggiornata correttamente
+          other: Piattaforma Terzo Settore aggiornata correttamente
+        event_notification:
+          one: C'è una nuova notifica per l'evento
+          other: Ci sono %{count} nuove notifiche per l'evento
+        proposal_notification:
+          one: C'è una nuova notifica
+          other: Ci sono %{count} nuove notifiche in
+        replies_to:
+          one: Qualcuno ha risposto al tuo commento
+          other: Ci sono %{count} nuove risposte al tuo commento in
+        interets_notification:
+          one: E' stato creato un nuovo contenuto in linea con i tuoi interessi. Clicca sul link seguente per visualizzare
+          other: Sono stati creati %{count} nuovi contentui in linea con i tuoi interesse. Clicca sul link seguente per visualizzare
+        debate_notification:
+          one: C'è una nuova notifica
+          other: Ci sono %{count} nuove notifiche in
+      comments_on:
+        one: C'è un nuovo commento in
+        other: Ci sono %{count} commenti nuovi in
+      mark_as_read: Segna come letta
+      mark_as_unread: Segna come non letta
+      notifiable_hidden: Questa risorsa non è più disponibile.
+      proposal_notification:
+        one: C'è un nuovo notifica in
+        other: Ci sono %{count} nuove notifiche in
+      replies_to:
+        one: C'è una nuova risposta ad un tuo commento in
+        other: Ci sono %{count} nuove risposte ad un tuo commento in
+  omniauth:
+    facebook:
+      name: Facebook
+      sign_in: Entra con Facebook
+      sign_up: Registrati con Facebook
+    finish_signup:
+      title: Dettagli aggiuntivi del tuo account
+      username_warning: Dovuto alla modifica del processo usato per la connessione ai social networks è possibile che il tuo nome utente appaia come 'già in uso', anche se prima lo usavi per accedere al sito. Se si verifica tale situazione, per favore scegli un altro nome utente.
+    google_oauth2:
+      name: Google
+      sign_in: Entra con Google
+      sign_up: Registrati con Google
+    spid:
+      sign_in: Entra con SPID
+      sign_up: Registrati con SPID
+      name: SPID
+    info_sign_in: 'Entra con:'
+    info_sign_up: 'Registrati con:'
+    accept_terms_policy: Ho letto l’%{policy} e ne accetto le condizioni
+    accept_terms_conditions: Ho letto l'%{conditions} e ne accetto le condizioni
+    or_fill: 'Oppure riempi i seguenti campi:'
+    twitter:
+      name: Twitter
+      sign_in: Entra con Twitter
+      sign_up: Registrati con Twitter
+  poll_questions:
+    create_question: Crea domanda
+    show:
+      vote_answer: Vota %{answer}
+      voted: Hai votato %{answer}
+      voted_token: 'Puoi trascrivere questo identificatore di voto, per controllare la tua votazione nel risultato finale:'
+  polls:
+    all: Tutte
+    dates: Dal %{open_at} al %{closed_at}
+    final_date: Riconteggio finale/Resultati
+    download_result: Scarica risultati
+    index:
+      already_answer: Hai già partecipato a questa consultazione
+      already_submitted: Hai già confermato questa consultazione
+      filters:
+        current: Aperte
+        expired: Terminate
+        incoming: A breve
+      geozone_info: 'Possono partecipare le persone residenti in: '
+      geozone_restricted: Municipi
+      no_geozone_restricted: Tutta la città
+      no_polls: Non ci sono consultazioni aperte.
+      participate_button: Partecipa
+      continue_button_html: Continua la <br> consultazione
+      participate_button_expired_html: Consultazione <br> terminata
+      participate_button_incoming: Più informazioni
+      section_footer:
+        description: Registrati per poter votare le proposte cittadine e le questioni per le quali il Consiglio Comunale interpella la cittadinanza. Decidi direttamente.
+        help_text_1: Le consultazioni si convocano quando una proposta cittadina raggiunge l'1% di appoggi da parte dei residenti con diritto di voto. Nelle consultazioni si possono includere anche questioni che il Consiglio Comunale sottopone alla decisione diretta della cittadinanza.
+        help_text_2: Per partecipare alla prossima consultazione è necessario registrarsi su %{org} e verificare il proprio account. Possono votare tutte le persone residenti in città di età maggiore di 16 anni. I risultati di tutte le consultazioni saranno vincolanti per il Comune.
+        title: Aiuto sulle consultazioni
+      section_header:
+        help: Aiuto sulle Consultazioni
+        icon_alt: Icona delle Consultazioni
+        title: Consultazioni
+      title: Consultazioni
+    no_dates: senza data assegnata
+    show:
+      max_answers_selectable_help:
+        one: E' possibile indicare al massimo una risposta.
+        other: E' possibile indicare al massimo %{count} risposte.
+      min_answers_selectable_help:
+        one: È obbligatorio indicare almeno una risposta.
+        other: È obbligatorio indicare almeno %{count} risposte.
+      answers_selectable_help:
+        one: È obbligatorio indicare una risposta.
+        other: È obbligatorio indicare %{count} risposte.
+      already_voted_in_booth: Hai già partecipato a questa consultazione presso le urne di un seggio, non è possibile votare di nuovo.
+      already_voted_in_web: Hai completato parzialmente questa consultazione. Clicca su "Conferma Votazione" per rendere definitive le tue risposte. Una volta confermato non sarà più possibile modificare la consultazione.
+      social_service_disactive: Attenzione, il servizio potrebbe non essere attivo per gli utenti che hanno accesso al portale tramite social, oppure non hai effettuato l'accesso tremite un social network.
+      admin_mod_disactive:  Attenzione, il servizio non è attivo per gli utenti di tipo Amministratore e Moderatore.
+      back: Torna a Consultazioni
+      cant_answer_confirmed: Hai già partecipato a questa consultazione.
+      cant_answer_expired: Questa consultazione è terminata.
+      cant_answer_incoming: Questa consultazione non è ancora iniziata.
+      cant_answer_not_logged_in: È necessario %{signin} per partecipare.
+      cant_answer_verify_html: Per cortesia %{verify_link} per poter rispondere.
+      cant_answer_wrong_geozone: Questa consultazione non è disponibile per il tuo municipio.
+      comments_tab: Commenti
+      documents: Documentazione
+      info_menu: Consultazione
+      login_to_comment: È necessario %{signin} per commentare.
+      more_info_title: Più informazioni
+      participate_in_other_polls: Partecipa ad altre consultazioni
+      read_less: Leggi di meno su %{answer}
+      read_more: Leggi di più su %{answer}
+      question_type:
+        other: Altro
+      results:
+        most_voted_answer: 'Risposta più votata: '
+        title: Domande
+      results_menu: Risultati della consultazione
+      signin: accedere
+      signup: registrarsi
+      stats:
+        booth: URNE
+        null_votes: Nulli
+        title: Dati sulla partecipazione
+        total: TOTALE
+        total_participation: Partecipazione totale
+        total_votes: Nº totale di voti emessi
+        valid: Validi
+        votes: VOTI
+        web: WEB
+        white: In bianco
+      stats_menu: Risultati della consultazione
+      verify_link: certifica il tuo account
+      videos: Video esterno
+      zoom_plus: Zoom immagine
+  proposal_notifications:
+    new:
+      body_label: Messaggio
+      info_about_receivers_html: Questo messaggio sarà inviato a <strong>%{count} utenti</strong> e sarà pubblicato nella %{proposal_page}.
+      proposal_page: pagina della proposta
+      submit_button: Invia messaggio
+      title: Invia messaggio
+      title_label: Titolo
+    show:
+      back: Torna a la mia attività
+  agreement_notifications:
+    new:
+      body_label: Messaggio
+      info_about_receivers_html: Questo messaggio sarà inviato a <strong>%{count} utenti</strong> e sarà pubblicato nella %{collaboration_agreement_page}.
+      collaboration_agreement_page: pagina del patto di collaborazione
+      submit_button: Invia messaggio
+      title: Invia messaggio
+      title_label: Titolo
+    show:
+      send_notification: Aggiungi aggiornamento
+      back: Torna a la mia attività
+  crowdfunding_notifications:
+    new:
+      body_label: Messaggio
+      info_about_receivers_html: Questo messaggio sarà inviato a <strong>%{count} utenti</strong> e sarà pubblicato nella %{crowdfunding_page}.
+      proposal_page: pagina del crowdfunding
+      submit_button: Invia messaggio
+      title: Invia messaggio
+      title_label: Titolo
+    show:
+      back: Torna a la mia attività
+  reporting_notifications:
+    new:
+      body_label: Messaggio
+      info_about_receivers_html: Questo messaggio sarà inviato a <strong>%{count} utenti</strong> e sarà pubblicato nella %{reporting_page}.
+      reporting_page: pagina della segnalazione
+      submit_button: Invia messaggio
+      title: Invia messaggio
+      title_label: Titolo
+    show:
+      back: Torna a la mia attività
+  reportings:
+    create:
+      form:
+        submit_button: Crea segnalazioni
+    edit:
+      editing: Modifica segnalazione
+      form:
+        submit_button: Salva segnalazioni
+      show_link: Vedi segnalazione
+    form:
+      account_reportings: Indirizzo segnalazione
+      geolocation: Mappa segnalazioni
+      geozone: Ambito di esecuzione
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questa segnalazione non ha una posizione concreta o non ricordo quale sia.
+      reporting_address: Indirizzo segnalazione
+      geocoding: Geocodifica
+      reporting_description_status: Stato segnalazione
+      reporting_created_at: Data della segnalazione
+      reporting_external_url: Link alla documentazione aggiuntiva
+      reporting_note: Nota sulla segnalazione
+      reporting_question: Domanda della segnalazione
+      reporting_question_example_html: Riassumi la segnalazione come una domanda a cui si risponde con un SI o con un NO.<br>Se non vuoi porre nessuna domanda inserirsci 10 trattini.
+      reporting_responsible_name: Nome e cognome della persona che fa questa segnalazione
+      reporting_responsible_name_note: "(individualmente o come reppresentante di un collettivo; tale dato resterà nascosto)"
+      reporting_summary: Sommario della segnalazione
+      reporting_summary_note: "(massimo 200 caratteri)"
+      reporting_text: Descrizione della segnalazione
+      reporting_title: Oggetto
+      reporting_video_url: Link a video esterno
+      reporting_video_url_note: Puoi aggiungere un link a YouTube o a Vimeo
+      tag_category_label: Tags
+      tags_instructions: Etichetta questa segnalazione. Puoi scegliere fra le categorie che ti sono presentate o puoi introdurre quelle che desideri
+      note_instructions: Aggiungi un Nota su questa segnalazione
+      description_status_istructions: Stato della segnalazione iniziale
+      tags_label: Temi
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+      types: Tipologia Segnalazione
+    index:
+      featured_reportings: In evidenza
+      featured_reportings_error: Servizio momentaneamente non disponibile.
+      filter_topic:
+        one: " con il tema '%{topic}'"
+        other: " con il tema '%{topic}'"
+      help: Aiuto sulle segnalazioni
+      status: Stato
+      orders:
+        archival_date: Archiviate
+        confidence_score: Più sostenute
+        created_at: Nuove
+        hot_score: Più attive oggi
+        most_commented: Più commentate
+        recommendations: Consigliate
+        relevance: Più rilevanti
+      recommendations:
+        without_interests: Segui le segnalazioni così possiamo darti qualche suggerimento
+        without_results: Non esistono segnalazioni relazionate con i tuoi interessi
+      retired_links:
+        all: Tutte
+        done: Realizzate
+        duplicated: Duplicate
+        other: Altre
+        started: In esecuzione
+        unfeasible: Irrealizzabili
+      retired_reportings: Segnalazioni ritirate
+      retired_reportings_link: Segnalazioni ritirate dagli autori
+      search_form:
+        button: Cerca
+        placeholder: Cerca segnalazioni...
+        title: Cerca
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_footer:
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia le segnalazioni degli altri utenti.
+        help_text_1: Per creare le segnalazioni è necessario accedere al portale.
+        #%{link}
+        help_text_2: Per appoggiare le segnalazioni, occorre che il proprio account sia stato certificato (ovvero che si risulti residenti in un comune abilitato e con età superiore a 16 anni).
+        help_text_3: Per certificare il proprio account, in modo automatico, basta essere utenti registrati.
+        # e scegliere l'opzione presente nella pagina %{link}
+        title: Aiuto sulle segnalazioni
+      section_header:
+        help: Aiuto sulle segnalazioni
+        icon_alt: Icona delle Segnalazioni
+        title: Segnalazioni
+      select_order: Ordina per
+      select_order_long: Stai vedendo le segnalazioni
+      start_reporting: Crea una segnalazione
+      title: Segnalazioni
+      top: Top della settimana
+      top_link_reportings: Segnalazioni più appoggiate per categoria
+    new:
+      form:
+        submit_button: Crea segnalazione
+      more_info: Come funzionano le segnalezioni cittadine?
+      recommendation_one: Non scrivere in maiuscolo l'oggetto della segnalazione o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_three: Usa bene questo spazio e le voci che lo compongono, sono a tua disposizione.
+      recommendation_two: Qualsiasi segnalazione offensiva, palesemente illegale o che non rientri nella competenza comunale, verrà rimossa. Lo stesso si applica ai commenti.
+      recommendations_title: Suggerimenti per creare una segnalazione
+      start_new: Crea una segnalazione
+    notice:
+      retired: Segnalazione ritirata
+    reporting:
+      already_supported: Hai sostenuto questa segnalazione, condividila!
+      archived: Questa segnalazione è stata archiviata e non può più essere sostenuta.
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      created: Hai creato una segnalazione!
+      improve_info: Migliora la tua campagna e ottieni più appoggi
+      improve_info_link: Vedi più informazioni
+      reason_for_supports_necessary: '%{count} appoggi da residenti nel comune, di età maggiore di 16 anni'
+      share:
+        edit: Prima di pubblicarla potrai modificare il testo a tuo piacimento.
+        guide: Condividila perché la gente inizi a sostenerla.
+        view_reporting: Adesso no, vai alla segnalazione
+      successful: Questa segnalazione ha ottenuto gli appoggi necessari e andrà alla %{voting}.
+      support: Firma
+      support_title: Sostieni questa segnalazione
+      supports:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+      supports_necessary: "%{number} firme necessarie per presa in carico"
+      total_percent: 100%
+      votes:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+      voting: prossime consultazioni
+    retire_form:
+      retired_explanation_label: Motivazione
+      retired_explanation_placeholder: Spiega brevemente il perché credi che questa segnalazione non debba più ricevere appoggi
+      retired_reason_blank: Selezione una opzione
+      retired_reason_label: Motivo per il quale si ritira la segnalazione
+      submit_button: Ritira la segnalazione
+      title: Ritira segnalazione
+      warning: Se prosegui la tua segnalazione potrà continuare a ricevere appoggi, però non sarà più presente nella lista principale, e comparirà un messaggio per avvertire tutti gli utenti che l'autore ha deciso di togliere la segnalazione dalla raccolta degli appoggi.
+    retire_options:
+      done: Realizzata
+      duplicated: Duplicata
+      other: Altra
+      started: In esecuzione
+      unfeasible: Non realizzabile
+    show:
+      send_reportings: Per inviare una segnalazione, occorre prima %{signin}.
+      sign_in: autenticarsi
+      address: Indirizzo della segnalazione
+      author: Autore
+      author_deleted: Utente sconosciuto
+      code: 'Codice della segnalzione:'
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      comments_tab: Commenti
+      date: Data segnalazione
+      detail: Dettaglio segnalazione
+      description: Descrizione
+      edit_reporting_link: Modifica segnalazione
+      embed_video_title: Video in %{reporting}
+      flag: Questa segnalazione è stata definita inadeguata da molti utenti.
+      login_to_comment: È necessario %{signin} o %{signup} per commentare.
+      map: Mappa
+      moderation_flag_active: Attiva moderazione commenti
+      moderation_flag_desactive: Disattiva moderazione commenti
+      no_notifications: Questa segnalazione non ha notifiche.
+      notifications_tab: Notifiche
+      notes: Note dall'amministrazione
+      nil_notes: Non ci sono note da parte dell'amministrazione ...
+      retired: Segnalazione ritirata dall'autore
+      retired_warning: L'autore di questa segnalazione ritiene che non debba più continuare a ricevere appoggi.
+      retired_warning_link_to_explanation: Verifica la spiegazione prima di appoggiarla.
+      send_notification: Aggiungi notifica
+      share: Condividi
+      status: Stato della segnalazione
+      title_external_url: Documentazione aggiuntiva
+      title_video_url: Video esterno
+      type: Tipologia segnalazione
+    update:
+      form:
+        submit_button: Salva modifiche
+  legislation_proposals:
+    create:
+      form:
+        submit_button: Crea proposta
+    form:
+      geozone: Ambito di esecuzione
+    retire_form:
+      retired_explanation_label: Motivazione
+      retired_explanation_placeholder: Spiega brevemente il perché credi che questa proposta non debba più ricevere appoggi
+      retired_reason_blank: Selezione una opzione
+      retired_reason_label: Motivo per il quale si ritira la proposta
+      submit_button: Ritira la proposta
+      title: Ritira proposta
+      warning: Se prosegui la tua proposta potrà continuare a ricevere appoggi, però non sarà più presente nella lista principale, e comparirà un messaggio per avvertire tutti gli utenti che l'autore ha deciso di togliere la proposta dalla raccolta degli appoggi.
+    retire_options:
+      done: Realizzato
+      duplicated: Duplicato
+      other: Altra
+      started: In esecuzione
+      unfeasible: Non realizzabile
+  processes_proposals:
+    index:
+      no_opens_processes: Nessun Proposta e iniziativa attiva
+      no_next_processes: Non sono presenti Proposte e iniziative pianificate
+      no_past_processes: Non sono presenti Proposte e iniziative terminate
+      search_form:
+        placeholder: Cerca Proposte...
+  proposals:
+    create:
+      form:
+        submit_button: Crea proposte
+    edit:
+      editing: Modifica petizione
+      form:
+        submit_button: Salva modifiche
+      show_link: Vedi petizione
+    form:
+      account_proposals: Indirizzo proposta
+      geolocation: Mappa proposte
+      geozone: Ambito di esecuzione
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questa proposta non ha una posizione concreta o non ricordo quale sia.
+      proposal_external_url: Link alla documentazione aggiuntiva
+      proposal_question: Domanda della proposta
+      proposal_question_example_html: Riassumi la proposta come una domanda a cui si risponde con un SI o con un NO.<br>Se non vuoi porre nessuna domanda inserirsci 10 trattini.
+      proposal_responsible_name: Nome e cognome della persona che fa questa proposta
+      proposal_responsible_name_note: "(individualmente o come reppresentante di un collettivo; tale dato resterà nascosto)"
+      proposal_summary: Sommario della proposta
+      proposal_summary_note: "(massimo 200 caratteri)"
+      proposal_text: Testo della proposta per esteso
+      proposal_title: Titolo della proposta
+      proposal_video_url: Link a video esterno
+      proposal_video_url_note: Puoi aggiungere un link a YouTube o a Vimeo
+      sectorable: Inizia petizione come Terzo settore
+      tag_category_label: Tags
+      tags_instructions: Etichetta questa proposta. Puoi scegliere fra le categorie che ti sono presentate o puoi introdurre quelle che desideri
+      tags_label: Temi
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+    index:
+      start_processes_proposal: "Crea Proposta o Progetto"
+      featured_proposals: In evidenza
+      filter_topic:
+        one: " con el tema '%{topic}'"
+        other: " con el tema '%{topic}'"
+      orders:
+        archival_date: Archiviate
+        confidence_score: Più sostenute
+        created_at: Nuove
+        hot_score: Più attive oggi
+        most_commented: Più commentate
+        recommendations: Consigliate
+        relevance: Più rilevanti
+      recommendations:
+        without_interests: Segui le proposte così possiamo darti qualche suggerimento
+        without_results: Non esistono proposte relazionate con i tuoi interessi
+      retired_links:
+        all: Tutte
+        done: Realizzate
+        duplicated: Duplicate
+        other: Altre
+        started: In esecuzione
+        unfeasible: Irrealizzabili
+      retired_proposals: Proposte ritirate
+      retired_proposals_link: Proposte ritirate dagli autori
+      search_form:
+        button: Cerca
+        placeholder: Cerca proposte...
+        title: Cerca
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_footer:
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia le proposte degli altri utenti.
+        help_text_1: Per creare le segnalazioni è necessario accedere al portale.
+        # %{link}
+        help_text_2: Per appoggiare le proposte, occorre che il proprio account sia stato certificato (ovvero che si risulti residenti in un comune abilitato e con età superiore a 16 anni).
+        help_text_3: Per certificare il proprio account, in modo automatico, basta essere utenti registrati.
+        # e scegliere l'opzione presente nella pagina %{link}
+        title: Aiuto sulle proposte
+      section_header:
+        help: Aiuto sulle proposte
+        icon_alt: Icona delle Proposte
+        title: Proposte
+      select_order: Ordina per
+      select_order_long: Stai vedendo le proposte
+      start_proposal: Crea una proposta
+      title: Proposte
+      top: Top della settimana
+      top_link_proposals: Proposte più appoggiate per categoria
+    new:
+      form:
+        submit_button: Crea proposta
+      more_info: Come funzionano le proposte cittadine?
+      recommendation_one: Non scrivere in maiuscolo il titolo della proposta o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_three: Usa bene questo spazio e le voci che lo compongono, sono a tua disposizione.
+      recommendation_two: Qualsiasi proposta offensiva, palesemente illegale o che non rientri nella competenza comunale, verrà rimossa. Lo stesso si applica ai commenti.
+      recommendations_title: Suggerimenti per creare una proposta
+      start_new: Crea una proposta
+    notice:
+      retired: Proposta ritirata
+    proposal:
+      already_supported: Hai sostenuto questa proposta, condividila!
+      archived: Questa proposta è stata archiviata e non può più essere sostenuta.
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      created: Hai creato una proposta!
+      improve_info: Migliora la tua campagna e ottieni più appoggi
+      improve_info_link: Vedi più informazioni
+      reason_for_supports_necessary: '%{count} appoggi da residenti nel comune, di età maggiore di 16 anni'
+      share:
+        edit: Prima di pubblicarla potrai modificare il testo a tuo piacimento.
+        guide: Condividila perché la gente inizi a sostenerla.
+        view_proposal: Adesso no, vai alla proposta
+      #successful: Questa proposta ha ottenuto gli appoggi necessari e andrà alla %{voting}.
+      successful: Questa proposta ha ottenuto gli appoggi necessari ed è all'attenzione dell'amministrazione comunale.
+      support: Firma
+      support_title: Sostieni questa proposta
+      supports:
+        one: 1 firma
+        other: "%{count} firme"
+        zero: Senza firme
+      supports_necessary: "%{number} firme necessarie per presa in carico"
+      total_percent: 100%
+      votes:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+      voting: prossime consultazioni
+    retire_form:
+      retired_explanation_label: Motivazione
+      retired_explanation_placeholder: Spiega brevemente il perché credi che questa proposta non debba più ricevere appoggi
+      retired_reason_blank: Selezione una opzione
+      retired_reason_label: Motivo per il quale si ritira la proposta
+      submit_button: Ritira la proposta
+      title: Ritira proposta
+      warning: Se prosegui la tua proposta potrà continuare a ricevere appoggi, però non sarà più presente nella lista principale, e comparirà un messaggio per avvertire tutti gli utenti che l'autore ha deciso di togliere la proposta dalla raccolta degli appoggi.
+    retire_options:
+      done: Realizzata
+      duplicated: Duplicata
+      other: Altra
+      started: In esecuzione
+      unfeasible: Non realizzabile
+    show:
+      actions: Azioni
+      create_date: Data creazione
+      author_deleted: Utente sconosciuto
+      code: 'Codice della petizione:'
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      comments_tab: Commenti
+      edit_proposal_link: Modifica petizione
+      embed_video_title: Video in %{proposal}
+      flag: Questa proposta è stata definita inadeguata da molti utenti.
+      login_to_comment: È necessario %{signin} per commentare.
+      moderation_flag_active: Attiva moderazione commenti
+      moderation_flag_desactive: Disattiva moderazione commenti
+      no_notifications: Questa proposta non ha notifiche.
+      notifications_tab: Notifiche
+      retired: Proposta ritirata dall'autore
+      retired_warning: L'autore di questa proposta ritiene che non debba più continuare a ricevere appoggi.
+      retired_warning_link_to_explanation: Verifica la spiegazione prima di appoggiarla.
+      send_notification: Aggiungi notifica
+      share: Condividi
+      title_external_url: Download allegati
+      title_video_url: Video esterno
+    update:
+      form:
+        submit_button: Salva modifiche
+  crowdfundings:
+    create:
+      form:
+        submit_button: Crea crowdfundings
+    edit:
+      editing: Modifica crowdfunding
+      form:
+        submit_button: Salva modifiche
+      show_link: Vedi crowdfunding
+    form:
+      account_crowdfundings: Indirizzo crowdfunding
+      geolocation: Mappa crowdfundings
+      geozone: Ambito di esecuzione
+      map_location: Localizzazione nella mappa
+      map_location_instructions: Naviga sulla mappa fino al punto scelto e metti il marcatore.
+      map_remove_marker: Elimina il marcatore
+      map_skip_checkbox: Questo crowdfunding non ha una posizione concreta o non ricordo quale sia.
+      contacts_info: Informazioni di Contatto
+      crowdfunding_phase: Fase del progetto di crowdfunding
+      crowdfunding_phase_note: Puoi aggiungere le date di inizio e di fine del crowdfunding.
+      crowdfunding_price_goal: Cifra minima da raggiungere
+      crowdfunding_price_goal_note: Puoi aggiungere la cifra minima da raggiungere per l'avvio del progetto di crowdfunding.
+      crowdfunding_min_price: Cifra minima per il singolo contributo
+      crowdfunding_min_price_note: Puoi aggiungere la cifra minima per il singolo contributo al progetto di crowdfunding.
+      crowdfunding_external_url: Link alla documentazione aggiuntiva
+      crowdfunding_question: Domanda del crowdfunding
+      crowdfunding_question_example_html: Riassumi il crowdfunding come una domanda a cui si risponde con un SI o con un NO.<br>Se non vuoi porre nessuna domanda inserirsci 10 trattini.
+      crowdfunding_responsible_name: Nome e cognome della persona che fa questo crowdfunding
+      crowdfunding_responsible_name_note: "(individualmente o come reppresentante di un collettivo; tale dato resterà nascosto)"
+      crowdfunding_summary: Sommario del crowdfunding
+      crowdfunding_summary_note: "(massimo 200 caratteri)"
+      crowdfunding_text: Testo del crowdfunding per esteso
+      crowdfunding_title: Titolo del crowdfunding
+      crowdfunding_video_url: Link a video esterno
+      crowdfunding_video_url_note: Puoi aggiungere un link a YouTube o a Vimeo
+      crowdfunding_reward: Gestione delle ricompense
+      fiscal_data: Dati fiscali pagamento
+      fiscal_data_description: Inserire il dettaglio dei dati fiscali per consentire agli investitori di procedere al pagamento
+      contacts_info_description: Inserire le informazioni su come essere contattato da un partecipante al crowdfunding
+      sectorable: Inizia crowdfunding come Terzo settore
+      tag_category_label: Categorie
+      tags_instructions: Etichetta questo crowdfunding. Puoi scegliere fra le categorie che ti sono presentate o puoi introdurre quelle che desideri
+      tags_label: Temi
+      tags_placeholder: Scrivi i tags che desideri separandoli con una virgola (',')
+    index:
+      already_invest: 'Hai già contributo a questo crowdfunding.'
+      successful: "Questo Crowdfunding ha raggiunto l'obiettivo minimo."
+      focus_info: Leggi di più
+      featured_crowdfundings: In evidenza
+      filter_topic:
+        one: " con el tema '%{topic}'"
+        other: " con el tema '%{topic}'"
+      orders:
+        archival_date: Archiviati
+        confidence_score: Più finanziati
+        created_at: Nuovi
+        hot_score: In corso
+        most_commented: Più commentati
+        recommendations: Consigliati
+        relevance: Più rilevanti
+        end_date: In scadenza
+        coming: Informing
+        succesfull_crowd: Traguardati
+        past: Conclusi
+      recommendations:
+        without_interests: Segui i crowdfundings così possiamo darti qualche suggerimento
+        without_results: Non esistono crowdfundings relazionati con i tuoi interessi
+      retired_links:
+        all: Tutte
+        done: Realizzate
+        duplicated: Duplicate
+        other: Altre
+        started: In esecuzione
+        unfeasible: Irrealizzabili
+      retired_crowdfundings: Crowdfundings ritirati
+      retired_crowdfundings_link: Crowdfundings ritirati dagli autori
+      search_form:
+        button: Cerca
+        placeholder: Cerca crowdfundings...
+        title: Cerca
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_footer:
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia i crowdfundings degli altri utenti.
+        help_text_1: Per creare i crowdfundings è necessario accedere al portale.
+        # %{link}
+        help_text_2: Per appoggiare i crowdfundings, occorre che il proprio account sia stato certificato (ovvero che si risulti residenti in un comune abilitato e con età superiore a 16 anni).
+        help_text_3: Per certificare il proprio account, in modo automatico, basta essere utenti registrati.
+        # e scegliere l'opzione presente nella pagina %{link}
+        title: Aiuto sui crowdfundings
+      section_header:
+        help: Aiuto sui crowdfundings
+        icon_alt: Icona dei Crowdfundings
+        title: Crowdfunding
+      select_order: Ordina per
+      select_order_long: Stai vedendo i crowdfundings
+      start_crowdfunding: Crea un crowdfunding
+      title: Crowdfunding
+      top: Top della settimana
+      top_link_crowdfundings: Crowdfunding più appoggiato per categoria
+    new:
+      form:
+        submit_button: Crea crowdfunding
+      more_info: Come funzionano i crowdfunding cittadini?
+      recommendation_one: Non scrivere in maiuscolo il titolo del crowdfunding o intere frasi. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+      recommendation_three: Usa bene questo spazio e le voci che lo compongono, sono a tua disposizione.
+      recommendation_two: Qualsiasi crowdfunding palesemente illegale o che non rientri nella competenza comunale, verrà rimossa. Lo stesso si applica ai commenti.
+      recommendations_title: Suggerimenti per creare un crowdfunding
+      start_new: Crea un crowdfunding
+    toedit:
+      form:
+        submit_button: Salva modifiche
+    notice:
+      retired: Crowdfunding ritirato
+    crowdfunding:
+      already_supported: Hai sostenuto questo crowdfunding, condividila!
+      archived: Questo crowdfunding è stato archiviato e non può più essere sostenuto.
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      created: Hai creato un crowdfunding!
+      improve_info: Migliora la tua campagna e ottieni più appoggi
+      improve_info_link: Vedi più informazioni
+      reason_for_supports_necessary: '%{count} appoggi da residenti nel comune, di età maggiore di 16 anni'
+      share:
+        edit: Prima di pubblicarlo potrai modificare il testo a tuo piacimento.
+        guide: Condividilo perché la gente inizi a sostenerlo.
+        view_crowdfunding: Adesso no, vai al crowdfunding
+      successful: Questo crowdfunding ha ottenuto gli appoggi necessari ed è all'attenzione dell'amministrazione comunale.
+      support: Sostieni
+      support_title: Sostieni questo crowdfunding
+      supports:
+        one: 1 appoggio
+        other: "%{count} appoggi"
+        zero: Senza appoggi
+      supports_necessary: "%{number} appoggi necessari per presa in carico"
+      total_percent: 100%
+      votes:
+        one: 1 voto
+        other: "%{count} voti"
+        zero: Senza voti
+      voting: prossime consultazioni
+    retire_form:
+      retired_explanation_label: Motivazione
+      retired_explanation_placeholder: Spiega brevemente il perché credi che questo crowdfunding non debba più ricevere appoggi
+      retired_reason_blank: Selezione una opzione
+      retired_reason_label: Motivo per il quale si ritira il crowdfunding
+      submit_button: Ritira il crowdfunding
+      title: Ritira crowdfunding
+      warning: Se prosegui il tuo crowdfunding potrà continuare a ricevere appoggi, però non sarà più presente nella lista principale, e comparirà un messaggio per avvertire tutti gli utenti che l'autore ha deciso di togliere la proposta dalla raccolta degli appoggi.
+    retire_options:
+      done: Realizzato
+      duplicated: Duplicato
+      other: Altra
+      started: In esecuzione
+      unfeasible: Non realizzabile
+    show:
+      actions: Azioni
+      author_deleted: Utente sconosciuto
+      code: 'Codice del crowdfunding:'
+      comments:
+        one: 1 Commento
+        other: "%{count} Commenti"
+        zero: Senza commenti
+      comments_tab: Commenti
+      contacts: Contatti
+      crowd_contacts: Informazioni di Contatto
+      crowdfunding_completed: Crowdfunding terminato
+      days_left: giorni rimanenti
+      edit_crowdfunding_link: Gestisci crowdfunding
+      go_to_rewards: Vai alla gestione ricompense
+      embed_video_title: Video in %{crowdfunding}
+      read_fiscal_data: Visualizza i dati fiscali
+      fiscal_data_accepted: Ho visualizzato
+      fiscal_data_read: Ho visualizzato i dati fiscali.
+      flag: Questo crowdfunding è stato definito inadeguato da molti utenti.
+      invest: FINANZIA
+      login_to_comment: È necessario %{signin} o %{signup} per commentare.
+      moderation_flag_active: Attiva moderazione commenti
+      moderation_flag_desactive: Disattiva moderazione commenti
+      add_investment: Aggiungi investimento
+      proceed_to_payment: Procedi al pagamento
+      investments_crowd: finanziamenti
+      no_notifications: Questo crowdfunding non ha notifiche.
+      no_rewards: Al momento non state previste ricompense per questo crowdfunding.
+      no_current_user_investments: Non hai ancora finanziato questo crowdfunding
+      notifications_tab: Notifiche
+      count_investors: Numero finanziatori
+      description: DESCRIZIONE
+      start_date: Data inizio
+      end_date: Data fine
+      investment: FINANZIAMENTI
+      investments: Attualmente hai investito un totale di %{count} € in questo crowdfunding.
+      investments_info: Se ancora non vedi il finanziamento, attendi l'esito dal sistema di pagamento.
+      info_crowdfundings: INFO CROWDFUNDING
+      info_investments: Attualmente ci sono %investments finanziamenti confermati.
+      list_investment: LISTA FINANZIAMENTI
+      list_my_investments: I MIEI FINANZIAMENTI
+      list_reward: RICOMPENSE
+      map: MAPPA
+      min_price: Cifra minima per il contributo
+      card_min_price: contrib.minimo
+      price_goal: Cifra da raggiungere
+      price_currently_collected: raccolti su un obiettivo di
+      summary: SOMMARIO
+      reward_price: Cifra minima per il raggiungimento della ricompensa
+      retired: Crowdfunding ritirato dall'autore
+      retired_warning: L'autore di questo crowdfunding ritiene che non debba più continuare a ricevere appoggi.
+      retired_warning_link_to_explanation: Verifica la spiegazione prima di appoggiarlo.
+      send_notification: Aggiungi notifica
+      share: Condividi
+      title_external_url: Documentazione aggiuntiva
+      title_video_url: Video esterno
+      total_investments: Finanziati
+      total_investors: Finanziatori
+      visualize:  Visualizza
+      expired: Scaduto
+    update:
+      form:
+        submit_button: Salva modifiche
+    user_investments:
+      create:
+        action: Aggiungi finanziamento
+      investment:
+        actions: Azioni
+        date: Data
+        investment: Finanziamento
+        status: Stato
+        delete_investment: Annulla finanziamento
+        detail: Dettaglio
+        show_detail: Visualizza dettaglio finanziamento
+      form:
+        investor: Finanziatore
+        note: Commento
+        note_info: Il commento apparirà nella lista finanziamenti
+        value_investements: Importo
+        email: E-Mail
+        fiscal_code: Codice Fiscale
+        min_investment: La cifra minima per il singolo finanziamento è %{count}
+        status: Stato
+        check_info: Mi impegno a versare il contributo al crowdfunding
+        refound_info: Informazioni per il rimborso
+        reward_info: Informazioni per la consegna della ricompensa
+        refound_info_description: Inserire il dettaglio dei dati per consentire di procedere al rimborso del pagamento
+        reward_info_description:  Inserire il dettaglio dei dati per consentire di procedere alla consegna della ricompense
+        public_name_acceptance: Acconsento che il mio nome appaia in chiaro nella lista finanziamenti
+        privacy_check_mandatory: L'accettazione della Politica della privacy e delle Condizioni d'uso è obbligatoria
+      new:
+        start_new: Sostieni questa campagna con un tuo finanziamento
+        more_info: Come funzionano i finanziamenti?
+        recommendation_one: Non scrivere in maiuscolo. In internet il maiuscolo è considerato gridare. A nessuno piace che si alzi la voce.
+        recommendation_three: Usa bene questo spazio e le voci che lo compongono, sono a tua disposizione.
+        recommendation_two: Qualsiasi crowdfunding palesemente illegale o che non rientri nella competenza comunale, verrà rimossa. Lo stesso si applica ai commenti.
+        recommendations_title: Suggerimenti
+      share:
+        created: Grazie per avere contribuito con il tuo finanziamento a questa iniziativa.
+        code: Codice del finanziamento
+        guide: Condividilo perché la gente inizi a sostenerlo.
+        edit: Prima di pubblicarlo potrai modificare il testo a tuo piacimento.
+        improve_info_link: Adesso no, vai al finanziamento
+        info: Ricordati di procedere al completamento del finanziamento.
+        payment_process_info: Il tuo contributo è in fase di verifica e sarà presto visibile nella lista finanziamenti.
+        info_check_email: 'Riceverai la ricevuta del finanziamento alla tua casella email. Inoltre, se sei entrato con le tue credenziali spid o social, potrai ritrovare in qualunque momento questo finanziamento nella sezione "I MIEI FINANZIAMENTI" '
+        fiscal_data: Di seguito sono riportati i dati fiscali
+        go_to_crowdfunding: Vai al crowdfunding
+        show_investment: Visualizza il dettaglio del tuo finanziamento
+        fiscal_data_info: "Dati Fiscali: "
+      show:
+        investment: Finanziamento
+        title: Titolo Crowdfunding
+        summary: Sommario Crowdfunding
+        description: Descrizione Crowdfunding
+        refound_info: Informazioni per il rimborso
+        reward_info: Informazioni per la consegna della ricompensa
+        value_investements: Cifra investita
+        note: Note
+        investment_detail: Dettaglio Finanziamento
+        list_info: Di seguito la lista delle persone che hanno finanziato il crowdfunding
+        list_empty: Il crowdfunding non ha ancora ricevuto finanziamenti
+        invested: ha finanziato
+      errors:
+        severe_error: Si è verificato un errore grave
+        payment_system_error: Si è verificato un errore nel sistema di pagamento, si prega di ritentare
+        expired_crowdfunding_investment: Impossibile contribuire ad un crowdfunding scaduto
+        canceled_payment: Pagamento annullato
+        payment_id_not_found: Identificativo pagamento non trovato nel sistema
+  gamification:
+    account:
+      title: Traguardi Raggiunti
+    index:
+      title: Statistiche
+      global: Utilizzo globale
+      user: Statistiche utente
+      gamification_service_title: Statistiche globali per servizio
+      info: Solo gli utenti che hanno reso pubblici i propori dati e la lista delle proprie attività, entreranno nelle classifiche
+      service: Servizio
+      user: Utente
+      stats: Pnt
+      rank: '#'
+      stats_rid: Pnt
+      rank_rid: Pos
+      no_user: Utente non trovato
+      no_current_month: Nessuna statistica presente nel mese corrente
+      no_prec_month: Nessuna statistica presente nel mese precedente
+      no_total: Non ci sono statistiche globali presenti
+      orders:
+        current_month: Mese corrente
+        prec_month: Mese precedente
+        total: Classifica totale
+    user:
+      title: Punteggi totali
+      services: Servizi
+      prec_month: Mese precedente
+      current_month: Mese corrente
+      total: Totale
+      gamification_stats: Statistiche gamificazione
+    view_gamification_stats: Visualizza statistiche
+    view_gamification_global_stats: Visualizza statistiche globali
+  moderable_bookings:
+    retire_form:
+      retired_explanation_label: Motivazione
+      retired_explanation_placeholder: Spiega brevemente il motivo per cui vuoi annullare questa prenotazione
+      retired_reason_blank: Seleziona una opzione
+      retired_reason_label: Motivo per il quale si ritira la prenotazione
+      submit_button: Ritira la prenotazione
+      title: Ritira prenotazione
+      warning: Se prosegui la tua prenotazione verrà annullata e non sarà più considerata valida.
+  sector_types:
+  index:
+    title: Tipologie di Terzo settore
+    section_header_title: Categorie
+  sectors:
+    index:
+      featured_sectors: In evidenza
+      name: Denominazione terzo settore
+      address: Sede legale
+      vat_code: P. IVA / Codice Fiscale
+      legal_representative: Rappresentante legale
+      phone_number: Recapito telefonico
+      email: Email
+      orders:
+        archival_date: Archiviati
+        confidence_score: Più sostenuti
+        created_at: Nuovi
+        hot_score: Più attivi oggi
+        most_commented: Più commentati
+        recommendations: Consigliati
+        relevance: Più rilevanti
+      recommendations:
+        without_interests: Segui i settori così possiamo darti qualche suggerimento
+        without_results: Non esistono settori relazionati con i tuoi interessi
+      retired_links:
+        all: Tutti
+        done: Realizzati
+        duplicated: Duplicati
+        other: Altri
+        started: In esecuzione
+        unfeasible: Irrealizzabili
+      search_form:
+        button: Cerca
+        placeholder: Cerca settori...
+        title: Cerca
+      search_results_html:
+        one: " che contiene <strong>'%{search_term}'</strong>"
+        other: " che contengono <strong>'%{search_term}'</strong>"
+      section_footer:
+        stsector: QUI
+        description: Proponi ciò che vorresti che la Città realizzasse e appoggia i settori degli altri utenti.
+        help_text_1: "In questa sezione puoi iscrivere la tua Associazione nell’elenco pubblico degli enti del terzo settore del tuo comune. Clicca %{stsector} per iscrivere la tua Associazione."
+        help_text_2: "Per qualsiasi modifica inerente l'assetto dell'associazione, nello specifico il cambio di legale rappresentante, è necessario inviare mail all' indirizzo %{email_sectors} con la documentazione richiesta (cioè o nuovo atto costitutivo o documentazione attestante il subentro)."
+        #help_text_2: Per appoggiare i settori, occorre che il proprio account sia stato certificato (ovvero che si risulti residenti in un comune abilitato e con età superiore a 16 anni).
+        #help_text_3: Per certificare il proprio account, in modo automatico, basta essere utenti registrati.
+        title: Aiuto su Piattaforma Terzo Settore
+      section_header:
+        help: Aiuto su Piattaforma Terzo Settore
+        icon_alt: Icona dei Settori
+        title: Piattaforma Terzo settore
+      select_order: Ordina per
+      select_order_long: Stai vedendo i settori
+      title: Piattaforma Terzo Settore
+      top: Top della settimana
+    new:
+      recommendations_title: "Suggerimenti per registrare una nuova Associazione"
+      sector_type: "Categoria"
+      name: Ragione Sociale
+      description: Descrizione
+      vat_code: P. IVA / Codice Fiscale
+      address: Sede legale
+      email: Email
+      cf_rappr_legale: Codice Fiscale
+      phone_number: Telefono
+      sector_address: Indirizzo Associazione
+      attorney: Rappresentante legale
+      placeholder_name: "Titolo dell'Associazione"
+      name_surname: Nome e Cognome
+  st_sectors:
+    form:
+      map_skip_checkbox: Questa Associazione non ha una posizione concreta o non ricordo quale sia.
+    st_sector:
+      created: "L'associazione %{sector} è stata creata correttamente nella categoria %{sector_type}"
+      in_approval: In attesa di approvazione prima della pubblicazione.
+      share:
+        view_st_sector: Vai all'associazione
+    show:
+      erase_sector: Cancella Associazione
+      description: Descrizione
+      operations: Storico operazioni
+      no_operations: Non sono presenti operazioni
+      request_date: Data richiesta
+      table:
+        date: Data
+        request: Tipo Richiesta
+        state: Stato
+        note: Nota
+        actions: Azioni
+        button:
+          views: Visualizza
+  related_content:
+    add: Aggiungi contenuto
+    content_title:
+      debate: Forum
+      proposal: Proposte
+      crowdfunding: Crowdfunding
+      reporting: Segnalazioni geolocalizzate
+    error: Collegamento non valido. Il collegamento deve iniziare con il prefisso %{url}.
+    error_itself: Collegamento non valido. Non puoi collegare un contenuto a se stesso.
+    help: Puoi aggiungere un collegamento a %{models} all'interno di %{org}.
+    is_related: E' un contenuto associato?
+    label: Collegamento a contenuti associati
+    placeholder: "%{url}"
+    score_negative: 'No'
+    score_positive: Si
+    submit: Aggiungi
+    success: Hai aggiunto un nuovo contenuto associato.
+    title: Contenuti associati
+  shared:
+    gamification:
+      gamification_result: Statistiche del mese
+    advanced_search:
+      author_type: Per categoria dell'autore
+      author_type_blank: Scegli una categoria
+      event_type: Per tipologia
+      reporting_type: Per tipologia
+      institution_types: Ente responsabile
+      institution_types_blank: Scegli un Ente
+      reporting_type_blank: Scegli una tipologia
+      reporting_type_1: Infestazioni (blatte, zanzare, topi)
+      reporting_type_2: Rifiuti abbandonati
+      reporting_type_3: Segnaletica stradale
+      reporting_type_4: Strade e Marciapiedi
+      reporting_type_5: Cura del verde
+      reporting_type_6: Manutenzione arredi urbani
+      reporting_type_7: Fontane e impianti di irrigazione
+      reporting_type_8: Graffiti non autorizzati
+      reporting_type_9: Pulizia spazi pubblici
+      reporting_type_10: Cestini e Cassonetti
+      reporting_type_11: Ambiente e Verde
+      reporting_type_12: Decoro Urbano
+      reporting_type_13: Non Definito
+      reporting_type_14: Spazzamento
+      reporting_type_15: Disservizi linee urbane
+      reporting_type_16: Problematiche ZTL/ZSR
+      sector_type: Per tipologia
+      sector_type_blank: Scegli una tipologia
+      sector_type_1: Operatori di spettacolo
+      sector_type_2: Operatori culturali
+      sector_type_3: Associazioni sportive iscritte al CONI
+      sector_type_4: Associazioni animaliste
+      sector_type_5: Associazioni consulta ambiente
+      sector_type_6: Altre organizzazioni
+      date: Per data
+      date_1: Ultime 24 ore
+      date_2: Ultima settimana
+      date_3: Ultimo mese
+      date_4: Ultimo anno
+      date_5: Personalizzata
+      date_10: Oggi
+      date_11: Domani
+      date_12: Settimana corrente
+      date_13: Mese corrente
+      date_placeholder: DD/MM/AAAA
+      date_range_blank: Scegli una data
+      from: Da
+      general: Con il testo
+      general_placeholder: Scrivi il testo
+      search: Filtra
+      reset: Annulla
+      sector_blank: Scegli per campo
+      sector_name: Nome
+      title: Ricerca avanzata
+      to: A
+    author_info:
+      author_deleted: Utente sconosciuto
+    back: Indietro
+    check: Seleziona
+    check_all: Tutti
+    check_none: Nessuno
+    collective: Collettivo
+    delete: Elimina
+    documentation: Documentazione addizionale
+    edit: Modifica
+    flag: Segnala come inadeguato
+    follow: Segui
+    follow_entity: Segui %{entity}
+    followable:
+      budget_investment:
+        create:
+          notice_html: Adesso stai seguendo questo progetto di investimento! </br> Ti saranno notificate le modifiche man mano che si realizzano per tenerti aggiornato.
+        destroy:
+          notice_html: Hai smesso di seguire questo progetto di investimento! </br> Non riceverai più le notifiche relazionate con questo progetto.
+      collaboration_agreement:
+        create:
+          notice_html: Adesso stai seguendo questo patto di collaborazione civica! </br> Ti saranno notificate le modifiche man mano che si realizzano per tenerti aggiornato.
+        destroy:
+          notice_html: Hai smesso di seguire questo patto di collaborazione civica! </br> Non riceverai più le notifiche relazionate con questo patto di collaborazione civica.
+      proposal:
+        create:
+          notice_html: Adesso stai seguendo questa proposta cittadina! </br> Ti saranno notificate le modifiche man mano che si realizzano per tenerti aggiornato.
+        destroy:
+          notice_html: Hai smesso di seguire questa proposta cittadina! </br> Non riceverai più le notifiche relazionate con questa proposta.
+      crowdfunding:
+        create:
+          notice_html: Adesso stai seguendo questo crowdfunding cittadino! </br> Ti saranno notificate le modifiche man mano che si realizzano per tenerti aggiornato.
+        destroy:
+          notice_html: Hai smesso di seguire questo crowdfunding cittadino! </br> Non riceverai più le notifiche relazionate con questo crowdfunding.
+      reporting:
+        create:
+          notice_html: Adesso stai seguendo questa segnalazione cittadina! </br> Ti saranno notificate le modifiche man mano che si realizzano per tenerti aggiornato.
+        destroy:
+          notice_html: Hai smesso di seguire questa segnalazione cittadina! </br> Non riceverai più le notifiche relazionate con questa segnalazione.
+    following: Stai Seguendo
+    go_to_page: 'Vai alla pagina di '
+    hide: Nascondi
+    more_info: Più informazioni
+    'no': 'No'
+    orbit:
+      next_slide: Immagine seguente
+      previous_slide: Immagine precedente
+    outline:
+      budget: Bilanci partecipativi
+      searcher: Cerca
+    print:
+      print_button: Stampa questa informazione
+    save: Salva
+    search: Cerca
+    search_results: Risultati della ricerca
+    share: Condividi
+    show: Mostra
+    sidebar_work:
+      work_info: Informazioni Progetto
+      work_chrono_program: Cronoprogramma
+      financing_perc: "Finanziamento:"
+      project_perc: "Progettazione:"
+      competition_perc: "Gara: "
+      realization_perc: "Realizzazione: "
+      works_status: Stato lavori
+      financing: Fonte di Finanziamento
+      price: Finanziamento
+    sidebar_chance:
+      chance_info: Informazioni di contatto
+      chance_info_office: UFFICIO RELAZIONI CON IL PUBBLICO
+      progress_state: Stato Avanzamento
+    suggest:
+      budget_investment:
+        found:
+          one: Esiste una proposta di investimento con la parola '%{query}', puoi parteciparvi invece di aprirne una nuova.
+          other: Esistono proposte di investimento con la parola '%{query}', puoi parteciparvi invece di aprirne una nuova.
+        message: Visualizzata %{limit} di %{count} proposte di investimento che contengono la parola '%{query}'
+        see_all: Mostra tutte
+      debate:
+        found:
+          one: Esiste una discussione con la parola '%{query}', puoi parteciparvi invece di aprirne uno nuovo.
+          other: Esistono discussioni con la parola '%{query}', puoi parteciparvi invece di aprirne uno nuovo.
+        message: Visualizzato %{limit} di %{count} discussioni che contengono la parola '%{query}'
+        see_all: Mostra tutti
+      proposal:
+        found:
+          one: Esiste una proposta con la parola '%{query}', puoi parteciparvi invece di aprirne una nuova.
+          other: Esistono proposte con la parola '%{query}', puoi parteciparvi invece di aprirne una nuova.
+        message: Visualizzata %{limit} di %{count} proposte che contengono la parola '%{query}'
+        see_all: Mostra tutte
+      crowdfunding:
+        found:
+          one: Esiste un crowdfunding con la parola '%{query}', puoi parteciparvi invece di aprirne uno nuovo.
+          other: Esistono crowdfundings con la parola '%{query}', puoi parteciparvi invece di aprirne uno nuovo.
+        message: Visualizzata %{limit} di %{count} proposte che contengono la parola '%{query}'
+        see_all: Mostra tutte
+    tags_cloud:
+      categories: Categorie
+      districts: Municipi
+      districts_list: Elenco delle Municipi
+      tags: Tags
+    target_blank_html: " (si apre in una nuova finestra)"
+    unflag: Annulla denuncia
+    unfollow_entity: Smetti di seguire %{entity}
+    view_mode:
+      cards: Schede
+      list: Lista
+      title: Modalità visualizzazione
+    'yes': Sì
+    you_are_in: Ti trovi in
+  social:
+    blog: Blog di %{org}
+    facebook: Facebook di %{org}
+    instagram: Instagram di %{org}
+    telegram: Telegram di %{org}
+    twitter: Twitter di %{org}
+    whatsapp: WhatsApp
+    youtube: YouTube di %{org}
+  spending_proposals:
+    form:
+      association_name: Nome dell'associazione
+      association_name_label: Se proponi a nome di una associazione o collettivo aggiungi il nome qui
+      description: Descrizione dettagliata
+      external_url: Link alla documentazione aggiuntiva
+      geozone: Ambito di esecuzione
+      submit_buttons:
+        create: Crea
+        new: Crea
+      title: Titolo della proposta di spesa
+    index:
+      by_geozone: 'Proposte di investimento con ambito: %{geozone}'
+      search_form:
+        button: Cerca
+        placeholder: Proposte di investimento...
+        title: Cerca
+      search_results:
+        one: " che contiene '%{search_term}'"
+        other: " che contengono '%{search_term}'"
+      sidebar:
+        feasibility: Fattibilità
+        geozones: Ambiti di attuazione
+        unfeasible: Non realizzabili
+      start_spending_proposal: Crea una proposta di investimento
+      title: Bilanci partecipativi
+      unfeasible: Proposte di investimento non realizzabili
+    new:
+      more_info: Come funzionano i bilanci partecipativi?
+      recommendation_one: È fondamentale che si faccia riferimento ad una voce di bilancio.
+      recommendation_three: Cerca di descrivere in maniera dettagliata la proposta affinché la squadra di governo incaricata di analizzarla abbia il minor numero di dubbi.
+      recommendation_two: Qualsiasi proposta o commento che implichi azioni illegali sarà eliminata.
+      recommendations_title: Come creare una proposta di spesa
+      start_new: Crea una proposta di spesa
+    show:
+      author_deleted: Utente sconosciuto
+      code: 'Codice della proposta:'
+      share: Condividi
+    spending_proposal:
+      already_supported: Hai appoggiato questo progetto. Condividilo!
+      spending_proposal: Proposta di investimento
+      support: Appoggia
+      support_title: Appoggia questo progetto
+      supports:
+        one: 1 appoggio
+        other: "%{count} appoggi"
+        zero: Senza appoggi
+    wrong_price_format: Si possono includere solo caratteri numerici
+  stats:
+    index:
+      comment_votes: Voti nei commenti
+      comments: Commenti
+      debate_votes: Voti nelle discussioni
+      debates: Discussioni
+      proposal_votes: Voti nelle proposte
+      proposals: Proposte cittadine
+      crowdfunding_votes: Voti nei crowdfundings
+      crowdfundings: Crowdfundings cittadini
+      unverified_users: Utenti da verificare
+      verified_users: Utenti verificati
+      visits: Visite
+      votes: Voti
+  unauthorized:
+    default: Non si dispone del permesso per accedere a questa pagina.
+    manage:
+      all: Non si dispone del permesso per eseguire l'azione '%{action}' su %{subject}.
+    show:
+      st_sector: Impossibile eseguire l'azione richiesta sull'Associazione.
+      sector: Impossibile eseguire l'azione richiesta sull'Associazione.
+    edit:
+      proposal: Non si dispone del permesso per eseguire l'azione Modifica sulle Petizioni.
+      debate: Non si dispone del permesso per eseguire l'azione Modifica sulle Discussioni.
+    new:
+      proposal: Non si dispone del permesso per eseguire l'azione di Creazione sulle Petizioni.
+      debate: Non si dispone del permesso per eseguire l'azione di Creazione sulle Discussioni.
+      st_sector: Non si dispone del permesso per eseguire l'azione di Inserimento di una nuova Associazione.
+      sector: Non si dispone del permesso per eseguire l'azione di Inserimento di una nuova Associazione.
+  users:
+    events:
+      rejected: Rifiutato
+      in_approval: In Approvazione
+      approved: Approvato
+      see: Visualizza
+    direct_messages:
+      new:
+        authenticate: È necessario %{signin} o %{signup}.
+        body_label: Messaggio
+        direct_messages_bloqued: Questo utente ha deciso di non ricevere messaggi privati
+        signin: iniziare la sessione
+        signup: registrarsi
+        submit_button: Invia messaggio
+        title: Invia messaggio privato a %{receiver}
+        title_label: Titolo
+        verified_only: Per spedire un messaggio privato %{verify_account}
+        verify_account: certifica il tuo account
+      show:
+        receiver: Messaggio inviato a %{receiver}
+    comments:
+      in_approval: In approvazione
+      approved: Approvato
+      rejected: Rifiutato
+    debates:
+      in_approval: In approvazione
+      rejected: Rifiutata
+      approved: Approvata
+      see: Visualizza discussione
+      actions: Azioni
+    processes:
+      approved: Approvato
+      in_approval: In approvazione
+      approved: Approvato
+      rejected: Rifiutato
+      retire: Ritira
+      retired: Ritirata
+    proposals:
+      in_approval: In approvazione
+      retire: Ritira
+      approved: Approvata
+      retired: Ritirata
+      rejected: Rifiutata
+      see: Vedi proposta
+      send_notification: Aggiungi notifica
+    collaboration_agreements:
+      approval: In approvazione
+      in_approval: In approvazione
+      approved: Approvato
+      rejected: Rifiutato
+      see: Vedi patto di collaborazione
+      send_notification: Aggiungi notifica
+    crowdfundings:
+      approval: In approvazione
+      in_approval: In approvazione
+      approved: Approvato
+      rejected: Rifiutato
+      retire: Ritira
+      retired: Ritirato
+      see: Vedi crowdfunding
+      send_notification: Aggiungi notifica
+    moderable_bookings:
+      approval: In approvazione
+      pending: In corso
+      created: Inserita
+      deleted: Annullata
+      retire: Ritira
+      retired: Ritirata
+      see: Vedi prenotazione
+      table:
+        note: Note
+        moderable_booking: Prenotazione
+        user: Richiedente
+        asset: Nome Asset
+        day: Giorno
+        time_start: Orario Inizio
+        time_end: Orario Fine
+        status: Stato
+        accepted: Accettata
+        dleted: Cancellata
+        pending: In Corso
+    reportings:
+      retire: Ritira
+      retired: Ritirata
+      rejected: Rifiutata
+      see: Vedi Segnalazione
+      send_notification: Aggiungi notifica
+      in_approval: In approvazione     #moderazione su reporting
+    show:
+      actions: Azioni
+      budget_investments: Progetti dei bilanci partecipativi
+      comments: Commenti
+      collaboration_agreements: Patti di collaborazione
+      debates: Discussioni
+      delete_alert: Sei sicuro di voler eliminare il tuo progetto di investimento? L'azione non potrà essere annullata
+      deleted: Eliminato
+      deleted_budget_investment: Questa proposta di investimento è stata eliminata
+      deleted_debate: Questo discussione è stata eliminata
+      deleted_proposal: Questa proposta è stata eliminata
+      deleted_crowdfunding: Questo crowdfunding è stato eliminato
+      debates_status: Stato
+      events: Eventi
+      comments_status: Stato
+      moderable_bookings: Prenotazioni
+      processes: Proposte e iniziative
+      filters:
+        budget_investments:
+          one: 1 Progetto di bilancio partecipativo
+          other: "%{count} Progetti di bilancio partecipativo"
+        collaboration_agreements:
+          one: 1 Patto di collaborazione
+          other: "%{count} Patti di collaborazione"
+        comments:
+          one: 1 Commento
+          other: "%{count} Commenti"
+        debates:
+          one: 1 Discussione
+          other: "%{count} Discussioni"
+        follows:
+          one: 1 Seguita
+          other: "%{count} Seguite"
+        proposals:
+          one: 1 Proposta
+          other: "%{count} Proposte"
+        legislation_proposals:
+          one: 1 Proposta
+          other: "%{count} Proposte"
+        moderable_bookings:
+          one: 1 Prenotazione
+          other: "%{count} Prenotazioni"
+        crowdfundings:
+          one: 1 Crowdfundings
+          other: "%{count} Crowdfundings"
+        events:
+          one: 1 Evento
+          other: "%{count} Eventi"
+        reportings:
+          one: 1 Segnalazione
+          other: "%{count} Segnalazioni"
+        processes:
+          one: 1 Proposta e Progetto
+          other: "%{count} Proposte e iniziative"
+      no_activity: Utente senza attività pubblica
+      no_private_messages: Questo utente non accetta messaggi privati.
+      private_activity: Questo utente ha deciso di non pubblicare la lista delle sue attività.
+      proposals: Proposte
+      crowdfundings: Crowdfundings
+      add_investment: Aggiungi offerta
+      add_reward: Aggiungi ricompensa
+      reward: Aggiungi ricompensa
+      insert_reward: Inserisci una ricompensa
+      add_note: Aggiungi nota
+      description: Aggiungi descrizione
+      total_investments: Riepilogo finanziamenti utente
+      reportings: Segnalazioni
+      send_private_message: Invia un messaggio privato
+  crowdfunding_rewards:
+    form:
+      notice: Lista ricompense aggiornata correttamente. Aggiunta una nuova ricompensa di %{value}
+      reward_deleted: Ricompensa cancellata correttamente.
+    errors:
+      min_investment:
+        low_value: Il valore della ricompensa è troppo bassa.
+      access_denied: La sezione "Ricompense" è disattiva.
+  user_investments:
+    form:
+      notice: Lista finanziamento aggiornata correttamente. Aggiunto un nuovo finanziamento di %{value}
+      confirmed_investment: Finanziamento confermato correttamente.
+      delete_ivestment: Finanziamento annullato correttamente.
+    errors:
+      value_investments:
+        low_value: Il valore dell'investimento non è sufficiente.
+  votes:
+    agree: Sono d'accordo
+    anonymous: Troppi voti anonimi, per poter votare %{verify_account}.
+    budget_investments:
+      different_heading_assigned:
+        one: È possibile appoggiare le proposte solamente nel municipio %{count}
+        other: È possibile appoggiare le proposte solamente in %{count} Municipi
+      not_logged_in: È necessario %{signin} per proseguire.
+      not_verified: Le proposte di investimento possono essere sostenute solamente da utenti verificati, %{verify_account}.
+      not_voting_allowed: Il periodo di votazione è concluso.
+      organization: Le organizzazioni non possono votare.
+      unfeasible: Non si possono votare le proposte non realizzabili.
+    comment_unauthenticated: È necessario %{signin} per poter votare.
+    disagree: Non sono d'accordo
+    organizations: Le organizzazioni non possono votare
+    signin: accedere
+    signup: registrarsi
+    spending_proposals:
+      not_logged_in: È necessario %{signin} per proseguire.
+      not_verified: Le proposte di investimento possono essere sostenute solamente da utenti verificati, %{verify_account}.
+      not_voting_allowed: Il periodo di votazione è concluso.
+      organization: Le organizzazioni non possono votare.
+      unfeasible: Non si possono votare le proposte non realizzabili.
+    supports: Voti
+    unauthenticated: È necessario %{signin} per proseguire.
+    verified_only: Le proposte possono essere votate solamente da utenti verificati, %{verify_account}.
+    verify_account: certifica il tuo account
+  welcome:
+    debates:
+      description: Incontrarci, discutere e condividere ciò che ci sembra importante nella nostra città.
+      title: Discussioni
+    decide:
+      description: La cittadinanza decide se accettare o rifiutare le proposte più sostenute.
+      title: Decidi
+    do:
+      description: Se la proposta è accettata dalla maggioranza, il Comune la assume come propria e la mette in pratica.
+      title: Si fa
+    proposal:
+      description: Spazio aperto per le proposte cittadine a proposito del tipo di città nella quale vogliamo vivere.
+      title: Proponi
+    crowdfunding:
+      description: Spazio aperto per i crowdfundings cittadini a proposito del tipo di città nella quale vogliamo vivere.
+      title: Proponi
+    recommended:
+      budget_investments:
+        title: Bilanci consigliati
+      debates:
+        btn_text_link: Tutte le discussioni consigliate
+        title: Discussioni consigliate
+      proposals:
+        btn_text_link: Tutte le proposte consigliate
+        title: Proposte consigliate
+      crowdfundings:
+        btn_text_link: Tutte i crowdfundings crowdfundings
+        title: Crowdfunding consigliati
+      title: Argomenti che ti potrebbero interessare
+    schede:
+      scheda1:
+        description: On line la nuova sezione <i>Proposte</i> dove è possibile inserire una proposta di ciò che vorresti che la Città realizzasse e dove puoi appoggiare le proposte inserite dagli altri cittadini. Ogni proposta che raggiungerà una soglia prefissata di appoggi (vedi FAQ %{link1}) sarà oggetto di studio di fattibilità da parte degli uffici dell'Amministrazione Comunale. Per saperne di più sulle proposte vai su %{link2}
+        label: Proposte
+        link: Vai alle proposte
+        title: Fai una proposta
+      scheda2:
+        description: Vi ricordiamo che l'area discussioni è una zona di libera discussione tra utenti. Per formulare proposte di cui la Città si impegna a valutare tecnicamente la fattibilità, anche in termini di risorse, è attiva la sezione <i>Proposte</i> dove potranno essere formulate idee e progetti da commentare ed appoggiare.
+        label: Discussioni
+        link: Vai alle discussioni
+        title: Zona di libera discussione
+      scheda3:
+        description: Registrati per poter votare le proposte cittadine e le questioni per le quali il Consiglio Comunale interpella la cittadinanza. Decidi direttamente.
+        label: Consultazioni
+        link: Vai alle consultazioni
+        title: Consultazioni attive
+      scheda4:
+        description: Partecipa alle discussioni e ai progetti precedenti l'approvazione di una norma, di un'opera o di un progetto comunale. La tua opinione sarà tenuta in considerazione da parte del Comune.
+        label: Progetti
+        link: Vai ai progetti
+        title: Progetti attivi
+    verification:
+      i_dont_have_an_account: Non dispongo di un account, voglio crearne uno e poi verificarlo
+      i_have_an_account: Ho già un account che voglio verificare
+      question: Hai un account in %{org_name}?
+      title: Certifica account
+    welcome:
+      go_to_index: Adesso no, continua
+      title: Inizia a partecipare
+      user_permission_debates: Partecipare alle discussioni
+      user_permission_info: Con il tuo account puoi già...
+      user_permission_proposal: Creare nuove proposte
+      user_permission_support_proposal: Sostenere proposte*
+      user_permission_crowdfunding: Creare nuove crowdfunding
+      user_permission_support_crowdfunding: Sostenere crowdfunding*
+      user_permission_verify: Per poter compiere tutte le azioni, certifica la tua utenza.
+      user_permission_verify_info: "* Solamente utenti residenti."
+      user_permission_verify_my_account: Certifica la mia utenza
+      user_permission_votes: Partecipare alle consultazioni finali*
+  notice:
+    operaction_successfull: Operazione eseguita correttamente
+  0th: Prima
+  1st: Seconda
+  2nd: Terza
+  3rd: Quarta
+  4th: Quinta
+  5th: Sesta
+  6th: Settima
+  7th: Ottava
+  8th: Nona
+  9th: Decima
+  ago: fa

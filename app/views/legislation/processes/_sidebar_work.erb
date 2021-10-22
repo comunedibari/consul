@@ -1,0 +1,104 @@
+<%# per allungare la linea blu disabilitare display: inline-block;%>
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("shared.sidebar_work.work_info") %></h2>
+
+<div class="additional-document-link">
+  <h5><%= t("shared.sidebar_work.financing") %></h5>
+  <p><%= @process.process_work.financing %></p>
+
+  <h5><%= t("shared.sidebar_work.works_status") %></h5>
+  <p><%= @process.process_work.work_status %></p>
+
+  <h5><%= t("shared.sidebar_work.price") %></h5>
+  <p><%= @process.process_work.price %> <!-- € --></p>
+</div>
+
+<br>
+<br>
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("shared.sidebar_work.work_chrono_program") %></h2>
+<br>
+<h5><%= t("shared.sidebar_work.financing_perc") %></h5>
+<div class="col-sm-12">
+  <svg id="financing_perc"></svg>
+</div>
+<h5><%= t("shared.sidebar_work.project_perc") %></h5>
+<div class="col-sm-12">
+  <svg id="project_perc"></svg>
+</div>
+<h5><%= t("shared.sidebar_work.competition_perc") %></h5>
+<div class="col-sm-12">
+  <svg id="competition_perc"></svg>
+</div>
+<h5><%= t("shared.sidebar_work.realization_perc") %></h5>
+<div class="col-sm-12">
+  <svg id="realization_perc"></svg>
+</div>
+
+<script>
+  /*
+  $( "svg" ).each(function() {
+      $(this).Progress({
+          width: 250,
+          height: 30,
+          percent: 50,
+          backgroundColor: '#b5d0e4',
+          barColor: '#004a83',
+          fontColor: '#fff',
+          radius: 4,
+          fontSize: 14,
+          increaseSpeed: 1,
+          animate: true
+      });
+  });
+  */
+  $("#financing_perc").Progress({
+    width: 250,
+    height: 40,
+    percent: '<%= @process.process_work.financing_perc %>',
+    backgroundColor: '#b5d0e4',
+    barColor: '#004a83',
+    fontColor: '#fff',
+    radius: 4,
+    fontSize: 12,
+    increaseSpeed: 1,
+    animate: true
+  });
+  $("#project_perc").Progress({
+    width: 250,
+    height: 40,
+    percent: '<%= @process.process_work.project_perc %>',
+    backgroundColor: '#b5d0e4',
+    barColor: '#004a83',
+    fontColor: '#fff',
+    radius: 4,
+    fontSize: 12,
+    increaseSpeed: 1,
+    animate: true
+  });
+  $("#competition_perc").Progress({
+    width: 250,
+    height: 40,
+    percent: '<%= @process.process_work.competition_perc %>',
+    backgroundColor: '#b5d0e4',
+    barColor: '#004a83',
+    fontColor: '#fff',
+    radius: 4,
+    fontSize: 12,
+    increaseSpeed: 1,
+    animate: true
+  });
+  $("#realization_perc").Progress({
+    width: 250,
+    height: 40,
+    percent: "<%= @process.process_work.realizzation_perc %>",
+    backgroundColor: '#b5d0e4',
+    barColor: '#004a83',
+    fontColor: '#fff',
+    radius: 4,
+    fontSize: 12,
+    increaseSpeed: 1,
+    animate: true
+  });
+
+</script>

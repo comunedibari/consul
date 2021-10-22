@@ -1,0 +1,96 @@
+
+  <div class="row">
+    <div class="small-12 medium-9 column">
+      <%= back_link_to admin_assets_path, t("admin.asset.back") %>
+    </div>
+  </div>
+  <div class="row margin-top">
+    <div class="small-12 medium-9 column">
+      <span><h1><%= @asset.name %></h1></span>
+    </div>
+    <div class="small-12 medium-3 column legislation-process-new">
+      <%= link_to t("admin.asset.edit.title"), edit_admin_asset_path(@asset), class: "button" %>
+    </div>     
+
+<div class="tabs-content" data-tabs-content="settings-tabs" role="tablist">
+
+  <div class="row">
+    <div class="small-12 column">
+      <ul class="tabs" data-tabs="c0u7cr-tabs" id="settings-tabs">
+        <li class="tabs-title is-active" role="presentation">
+          <a href="#tab-globals" role="tab" aria-controls="tab-globals" aria-selected="true" id="tab-globals-label">
+            <h3>
+              <%= t("admin.assets.settings.show.info") %>
+              <span class="js-comments-count"></span>
+            </h3>
+          </a>
+        </li>
+<!--
+        <li class="tabs-title" role="presentation">
+          <a href="#tab-services" role="tab" aria-controls="tab-services" aria-selected="false" id="tab-services-label">
+            <h3>
+              <%= t("admin.assets.settings.show.info") %>
+            </h3>
+          </a>
+        </li>
+-->
+
+        <li class="tabs-title" role="presentation">
+          <a href="#tab-features" role="tab" aria-controls="tab-features" aria-selected="false" id="tab-features-label">
+            <h3>
+              <%= t("admin.assets.settings.show.manage") %>
+            </h3>
+          </a>
+        </li> 
+
+
+
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 column">
+      <div class="tabs-panel is-active" id="tab-globals" role="tabpanel" aria-hidden="false" aria-labelledby="tab-globals-label">
+        <table>
+          <tbody>
+             <%= render "info" %>
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <div class="tabs-panel" id="tab-services" role="tabpanel" aria-hidden="true" aria-labelledby="tab-services-label">
+        <h2><b> <%= t("admin.settings.index.service.enable_disable") %> </b></h2>
+          <table>
+            <tbody>
+              <%#= render "info" %>
+            </tbody>
+          </table>
+      </div>
+
+      <div class="tabs-panel" id="tab-features" role="tabpanel" aria-hidden="true" aria-labelledby="tab-features-label">
+        <table>
+          <tbody>
+            <%= render "admin/booking_manager/availabilities/show_all" %>
+          </tbody>
+        </table>
+      </div>      
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

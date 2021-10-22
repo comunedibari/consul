@@ -1,0 +1,307 @@
+<%= form_for [@crowdfunding, @user_investment], html: {data: {watch_changes: true}} do |f| %>
+  <%= label_tag t('crowdfundings.user_investments.form.investor') + " *" %>
+  <%= f.text_field :investor,
+                   id: 'investor',
+                   label: false,
+                   required: true,
+                   :readonly => is_field_disabled(current_user, :investor)
+  %>
+
+  <%= label_tag t('crowdfundings.user_investments.form.fiscal_code') + " *" %>
+  <%= f.text_field :fiscal_code,
+                   id: 'fiscal_code',
+                   label: false,
+                   required: true,
+                   :readonly => is_field_disabled(current_user, :fiscal_code)
+  %>
+
+  <%= label_tag t('crowdfundings.user_investments.form.email') + " *"  %>
+  <%= f.email_field :email,
+                    id: 'email',
+                    label: false,
+                    required: true,
+                    :readonly => is_field_disabled(current_user, :email)
+  %>
+
+  <%= label_tag t('crowdfundings.user_investments.form.value_investements') + " *" %>
+  <p class="help-text" id="min_price-help-text"><%= t("crowdfundings.user_investments.form.min_investment", count: (number_to_euro(crowdfunding.min_price))) %></p>
+  <%= f.number_field :value_investements,
+                     id: 'value_investements',
+                     label: false,
+                     required: true,
+                     step: "0.01",
+                     placeholder: sprintf('%.2f', @crowdfunding.min_price),
+                     min: (@crowdfunding.min_price)
+  %>
+
+  <%= label_tag t('crowdfundings.user_investments.form.note') %>
+  <p class="help-text" id="min_price-help-text"><%= t('crowdfundings.user_investments.form.note_info') %></p>
+  <%= f.text_area :note, id: 'note_investements', label: false %>
+
+  <%= f.hidden_field :crowdfunding_id, value: crowdfunding.id %>
+  <% if current_user != nil %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+  <% else %>
+    <%= f.hidden_field :user_id, value: User.guest.id %>
+  <% end %>
+
+  <div class="mt-4">
+
+    <!--          informazioni per rimborso-->
+    <% if @crowdfunding.flag_refund %>
+      <div class="ckeditor small-12">
+        <%= f.label :refound_info, t("crowdfundings.user_investments.form.refound_info") + " *" %>
+        <p class="help-text" id="min_price-help-text"><%= t("crowdfundings.user_investments.form.refound_info_description") %></p>
+        <%= f.cktext_area :refound_info, ckeditor: {language: I18n.locale}, label: false, required: true %>
+      </div>
+    <% end %>
+
+    <!--      informazioni per consegna ricompensa-->
+    <% if @crowdfunding.flag_rewards %>
+      <div class="ckeditor small-12 mt-4">
+        <%= f.label :reward_info, t("crowdfundings.user_investments.form.reward_info") + " *"%>
+        <p class="help-text" id="min_price-help-text"><%= t("crowdfundings.user_investments.form.reward_info_description") %></p>
+        <%= f.cktext_area :reward_info, ckeditor: {language: I18n.locale}, label: false, required: true %>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div class="my-4">
+
+    <%# if current_user == nil %>
+    <%= f.label :check do %>
+      <%= f.check_box :check, title: t('form.accept_terms_title'), label: false, required: true %>
+      <span class="checkbox">
+        <%= t("form.accept_terms",
+              policy: link_to(t("form.policy"), "/privacy", target: "blank"),
+              conditions: link_to(t("form.conditions"), "/conditions", target: "blank")).html_safe %> *
+      </span>
+    <% end %>
+    <%# end %>
+
+
+    <%= f.label :visible do %>
+      <%= f.check_box :visible, title: t('crowdfundings.user_investments.form.public_name_acceptance'), label: false, id: 'visible_check' %>
+      <span class="checkbox">
+        <%= t('crowdfundings.user_investments.form.public_name_acceptance') %>
+      </span>
+    <% end %>
+
+  </div>
+
+  <div class="mt-4">
+    <%= f.submit t("crowdfundings.show.proceed_to_payment"), class: "btn btn-primary mt-3" %>
+  </div>
+
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  let field_importo = document.getElementById('value_investements');
+  let field_cod_fiscale = document.getElementById('fiscal_code');
+  let form_user_investment = document.getElementById('new_user_investment');
+
+  // Scroll automatico su validazione
+  document.addEventListener('invalid', scrollIntoRealView, true);
+
+  form_user_investment.addEventListener('submit', formSubmitHandler);
+
+  field_cod_fiscale.addEventListener('input', (event) => {
+    let typedCF = event.target.value;
+    if (checkFiscalCodeFieldValidity(typedCF) === true) {
+      fiscalCodeValidityShow(true);
+    } else {
+      fiscalCodeValidityShow(false);
+    }
+  });
+
+  field_importo.addEventListener('keypress', inputNumberIhibitor)
+
+  function formSubmitHandler(event) {
+    event.preventDefault();
+
+    let typedCF = field_cod_fiscale.value;
+
+    if (checkFiscalCodeFieldValidity(typedCF) === true) {
+      fiscalCodeValidityShow(true);
+      form_user_investment.removeEventListener('submit', formSubmitHandler);
+      form_user_investment.submit();
+    } else {
+      fiscalCodeValidityShow(false);
+      console.log("Validazione CF KO")
+      return false;
+    }
+  }
+
+  function fiscalCodeValidityShow(esito) {
+    if (esito === true) {
+      field_cod_fiscale.setCustomValidity("");
+    } else {
+      field_cod_fiscale.setCustomValidity("Codice Fiscale non valido.");
+    }
+  }
+
+  function checkFiscalCodeFieldValidity(typedCF) {
+    let fiscalCodeValidator = new FiscalCodeValidator();
+
+    if (typedCF && fiscalCodeValidator.fiscalCodeValidation(typedCF) === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function FiscalCodeValidator() {
+    this.CHECK_CODE_ODD = {
+      0: 1,
+      1: 0,
+      2: 5,
+      3: 7,
+      4: 9,
+      5: 13,
+      6: 15,
+      7: 17,
+      8: 19,
+      9: 21,
+      A: 1,
+      B: 0,
+      C: 5,
+      D: 7,
+      E: 9,
+      F: 13,
+      G: 15,
+      H: 17,
+      I: 19,
+      J: 21,
+      K: 2,
+      L: 4,
+      M: 18,
+      N: 20,
+      O: 11,
+      P: 3,
+      Q: 6,
+      R: 8,
+      S: 12,
+      T: 14,
+      U: 16,
+      V: 10,
+      W: 22,
+      X: 25,
+      Y: 24,
+      Z: 23
+    };
+
+    this.CHECK_CODE_EVEN = {
+      0: 0,
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 4,
+      5: 5,
+      6: 6,
+      7: 7,
+      8: 8,
+      9: 9,
+      A: 0,
+      B: 1,
+      C: 2,
+      D: 3,
+      E: 4,
+      F: 5,
+      G: 6,
+      H: 7,
+      I: 8,
+      J: 9,
+      K: 10,
+      L: 11,
+      M: 12,
+      N: 13,
+      O: 14,
+      P: 15,
+      Q: 16,
+      R: 17,
+      S: 18,
+      T: 19,
+      U: 20,
+      V: 21,
+      W: 22,
+      X: 23,
+      Y: 24,
+      Z: 25
+    };
+
+    this.CHECK_CODE_REMAINDER = {
+      0: 'A',
+      1: 'B',
+      2: 'C',
+      3: 'D',
+      4: 'E',
+      5: 'F',
+      6: 'G',
+      7: 'H',
+      8: 'I',
+      9: 'J',
+      10: 'K',
+      11: 'L',
+      12: 'M',
+      13: 'N',
+      14: 'O',
+      15: 'P',
+      16: 'Q',
+      17: 'R',
+      18: 'S',
+      19: 'T',
+      20: 'U',
+      21: 'V',
+      22: 'W',
+      23: 'X',
+      24: 'Y',
+      25: 'Z'
+    };
+
+    this.REGEX = /^([A-Z]{6})([\dL-V]{2})([ABCDEHLMPRST])([\dL-V]{2})([A-Z][\dL-V]{3})([A-Z])$/
+
+    this.regexValidation = function (fiscal_code) {
+      return this.REGEX.test(fiscal_code);
+    }
+
+    this.controlCodeValidation = function (fiscal_code, control_char) {
+      return control_char === this.controlCodeCalculation(fiscal_code);
+    }
+
+    this.controlCodeCalculation = function (fiscal_code) {
+      const CFArray = Array.from(fiscal_code);
+      let sum = 0;
+      let remainder;
+
+      for (let i = 0; i < CFArray.length - 1; i++) {
+        if (this.is_even(i) === false) {
+          sum += this.CHECK_CODE_EVEN['' + CFArray[i] + ''];
+        } else {
+          sum += this.CHECK_CODE_ODD['' + CFArray[i] + ''];
+        }
+      }
+
+      remainder = sum % 26;
+
+      return this.CHECK_CODE_REMAINDER[remainder]
+    }
+
+    this.fiscalCodeValidation = function (fiscal_code) {
+      fiscal_code = fiscal_code.toUpperCase()
+
+      const control_char = fiscal_code.charAt(fiscal_code.length - 1);
+
+      return !!(this.regexValidation(fiscal_code) && this.controlCodeValidation(fiscal_code, control_char));
+    }
+
+    this.is_even = function (number) {
+      if (number % 2 === 0) {
+        return true
+      } else {
+        return false
+      }
+    }
+  }
+
+</script>

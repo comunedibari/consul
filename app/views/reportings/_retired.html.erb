@@ -1,0 +1,13 @@
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("reportings.index.retired_reportings") %></h2>
+
+<% if params[:retired].blank? %>
+  <p><%= link_to t("reportings.index.retired_reportings_link"), reportings_path(retired: 'all'), class: "small" %></p>
+<% else %>
+  <div class="sidebar-links">
+    <%= link_to t("reportings.index.retired_links.all"), reportings_path(retired: 'all') %>
+    <% Reporting::RETIRE_OPTIONS.each do |option| %>
+      <%= link_to t("reportings.index.retired_links.#{option}"), reportings_path(retired: option) %>
+    <% end %>
+  </div>
+<% end %>

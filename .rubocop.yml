@@ -1,208 +1,64 @@
-require:
-  - rubocop-performance
-  - rubocop-rails
-  - rubocop-rspec
+inherit_from: .rubocop_todo.yml
+require: rubocop-rspec
 
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
   Exclude:
-    - "db/schema.rb"
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+  TargetRubyVersion: 2.3
+  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
+  # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
 
-Bundler/DuplicatedGem:
-  Enabled: true
+Metrics/LineLength:
+  Max: 100
 
-Bundler/OrderedGems:
-  Enabled: true
-  ConsiderPunctuation: true
-
-Capybara/CurrentPathExpectation:
-  Enabled: true
-
-Capybara/FeatureMethods:
-  Enabled: true
-  EnabledMethods:
-    - scenario
-    - xscenario
-
-Capybara/VisibilityMatcher:
-  Enabled: true
-
-FactoryBot/AttributeDefinedStatically:
-  Enabled: true
-
-FactoryBot/FactoryClassName:
-  Enabled: true
-
-Layout/AssignmentIndentation:
-  Enabled: true
-
-Layout/EmptyLineAfterGuardClause:
-  Enabled: true
-
-Layout/EmptyLineBetweenDefs:
-  Enabled: true
-
-Layout/EmptyLines:
-  Enabled: true
-
-Layout/EmptyLinesAroundAccessModifier:
-  Enabled: true
-
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: true
-
-Layout/EmptyLinesAroundClassBody:
-  Enabled: true
-
-Layout/EmptyLinesAroundMethodBody:
-  Enabled: true
-
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: true
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
 
 Layout/EndOfLine:
   EnforcedStyle: lf
 
-Layout/ExtraSpacing:
+Bundler/DuplicatedGem:
   Enabled: true
 
-Layout/HeredocIndentation:
+Bundler/InsecureProtocolSource:
   Enabled: true
 
-Layout/IndentationConsistency:
-  EnforcedStyle: indented_internal_methods
-
-Layout/IndentationStyle:
+Bundler/OrderedGems:
   Enabled: true
 
-Layout/IndentationWidth:
+Gemspec/DuplicatedAssignment:
   Enabled: true
 
-Layout/LeadingEmptyLines:
+Gemspec/OrderedDependencies:
   Enabled: true
 
-Layout/LineLength:
-  Max: 110
-  Severity: refactor
-
-Layout/MultilineBlockLayout:
+Gemspec/RequiredRubyVersion:
   Enabled: true
 
-Layout/SpaceAfterColon:
+Performance/Caller:
   Enabled: true
 
-Layout/SpaceAfterComma:
+Performance/CaseWhenSplat:
   Enabled: true
 
-Layout/SpaceAfterMethodName:
-  Enabled: true
-
-Layout/SpaceAfterNot:
-  Enabled: true
-
-Layout/SpaceAfterSemicolon:
-  Enabled: true
-
-Layout/SpaceAroundBlockParameters:
-  Enabled: true
-
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: true
-
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Layout/SpaceAroundOperators:
-  Enabled: true
-
-Layout/SpaceBeforeBlockBraces:
-  Enabled: true
-
-Layout/SpaceBeforeComma:
-  Enabled: true
-
-Layout/SpaceBeforeComment:
-  Enabled: true
-
-Layout/SpaceBeforeFirstArg:
-  Enabled: true
-
-Layout/SpaceBeforeSemicolon:
-  Enabled: true
-
-Layout/SpaceInLambdaLiteral:
-  Enabled: true
-
-Layout/SpaceInsideArrayLiteralBrackets:
-  Enabled: true
-
-Layout/SpaceInsideArrayPercentLiteral:
-  Enabled: true
-
-Layout/SpaceInsideBlockBraces:
-  Enabled: true
-
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: true
-  EnforcedStyle: compact
-
-Layout/SpaceInsideParens:
-  Enabled: true
-
-Layout/SpaceInsidePercentLiteralDelimiters:
-  Enabled: true
-
-Layout/SpaceInsideRangeLiteral:
-  Enabled: true
-
-Layout/SpaceInsideReferenceBrackets:
-  Enabled: true
-
-Layout/SpaceInsideStringInterpolation:
-  Enabled: true
-
-Layout/TrailingEmptyLines:
-  Enabled: true
-
-Layout/TrailingWhitespace:
-  Enabled: true
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: true
-
-Lint/ConstantDefinitionInBlock:
-  Enabled: true
-
-Lint/DuplicateMethods:
-  Enabled: true
-
-Lint/EmptyFile:
-  Enabled: true
-
-Lint/LiteralAsCondition:
-  Enabled: true
-
-Lint/ParenthesesAsGroupedExpression:
-  Enabled: true
-
-Lint/RedundantStringCoercion:
-  Enabled: true
-
-Lint/SafeNavigationChain:
-  Enabled: true
-
-Lint/ShadowingOuterLocalVariable:
-  Enabled: true
-
-Lint/UselessAssignment:
-  Enabled: true
-
-Lint/Void:
+Performance/Casecmp:
   Enabled: true
 
 Performance/CompareWithBlock:
+  Enabled: true
+
+Performance/Count:
+  Enabled: true
+
+Performance/Detect:
   Enabled: true
 
 Performance/DoubleStartEndWith:
@@ -211,24 +67,86 @@ Performance/DoubleStartEndWith:
 Performance/EndWith:
   Enabled: true
 
+Performance/FixedSize:
+  Enabled: true
+
+Performance/FlatMap:
+  Enabled: true
+
+Performance/LstripRstrip:
+  Enabled: true
+
+Performance/RangeInclude:
+  Enabled: true
+
+Performance/RedundantBlockCall:
+  Enabled: true
+
+Performance/RedundantMatch:
+  Enabled: true
+
+Performance/RedundantMerge:
+  Enabled: true
+
+Performance/RedundantSortBy:
+  Enabled: true
+
+Performance/RegexpMatch:
+  Enabled: true
+
+Performance/ReverseEach:
+  Enabled: true
+
+Performance/Sample:
+  Enabled: true
+
+Performance/Size:
+  Enabled: true
+
 Performance/StartWith:
+  Enabled: true
+
+Performance/StringReplacement:
+  Enabled: true
+
+Performance/TimesMap:
+  Enabled: true
+
+Performance/UnfreezeString:
+  Enabled: true
+
+Performance/UriDefaultParser:
+  Enabled: true
+
+Rails/ActionFilter:
+  Enabled: true
+
+Rails/ActiveSupportAliases:
+  Enabled: true
+
+Rails/ApplicationJob:
+  Enabled: true
+
+Rails/ApplicationRecord:
+  Enabled: true
+
+Rails/Blank:
   Enabled: true
 
 Rails/CreateTableWithTimestamps:
   Enabled: true
-  Exclude:
-    - "db/migrate/201[5-8]*"
-    - "db/migrate/*install_audited.rb"
 
 Rails/Date:
   Enabled: true
 
+Rails/Delegate:
+  Enabled: true
+
+Rails/DelegateAllowBlank:
+  Enabled: true
+
 Rails/DynamicFindBy:
   Enabled: true
-  Whitelist:
-    - find_by_slug_or_id
-    - find_by_slug_or_id!
-    - find_by_manager_login
 
 Rails/EnumUniqueness:
   Enabled: true
@@ -236,10 +154,14 @@ Rails/EnumUniqueness:
 Rails/EnvironmentComparison:
   Enabled: true
 
+Rails/Exit:
+  Enabled: true
+
+Rails/FilePath:
+  Enabled: true
+
 Rails/FindBy:
   Enabled: true
-  Include:
-    - "**/*.rb"
 
 Rails/FindEach:
   Enabled: true
@@ -249,28 +171,38 @@ Rails/HasAndBelongsToMany:
 
 Rails/HasManyOrHasOneDependent:
   Enabled: true
-  Severity: refactor
+
+Rails/HttpPositionalArguments:
+  Enabled: true
 
 Rails/InverseOf:
   Enabled: true
-  Exclude:
-    - "app/models/related_content.rb"
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: true
 
 Rails/NotNullColumn:
   Enabled: true
-  Exclude:
-    - "db/migrate/201[5-7]*"
+
+Rails/Output:
+  Enabled: true
 
 Rails/OutputSafety:
   Enabled: true
-  Severity: warning
-  Exclude:
-    - app/helpers/text_with_links_helper.rb
 
 Rails/PluralizationGrammar:
   Enabled: true
 
 Rails/Presence:
+  Enabled: true
+
+Rails/Present:
+  Enabled: true
+
+Rails/ReadWriteAttribute:
+  Enabled: true
+
+Rails/RedundantReceiverInWithOptions:
   Enabled: true
 
 Rails/RelativeDateConstant:
@@ -284,18 +216,15 @@ Rails/ReversibleMigration:
 
 Rails/SafeNavigation:
   Enabled: true
-  ConvertTry: true
 
 Rails/SaveBang:
   Enabled: true
-  Severity: refactor
+
+Rails/ScopeArgs:
+  Enabled: true
 
 Rails/SkipsModelValidations:
   Enabled: true
-  Blacklist:
-    - update_attribute
-  Exclude:
-    - lib/acts_as_paranoid_aliases.rb
 
 Rails/TimeZone:
   Enabled: true
@@ -303,52 +232,73 @@ Rails/TimeZone:
 Rails/UniqBeforePluck:
   Enabled: true
 
-Rails/UniqueValidationWithoutIndex:
-  Enabled: true
-  Severity: refactor
-
 Rails/UnknownEnv:
   Enabled: true
-  Environments:
-    - development
-    - test
-    - production
-    - preproduction
-    - staging
 
 Rails/Validation:
   Enabled: true
 
+RSpec/AlignLeftLetBrace:
+  Enabled: false
+
+RSpec/AlignRightLetBrace:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
 RSpec/AroundBlock:
+  Enabled: true
+
+RSpec/BeEql:
   Enabled: true
 
 RSpec/BeforeAfterAll:
   Enabled: true
 
-RSpec/ContextMethod:
+Capybara/CurrentPathExpectation:
+  Enabled: true
+
+Capybara/FeatureMethods:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: true
+
+RSpec/DescribeMethod:
+  Enabled: true
+
+RSpec/DescribeSymbol:
   Enabled: true
 
 RSpec/DescribedClass:
   Enabled: true
-  EnforcedStyle: explicit
 
 RSpec/EmptyExampleGroup:
   Enabled: true
-  Exclude:
-    - spec/factories/**/*
 
-RSpec/EmptyHook:
+RSpec/EmptyLineAfterSubject:
   Enabled: true
 
-RSpec/EmptyLineAfterExample:
-  Enabled: true
-
-RSpec/EmptyLineAfterExampleGroup:
-  Enabled: true
-  Exclude:
-    - spec/factories/**/*
+RSpec/ExampleLength:
+  Enabled: false
 
 RSpec/ExampleWording:
+  Enabled: true
+
+RSpec/ExpectActual:
+  Enabled: true
+
+RSpec/ExpectInHook:
+  Enabled: true
+
+RSpec/ExpectOutput:
+  Enabled: true
+
+RSpec/FilePath:
   Enabled: true
 
 RSpec/Focus:
@@ -357,10 +307,27 @@ RSpec/Focus:
 RSpec/HookArgument:
   Enabled: true
 
+RSpec/ImplicitExpect:
+  Enabled: true
+  EnforcedStyle: should
+
+RSpec/InstanceSpy:
+  Enabled: true
+
 RSpec/InstanceVariable:
   Enabled: true
-  Exclude:
-    - spec/controllers/concerns/has_orders_spec.rb
+
+RSpec/InvalidPredicateMatcher:
+  Enabled: true
+
+RSpec/ItBehavesLike:
+  Enabled: true
+
+RSpec/IteratedExpectation:
+  Enabled: true
+
+RSpec/LeadingSubject:
+  Enabled: true
 
 RSpec/LetBeforeExamples:
   Enabled: true
@@ -368,19 +335,51 @@ RSpec/LetBeforeExamples:
 RSpec/LetSetup:
   Enabled: true
 
+RSpec/MessageChain:
+  Enabled: true
+
+RSpec/MessageExpectation:
+  Enabled: true
+
+RSpec/MessageSpies:
+  Enabled: true
+  EnforcedStyle: receive
+
+RSpec/MultipleDescribes:
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleSubjects:
+  Enabled: true
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: true
+  Max: 4
+
 RSpec/NotToNot:
   Enabled: true
 
 RSpec/OverwritingSetup:
   Enabled: true
 
+RSpec/PredicateMatcher:
+  Enabled: true
+
+Rails/HttpStatus:
+  Enabled: true
+
+RSpec/RepeatedDescription:
+  Enabled: true
+
 RSpec/RepeatedExample:
   Enabled: true
 
-RSpec/RepeatedExampleGroupBody:
-  Enabled: true
-
-RSpec/RepeatedExampleGroupDescription:
+RSpec/ReturnFromStub:
   Enabled: true
 
 RSpec/ScatteredLet:
@@ -389,8 +388,26 @@ RSpec/ScatteredLet:
 RSpec/ScatteredSetup:
   Enabled: true
 
+RSpec/SharedContext:
+  Enabled: true
+
+RSpec/SingleArgumentMessageChain:
+  Enabled: true
+
+RSpec/SubjectStub:
+  Enabled: true
+
+RSpec/VerifiedDoubles:
+  Enabled: true
+
 RSpec/VoidExpect:
   Enabled: true
+
+FactoryBot/StaticAttributeDefinedDynamically:
+  Enabled: true
+
+FactoryBot/DynamicAttributeDefinedStatically:
+  Enabled: false
 
 Security/Eval:
   Enabled: true
@@ -398,77 +415,8 @@ Security/Eval:
 Security/JSONLoad:
   Enabled: true
 
+Security/MarshalLoad:
+  Enabled: true
+
 Security/YAMLLoad:
-  Enabled: true
-
-Style/AccessorGrouping:
-  Enabled: true
-
-Style/AndOr:
-  Enabled: true
-
-Style/ArrayCoercion:
-  Enabled: true
-
-Style/BlockDelimiters:
-  Enabled: true
-
-Style/ClassCheck:
-  Enabled: true
-
-Style/ClassVars:
-  Enabled: true
-
-Style/CollectionMethods:
-  Enabled: true
-
-Style/HashSyntax:
-  Enabled: true
-
-Style/IdenticalConditionalBranches:
-  Enabled: true
-
-Style/MethodDefParentheses:
-  Enabled: true
-
-Style/MutableConstant:
-  Enabled: true
-
-Style/Not:
-  Enabled: true
-
-Style/OrAssignment:
-  Enabled: true
-
-Style/PercentLiteralDelimiters:
-  Enabled: true
-
-Style/Proc:
-  Enabled: true
-
-Style/RedundantFileExtensionInRequire:
-  Enabled: true
-
-Style/RedundantFreeze:
-  Enabled: true
-
-Style/RedundantReturn:
-  Enabled: true
-
-Style/SafeNavigation:
-  Enabled: true
-
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
-
-Style/SymbolProc:
-  Enabled: true
-
-Style/TrailingCommaInArrayLiteral:
-  Enabled: true
-
-Style/TrailingCommaInHashLiteral:
   Enabled: true

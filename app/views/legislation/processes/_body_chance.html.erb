@@ -1,0 +1,80 @@
+<% if @process.description.present? %>
+  <hr>
+  <p class="title"><%= t("legislation.processes.header.description") %></p>
+  <div style=" word-wrap: break-word;"><%= markdown @process.description %></div>
+<% end %>
+
+<% if @process.process_type === 3 || @process.process_type === 5 %>
+  <div class="row display_flex">
+
+    <% if @process.process_chance.purpose? %>
+      <div class="medium-6 small-12 column">
+        <div class="circle_div">
+          <span class="fa fa-dot-circle-o" style="color:#ffffff !important"></span>
+        </div>
+        <h4 class="label_div"><%= t("legislation.process_works.debate.pourpose") %></h4>
+        <p class="text_div" style="font-weight:normal;"><%= process.process_chance.purpose %></p>
+      </div>
+    <% end %>
+
+    <% if @process.process_chance.addressed_to? %>
+      <div class="medium-6 small-12 column">
+        <div class="circle_div">
+          <span class="fa fa-users" style="color:#ffffff !important"></span>
+        </div>
+        <h4 class="label_div"><%= t("legislation.process_works.debate.address_to") %></h4>
+        <p class="text_div" style="font-weight:normal;"><%= @process.process_chance.addressed_to %></p>
+      </div>
+    <% end %>
+
+
+    <% if @process.process_chance.benefit? %>
+      <div class="medium-6 small-12 column">
+        <div class="circle_div">
+          <span class="fa fa-smile-o" style="color:#ffffff !important"></span>
+        </div>
+        <h4 class="label_div"><%= t("legislation.process_works.debate.benefit") %></h4>
+        <p class="text_div" style="font-weight:normal;"><%= @process.process_chance.benefit %></p>
+      </div>
+    <% end %>
+
+
+
+    <% if @process.process_type == 3 and @process.result_publication_date? %>
+      <div class="medium-6 small-12 column">
+        <div class="circle_div">
+          <span class="fa fa-calendar" style="color:#ffffff !important"></span>
+        </div>
+        <h4 class="label_div"><%= t("legislation.process_works.debate.deadline") %></h4>
+        <p class="text_div" style="font-weight:normal;"><%= format_date_for_calendar_form(@process.result_publication_date) %></p>
+      </div>
+    <% end %>
+
+    <% if @process.process_type == 5 and @process.additional_info != "" %>
+      <div class="medium-6 small-12 column">
+        <div class="circle_div">
+          <span class="fa fa-calendar" style="color:#ffffff !important"></span>
+        </div>
+        <h4 class="label_div"><%= t("legislation.process_works.debate.deadline") %></h4>
+        <p class="text_div" style="font-weight:normal;"><%= @process.additional_info %></p>
+      </div>
+    <% end %>
+
+  </div> <br>
+<% end %>
+
+
+<% if @process.additional_info.present? and @process.process_type == 3 %>
+  <div id="collapseDiv1" class="collapse-div" role="tablist">
+    <div class="collapse-header" id="heading3">
+      <button data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+        <%= t("legislation.processes.header.additional_info") %>
+      </button>
+    </div>
+    <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3">
+      <div class="collapse-body">
+        <%= markdown @process.additional_info if @process.additional_info %>
+      </div>
+    </div>
+  </div>
+<% end %>

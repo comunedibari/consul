@@ -1,0 +1,89 @@
+<% cache [locale_and_user_status, event, @event_votes[event.id]] do %>
+  <div id="<%= dom_id(event) %>" class="event clear" data-type="event">
+    <div class="panel">
+
+    <% if feature?(:allow_images) && event.images.present? %>
+      <div class="row" data-equalizer>
+
+        <div class="small-12 medium-3 large-2 column text-center">
+          <div data-equalizer-watch>
+            <%= image_tag event.image_url(:thumb),
+                          alt: event.images.first.title.unicode_normalize %>
+          </div>
+        </div>
+
+        <div class="small-12 medium-6 large-7 column">
+    <% else %>
+      <div class="row">
+        <div class="small-12 medium-9 column">
+      <% end %>
+          <div class="event-content">
+         <span class="label round " style="background: <%= event.event_type.event_color %>;" title=" <%= event.event_type.event_category.to_s %>">
+          <%= event.event_type.event_category.to_s %>                
+        </span>  
+            <h3><%= link_to event.title, event %></h3>
+ 
+            <p class="event-info">
+              <span class="icon-comments"></span>&nbsp;
+              <%= link_to t("events.event.comments", count: event.comments_count), event_path(event, anchor: "comments") %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <%= l event.created_at.to_date %>
+
+              <% if event.author.hidden? || event.author.erased? %>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="author">
+                  <%= t("events.show.author_deleted") %>
+                </span>
+              <% elsif ceck_author(event.author_id) %>
+                <span class="author">
+                </span>
+              <% elsif event.sector_content.presence %> <%# mio elsif da completare%>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="author">
+                  <%= event.sector_content.sector.name %>
+                </span>
+              <% else %>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="author">
+                  <%= event.author.name %>
+                </span>
+                <% if event.author.display_official_position_badge? %>
+                  <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                  <span class="label round level-<%= event.author.official_level %>">
+                    <%= event.author.official_position %>
+                  </span>
+                <% end %>
+              <% end %>
+
+              <% if event.author.verified_organization? %>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                <span class="label round is-association">
+                  <%= t("shared.collective") %>
+                </span>
+              <% end %>
+              
+              <br><strong><%= t("events.show.start_event") %>: </strong><%= l event.start_event.to_datetime, format: :datetime %>
+              <strong><%= t("events.show.end_event") %>: </strong><%= l event.end_event.to_datetime, format: :datetime %>
+              <br>
+              
+            </p>
+
+            <div class="event-description">
+              <%= event.description %>
+              <div class="truncate"></div>
+            </div>
+
+           
+          </div>
+        </div>
+
+        <div id="<%= dom_id(event) %>_votes" class="small-12 medium-3 column">
+            <%= render 'events/votes', event: event %>
+        </div>
+
+      </div>
+                 <%= render "shared/tags", taggable: event, limit: 5 %>
+
+    </div>
+  </div>
+<% end %>

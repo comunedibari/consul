@@ -1,0 +1,143 @@
+---
+it:
+  verification:
+    user_investment:
+      error:
+        fiscal_code: Codice Fiscale non valido
+        refound_info: Informazioni sui rimborsi non inseriti
+        reward_info: Informazioni sulle ricompense non inserite
+    availability:
+      new:
+        errors:
+          at_least_a_month: Seleziona almeno un mese.
+          in_hours: Inserisci un intervallo orario valido.
+    alert:
+      lock: Hai raggiunto il numero massimo di tentativi ammessi. Si prega di riprovare più tardi.
+    back: Torna al mio account
+    email:
+      create:
+        alert:
+          failure: Si è verificato un problema durante la spedizione della email al tuo indirizzo
+        flash:
+          success: 'Ti abbiamo spedito una mail di conferma al tuo indirizzo di posta: %{email}'
+      show:
+        alert:
+          failure: Codice di verifica non corretto
+        flash:
+          success: Sei un utente verificato
+    letter:
+      alert:
+        unconfirmed_code: Non hai ancora inserito il codice di conferma
+      create:
+        flash:
+          offices: Sportello per il Cittadino
+          success_html: Prima delle votazioni riceverai una lettera con le istruzioni per verificare il tuo account.<br> Ricorda che puoi evitare la spedizione effettuando la verifica di persona in uno qualsiasi degli %{offices}.
+      edit:
+        see_all: Vedi proposte
+        title: Lettera richiesta
+      errors:
+        incorrect_code: Codice di verifica errato
+      new:
+        explanation: 'Per partecipare alle consultazioni finali puoi:'
+        go_to_index: Vai a CasaDelCittadino
+        office: Eseguire la verifica di persona in qualsiasi %{office}
+        offices: Sportello per il Cittadino
+        send_letter: Richiedere una lettera per posta
+        title: Congratulazioni!
+        user_permission_info: Con il tuo profilo puoi...
+      update:
+        flash:
+          success: Il tuo account è già stato verificato
+    redirect_notices:
+      already_verified: Il tuo account è già stato verificato
+      email_already_sent: Ti è stata già spedita una email con un link per la conferma, se non la trovi puoi richiedere qui un nuovo invio
+    residence:
+      alert:
+        unconfirmed_residency: Non hai ancora verificato la residenza
+      create:
+        flash:
+          success: Residenza verificata
+      new:
+        accept_terms_text: Accetto %{terms_url} alla piattaforma CasaDelCittadino
+        accept_terms_text_title: Accetto i termini per l'accesso completo alla piattaforma CasaDelCittadino
+        date_of_birth: Data di nascita
+        document_number: Dati identificativi del documento
+        document_number_help_text_html: Introduci i 16 caratteri del Codice Fiscale.
+        document_number_help_title: Aiuto
+        document_type:
+          passport: Passaporto
+          residence_card: Carta di residenza
+          spanish_id: Carta di Identità
+        document_type_label: Tipo di documento
+        error_investment_not_null: Il valore dell'investimento non può essere nullo.
+        error_investment_too_low: Il valore dell'investimento non può essere inferione alla cifra minima per il singolo contributo.
+        error_not_allowed_min_price: Il valore indicato per il campo "cifra minima contributo" deve essere una valore numerico maggiore di 0.
+        error_not_allowed_price_goal: Il valore indicato per il campo "cifra di raggiungimento" deve essere una valore numerico maggiore di 0.
+        error_not_allowed_check: E' necessario leggere i dati fiscali del crowdfunding.
+        error_not_allowed_crowdfunding_reward: Il valore della ricompensa non può essere nullo.
+        error_crowdfunding_reward_too_low: Il valore della ricompensa non può essere inferione alla cifra minima per il singolo contributo.
+        error_not_valid_min_price: Il valore indicato per il campo "cifra minima contributo" deve essere una valore numerico minore della "cifra di raggiungimento" del crowdfunding.
+        error_not_allowed_value_investements: Il valore dell'investimento deve essere maggiore della cifra minima permessa per questo crowdfunding.
+        error_not_valid_reward: Il valore della ricompensa non è valido
+        error_not_valid_reward_description: La descrizione della ricompensa non può essere nulla.
+        error_too_short_reward_description: La descrizione non può essere inferiore a 10 caratteri.
+        error_not_valid_investment: Il valore dell' investimento non è valido
+        error_fiels: Controllare che i campi siano stati correttamente compilati
+        error_not_allowed_age: No hai l'età minima per partecipare
+        error_not_allowed_postal_code: Per completare la certificazione devi essere residente in un comune abilitato. Nel campo CAP si può inserire 10100 o un valore compreso fra 10121 e 10156.
+        error_verifying_census: Non è stato possibile verificare in Anagrafe i tuoi dati. Per favore, conferma la correttezza dei tuoi dati chiamando il Comune o recandoti in uno degli %{offices}.
+        error_verifying_census_offices: sportello per il Cittadino
+        form_errors: hanno impedito la certificazione della residenza
+        postal_code: CAP
+        postal_code_note: Per completare la certificazione devi essere residente in un comune abilitato. Nel campo CAP si può inserire 10100 o un valore compreso fra 10121 e 10156.
+        terms: i termini per l'accesso completo
+        title: Verifica residenza
+        verify_residence: Verifica residenza
+    collaboration:
+      already_subscription:
+        subscription: Ogni utente può effettuare una sola adesione per ogni patto di collaborazione.
+        agreement_requirement_not_found: "Mancano i seguenti documenti %{title}"
+        requirement_error: Verificare che siano stati inseriti tutti gli allegati obbligatori
+    sms:
+      create:
+        flash:
+          success: Inserisci il codice di conferma inviato tramite SMS
+      edit:
+        confirmation_code: Inserisci il codice ricevuto sul tuo telefonino
+        resend_sms_link: Richiedere un nuovo codice
+        resend_sms_text: Non hai ricevuto un SMS con il codice di conferma?
+        submit_button: Invia
+        title: SMS di conferma
+      new:
+        phone: Introduci il tuo numero di cellulare (con SIM italiana) per ricevere il codice
+        phone_format_html: "<strong><em>(Esempio: 338....)</em></strong>"
+        phone_note: L'SMS con il codice di verifica può arrivare dopo qualche minuto di attesa. In caso di mancata ricezione, può esserci un problema tecnico, ti chiediamo di riprovare più tardi.
+        phone_placeholder: 'Esempio: 338....'
+        submit_button: Invia
+        title: SMS di conferma
+      update:
+        error: Codice di conferma errato
+        flash:
+          level_three:
+            success: Codice corretto. Il tuo account è stato verificato
+          level_two:
+            success: Codice corretto
+    step_1: Residenza
+    step_2: SMS di conferma
+    step_3: Verifica finale
+    user_permission_debates: Partecipare alle discussioni
+    user_permission_info: Dopo aver verificato i tuoi dati potrai...
+    user_permission_proposal: Creare nuove proposte
+    user_permission_support_proposal: Sostenere le proposte
+    user_permission_crowdfunding: Creare nuovi crowdfundings
+    user_permission_support_crowdfunding: Sostenere i crowdfundings
+    user_permission_votes: Partecipare alle votazioni finali*
+    verified_user:
+      form:
+        submit_button: Invia codice
+      show:
+        email_title: Emails
+        explanation: In Anagrafe disponiamo dei seguenti dati, seleziona dove vuoi che ti sia spedito il codice di conferma.
+        phone_title: Telefono
+        title: Informazione disponibile
+        use_another_phone: Usare un altro numero di telefono

@@ -1,0 +1,213 @@
+<%= form_for(@availability, url: create_daily_admin_asset_availabilities_path) do |f| %>
+  <%= render 'shared/custom_errors', resource: @availability %>
+
+
+
+
+  <table width="100%" border="1" bordercolor="#cccccc" cellpadding="5" cellspacing="5">
+    <tr>
+      <th colspan="1" style="text-align: -webkit-center;">Calendario</th>
+      <th colspan="2" style="text-align: -webkit-center;">Orario mattutino</th>
+      <th colspan="2" style="text-align: -webkit-center;">Orario pomeridiano</th>
+    </tr>
+
+      <tr>
+
+        <% val = rand(1..999999).to_s %>
+        <td>
+          <input type="text" id= "availability_data" autocomplete= "off">
+          <div class="large-4 column"> 
+            <%= f.fields_for :years do |builder| %>
+              <%= builder.hidden_field :year %>
+            <% end %>
+          </div> 
+          <div class="large-4 column"> 
+            <%= f.fields_for :months do |builder| %>
+              <%= builder.hidden_field :month %>
+              <%= builder.hidden_field :checked,:value => 'true' %>
+            <% end %>
+          </div> 
+          <div class="large-4 column"> 
+          <%= f.fields_for :days do |builder| %>
+            <%= builder.hidden_field :day %>
+          </div>            
+        </td>
+        <td>
+          <%= builder.text_field :am_start, id: "start_hoursAM_" + val, autocomplete: "off", label: false %>
+        </td>
+        <td>
+          <%= builder.text_field :am_end, id: "end_hoursAM_" + val, autocomplete: "off", label: false %>
+        </td>
+        <td>
+          <%= builder.text_field :pm_start, id: "start_hoursPM_" + val, autocomplete: "off", label: false %>
+        </td>
+        <td>
+          <%= builder.text_field :pm_end, id: "end_hoursPM_" + val, autocomplete: "off", label: false %>
+        </td>
+      </tr>
+
+    <% end %>
+  </table>
+  <div class="actions small-12 column">
+    <%= f.submit(class: "button success margin-top", value: t("admin.availabilities.create.form.submit_button")) %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+
+  jQuery(function () {
+      
+      input = jQuery('#availability_data')
+      d = new Date() ; //Data odierna - adesso.
+      domani = new Date(d.getTime()+1000*3600*24);
+
+      $(input).datetimepicker({
+        format: 'd-m-Y',
+        lang: 'it',
+        timepicker: false,
+        minDate: domani,
+
+        onChangeDateTime: function (ct) {
+          value = input.val();
+          val = value.split('-');
+          if (value != ''){
+            console.log(value)
+            jQuery('#availability_years_attributes_0_year').val(val[2])
+            jQuery('#availability_months_attributes_0_month').val(val[1])
+            jQuery('#availability_days_attributes_0_day').val(val[0])
+          }
+          console.log(val);
+        }
+
+    });
+
+    $("input[id^='start_hoursAM_']").each(function (index, input) {
+
+      $(input).datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        allowTimes: [
+          '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00',
+          '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'
+        ],
+        onShow: function (ct) {
+          val = input.id.split('_')[2];
+          if ($('#end_hoursAM_' + val).val()) {
+            dat_s = $('#end_hoursAM_' + val).val();
+          }
+          else {
+            dat_s = '11:31';
+          }
+          console.log(dat_s);
+          this.setOptions({
+            maxTime: dat_s
+          })
+        }
+
+      });
+    });
+
+    $("input[id^='end_hoursAM_']").each(function (index, input) {
+
+      $(input).datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        allowTimes: [
+          '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00',
+          '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'
+        ],
+        onShow: function (ct) {
+          css_id = input.id.split('_')[2];
+          dat_s = $('#start_hoursAM_' + css_id).val();
+
+          this.setOptions({
+            minTime: dat_s
+          })
+        }
+      });
+    });
+
+    $("input[id^='start_hoursPM_']").each(function (index, input) {
+
+      $(input).datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        allowTimes: [
+          '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00',
+          '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'
+        ],
+
+        onShow: function (ct) {
+          val = input.id.split('_')[2];
+          if ($('#end_hoursPM_' + val).val()) {
+            dat_s = $('#end_hoursPM_' + val).val();
+          }
+          else {
+            dat_s = '23:31';
+          }
+          console.log(dat_s);
+          this.setOptions({
+            maxTime: dat_s
+          })
+        }
+      });
+    });
+
+    $("input[id^='end_hoursPM_']").each(function (index, input) {
+
+      $(input).datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        minTime: '13:29',
+        //step:29,
+        //maxTime:'23:59',
+
+        allowTimes: [
+          '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00',
+          '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '23:59'
+        ],
+
+        onShow: function (ct) {
+          ccs_id = input.id.split('_')[2];
+          val = $('#start_hoursPM_' + ccs_id).val();
+
+          this.setOptions({
+            minTime: val,
+          })
+        }
+      });
+    });
+
+  });
+
+
+  var months = [
+    'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio',
+    'Giugno', 'Luglio', 'Agosto', 'Settembre',
+    'Ottobre', 'Novembre', 'Dicembre'];
+
+  var days = [
+    'Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'
+  ]
+  months.forEach(function (key) {
+    $("#month_select").append('<option value="' + (months.indexOf(key) + 1) + '">' + key + '</option>')
+  });
+  days.forEach(function (key) {
+    $("#day_select").append('<option value="' + (days.indexOf(key)) + '">' + key + '</option>')
+  });
+
+  $("#month_select").multipleSelect({
+    width: 460,
+    multiple: true,
+    multipleWidth: 90,
+  });
+  $("#day_select").multipleSelect({
+    width: 460,
+    multiple: true,
+    multipleWidth: 90,
+  });
+
+</script>
+
+

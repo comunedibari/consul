@@ -1,0 +1,84 @@
+<div class="section section-neutral">
+  <div class="section-content">
+    <!-- contenuto di esempio START -->
+    <div class="container white-color">
+      <div class="row mb-3">
+        <div class="col-12">
+          <div class="it-brand-text hide-for-small-only">
+            <h4 class="no_toc ml-3"><%#= Setting['org_name', User.pon_id].to_s %></h4>
+          </div>
+
+          <div class="it-brand-text show-for-small-only">
+            <h4 class="no_toc ml-3"><%#= Setting['org_name', User.pon_id].to_s %></h4>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-12 col-lg-3 col-xl-4 pr-0 pr-md-5 mb-5">
+          <ul class="footer-list clearfix footer-list-first">
+            <% if current_user && current_user.administrator? %>
+              <li class="mr-3"><%= link_to t("layouts.footer.opendata"), opendatas_path, class: "list-item large white-color border-top border-white" %></li>
+            <% end %>
+            <li class="mr-3"><%= link_to t("layouts.footer.privacy"), page_path('privacy'), class: "list-item large white-color border-top border-white" %></li>
+            <li class="mr-3"><%= link_to t("layouts.footer.accessibility_link"), "https://form.agid.gov.it/view/fad189f4-bf48-4de8-ba0d-214762f2eb4d/", target: "blank", class: "list-item large white-color border-top border-bottom border-white" %></li>
+          </ul>
+
+        </div>
+        <div class="col-12 col-lg-3 col-xl-4 pr-0 pr-md-5 mb-5">
+          <ul class="footer-list clearfix footer-list-first">
+            <!-- <li class="mr-3"><%= link_to t("layouts.footer.privacy"), page_path('privacy'), class: "list-item large white-color border-top border-white" %></li> -->
+            <li class="mr-3"><%= link_to t("layouts.footer.conditions"), page_path('conditions'), class: "list-item large white-color border-top border-white" %></li>
+            <li class="mr-3"><%= link_to t("layouts.footer.accessibility"), page_path('accessibility'), class: "list-item large white-color border-top border-bottom border-white" %></li>
+          </ul>
+        </div>
+        <div class="col-12 col-lg-3 col-xl-4 pr-0 pr-md-5 mb-5">
+          <div class="contatti border-top border-white mt-3">
+            <%= t("layouts.footer.description",
+                  open_source: link_to(t("layouts.footer.open_source"), t("layouts.footer.open_source_url"), target: "blank", rel: "nofollow", class: "mt-3 large white-color"),
+                  consul: link_to(t("layouts.footer.consul"), t("layouts.footer.consul_url"), target: "blank", rel: "nofollow", class: " large white-color")).html_safe %>
+
+          </div>
+          <div class="border-top border-white mt-3" style="margin-top: 21px !important;margin-bottom: 20px !important;"></div>
+          <div class="mt-3"></div>
+            <%= link_to t("layouts.header.more_info"), faq_path %>
+          <div class="border-top border-white mt-3"></div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <% if Rails.env.production? %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110272632-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-110272632-1');
+        gtag('config', 'GA_TRACKING_ID', {'anonymize_ip': true});
+    </script>
+    <script type="text/javascript">
+      var _paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://ingestion.webanalytics.italia.it/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', 'geO356npon']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+<% end -%>
+</div>

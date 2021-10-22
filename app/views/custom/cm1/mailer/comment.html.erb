@@ -1,0 +1,32 @@
+<td style="padding-bottom: 20px; padding-top: 20px; padding-left: 10px;">
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    <%= t("mailers.comment.hi") %> <strong><%= @commentable.author.name %></strong>. <%= t("mailers.comments_notification.title") %>
+  </p>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    <% if @commentable.class.to_s == 'Legislation::Question' %>
+      <%= "C'è un nuovo commento da <b>#{@comment.author.name}</b> in #{link_to @commentable.title, commentable_url(@commentable), style: "color: #2895F1; text-decoration:none;"} su #{@legislation_process_name}".html_safe %>
+    <% else %>
+      <%= t("mailers.comment.new_comment_by_html", commenter: @comment.author.name) %> <%= link_to @commentable.title, commentable_url(@commentable), style: "color: #2895F1; text-decoration:none;" %>
+    <% end %>
+
+  </p>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    <%= link_to t('mailers.comments_notification.access_link'), new_user_session_url, style: "color: #2895F1; text-decoration:none;" %> <%= t('mailers.comments_notification.access') %>
+  </p>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    <%= t('mailers.comments_notification.regards') %>
+  </p>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 11px;font-weight: normal;line-height: 24px;">
+    <%= t('mailers.config.manage_email_subscriptions') %>
+  </p>
+
+<!--  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px; color: #9da2a6">-->
+    <%#= t('mailers.comments_notification.role').upcase %>
+<!--  </p>-->
+
+</td>

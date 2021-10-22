@@ -1,0 +1,281 @@
+<% provide :name do %><%= @asset.name %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: asset_url(@asset) %>
+<% end %>
+
+<% cache [locale_and_user_status(@asset), @asset, @asset.author, Flag.flagged?(current_user, @asset), @asset_votes] do %>
+  <div class="asset-show">
+    <div id="<%= dom_id(@asset) %>" class="row">
+      <div class="small-12 medium-7 column">
+
+        <%= back_link_to assets_path %>
+
+        <h1><%= @asset.name %></h1>
+
+        <% if @asset.images.any? %>
+          <%= render "gallery", asset: @asset %>
+        <% end %>
+        <% if @asset.documents.present? %>
+          <% if feature?(:allow_attached_documents) %>
+            <%= render 'documents/documents',
+                       documents: @asset.documents,
+                       max_documents_allowed: Asset.max_documents_allowed %>
+          <% end %>
+        <% end %>
+
+        <%# DESCRIZIONE%>
+        <h4 class="inline-block margin-top"><%= t("assets.show.description") %></h4>
+        <p>
+          <%= safe_html_with_links @asset.description %>
+        </p>
+
+        <p>
+          <%# DATA %>
+        <h4 class="inline-block"><%= t("assets.show.address") %></h4>
+        <div class="reporting-info">
+          <%= safe_html_with_links @asset.address %>
+        </div>
+        </p>
+        <h4 class="inline-block"><%= t("assets.show.contacts") %></h4>
+        <p>
+          <%= safe_html_with_links @asset.contacts %>
+        </p>
+
+
+        <% if current_user && @asset.moderable_bookings.my_moderable_booking(current_user.id) != nil && @asset.moderable_bookings.my_moderable_booking(current_user.id).count != 0 && @asset.moderable_bookings.my_moderable_booking(current_user.id).where(status: 2).present? %>
+          <h4 class="inline-block"><%= "Lista Prenotazioni" %></h4>
+          <br>
+          <table class="stack" style="font-size:small">
+            <thead>
+            <tr>
+              <th><%= t("admin.moderable_bookings.index.table.code") %></th>
+              <th><%= t("admin.moderable_bookings.index.table.name") %></th>
+              <th><%= t("admin.moderable_bookings.index.table.day") %></th>
+              <th><%= t("admin.moderable_bookings.index.table.time_start") %></th>
+              <th><%= t("admin.moderable_bookings.index.table.time_end") %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @asset.moderable_bookings.my_moderable_booking(current_user.id).where(status: 2).each do |moderable_booking| %>
+              <tr id="<%= dom_id(moderable_booking) %>">
+                <td class="small-12 medium-8 large-3">
+                  <%= moderable_booking.code %>
+                </td>
+                <td class="small-12 medium-8 large-3">
+                  <%= User.find(moderable_booking.booker_id).username %>
+                </td>
+                <td class="small-12 medium-8 large-3">
+                  <%= moderable_booking.time_end.strftime("%d-%m-%Y") %>
+                </td>
+                <td class="small-12 medium-8 large-3">
+                  <%= moderable_booking.time_start.to_s(:time) %>
+                </td>
+                <td class="small-12 medium-8 large-3">
+                  <%= moderable_booking.time_end.to_s(:time) %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% end %>
+
+        <div class="sidebar-divider"></div>
+
+        <h4><%= t("assets.show.map") %></h4>
+        <p><%= render_geolocation([@asset], "asset") %></p>
+
+        <%= render 'shared/tags', taggable: @asset %>
+
+
+      </div>
+
+
+      <aside class="small-12 medium-5 column" style="padding-left: 0px;">
+        <% if asset_current_editable?(@asset) || can_destroy_image?(@asset) %>
+          <div class="sidebar-divider"></div>
+          <div class="show-actions-menu">
+            <% if asset_current_editable?(@asset) %>
+              <%= link_to edit_admin_asset_path(@asset), class: 'btn btn-outline-primary btn-block' do %>
+                <span class="icon-edit"></span>
+                <%= t("assets.show.edit_asset_link") %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <% if can_destroy_image?(@asset) and false %>
+            <% @asset.images.each do |image| %>
+              <%= link_to image_path(image, from: request.url),
+                          method: :delete,
+                          class: 'btn btn-primary btn-block btn-alert',
+                          data: {confirm: t('images.actions.destroy.confirm')} do %>
+                <span class="icon-image-service"></span>
+                <%= t("images.remove_image") %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+        <% end %>
+
+        <% if current_user %>
+          <div class="sidebar-divider"></div>
+          <div>
+            <p class="sidebar-title"><%= t("assets.show.reservations") %></p>
+          </div>
+          <% if current_user && ((service_social?(:moderable_booking) && current_user.provider.present? && current_user.is_social? && @asset.social_content.social_access) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator?) %>
+            <%= link_to new_asset_booking_manager_moderable_booking_path(@asset), class: 'btn btn-primary btn-block mb-3' do %>
+              <%= t("assets.reservations.create.action") %>
+            <% end %>
+          <% end %>
+
+          <% if current_user && (current_user.administrator? || current_user.moderator?) %>
+            <%= link_to social_flag_asset_path(@asset), class: "btn btn-primary btn-block #{@asset.social_content.social_access? ? 'btn-alert' : ''}" do %>
+              <span class="icon-comments"></span>
+              <%= t("#{@asset.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+            <% end %>
+          <% end %>
+
+        <% end %>
+
+        <h4><%= t("assets.show.calendar") %></h4>
+        <% if !current_user %>
+          <p class="help-text" id="tag-list-help-text"><%= t("asset.form.reserve_instructions",
+                                                             signin: link_to(t("votes.signin"), go_to_login)).html_safe %></p>
+        <% else %>
+          <p class="help-text" id="tag-list-help-text"><%= t("asset.form.calendar_instructions") %></p>
+        <% end %>
+        <p>
+        <div id='calendar' class='calendar'></div>
+        </p>
+
+
+        <%= render partial: 'shared/social_share', locals: {
+          share_title: t("assets.show.share"),
+          title: @asset.name,
+          url: asset_url(@asset),
+          description: @asset.description
+        } %>
+
+      </aside>
+    </div>
+  </div>
+
+<% end %>
+
+<script>
+  <% if current_user && ( (service_social?(:moderable_booking) && current_user.provider.present? && current_user.is_social? && @asset.social_content.social_access) || current_user.provider == 'openam' || current_user.provider == 'test'  || current_user.administrator? || current_user.moderator? ) %>
+  $(document).ready(function () {
+    var initialLocaleCode = 'it';//document.documentElement.lang;
+    var url_to_json = window.location.href.split('eventi')[1];
+
+
+    $('#calendar').fullCalendar({
+      defaultView: 'agendaWeek',
+
+      lang: 'it',
+      height: "auto",
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,listMonth' //,agendaDay
+      },
+      defaultDate: new Date(),
+      minTime: '<%= get_min_time @asset.id%>',
+      maxTime: '<%= get_max_time @asset.id%>',
+      allDaySlot: false,
+      locale: initialLocaleCode,
+      slotDuration: "00:30:00",
+      buttonIcons: false, // show the prev/next text
+      weekNumbers: false,
+      navLinks: true, // can click day/week names to navigate views
+      editable: false,
+      eventLimit: true, // allow "more" link when too many events
+      events: '/<%= Rails.application.config.route_assets %>/<%=@asset.id%>?format=json',
+
+      selectOverlap: function (event) {
+        return event.rendering === 'background' && event.color === 'green';
+      },
+      selectable: <%= current_user ? true : false %>,
+
+      select: function (startDate, endDate, jsEvent, view) {
+        day_s = startDate.get('date')
+        day_e = endDate.get('date')
+        if (day_s === day_e) {
+          val = getIntervalDate(startDate, endDate)
+          val1 = IsDateHasEvent(startDate)
+          val2 = IsDateHasEventEnd(endDate)
+          if (!val || !val1 || !val2) {
+            $('#calendar').fullCalendar('unselect');
+          } else {
+            dati = startDate.format().split('T');
+            dati_d = dati[0].split('-');
+            data_d = dati_d[2] + "-" + dati_d[1] + "-" + dati_d[0]
+            start_h = dati[1].substring(0, 5);
+            dati = endDate.format().split('T');
+            end_h = dati[1].substring(0, 5);
+            //call controller for insert reservation
+            //alert('ok selected ' + data_d + ' from ' + start_h + ' to ' + end_h);
+            //open.window
+            window.open('/<%= Rails.application.config.route_assets %>/<%=@asset.id%>/prenotazioni/new?data=' + data_d + '&start=' + start_h + '&end=' + end_h, "_self")
+          }
+        } else
+          $('#calendar').fullCalendar('unselect');
+      },
+
+      eventClick: function (event, element) {
+        window.open('/<%= Rails.application.config.route_assets %>/<%=@asset.id%>/prenotazioni/' + event.id, "_self");
+        //alert ("show Prenotazione")
+      }
+    });
+
+    function getIntervalDate(startDate, endDate) {
+      var newDateObj = moment(startDate).add(30, 'm');
+      while (endDate.format() != newDateObj.format()) {
+        val = IsDateHasEvent(newDateObj);
+        if (!val)
+          return val;
+        newDateObj = moment(newDateObj).add(30, 'm');
+      }
+      return true;
+    }
+
+    // check if this day has an event before
+    function IsDateHasEvent(date) {
+      var allEvents = [];
+      allEvents = $('#calendar').fullCalendar('clientEvents');
+      var event = $.grep(allEvents, function (v) {
+        return +v.start === +date;
+      });
+      return event.length > 0;
+    }
+
+    function IsDateHasEventEnd(date) {
+      var allEvents = [];
+      allEvents = $('#calendar').fullCalendar('clientEvents');
+      var event = $.grep(allEvents, function (v) {
+        return +v.end === +date;
+      });
+      return event.length > 0;
+    }
+
+    // build the locale selector's options
+    $.each($.fullCalendar.locales, function (localeCode) {
+      $('#locale-selector').append(
+        $('<option/>')
+          .attr('value', localeCode)
+          .prop('selected', localeCode == initialLocaleCode)
+          .text(localeCode)
+      );
+    });
+
+    // when the selected option changes, dynamically change the calendar option
+    $('#locale-selector').on('change', function () {
+      if (this.value) {
+        $('#calendar').fullCalendar('option', 'locale', this.value);
+      }
+    });
+
+  });
+
+  <% end %>
+</script>

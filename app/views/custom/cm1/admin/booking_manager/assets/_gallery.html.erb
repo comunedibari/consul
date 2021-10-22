@@ -1,0 +1,27 @@
+<div class="orbit margin-bottom" role="region" aria-label="<%= asset.name %>" data-orbit data-auto-play="false">
+
+<% if asset.images.count > 1 %>
+  <ul class="orbit-container">
+    <li>
+      <button class="orbit-previous">
+        <span class="show-for-sr"><%= t("shared.orbit.previous_slide") %></span>&#9664;&#xFE0E;
+      </button>
+    </li>
+    <li>
+      <button class="orbit-next">
+        <span class="show-for-sr"><%= t("shared.orbit.next_slide") %></span>&#9654;&#xFE0E;
+      </button>
+    </li>
+<% end %> 
+    <% asset.images.reverse.each_with_index do |image, index| %>
+      <li class="orbit-slide <%= active_class(index) %>">
+        <%= link_to image.attachment.url(:original), style: "display: inline", target: "_blank" do %>
+          <%= image_tag image.attachment.url(:original),
+                        class: "orbit-image",
+                        alt: image.title.unicode_normalize,
+                        style: "height: 300px; width: auto; display: block; margin-left: auto; margin-right: auto;" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
