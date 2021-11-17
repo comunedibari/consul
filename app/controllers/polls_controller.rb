@@ -59,7 +59,7 @@ class PollsController < ApplicationController
       redirect_to polls_path
       ::Poll::Answer.by_question(@poll.question_ids).by_author(current_user.try(:id)).update_all(submitted: true)
     else
-      redirect_to poll_path(@poll), :flash => {:alert => "Non hai risposto ancora a tutte le risposte obbligatorie"}
+      redirect_to poll_path(@poll), :flash => {:alert => "Non hai risposto ancora a tutte le domande obbligatorie"}
     end
   end
 

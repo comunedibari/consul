@@ -41,10 +41,24 @@ class Poll < ActiveRecord::Base
   scope :published, -> { where('published = ?', true) }
   scope :by_geozone_id, ->(geozone_id) { where(geozones: { id: geozone_id }.joins(:geozones)) }
   scope :public_for_api, -> { all.published }
+  #scope :ext_use, -> { Poll.where(sondaggio_esterno: true) }
+  scope :not_ext_use, -> { Poll.where(sondaggio_esterno: false) }
 
   scope :sort_for_list, -> { order(:geozone_restricted, :starts_at, :name) }
   belongs_to :pon
   scope :by_user_pon, -> { where(pon_id: User.pon_id) }
+
+  def self.ext_use
+    questions = Poll::Question::Answer.distinct.pluck(:question_id)
+    if questions.count > 0
+      pollse = Poll::Question.where(id: questions).distinct.pluck(:poll_id)
+    else
+      searched = Poll.where(id: -1)
+      return searched
+    end
+    searched = Poll.where(sondaggio_esterno: true).where(id: pollse)
+    return searched
+  end
 
   def self.to_csv
     CSV.generate(:col_sep => ";") do |csv|

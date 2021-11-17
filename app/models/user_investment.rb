@@ -84,8 +84,21 @@ class UserInvestment < ActiveRecord::Base
   end
 
   def is_reward_validation_needed
+    # Perchè il campo ricompensa sia obbligatorio, il flag "ricompense" deve essere checkato
+    # E l'importo finanziato deve essere maggiore o uguale alla ricompensa di importo minore
     crowdfunding = Crowdfunding.where(id: self.crowdfunding_id).first
-    return crowdfunding.flag_rewards
+
+    if crowdfunding.flag_rewards
+      # Ricavo la ricompensa di importo inferiore
+      first_reward = CrowdfundingReward.where(crowdfunding_id: crowdfunding.id).order(min_investment: :asc).first
+
+      # Se non ci sono ricompense, non è obbligatoria la compilazione
+      return false if first_reward.nil?
+
+      return true if value_investements.to_f >= first_reward.min_investment.to_f
+    end
+
+    false
   end
 
   private
@@ -98,7 +111,7 @@ class UserInvestment < ActiveRecord::Base
   # end
 
   def cf_validate
-    if !cf_is_valid?(fiscal_code)
+    unless cf_is_valid?(fiscal_code)
       errors.add(:fiscal_code, I18n.t('verification.user_investment.error.fiscal_code'))
     end
   end

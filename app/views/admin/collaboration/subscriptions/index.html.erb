@@ -28,7 +28,7 @@
         <tbody>
         <% @agreement.subscriptions.each do |subscription| %>
           <tr id="<%= dom_id(subscription) %>">
-             <td> <%= link_to subscription.note, collaboration_agreement_subscription_path(@agreement, subscription.id) %> </td>
+             <td> <%= link_to (subscription.note.nil? or subscription.note == "") ? "Nota non presete, clicca per visualizzare il dettaglio" : subscription.note , collaboration_agreement_subscription_path(@agreement, subscription.id) %> </td>
              <td> <%= subscription.user.username %> </td>
           </tr>
         <% end %>

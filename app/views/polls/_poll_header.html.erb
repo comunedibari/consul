@@ -16,30 +16,35 @@
       <% end %>
     </div>
 
-    <aside class="small-12 medium-3 column margin-top">
-      <%= render partial: 'shared/social_share', locals: {
-        share_title: t("shared.share"),
-        title: @poll.name,
-        url: poll_url(@poll),
-        description: @poll.name
-      } %>
-       <div class="show-actions-menu margin-top">
-      <h2><%= t("proposals.show.actions") %></h2>
-      <% if poll_current_moderable_comments?(@poll) %>
-        <%= link_to moderation_flag_poll_path(@poll), 
-        class: "btn btn-primary font_size_initial btn-block #{@poll.moderation_flag? ? 'btn-alert' : ''}" do %>
-                    <span class="icon-comments"></span>
-              <%= t("#{@poll.moderation_flag? ?  'proposals.show.moderation_flag_desactive' : 'proposals.show.moderation_flag_active'}") %>
-          <% end %> 
-      <% end %>
-      <% if current_user && (current_user.administrator? || current_user.moderator? )%>
-          <%= link_to social_flag_poll_path(@poll),class: "btn btn-primary btn-block #{@poll.social_content.social_access? ? 'btn-alert' : ''}" do %>
+    <% unless @poll.sondaggio_esterno %>
+      <aside class="small-12 medium-3 column margin-top">
+        <%= render partial: 'shared/social_share', locals: {
+          share_title: t("shared.share"),
+          title: @poll.name,
+          url: poll_url(@poll),
+          description: @poll.name
+        } %>
+        <div class="show-actions-menu margin-top">
+          <h2><%= t("proposals.show.actions") %></h2>
+
+          <% if poll_current_moderable_comments?(@poll) %>
+            <%= link_to moderation_flag_poll_path(@poll),
+                        class: "btn btn-primary font_size_initial btn-block #{@poll.moderation_flag? ? 'btn-alert' : ''}" do %>
+              <span class="icon-comments"></span>
+              <%= t("#{@poll.moderation_flag? ? 'proposals.show.moderation_flag_desactive' : 'proposals.show.moderation_flag_active'}") %>
+            <% end %>
+          <% end %>
+
+          <% if current_user && (current_user.administrator? || current_user.moderator?) && !@poll.sondaggio_esterno %>
+            <%= link_to social_flag_poll_path(@poll), class: "btn btn-primary btn-block #{@poll.social_content.social_access? ? 'btn-alert' : ''}" do %>
               <span class="icon-comments"></span>
               <%= t("#{@poll.social_content.social_access? ? 'debates.show.social_link_disactive' : 'debates.show.social_link_active'}") %>
+            <% end %>
           <% end %>
-      <% end %>
-       </div> 
-    </aside>
+
+        </div>
+      </aside>
+    <% end %>
 
   </div>
 </div>

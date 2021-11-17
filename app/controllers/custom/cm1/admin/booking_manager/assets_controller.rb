@@ -111,7 +111,22 @@ class Admin::BookingManager::AssetsController < Admin::BookingManager::BaseContr
 
   def destroy
     @asset = Asset.find(params[:id])
-    if @asset.moderable_bookings.approved.count == 0
+    if @asset.moderable_bookings.approved.where("time_start >= ?", Time.now).count == 0
+
+      #annulla prenotazioni non ancora gestite
+      @moderable_bookings = BookingManager::ModerableBooking.where(bookable_id: @asset.id).where("status = 1")
+      begin
+        @moderable_bookings.each do |moderable_booking|
+          prenotazione = BookingManager::Booking.find(moderable_booking.booking_id)
+          #add_notification moderable_booking  #aggiunta notifica all'atto dell'eliminazione di una disponibilità
+          #Mailer.moderable_booking_deleted(moderable_booking).deliver_later #invio email all'utente a cui è stata annullata la prenotazione 
+          prenotazione.destroy
+          moderable_booking.update_attribute(:status, 3)
+        end
+      rescue => exception
+        redirect_to admin_assets_path, :flash => {:alert => t('admin.availability.table.new.notice.error')}
+      end
+  
       @asset.destroy
       notice = t('admin.asset.destroy.notice')
       redirect_to admin_assets_path, notice: notice

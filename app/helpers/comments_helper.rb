@@ -119,4 +119,8 @@ module CommentsHelper
     dim
   end
   
+  def can_user_sector_content? (user_c)
+    Sector.where("user_id = ?", user_c.id).where(visible: true).count > 0
+  end
+  
 end

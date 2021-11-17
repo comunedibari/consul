@@ -8,13 +8,14 @@
 </div>
 
 <div class="tabs-content" data-tabs-content="questions-tabs">
-  <%= render "filter_subnav" %>
+  <%#= render "filter_subnav" %>
 
   <div class="tabs-panel is-active" id="tab-questions">
     <%= render "questions" %>
   </div>
 
-  <div class="tabs-panel" id="tab-successful-proposals">
-    <%= render "successful_proposals" %>
-  </div>
+  <%# eliminata la possibilità di creare quesiti per petizioni che sono state approvate %>
+  <%# <div class="tabs-panel" id="tab-successful-proposals"> %>
+    <%#= render "successful_proposals" %>
+  <%# </div> %>
 </div>

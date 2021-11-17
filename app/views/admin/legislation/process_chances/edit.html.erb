@@ -1,5 +1,5 @@
 <% provide :title do %>
-  Admin - <%= t("admin.menu.legislation") %> - <%= @process.title %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= @process.title.html_safe %>
 <% end %>
 
 <div class="legislation-admin legislation-process-edit row">

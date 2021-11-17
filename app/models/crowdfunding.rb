@@ -35,19 +35,18 @@ class Crowdfunding < ActiveRecord::Base
 
   RETIRE_OPTIONS = %w(duplicated started unfeasible done other)
 
-  has_many :crowdfunding_rewards
-  has_many :user_investments
-
-
-  belongs_to :pon
   scope :by_user_pon, -> { where(pon_id: User.pon_id) }
   scope :by_user, ->(user) { where(author: user).where('moderation_entity in (1,2)') }
+
+  belongs_to :pon
   belongs_to :author, -> { with_hidden }, class_name: 'User', foreign_key: 'author_id'
   belongs_to :geozone
+
+  has_many :crowdfunding_rewards, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  has_many :votes, as: :votable
+  has_many :votes, as: :votable, dependent: :destroy
   has_many :crowdfunding_notifications, dependent: :destroy
-  has_many :user_investments
+  has_many :user_investments, dependent: :destroy
 
   #validates :images, presence: true
   validates :start_date, presence: true
@@ -99,6 +98,7 @@ class Crowdfunding < ActiveRecord::Base
   scope :archived, -> { where("crowdfundings.end_date < ?", Setting['months_to_archive_crowdfundings', User.pon_id].to_i.months.ago).reorder(end_date: :desc) }
 
   scope :sort_by_created_at, -> { opens.where("crowdfundings.created_at > ?", Time.current.beginning_of_day - 7.day).reorder(created_at: :desc) }
+  scope :sort_by_start_date, -> { opens.where("crowdfundings.start_date > ?", Time.current.beginning_of_day - 7.day).reorder(start_date: :desc) }
 
 
   #scope :sort_by_created_at,       -> { reorder(created_at: :desc) }
@@ -146,22 +146,20 @@ class Crowdfunding < ActiveRecord::Base
     end
   end
 
-
   def open?
-    start_date <= Date.current && end_date >= Date.current
+    start_date <= Time.current.end_of_day && end_date >= Time.current.end_of_day
   end
 
   def close?
-    end_date < Date.current
+    end_date <= Time.current.beginning_of_day
   end
 
-
   def past?
-    end_date < Date.current
+    end_date <= Time.current.beginning_of_day
   end
 
   def next?
-    start_date > Date.current
+    start_date > Time.current.end_of_day
   end
 
   def self.current_id
@@ -375,7 +373,7 @@ class Crowdfunding < ActiveRecord::Base
 
   #qui trovo i filtri
   def self.crowdfundings_orders(user)
-    orders = %w{hot_score created_at end_date confidence_score past succesfull_crowd archival_date }
+    orders = %w{hot_score start_date end_date confidence_score past succesfull_crowd archival_date }
     #orders << "recommendations" if user.present?
     orders
   end
@@ -426,7 +424,7 @@ class Crowdfunding < ActiveRecord::Base
     # (author_id == user.id) && (self.user_investments.user_investments_accepted == 0)
 
     # Logica nuova: solo admin e moderatori dello stesso PON possono editare
-    if (user.administrator? or user.moderator?) and self.user_investments.user_investments_accepted == 0
+    if user.administrator? or user.moderator? # and self.user_investments.user_investments_accepted == 0
       user.pon_id == self.pon_id
     else
       return false

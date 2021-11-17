@@ -202,7 +202,7 @@
 
             <% if @jobs %>
               <% @jobs.each do |job| %>
-                <% if job.editable %>
+                <% if job.editable  && !job[:key].start_with?("job.gamification") %>
                   <tr>
                     <td>
                       <strong><%= t("settings.#{job.key}") %></strong>
@@ -453,8 +453,8 @@
           <table>
             <tbody>
             <% if @jobs %>
-              <% @jobs.each do |job| %>
-                <% if job.editable %>
+              <% @jobs.each do |job| %>                
+                <% if job.editable  && !job[:key].start_with?("job.gamification")%>
                   <tr>
                     <td>
                       <strong><%= t("settings.#{job.key}") %></strong>

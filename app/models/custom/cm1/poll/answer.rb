@@ -24,7 +24,14 @@ class Poll::Answer < ActiveRecord::Base
   end
 
   def record_voter_participation(token)
-    Poll::Voter.find_or_create_by(user: author, poll: poll, origin: "web", token: token)
-    #logger.info "Token...#{token} - user #{author.id} - poll #{poll.id}"
+
+    poll_voter = Poll::Voter.find_by token: token
+
+    # Se esiste già un poll_voter, si tratta di un voter invitato dall'esterno
+    # Altrimenti và creato con l'origin "web"
+    if poll_voter.nil?
+      Poll::Voter.create!(user: author, poll: poll, origin: "web", token: token)
+    end
+
   end
 end

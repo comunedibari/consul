@@ -38,15 +38,15 @@
           <%#td><%= crowdfunding.total_comments %><%#/td%>
           <td><%= I18n.l crowdfunding.end_date.to_date %></td>
           <td>
-            <% if crowdfunding.user_investments.user_investments_accepted == 0 %>
+            <% if crowdfunding.user_investments.count == 0 %>
               <%= link_to t("admin.crowdfundings_admin.index.delete"), admin_crowdfunding_path(crowdfunding),
                         method: :delete,
                         class: 'button hollow alert' %>
             <% else %>
               <%= link_to t("admin.crowdfundings_admin.index.delete"), admin_crowdfunding_path(crowdfunding),
-                        method: :delete,
-                        class: 'button hollow alert',
-                        disabled: true %>
+                          method: :delete,
+                          class: 'button hollow alert',
+                          data: { confirm: "Attenzione, stai richiedendo di cancellare un Crowdfunding che ha già ricevuto dei finanziamenti: procedendo con tale azione tutti i dati saranno eliminati e non più consultabili, sei sicuro di voler procedere?" } %>
             <% end %>
           </td>
         </tr>

@@ -81,13 +81,13 @@ class Admin::BookingManager::AvailabilitiesController < Admin::BookingManager::B
     #self.unset_rule
     @availability.destroy
     self.unset_rule_new
-    @moderable_bookings = BookingManager::ModerableBooking.where(bookable_id: @asset.id).where("status < 3")
+    @moderable_bookings = BookingManager::ModerableBooking.where(bookable_id: @asset.id).where("status = 2").where("time_start >= ?", Time.now)
     begin
       @moderable_bookings.each do |moderable_booking|
-        add_notification moderable_booking  #aggiunta notifica all'atto dell'eliminazione di una disponibilità
-        Mailer.moderable_booking_deleted(moderable_booking).deliver_later #invio email all'utente a cui è stata annullata la prenotazione
         prenotazione = BookingManager::Booking.find(moderable_booking.booking_id)
         if @asset.schedule.occurs_at?(prenotazione.time_start) == false || @asset.schedule.occurring_at?(prenotazione.time_end - 1.minutes) == false
+          add_notification moderable_booking  #aggiunta notifica all'atto dell'eliminazione di una disponibilità
+          Mailer.moderable_booking_deleted(moderable_booking).deliver_later #invio email all'utente a cui è stata annullata la prenotazione 
           prenotazione.destroy
           moderable_booking.update_attribute(:status, 3)
         end

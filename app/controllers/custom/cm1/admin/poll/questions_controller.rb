@@ -22,14 +22,12 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
       redirect_to admin_questions_path, alert: t("admin.questions.new.no_polls_error")
     elsif params[:question_id].present?
       #prova a creare una domanda per quesito tabellare
-      new_underquestion
+      new_underquestion      
     else
       @question = Poll::Question.new
-
-      proposal = Proposal.find(params[:proposal_id]) if params[:proposal_id].present?
-      
-      @question.copy_attributes_from_proposal(proposal)
-
+      #eliminata la possibilità di creare quesiti per petizioni che sono state approvate
+      #proposal = Proposal.find(params[:proposal_id]) if params[:proposal_id].present?      
+      #@question.copy_attributes_from_proposal(proposal)
       load_data_for_edit      
     end
 
@@ -55,7 +53,7 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
     end
     if flag == true
       @question.author = @question.proposal.try(:author) || current_user    
-      if @question.save      
+      if @question.save and !@question.id.nil?
         @question.update_attribute(:group_id, @question.id)
         redirect_to admin_question_path(@question), notice: t("flash.actions.create.question")     
       else
@@ -96,22 +94,25 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
 
       @polls = Poll.by_user_pon
 
+      if @question.poll_question_type_id == 2
+        @question.title = @question.group_title
+      end
+
+      ids_q = Poll::Question.where(poll_id: @question.poll_id).where.not(poll_question_type_id: 2).order("id").pluck(:id)
+
+      #filtro id questi che hanno almeno una risposta e che non sia di tipo aperta (Altro)
+      ids_a = Poll::Question::Answer.distinct.select("question_id").where("title != 'Altro'").where(question_id: ids_q).order("question_id").pluck("question_id")
+
+      #@questions = Poll::Question.where(id: ids_a).order("id")
+      @questions = Poll::Question.where(group_id: ids_a).where.not(id: @question.id).where.not(title: "----").order("id")
+
       if @question.poll_question_type_id == 3
 
-        ids_q = Poll::Question.where(poll_id: @question.poll_id).order("id").pluck(:id)
-        ids_a = Poll::Question::Answer.distinct.select("question_id").where("title != 'Altro'").where(question_id: ids_q).order("question_id").pluck("question_id")
-        #@questions = Poll::Question.where(id: ids_a).order("id")
-        @questions = Poll::Question.where(group_id: ids_a).where.not(id: @question.id).where.not(title: "----").order("id")
+        @answers =  Poll::Question::Answer.where(question_id:  @question.question_optional_id).where.not(title: "Altro").order("id")
     
-        @answers =  Poll::Question::Answer.where(question_id:  @question.question_optional_id).order("id")      
-
       else              
-        if @question.poll_question_type_id == 2
-          @question.title = @question.group_title
-        end
 
-        @questions = Poll::Question.where(poll_id: @question.poll_id).order("id")
-        @answers =  Poll::Question::Answer.where(question_id:  @questions.first.id).order("id")
+        @answers =  Poll::Question::Answer.where(question_id:  @questions.first.id).where.not(title: "Altro").order("id")
 
       end
 
@@ -158,8 +159,11 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
       else              
   
         @questions = Poll::Question.where(poll_id: @question.poll_id).order("id")
-        @answers =  Poll::Question::Answer.where(question_id:  @questions.first.id).order("id")
-  
+        if @questions.count > 0
+          @answers =  Poll::Question::Answer.where(question_id:  @questions.first.id).order("id")
+        else
+          @answers = Poll::Question::Answer.where(question_id:  0).order("id")
+        end
       end
   
       @type_questions = @questions.count > 0 ? Poll::QuestionType.all.order("id") : Poll::QuestionType.where(id: [1,2]).order("id")
@@ -219,11 +223,20 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
       @question = Poll::Question.new
     end
 
-    ids_q = Poll::Question.where(poll_id: params[:poll_id]).order("id").pluck(:id)
+    #cerco id quesiti per il corrente poll_id che non siano di tipo tabellare (poll_question_type_id 1= 2)
+    ids_q = Poll::Question.where(poll_id: params[:poll_id]).where.not(poll_question_type_id: 2).order("id").pluck(:id)
+
+    #filtro id questi che hanno almeno una risposta e che non sia di tipo aperta (Altro)
     ids_a = Poll::Question::Answer.distinct.select("question_id").where("title != 'Altro'").where(question_id: ids_q).order("question_id").pluck("question_id")
+
     @questions = Poll::Question.where(id: ids_a).order("id")
 
-    @answers =  Poll::Question::Answer.where(question_id:  @questions.first.id).order("id")
+    if @questions.count > 0
+      @answers =  Poll::Question::Answer.where(question_id:  @questions.first.id).where.not(title: "Altro").order("id")
+    else
+      #se la counsultazione non ha quesiti selezionabili, non cer
+      @answers =  Poll::Question::Answer.where(question_id:  -1)
+    end
     @type_questions = @questions.count > 0 ? Poll::QuestionType.all.order("id") : Poll::QuestionType.where(id: [1,2]).order("id")
     respond_to do |format|
       format.js
@@ -322,7 +335,6 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
 
       @polls = Poll.by_user_pon.order("id")
       if @polls.count > 0
-
         ids_q = Poll::Question.where(poll_id: @polls.first.id).order("id").pluck(:id)
         ids_a = Poll::Question::Answer.distinct.select("question_id").where("title != 'Altro'").where(question_id: ids_q).order("question_id").pluck("question_id")
         #@questions = Poll::Question.where(id: ids_a).order("id")

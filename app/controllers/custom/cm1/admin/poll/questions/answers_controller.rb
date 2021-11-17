@@ -15,6 +15,12 @@ class Admin::Poll::Questions::AnswersController < Admin::Poll::BaseController
 
 
   def new
+    #rafforziamo il controllo per i casi di group_id = null, forzando un setting sull'attributo
+    if @question.group_id.nil? and @question.poll_question_type_id == 2 and @question.title == "----"
+      fix_group_id
+    end
+
+    #controllo che la domanda tabellare non abbia gia 10 risposte inserite
     if @question.poll_question_type_id == 2 && @question.question_group.question_answers.count == 10
       redirect_to admin_question_path(@question), alert: t("admin.answers.new.error_max")     
     else
@@ -83,6 +89,10 @@ class Admin::Poll::Questions::AnswersController < Admin::Poll::BaseController
 
   def load_answer
     @answer = ::Poll::Question::Answer.find(params[:id] || params[:answer_id])
+  end
+
+  def fix_group_id
+    @question.update_attribute(:group_id, @question.id)
   end
 
 end

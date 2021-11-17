@@ -3,7 +3,8 @@
 <div class="row hide-for-small-only">
   <div class="small-12 column text-center" style="margin-top:20px">
     <div class="map_card" style="padding-bottom:30px">
-      <% if get_pon_100.present? %>
+      <% #if get_pon_100.present? %>
+      <% if @val.first["id"].to_i == 100  and @val.first['count'].to_i > 0%>
         <% get_pon_100 %>
         <div class="my-4 small-12 medium-12 column" style="text-align: center; font-size: xx-large;">
           <%= link_to "/?pon_id=" + (@pon_100['id']).to_s do %>
@@ -22,7 +23,7 @@
   <map name="map" id="html_map">
     <%# @pons.each do |pon| %>
     <% @val.each do |pon| %>
-      <% if pon['count'].to_i > 0 %>
+      <% if pon['count'].to_i > 0 and pon['id'].to_i != 100 %>
         <area shape="poly"
               coords="<%= pon['html_map_coordinates'] %>"
               href="<%= "/?pon_id=" + (pon['id'].to_s) %>"

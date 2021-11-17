@@ -1,24 +1,24 @@
 <%#= form.label :map_location, t("account.form.user_position") %>
 
 <!-- <p class="help-text" id="tag-list-help-text"><%#= help %></p> -->
- 
+
  <h3> <%= t("account.form.user_position") %> </h3>
 
-  <div>
-    <%= form.label :skip_map do %>
-      <%= form.check_box :skip_map,
+<!--  <div>-->
+    <%#= form.label :skip_map do %>
+      <%#= form.check_box :skip_map,
                          title: t("#{i18n_namespace}.form.map_skip_checkbox"),
                          label: false,
                          class: 'js-toggle-map-user' %>
-      <span class="checkbox">
-        <%= t("#{i18n_namespace}.form.map_skip_checkbox") %>
-      </span>
-    <% end %>
-  </div>
+<!--      <span class="checkbox">-->
+        <%#= t("#{i18n_namespace}.form.map_skip_checkbox") %>
+<!--      </span>-->
+    <%# end %>
+<!--  </div>-->
 
   <!-- <div class="margin-top geoloc-user" style="display: none;"> -->
   <div class="margin-top geoloc-user">
-    
+
     <div class="small-12">
       <%#=  t("account.form.account_address") %>
         <div class="input-group">
@@ -32,11 +32,11 @@
         </div>
         <div id="no-text-insert" class="callout alert no-text-insert primary text-center hide">
           <%= t "account.no_text_insert_html" %>
-        </div>      
+        </div>
     </div>
   </div>
 
-  
+
 <% if Rails.application.config.coord_user_address %>
 
   <div class= "moderation-description" style="text-align: justify; min-height: 7rem;" >
@@ -47,7 +47,7 @@
 
 
       <%= form.check_box :public_map, title: t('account.show.public_map_title'), label: false %>
-        
+
         <span class="checkbox">
             <%= t('account.show.public_map_title') %>
         </span>
@@ -61,12 +61,12 @@
           <%= t('account.show.public_map_label_six') %>
           <%= t('account.show.public_map_label_seven') %>
           <%= t('account.show.public_map_label_eight') %>
-        </p>                  
+        </p>
     <% end %>
   </div>
   <br>
   <%= render_map_user(map_location,parent_class, editable = Rails.application.config.coord_user_address, remove_marker_label,geo_coding_addr) %>
-  
+
   <%= form.fields_for :map_location, map_location do |m_l_fields| %>
     <%= m_l_fields.hidden_field :id,
                                 value: map_location.id,
@@ -80,10 +80,10 @@
     <%= m_l_fields.hidden_field :zoom,
                                 value: map_location.zoom,
                                 id: map_location_input_id(parent_class, 'zoom') %>
-  <% end %>        
+  <% end %>
 
 
 <% else%>
   <%= render_map_user(nil, parent_class, editable = Rails.application.config.coord_user_address, remove_marker_label,geo_coding_addr) %>
-<% end %>                              
+<% end %>
 

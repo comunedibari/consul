@@ -59,22 +59,9 @@
     %>
   </div>
 
-    <% if (current_user.provider.present? && current_user.provider == "openam" ) || current_user.administrator? %>
-      <div class="small-12 medium-9 column">
-        <%= f.fields_for :social_content do |ff| %>
-          <%= ff.label :social_access, t("debates.form.social_access") %>
-          <p class="help-text" id="tag-list-help-text"><%= t("debates.form.social_access_info") %></p>
-          <%= ff.check_box :social_access, checked: social_access?(@moderable_booking.social_content ? @moderable_booking.social_content.social_access : false), title: t('debates.form.social_access'), label: false %>
-          <span class="checkbox">
-                <%= t("debates.form.social_access_check") %>
-            </span>
-        <% end %>
-      </div>
-    <% else %>
       <%= f.fields_for :social_content do |ff| %>
         <%= ff.hidden_field :social_access, value: false %>
       <% end %>
-    <% end %>
 
   <div class="actions small-12 column">
     <%= f.submit(class: "btn btn-primary", value: t("reservations.#{action_name}.form.submit_button")) %>

@@ -1,7 +1,6 @@
 class Polls::QuestionsController < ApplicationController
 
 
-
   load_and_authorize_resource :poll
   load_and_authorize_resource :question, class: 'Poll::Question'
   respond_to :html, :js
@@ -9,12 +8,22 @@ class Polls::QuestionsController < ApplicationController
 
   has_orders %w{most_voted newest oldest}, only: :show
 
-  def answer    
+  def get_user_by_token(token)
+    voter = Poll::Voter.find_by token: token
+
+    if voter.nil?
+      return User.guest
+    end
+
+    User.find(voter.user_id)
+  end
+
+  def answer
 
     if current_user.nil?
-      tmp_user= User.guest
+      tmp_user = get_user_by_token(params[:token])
     else
-      tmp_user=current_user
+      tmp_user = current_user
     end
 
     @poll = Poll.find(@question.poll_id)
@@ -31,13 +40,13 @@ class Polls::QuestionsController < ApplicationController
       @answers_by_question_id[answer.question_id][answer.answer] = answer.answer
     end
 
-    if Poll::Answer.where(author: tmp_user,question_id:@question.id, answer: params[:answer],token: @token).any? and params[:answer] != 'Altro'
-      Poll::Answer.where(author: tmp_user,question_id:@question.id, answer: params[:answer], token: @token).delete_all
+    if Poll::Answer.where(author: tmp_user, question_id: @question.id, answer: params[:answer], token: @token).any? and params[:answer] != 'Altro'
+      Poll::Answer.where(author: tmp_user, question_id: @question.id, answer: params[:answer], token: @token).delete_all
       @answers_by_question_id[@question.id].delete(params[:answer])
 
     else
       flag = true
-      if @poll_answers.count >= @question.num_max_answers &&  @question.num_max_answers > 1
+      if @poll_answers.count >= @question.num_max_answers && @question.num_max_answers > 1
         if params[:answer] == 'Altro'
           if @poll_answers.where(answer: "Altro").count < 1
             #render :new
@@ -50,7 +59,7 @@ class Polls::QuestionsController < ApplicationController
           flag = false
         end
       end
-      if !flag 
+      if !flag
         render :new
       else
         if @poll_answers.count == 1 and @question.num_max_answers == 1
@@ -78,7 +87,7 @@ class Polls::QuestionsController < ApplicationController
           if @question.num_max_answers == 1 || !@answers_by_question_id || !@answers_by_question_id[@question.id]
             @answers_by_question_id[@question.id] = Hash.new
           end
-          @answers_by_question_id[@question.id][answer.answer] = answer.answer       
+          @answers_by_question_id[@question.id][answer.answer] = answer.answer
         else
           if @question.num_max_answers == 1
             @answers_by_question_id[@question.id] = Hash.new
@@ -91,9 +100,9 @@ class Polls::QuestionsController < ApplicationController
 
   def load_data
     if current_user.nil?
-      tmp_user= User.guest
+      tmp_user = User.guest
     else
-      tmp_user=current_user
+      tmp_user = current_user
     end
 
     @token = params[:token]

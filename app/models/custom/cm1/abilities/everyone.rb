@@ -2,6 +2,19 @@ module Abilities
   class Everyone
     include CanCan::Ability
 
+    def is_invite_token_valid?(poll_id, invitation_token)
+      poll_voter = Poll::Voter.find_by(poll_id: poll_id, token: invitation_token)
+
+      # Perchè il token di invito sia valido, deve sia esistere il record associato
+      # che essere stato inviato.
+      if !poll_voter.nil? and poll_voter.invitation_sent
+        true
+      else
+        false
+      end
+
+    end
+
     def initialize(user, params, isBlockedPrivacy)
       can [:read, :map, :json_data, :share, :large_map], Debate
       can [:read, :map, :json_data, :share, :large_map], Asset
@@ -34,11 +47,21 @@ module Abilities
       can :read, Poll
 
       can :answer, Poll do |poll|
-        poll.access_type == 3 and user.nil?
+        if poll.sondaggio_esterno
+          user.nil? and is_invite_token_valid?(params[:id], params[:i_t])
+        else
+          poll.access_type == 3 and user.nil? and !poll.expired? and !poll.incoming?
+        end
       end
 
       can :answer, Poll::Question do |question|
-        question.poll.access_type == 3 and user.nil?
+        # Consentiamo di rispondere alle domande agli utenti anonimi su Poll esterno
+        # Il controllo di validità del token di voto avverrà nel controller
+        if question.poll.sondaggio_esterno
+          user.nil?
+        else
+          question.poll.access_type == 3 and user.nil? and !question.poll.expired? and !question.poll.incoming?
+        end
       end
 
       can :confirm, Poll do |poll|

@@ -1,5 +1,9 @@
 module AssetsHelper
 
+  def asset_deleted(assed_id)
+    Asset.where(id: assed_id).count > 0
+  end
+
   def asset_current_editable?(asset)
      current_user && asset.editable_by?(current_user)
   end

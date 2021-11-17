@@ -119,7 +119,7 @@ class BookingManager::ModerableBookingsController < ApplicationController
 
   def load_data
     @moderable_booking = BookingManager::ModerableBooking.all.where("booking_id = ?",params[:id]).where("bookable_id = ?",params[:asset_id]).first
-    @asset = Asset.find_by(id: @moderable_booking.bookable_id)
+    @asset = Asset.with_hidden.find_by(id: @moderable_booking.bookable_id)
   end
 
 

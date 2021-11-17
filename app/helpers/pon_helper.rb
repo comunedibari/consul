@@ -33,7 +33,8 @@ module PonHelper
 
   def pon_actived
     connection = ActiveRecord::Base.connection
-    sql = "select p.id, p.name, count(s.id), p.html_map_coordinates from pons as p left join settings as s on s.pon_id = p.id  and s.value = 'true' and s.key like 'service.%' where p.id > 0 and p.id < 100 group by p.id, p.name order by p.name asc; "
+    #sql = "select p.id, p.name, count(s.id), p.html_map_coordinates from pons as p left join settings as s on s.pon_id = p.id  and s.value = 'true' and s.key like 'service.%' where p.id > 0 and p.id < 100 group by p.id, p.name order by p.name asc; "
+    sql = "select p.id, p.name, count(s.id), p.html_map_coordinates from pons as p left join settings as s on s.pon_id = p.id  and s.value = 'true' and s.key like 'service.%' where p.id > 0 group by p.id, p.name order by p.name asc; "
     @val = connection.exec_query(sql)
   end
 

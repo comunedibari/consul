@@ -55,9 +55,45 @@
           </tbody>
         </table>
       </div>
-      <h3><%= t("collaboration.subscriptions.show.title") %></h3>
 
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-9 column">
+        <h4><span class=" float-left"></span><%= t("assets.moderable_bookings.show.user_detail") %></h4>
+        <p class="help-text"></span><%= t("collaboration.subscriptions.new.user") %></p>
+        <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+          <thead>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.user_name") %>:</td>
+            <td><%= @subscription.user.username.to_s %></td>
+          </tr>
+          <tr>
+            <td><%= t("assets.moderable_bookings.show.user_cf") %>:</td>
+            <td><%= @subscription.user.cod_fiscale.to_s %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="small-12 medium-6 column">
+        <h4><span class=" float-left"></span><%= t("collaboration.subscriptions.show.title") %></h4>
+        <table class="crowdfunding-table" style="font-size: small;" class="margin-top">
+          <tbody>
+            <tr>
+              <td>
+                <%= t("collaboration.subscriptions.show.note") %>
+              </td>
+              <td>
+              <%= @subscription.note %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="small-12 medium-12 column">
@@ -73,17 +109,6 @@
         <%# end %>
       </div>
     </div>
-
-  </div>
-
-  <div class="small-12 medium-3 column">
-    <% if @collaboration_agreement.documents.count > 0 %>
-      <div class="margin-top">
-        <div class="sidebar-divider"></div>
-        <h2 class="sidebar-title"><%= t('proposals.show.title_external_url') %></h2>
-        <%= render 'documents/additional_documents', documents: @collaboration_agreement.documents %>
-      </div>
-    <% end %>
   </div>
 
 

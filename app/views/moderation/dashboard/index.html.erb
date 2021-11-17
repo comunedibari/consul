@@ -4,39 +4,4 @@
 
 <p><%= t("moderation.menu.info") %><p>
 
-<div class="small-12 medium-9">
-  <ul class="accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true">
 
-    <li class="accordion-item" data-accordion-item>
-      <a href="#" class="accordion-title"><%= t("moderation.menu.titles") %></a>
-      <div class="accordion-content" data-tab-content>
-        <p>Quando un utente segnala una proposta / segnalazione / dibattito / commento l'opzione come "inappropriato", apparirà in questo elenco. Per ognuna, apparirà il <em> titolo, la data, il numero di segnalazioni </ em> (quanti utenti diversi hanno contrassegnato l'opzione di segnalazione) e il <em> testo della proposta / segnalazione / dibattito / commento </ em>.</p>
-
-        <p>A destra di ogni elemento appare una casella che possiamo contrassegnare per selezionare tutti quelli che vogliamo dall'elenco. Una volta selezionato uno o più, troviamo in fondo alla pagina <strong> tre pulsanti per eseguire azioni </ strong> su di essi:</p>
-
-        <ul>
-          <li><strong>Nascondere</strong>: nasconderà quegli elementi dal portale.</li>
-          <li><strong>Blocca autori</strong>: farà sì che l'autore di quell'elemento smetta di essere in grado di accedere al portale, e che anche tutte le proposte / segnalazioni / dibattiti / commenti di quell'utente smettano di apparire sul portale.</li>
-          <li><strong>Segna come esaminate</strong> quando consideriamo che questi elementi non dovrebbero essere moderati, che il loro contenuto è corretto, e che quindi non dovrebbero essere più mostrati in questa lista di elementi inappropriati.</li>
-        </ul>
-
-        <p>Per facilitare la gestione in alto troviamo un <strong>filtro</strong> con le sezioni:</p>
-
-        <ul>
-          <li><strong>In corso</strong>: le Proposte/Segnalazioni/Dibattiti/Commenti per i quali non sono state ancora selezionate le opzioni  "nascondi", "blocca" o "segna come esaminato", e che per tanto dovrebbero essere esaminate ancora</li>
-          <li><strong>Tutte</strong>: si mostrano tutte le Proposte/Segnalazioni/Dibattiti/Commenti, ed anche quelli segnati come inappropriati.</li>
-          <li><strong>Segna come esaminate</strong>: quelle che alcuni moderatori hanno contrassegnato come esaminate e quindi sembrano corrette.</li>
-        </ul>
-
-        <p><em>Si raccomanda di riesaminare regolarmente la sezione "in corso".</em></p>
-      </div>
-    </li>
-
-    <li class="accordion-item" data-accordion-item>
-      <a href="#" class="accordion-title"><%= t("moderation.menu.lock") %></a>
-      <div class="accordion-content" data-tab-content>
-        <p>Un motore di ricerca ci consente di trovare qualsiasi utente inserendo il suo <em>nome di utente o posta elettronica</em>, e bloccarlo una volta trovato. Bloccandolo, <strong>l'utente non potrá riaccedere al portale</strong>, e tutte le sue  Proposte/Segnalazioni/Dibattiti/Commenti saranno nascoste e finiranno col non essere più visibili sul portale.</p>
-      </div>
-    </li>
-  </ul>
-</div>

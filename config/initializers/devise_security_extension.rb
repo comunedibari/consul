@@ -4,7 +4,9 @@ Devise.setup do |config|
 
   # Should the password expire (e.g 3.months)
   # config.expire_password_after = false
-  config.expire_password_after = 1.year
+  #config.expire_password_after = 1.year
+  #config.expire_password_after = 99.year
+  config.expire_password_after = 2.months
 
   # Need 1 char of A-Z, a-z and 0-9
   # config.password_regex = /(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])/
@@ -41,7 +43,9 @@ module Devise
   module Models
     module PasswordExpirable
       def need_change_password?
-        self.administrator? && password_expired?
+        #self.administrator? && password_expired?
+        #disabilito controllo cambio password
+        false
       end 
 
       def password_expired?

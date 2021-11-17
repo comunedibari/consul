@@ -53,13 +53,13 @@
   <% elsif user_signed_in? && (!service_social?(:proposals) && current_user.provider.present? && current_user.is_social? && proposal.social_content.social_access) %>
     <div tabindex="0">
       <div class="participation-not-allowed" style='display:none' aria-hidden="false">
-        <%= "Il servizio potrebbe non essere attivo per gli utenti hanno accesso al portale tramite social" %>
+        <%= "Il servizio potrebbe non essere attivo per gli utenti che accedono tramite social" %>
       </div>
     </div>
   <% elsif user_signed_in? && (service_social?(:proposals) && current_user.provider.present? && current_user.is_social? && !proposal.social_content.social_access) %>
     <div tabindex="0">
       <div class="participation-not-allowed" style='display:none' aria-hidden="false">
-        <%= "Il servizio potrebbe non essere attivo per gli utenti hanno accesso al portale tramite social" %>
+        <%= "Il servizio potrebbe non essere attivo per gli utenti che accedono tramite social" %>
       </div>
     </div>
   <% elsif isBlockedPrivacy && user_signed_in? %>

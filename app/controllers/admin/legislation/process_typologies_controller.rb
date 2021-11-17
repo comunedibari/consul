@@ -1,6 +1,8 @@
 class Admin::Legislation::ProcessTypologiesController < Admin::Legislation::ProcessesController
   before_action :load_data, only: [:show, :new, :update, :edit, :create]
 
+  load_and_authorize_resource :typology, class:  "::Legislation::ProcessTypology"
+
   def index
     @typologies = ::Legislation::ProcessTypology.order('id ASC').page(params[:page])
   end

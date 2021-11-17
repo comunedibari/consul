@@ -62,13 +62,11 @@ class UserInvestmentsController < ApplicationController
     if user_investment_params[:value_investements] == nil
       flash[:alert] = I18n.t('verification.residence.new.error_investment_not_null')
       # redirect_to :back
-      render :new
-      return
+      render :new and return
     elsif user_investment_params[:value_investements].to_f < @crowdfunding.min_price
       flash[:alert] = I18n.t('verification.residence.new.error_investment_too_low')
       # redirect_to :back
-      render :new
-      return
+      render :new and return
     end
 
     # Prelevo dati dal backend
@@ -79,11 +77,10 @@ class UserInvestmentsController < ApplicationController
     # Triggeriamo manualmente la validazione per assicurarci che a mypay arrivi un
     # Codice Fiscale valido
     unless @user_investment.valid?
-      render :new
-      return
+      render :new and return
     end
     #appplico un uppercase sul codice fiscale per salvarlo correttamente
-    @user_investment.fiscal_code = @user_investment.fiscal_code.upcase    
+    @user_investment.fiscal_code = @user_investment.fiscal_code.upcase
 
     # Chiamo il portale pagamenti esterni e ricavo identificativoPagamento
     mypay_json_response = mypay_init(user_investment_params)

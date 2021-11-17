@@ -37,7 +37,7 @@ class UsersController < ApplicationController
                           collaboration_agreements: (::Collaboration::Agreement.where(author_id: @user.id).count),
                           debates: (Debate.where(author_id: @user.id).count),
                           moderable_bookings: (::BookingManager::ModerableBooking.where(booker_id: @user.id).count),
-                          budget_investments: (Budget::Investment.where(author_id: @user.id).count),
+                          budget_investments: 0, #(Budget::Investment.where(author_id: @user.id).count),
                           
                           comments: only_active_commentables.count,
                           follows: @user.follows.count)
@@ -124,9 +124,13 @@ class UsersController < ApplicationController
         "moderable_bookings" => 'assets'
       }
 
-      if has_service[filter].nil? or Setting.where(pon_id: current_user.pon_id).where(key: "service."+has_service[filter]).nil? or
-        Setting.where(pon_id: current_user.pon_id).where(key: "service."+has_service[filter]).count == 0 or
-        Setting.where(pon_id: current_user.pon_id).where(key: "service."+has_service[filter]).first.value == "true"
+      #if has_service[filter].nil? or Setting.where(pon_id: current_user.pon_id).where(key: "service."+has_service[filter]).nil? or
+      #  Setting.where(pon_id: current_user.pon_id).where(key: "service."+has_service[filter]).count == 0 or
+      #  Setting.where(pon_id: current_user.pon_id).where(key: "service."+has_service[filter]).first.value == "true"
+
+      if has_service[filter].nil? or Setting.where(pon_id: @user.pon_id).where(key: "service."+has_service[filter]).nil? or
+        Setting.where(pon_id: @user.pon_id).where(key: "service."+has_service[filter]).count == 0 or
+        Setting.where(pon_id: @user.pon_id).where(key: "service."+has_service[filter]).first.value == "true"          
         true
       else
         false

@@ -48,6 +48,10 @@ class ReportingsDataJob < ActiveJob::Base
           map_loc = MapLocation.new()
           user.username = item["username"]
           rep_type = ReportingType.where(nome: item["tipoDescrizione"]).first
+
+          if rep_type.nil?
+            rep_type = ReportingType.where(nome: 'Non Definito').first
+          end
           
           url_preview = item["foto"].strip
           if url_preview.end_with?(".it")

@@ -2,7 +2,7 @@
   <td class="small-9">
     <% if !processes_proposal.rejected?%>
       <strong><%= link_to processes_proposal.title,
-      legislation_process_proposal_path(processes_proposal.legislation_process_id, processes_proposal, pon_id: processes_proposal.pon_id),
+      legislation_process_proposal_path(processes_proposal.legislation_process_id, processes_proposal, pon_id: processes_proposal.process.pon_id),
       processes_proposal.retired? ? { class: 'retired' } : {} %></strong>
     <% else %>
       <strong><%= processes_proposal.title %></strong>

@@ -102,8 +102,8 @@ module AdminHelper
 
   def user_roles(user)
     roles = []
-    roles << :admin if user.administrator?
-    roles << :moderator if user.moderator?
+    roles << "Amministatore" if user.administrator?
+    roles << "Moderatore" if user.moderator?
     roles << :valuator if user.valuator?
     roles << :manager if user.manager?
     roles << :poll_officer if user.poll_officer?
@@ -113,7 +113,13 @@ module AdminHelper
   end
 
   def display_user_roles(user)
-    user_roles(user).join(", ")
+    val = user_roles(user).join(", ")
+    if val == ""
+      val = "Cittadino"
+    else
+      val
+    end
+    val
   end
 
   def display_budget_goup_form(group)

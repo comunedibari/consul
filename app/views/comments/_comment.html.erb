@@ -157,6 +157,42 @@
 
             <% end %>
 
+          <%#= NOTA: Per i Topic devo controllare il social_content del resource di rifeirmento e verificare i giusti social_service nei setting %>
+          <% elsif (comment.commentable.class.name == "Topic") %>
+
+            <% if !isBlockedPrivacy && user_signed_in?  && ((current_user.present? && current_user.provider.present? && current_user.is_social? && comment.commentable.community.from_resource.social_content.social_access?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator? )%>
+              <span class="divider">&nbsp;|&nbsp;</span>
+              <%= link_to(comment_link_text(comment), "",
+                          class: "js-add-comment-link", data: {'id': dom_id(comment)}) %>
+
+              <% if allow_actions %>
+                <%= render 'comments/actions', {comment: comment} %>
+              <% end %>
+
+              <% if allow_comments %>
+                <%= render 'comments/form', {commentable: comment.commentable,
+                                             parent_id: comment.id,
+                                             toggeable: true,
+                                             valuation: valuation} %>
+              <% end %>
+
+            <%# elsif current_user.present? && (current_user.provider.present? && current_user.is_social? && !comment.commentable.process.social_content.social_access?)%>
+<!--              <div data-alert class="callout primary">
+                <%#= t("debates.show.login_as_spid_to_comment") %>
+              </div>
+            <%# elsif isBlockedPrivacy && current_user.present? %>
+              <div data-alert class="callout primary">
+                <%#= "Non hai dato il tuo pieno consenso alla privacy" %>
+              </div>
+            <%# else %>
+              <br>
+              <div data-alert class="callout primary">
+                <%#= t("debates.show.login_to_comment",
+                      signin: link_to(t("votes.signin"), go_to_login)).html_safe %>
+              </div>-->
+
+            <% end %>
+
           <% elsif comment.commentable.class.name == "Collaboration::Agreement" %>
 
             <% if !isBlockedPrivacy && user_signed_in?  && ((current_user.present? && current_user.provider.present? && current_user.is_social? && comment.commentable.social_content.social_access?) || current_user.provider == 'openam' || current_user.provider == 'test' || current_user.administrator? || current_user.moderator? )%>

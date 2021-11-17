@@ -17,10 +17,10 @@ namespace :management do
 
   resource :account, controller: "account", only: [:show] do
     get :print_password
-    patch :change_password
-    get :reset_password
-    get :edit_password_email
-    get :edit_password_manually
+    #patch :change_password
+    #get :reset_password
+    #get :edit_password_email
+    #get :edit_password_manually
   end
 
   resource :session, only: [:create, :destroy]

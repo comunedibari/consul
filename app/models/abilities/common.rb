@@ -332,11 +332,13 @@ module Abilities
             !poll.vote_has_been_confirmed?(user) && poll.confirmable_by?(user)
           end
         end
+
         can :answer, Poll do |poll|
           if !isBlockedPrivacy
             poll.answerable_by?(user) && !poll.vote_has_been_confirmed?(user)
           end
         end
+
         can :answer, Poll::Question do |question|
           if !isBlockedPrivacy
             question.answerable_by?(user)
@@ -345,7 +347,11 @@ module Abilities
 
       end
 
-      can [:results, :stats], Poll, pon_id: user.pon_id
+      # can [:results, :stats], Poll, pon_id: user.pon_id
+
+      can [:results, :stats], Poll do |poll|
+        poll.pon_id == user.pon_id and poll.results_enabled?
+      end
 
       can [:create, :show], Collaboration::AgreementNotification, collaboration_agreement: { author_id: user.id }
       can [:create, :show], ProposalNotification, proposal: { author_id: user.id }

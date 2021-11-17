@@ -8,7 +8,11 @@
     <br>
   </td>
   <td class="small-12 medium-8 large-1">
-    <%= link_to moderable_booking.asset.name, asset_path(moderable_booking.bookable_id, pon_id: moderable_booking.asset.pon_id) %>
+    <% if asset_deleted(moderable_booking.bookable_id) %>
+      <%= link_to moderable_booking.asset.name, asset_path(moderable_booking.bookable_id, pon_id: moderable_booking.asset.pon_id) %>
+    <% else %>
+      <%= moderable_booking.asset.name %>
+    <% end %>
   </td>
   <td class="small-12 medium-8 large-1">
     <%= moderable_booking.time_end.strftime("%d-%m-%Y") %>
@@ -72,11 +76,13 @@
   <% if !moderable_booking.retired? %>
 
     <% if moderable_booking.pending? || moderable_booking.accepted? %>
+      <% if moderable_booking.time_start >=  Time.now %>
       <td class="small-12 medium-8 large-1">
         <%= link_to t('users.moderable_bookings.retire'),
                 retire_form_asset_booking_manager_moderable_booking_path(asset_id: moderable_booking.bookable_id,id: moderable_booking.id),
                 class: 'btn btn-primary btn-block btn-alert' %>
       </td>
+      <% end %>
     <% elsif  moderable_booking.deleted? %>
       <td class="small-12 medium-8 large-1">
         <%= t("users.moderable_bookings.deleted") %>

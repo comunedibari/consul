@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
   validates :document_number, uniqueness: {scope: :document_type}, allow_nil: true
 
   validate :validate_username_length
-
+  validates :email, format: {with: Devise.email_regexp}, on: [:update, :create, :save]
   validates :official_level, inclusion: {in: 0..5}
   validates :terms_of_service, acceptance: {allow_nil: false}, on: :create
 
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   attr_reader :email_global_notifications_fields
 
 
-  scope :by_user_pon, -> { where(pon_id: User.pon_id) }
+  scope :by_user_pon, -> { where.not(virtual: true).where(pon_id: User.pon_id) }
   scope :normal_users, -> { where("users.id NOT IN (?)", administrators.select(:id)).where("users.id NOT IN (?)", moderators.select(:id)) }
   scope :same_pon_not_virtual, ->(pon_id) { where(virtual: false, pon_id: pon_id) }
   scope :administrators, -> { joins(:administrator) }
@@ -111,7 +111,8 @@ class User < ActiveRecord::Base
 
   scope :by_username_email_or_document_number, ->(search_string) do
     string = "%#{search_string}%"
-    where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", string, string, string)
+    #where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", string, string, string)
+    where("username ILIKE ? OR email ILIKE ?", string, string)
   end
 
   before_validation :clean_document_number
@@ -127,12 +128,12 @@ class User < ActiveRecord::Base
 
   def self.system
     #recuperiamo l'utente system per il pon 5 (Bari)
-    User.unscoped.where(virtual: true).where(pon_id: 5).first
+    User.unscoped.where(virtual: true).where(pon_id: 5).where(username: 'sistema').first
   end
 
   def self.guest
     #recuperiamo l'utente guest per gli user investment anonimi
-    User.unscoped.where(virtual: true).where(pon_id: 0).first
+    User.unscoped.where(virtual: true).where(pon_id: 0).where(username: 'guest').first
   end
 
   def is_system
@@ -538,7 +539,7 @@ class User < ActiveRecord::Base
     result = true
 
     self.email_global_notifications_fields.each do |field_name|
-      result = (result and eval('self.'+ field_name))
+      result = (result and eval('self.' + field_name))
     end
 
     result

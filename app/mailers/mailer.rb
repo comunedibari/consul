@@ -158,41 +158,50 @@ class Mailer < ApplicationMailer
     mail(to: @email_to, from: @newsletter.from, subject: @newsletter.subject)
   end
 
-  private
+  def ext_poll_vote_invite(token, user, poll)
+    @token = token
+    @user = user
+    @poll = poll
+    @email_to = @user["email"]
 
-  def add_logo_attchment
-    attachments.inline['bari-partecipa-logo.png'] = File.read('app/assets/images/bari-partecipa-logo.png')
+    mail(to: @user["email"], subject: "Sei stato invitato ad un sondaggio")
   end
 
-  private
+    private
 
-  def with_user(user, &block)
-    I18n.with_locale(user.locale) do
-      yield
+    def add_logo_attchment
+      attachments.inline['bari-partecipa-logo.png'] = File.read('app/assets/images/bari-partecipa-logo.png')
     end
-  end
 
-  def prevent_delivery_to_users_without_email
-    if @email_to.blank?
-      mail.perform_deliveries = false
+    private
+
+    def with_user(user, &block)
+      I18n.with_locale(user.locale) do
+        yield
+      end
     end
-  end
 
-  def org_name(commentable)
-    if commentable.class.to_s == 'Legislation::Question'
-      leg_process = Legislation::Process.find_by_id(commentable[:legislation_process_id])
-      Setting['org_name', leg_process[:pon_id]]
-    else
-      Setting['org_name', @commentable[:pon_id]]
+    def prevent_delivery_to_users_without_email
+      if @email_to.blank?
+        mail.perform_deliveries = false
+      end
     end
-  end
 
-  def legislation_process_name(commentable)
-    if commentable.class.to_s == 'Legislation::Question'
-      Legislation::Process.find_by_id(commentable[:legislation_process_id])[:title]
-    else
-      ''
+    def org_name(commentable)
+      if commentable.class.to_s == 'Legislation::Question'
+        leg_process = Legislation::Process.find_by_id(commentable[:legislation_process_id])
+        Setting['org_name', leg_process[:pon_id]]
+      else
+        Setting['org_name', @commentable[:pon_id]]
+      end
     end
-  end
 
-end
+    def legislation_process_name(commentable)
+      if commentable.class.to_s == 'Legislation::Question'
+        Legislation::Process.find_by_id(commentable[:legislation_process_id])[:title]
+      else
+        ''
+      end
+    end
+
+  end

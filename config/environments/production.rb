@@ -108,9 +108,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   if  Rails.application.config.environment_set == 'coll'
-    config.openam_logout_url = 'https://url_collaudo/sso/XUI/#logout/&goto=https://url_collaudo'
+    config.openam_logout_url = 'openam_logout_url'
   else
-    config.openam_logout_url = 'https://partecipa.ba.it/sso/XUI/#logout/&goto=https://partecipa.ba.it'
+    config.openam_logout_url = 'openam_logout_url'
   end
 
 end

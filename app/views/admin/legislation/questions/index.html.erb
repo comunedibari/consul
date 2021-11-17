@@ -1,5 +1,5 @@
 <% provide :title do %>
-  Admin - <%= t("admin.menu.legislation") %> - <%= @process.title %> - <%= t("admin.legislation.questions.index.title") %>
+  Admin - <%= t("admin.menu.legislation") %> - <%= @process.title.html_safe %> - <%= t("admin.legislation.questions.index.title") %>
 <% end %>
 
 <div class="legislation-admin legislation-draft-versions-index row">
@@ -14,7 +14,7 @@
     <% elsif @process.process_type == 1  %>
       <%= back_link_to  @process.process_type == 1 ? admin_legislation_process_processes_proposals_path : admin_legislation_processes_path, t("admin.legislation.questions.index.back") %>
     <% end %>
-    <h2><%= @process.title %></h2>
+    <h2><%= @process.title.html_safe %></h2>
 
     <%= render 'admin/legislation/processes/subnav', process: @process, active: 'questions' %>
 

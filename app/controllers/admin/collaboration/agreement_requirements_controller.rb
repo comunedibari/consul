@@ -16,14 +16,14 @@ class Admin::Collaboration::AgreementRequirementsController <  Admin::Collaborat
       set_in_moderation
 
       if current_user.administrator? || current_user.moderator?
-        notice = t('admin.legislation.questions.create.notice', link: edit_admin_collaboration_agreement_agreement_requirement_path(@agreement, @agreement_requirement), notice: notice)
+        notice = t('admin.collaboration.agreement_requirements.create.notice')
         redirect_to admin_collaboration_agreement_agreement_requirements_path, notice: notice
-      else 
-        notice = t('admin.legislation.questions.create.notice_user', link: agreement_requirement_path)
-        redirect_to admin_collaboration_agreement_agreement_requirements_path, notice: notice
+      #else 
+      #  notice = t('admin.legislation.questions.create.notice_user', link: agreement_requirement_path)
+      #  redirect_to admin_collaboration_agreement_agreement_requirements_path, notice: notice
       end
     else
-      flash.now[:error] = t('admin.legislation.questions.create.error')
+      flash.now[:error] = t('admin.collaboration.agreement_requirements.create.error')
       render :new
     end
   end
@@ -32,27 +32,27 @@ class Admin::Collaboration::AgreementRequirementsController <  Admin::Collaborat
     if @agreement_requirement.update(agreement_requirement_params)
       set_in_moderation
       if current_user.administrator? || current_user.moderator?
-        notice = t('admin.legislation.questions.update.notice', link: edit_admin_collaboration_agreement_agreement_requirement_path(@agreement, @agreement_requirement), notice: notice)
+        notice = t('admin.collaboration.agreement_requirements.update.notice')
         redirect_to admin_collaboration_agreement_agreement_requirements_path, notice: notice
-      else 
-        notice = t('admin.legislation.questions.update.notice_user', link: agreement_requirement_path)
-        redirect_to edit_admin_collaboration_agreement_agreement_requirement_path(@agreement, @agreement_requirement), notice: notice
+      #else 
+      #  notice = t('admin.legislation.questions.update.notice_user', link: agreement_requirement_path)
+      #  redirect_to edit_admin_collaboration_agreement_agreement_requirement_path(@agreement, @agreement_requirement), notice: notice
       end
     else
-      flash.now[:error] = t('admin.legislation.questions.update.error')
+      flash.now[:error] = t('admin.collaboration.agreement_requirements.update.error')
       render :edit
     end
   end
 
   def destroy
-    if @agreement_requirement.comments.count > 0 
-      notice = t('admin.legislation.questions.destroy.error_exists_comment')
-      redirect_to :back, alert: notice 
-    else
+    #if @agreement_requirement.comments.count > 0 
+    #  notice = t('admin.legislation.questions.destroy.error_exists_comment')
+    #  redirect_to :back, alert: notice 
+    #else
       @agreement_requirement.destroy
-      notice = t('admin.legislation.questions.destroy.notice')
+      notice = t('admin.collaboration.agreement_requirements.destroy.notice')
       redirect_to admin_collaboration_agreement_agreement_requirements_path, notice: notice
-    end
+    #end
   end
 
   private

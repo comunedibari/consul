@@ -63,7 +63,7 @@
     </div>
     <div class="markdown-editor">
       <div class="small-12 medium-8 column fullscreen-container">
-        <div class="markdown-editor-header truncate"><%= t('admin.legislation.draft_versions.form.title_html', draft_version_title: @draft_version.title, process_title: @process.title ) %></div>
+        <div class="markdown-editor-header truncate"><%= t('admin.legislation.draft_versions.form.title_html', draft_version_title: @draft_version.title, process_title: @process.title.html_safe) %></div>
 
         <div class="markdown-editor-buttons">
           <%= f.submit(class: "btn btn-primary", value: t("admin.legislation.draft_versions.#{admin_submit_action(@draft_version)}.submit_button")) %>

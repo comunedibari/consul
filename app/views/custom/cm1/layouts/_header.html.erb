@@ -22,7 +22,9 @@
                     
                       <% if list_pons.count > 1 and (list_pons.count > 3 || Rails.application.config.select_ente_page) %>
                         <ul class="link-list">
+                          <% if !user_signed_in? || (user_signed_in? && !( current_user.administrator? || current_user.moderator? )) %>          
                           <li><%= link_to t("layouts.header.pon_list"), pons_path %></li>
+                          <% end %>
                       <% elsif list_pons.count > 1 %>            
                         <ul class="link-list">
                           <% if !user_signed_in? || (user_signed_in? && !( current_user.administrator? || current_user.moderator? )) %>          

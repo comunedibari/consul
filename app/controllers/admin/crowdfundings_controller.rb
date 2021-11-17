@@ -110,8 +110,11 @@ class Admin::CrowdfundingsController < Admin::BaseController
   end
 
   def destroy
-    event = @crowdfunding.event_content.event
-    event.destroy
+    unless @crowdfunding.event_content.nil?
+      event = @crowdfunding.event_content.event
+      event.destroy
+    end
+
     @crowdfunding.destroy
     redirect_to admin_crowdfundings_path, notice: t('flash.actions.destroy.budget_investment')
   end

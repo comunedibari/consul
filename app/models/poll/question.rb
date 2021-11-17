@@ -50,7 +50,7 @@ class Poll::Question < ActiveRecord::Base
   end
 
   def comments_count
-    self.comments.count
+    self.comments.where(moderation_entity: 1).count
   end
 
   def answers_count_from_users

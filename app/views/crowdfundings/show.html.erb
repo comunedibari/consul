@@ -290,13 +290,17 @@
       <div class="row">
         <div class="small-12 column">
           <ul class="tabs" data-tabs id="crowdfundings-investment-tabs">
-            <li class="tabs-title <%= !params[:my_inv_list_page] ? 'is-active' : '' %>">
-              <%= link_to "#tab-investment-list" do %>
-                <h3>
-                  <%= t("crowdfundings.show.list_investment").upcase %>
-                </h3>
-              <% end %>
-            </li>
+
+            <% if @crowdfunding.flag_investments %>
+              <li class="tabs-title <%= !params[:my_inv_list_page] ? 'is-active' : '' %>">
+                <%= link_to "#tab-investment-list" do %>
+                  <h3>
+                    <%= t("crowdfundings.show.list_investment").upcase %>
+                  </h3>
+                <% end %>
+              </li>
+            <% end %>
+
             <% if current_user and (can? :new, UserInvestment) %>
               <li class="tabs-title <%= params[:my_inv_list_page] ? 'is-active' : '' %>">
                 <%= link_to "#tab-my-investments" do %>

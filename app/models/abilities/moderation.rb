@@ -169,6 +169,7 @@ module Abilities
 
 
       #POLL
+      cannot :answer, ::Poll::Question
       can [:download_result,:read, :create, :update, :destroy, :add_question, :search_booths, :search_officers, :booth_assignments, :results, :stats], Poll, pon_id: user.pon_id
       can [:create], ::Poll::Question
       can [:read, :update], ::Poll::Question, pon_id: user.pon_id

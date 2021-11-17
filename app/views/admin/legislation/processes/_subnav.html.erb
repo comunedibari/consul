@@ -39,15 +39,7 @@
 
   <!-- Disabilitate le schede Proposte e Bozze per Proposte e Iniziative -->
   <% if @process.process_type != 1 %>
-    <% if active == 'proposals' %>
-      <li class="active">
-        <h2><%= t("admin.legislation.processes.subnav.proposals") %></h2>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to t("admin.legislation.processes.subnav.proposals"), admin_legislation_process_proposals_path(process) %>
-      </li>
-    <% end %>
+
 
     <% if active == 'draft_versions' %>
       <li class="active">

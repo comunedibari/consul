@@ -6,9 +6,7 @@
       <tr>
         <th scope="col"><%= t("admin.users.columns.name") %></th>
         <th scope="col"><%= t("admin.users.columns.email") %></th>
-        <th scope="col"><%= t("admin.users.columns.document_number") %></th>
         <th scope="col"><%= t("admin.users.columns.roles") %></th>
-        <th scope="col"><%= t("admin.users.columns.verification_level") %></th>
       </tr>
     </thead>
     <tbody>
@@ -16,9 +14,7 @@
         <tr>
           <td><%= link_to user.name, user_path(user), target: "_blank" %></td>
           <td><%= user.email %></td>
-          <td><%= user.document_number %></td>
           <td><%= display_user_roles(user) %></td>
-          <td><%= user.user_type %></td>
         </tr>
       <% end %>
     </tbody>

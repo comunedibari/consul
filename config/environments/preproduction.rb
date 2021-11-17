@@ -106,7 +106,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.openam_logout_url = 'https://url_collaudo/sso/XUI/#logout/&goto=https://url_collaudo'
+  config.openam_logout_url = 'openam_logout_url'
 
 
 end

@@ -323,8 +323,7 @@
 
             <br>
 
-            <% if !current_user.administrator? %>
-
+            <% if !current_user.administrator? and service?(:gamification) %>
               </div>
                 <h3><%= t("account.show.gamification") %></h3>
                 <%= link_to t("account.show.gamification_stats"),

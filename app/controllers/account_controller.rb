@@ -15,18 +15,21 @@ class AccountController < ApplicationController
   #fine
 
   def show
-    if current_user.provider == 'openam'
-      if Rails.env.production? && Rails.application.config.cm == 'cm1'
-        setPrivacyInfoSession
+
+    #non occorre più fare la chiamata
+    #if current_user.provider == 'openam'
+    #  if Rails.env.production? && Rails.application.config.cm == 'cm1'
+    #    setPrivacyInfoSession
         #else
         #  session["consensoPrivacy"] = true
         #  session["consensoPrivacyGeo"] = true
-      end
-    end
+    #  end
+    #end
     #@checked_consensoPrivacy = session["consensoPrivacy"]
     #@checked_consensoPrivacyGeo =  session["consensoPrivacyGeo"]
 
     #add breadcrumb in account
+
     add_breadcrumb t('breadcrumbs.services.account')
   end
 
@@ -77,7 +80,9 @@ class AccountController < ApplicationController
   def setPrivacy
 
     if @account.save
-      if Rails.env.production? && Rails.application.config.cm == 'cm1' && @account.provider == 'openam'
+      #non occorre più fare la chiamata
+      if false
+        #Rails.env.production? && Rails.application.config.cm == 'cm1' && @account.provider == 'openam'
         # chekc malformed request
         p_consensoPrivacy = params[:privacy].present? #params[:consensoPrivacy].present?
         p_consensoPrivacyGeo = p_consensoPrivacy #params[:consensoPrivacyGeo].present?
@@ -173,11 +178,21 @@ class AccountController < ApplicationController
 
   def update
     if @account.update(account_params.except(:email_global_notifications))
-      #modifiche mappa
-      if Rails.application.config.coord_user_address && params[:account][:skip_map].to_i == 1 && @account.map_location
-        MapLocation.destroy(@account.map_location.id)
+
+      # #modifiche mappa
+      # if Rails.application.config.coord_user_address && params[:account][:skip_map].to_i == 1 && @account.map_location
+      #   MapLocation.destroy(@account.map_location.id)
+      # end
+      # #fine
+
+      if Rails.application.config.coord_user_address && @account.map_location
+
+        # Se la latitudine è vuota, dobbiamo distruggere la mappa perchè il marker è stato eliminato
+        if account_params['map_location_attributes']['latitude'].blank?
+          MapLocation.destroy(@account.map_location.id)
+        end
       end
-      #fine
+
 
       redirect_to account_path, notice: t("flash.actions.save_changes.notice")
     else

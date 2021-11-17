@@ -64,12 +64,29 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     end
 
+    def check_user_blocked?(auth)
 
+      id_check = Identity.where(uid: auth.uid, provider: auth.provider)
+      if id_check.count > 0
+        user_check = User.with_hidden.where(id: id_check.first.user_id).first
+        if !user_check.hidden_at.nil?
+          logger.info "Utente bloccato" + user_check.hidden_at.to_s + "-"
+          return true
+        end
+      end
+      return false
+
+    end
 
     def sign_in_with(feature, provider)
       #raise ActionController::RoutingError.new('Not Found') unless Setting["feature.#{feature}",current_user.pon_id]
-
+      
       auth = env["omniauth.auth"]
+
+      if check_user_blocked?(auth)
+          redirect_to root_path, alert: "Impossibile accedere: utente bloccato" and return
+      end
+        
 
       identity = Identity.first_or_create_from_oauth(auth)
       #ci entro solo se faccio un accesso tramite social o openam
@@ -156,6 +173,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         session["devise.#{provider}_data"] = auth
         redirect_to new_user_registration_url
       end
+
     end
 
     def save_user

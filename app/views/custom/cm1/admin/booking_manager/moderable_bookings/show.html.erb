@@ -9,7 +9,7 @@
               <tbody>
                 <tr>
                   <td><%= t("admin.moderable_bookings.edit.table.asset") %>:</td>
-                  <td><strong><%= Asset.find(@moderable_booking.bookable_id).name.to_s %> </strong></td>
+                  <td><strong><%= Asset.with_hidden.find(@moderable_booking.bookable_id).name.to_s %> </strong></td>
                 </tr>
                 <tr>
                   <td><%= t("admin.moderable_bookings.edit.table.name") %>:</td>

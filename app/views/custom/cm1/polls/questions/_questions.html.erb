@@ -1,33 +1,33 @@
 <% questions.each do |question| %>
-    <%# if !question.group_id.nil? %>
-        <%
-            optional = false
-            opt_question = question
-        %>
+  <%# if !question.group_id.nil? %>
+  <%
+    optional = false
+    opt_question = question
+  %>
 
-        <% if question.poll_question_type_id == 3%>
-            <% if chek_optional_qustion_hide(question) %>
-                <%
-                    optional = true
-                    opt_question = retrieve_opt_question question
-                %>
-                <div id="<%= dom_id(question) %>" class="poll-question">
-            <% else %>        
-                <div id="<%= dom_id(question) %>" class="poll-question" style="display: none;">
-            <% end %>        
-        <% elsif question.poll_question_type_id == 1 #question.group_id.nil? or question.id == question.group_id %>
-            <div id="<%= dom_id(question) %>" class="poll-question">
-        <% end %>
+  <% if question.poll_question_type_id == 3 %>
+    <% if chek_optional_qustion_hide(question) %>
+      <%
+        optional = true
+        opt_question = retrieve_opt_question question
+      %>
+      <div id="<%= dom_id(question) %>" class="poll-question">
+    <% else %>
+      <div id="<%= dom_id(question) %>" class="poll-question" style="display: none;">
+    <% end %>
+  <% elsif question.poll_question_type_id == 1 #question.group_id.nil? or question.id == question.group_id %>
+    <div id="<%= dom_id(question) %>" class="poll-question">
+  <% end %>
 
-        <% if question.poll_question_type_id == 2%>
-            <% if question.group_id.nil? or question.id == question.group_id %>                
-                <%= render 'polls/questions/tab_questions', question: question, token: @token, optional: optional, opt_question: opt_question  %>
-            <% end %>
-        <% else %>
-            <%= render 'polls/questions/question', question: question, token: @token, optional: optional, opt_question: opt_question  %>
-            </div>
-        <% end %>
+  <% if question.poll_question_type_id == 2 %>
+    <% if question.group_id.nil? or question.id == question.group_id %>
+      <%= render 'polls/questions/tab_questions', question: question, token: @token, optional: optional, opt_question: opt_question %>
+    <% end %>
+  <% else %>
+    <%= render 'polls/questions/question', question: question, token: @token, optional: optional, opt_question: opt_question %>
+    </div>
+  <% end %>
 
-        <!-- </div> -->
-    <%# end %>    
+  <!-- </div> -->
+  <%# end %>
 <% end %>

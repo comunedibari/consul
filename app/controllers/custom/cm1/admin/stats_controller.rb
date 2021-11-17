@@ -7,12 +7,22 @@ class Admin::StatsController < Admin::BaseController
     @debates = Debate.by_user_pon.with_hidden.count
     @proposals = Proposal.by_user_pon.with_hidden.count
     @crowdfundings = Crowdfunding.by_user_pon.with_hidden.count
-    @comments = Comment.by_user_pon.not_valuations.with_hidden.count
-    @debate_votes = Vote.by_user_pon.includes(:user).where(votable_type: 'Debate').where(users: { pon_id: User.pon_id }).count
-    @proposal_votes = Vote.by_user_pon.includes(:user).where(votable_type: 'Proposal').where(users: { pon_id: User.pon_id }).count
+    #@comments = Comment.by_user_pon.not_valuations.with_hidden.count
+    @comments = Comment.by_comment_pon.not_valuations.with_hidden.count
+
+    #@debate_votes = Vote.by_user_pon.includes(:user).where(votable_type: 'Debate').where(users: { pon_id: User.pon_id }).count
+    @debate_votes = Vote.by_user_pon.includes(:debate).where(votable_type: 'Debate').where(debates: { pon_id: User.pon_id }).count
+    
+    #@proposal_votes = Vote.by_user_pon.includes(:user).where(votable_type: 'Proposal').where(users: { pon_id: User.pon_id }).count
+    @proposal_votes = Vote.by_user_pon.includes(:proposal).where(votable_type: 'Proposal').where(proposals: { pon_id: User.pon_id }).count
+
     @crowdfunding_votes = Vote.by_user_pon.includes(:user).where(votable_type: 'Crowdfunding').where(users: { pon_id: User.pon_id }).count
-    @comment_votes = Vote.by_user_pon.includes(:user).where(votable_type: 'Comment').where(users: { pon_id: User.pon_id }).count
-    @votes = Vote.by_user_pon.includes(:user).where(users: { pon_id: User.pon_id }).count
+    
+    #@comment_votes = Vote.by_user_pon.includes(:user).where(votable_type: 'Comment').where(users: { pon_id: User.pon_id }).count
+    @comment_votes = Vote.by_user_pon.includes(:comment).where(votable_type: 'Comment').where(comments: { pon_id: User.pon_id }).count
+    
+    #@votes = Vote.by_user_pon.includes(:user).where(users: { pon_id: User.pon_id }).count
+    @votes = @debate_votes + @proposal_votes + @comment_votes
 
     @user_level_two = User.by_user_pon.active.level_two_verified.count
     @user_level_three = User.by_user_pon.active.level_three_verified.count

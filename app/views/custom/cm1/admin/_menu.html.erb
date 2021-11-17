@@ -34,12 +34,6 @@
             </li>
           <% end %>
 
-          <% if service?(:crowdfundings) %>
-            <li <%= "class=active" if controller_name == "crowdfundings" && controller.class.parent != Admin::Legislation %>>
-              <%= link_to t("admin.menu.hidden_crowdfundings"), admin_moderation_crowdfundings_path %>
-            </li>
-          <% end %>
-
           <% if service?(:events) %>
             <li <%= "class=active" if controller_path == "admin/moderation/events" %>>
               <%= link_to t("admin.menu.events"), admin_moderation_events_path %>
@@ -64,13 +58,6 @@
           <% if service?(:processes) %>
             <li <%= "class=active" if controller_name == "processes" %>>
               <%= link_to t("admin.menu.hidden_processes"), admin_moderation_processes_path %>
-            </li>
-          <% end %>
-
-          <%# moderazione su agreement %>
-          <% if service?(:collaboration) %>
-            <li <%= "class=active" if controller_name == "agreements" %>>
-              <%= link_to t("admin.menu.hidden_agreements"), admin_moderation_agreements_path %>
             </li>
           <% end %>
 
@@ -297,40 +284,11 @@
         </li>
       <% end %>
 
-
-      <% if service?(:processes) or service?(:crowdfundings) %>
-
-        <% if service?(:crowdfundings) %>
-          <li class="section-title <%= "active" if controller_name == "crowdfundings" %>">
-            <%= link_to admin_crowdfundings_path do %>
-              <span class="fa fa-money fa-lg"></span>
-              <strong><%= t("admin.menu.crowdfundings") %></strong>
-            <% end %>
-          </li>
-        <% end %>
-
         <% if service?(:processes) %>
-          <li class="section-title">
-            <a href="#">
-              <span class="fa fa-pencil fa-lg"></span>
-              <strong><%= t("admin.menu.menage_processes_proposals") %></strong>
-            </a>
-            <ul <%= "class=is-active" if menu_content_management? || (@process and @process.process_type == 1) %>>
-
-              <% if service?(:processes) %>
                 <li class="section-title <%= "active" if controller_name == "process_processes_proposals" %>">
                   <%= link_to t("admin.menu.legislation_process_processes_proposals"), admin_legislation_process_processes_proposals_path %>
                 </li>
-                <li <%= "class=active" if controller_name == "process_typologies" %>>
-                  <%= link_to t("admin.menu.process_typologies"), admin_legislation_process_typologies_path %>
-                </li>
-              <% end %>
-            </ul>
-          </li>
         <% end %>
-
-      <% end %>
-
 
     </ul>
   </div>

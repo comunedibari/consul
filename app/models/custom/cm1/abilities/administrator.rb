@@ -178,6 +178,10 @@ module Abilities
         crowdfunding.creable_by?(user)
       end
 
+      can [:create, :update, :destroy, :edit, :read, :manage], ::Legislation::ProcessTypology do |type|
+        type.creable_by?(user)
+      end
+
       can [:toedit], Crowdfunding
 
       can [:update, :destroy, :edit], Crowdfunding do |crowdfunding|

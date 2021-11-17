@@ -1,6 +1,7 @@
 <div class="row margin-top">
   <div class="small-12 medium-12 column">
-    <%= back_link_to asset_path(@asset), t("assets.moderable_bookings.show.back") %>
+    <%#= back_link_to asset_path(@asset), t("assets.moderable_bookings.show.back") %>
+    <%= back_link_to user_path(current_user,:filter => "moderable_bookings"), t("assets.moderable_bookings.show.back") %>
   </div>
 </div>
 
@@ -52,7 +53,7 @@
           </tr>
           <tr>
             <td><%= t("assets.moderable_bookings.show.user_cf") %>:</td>
-            <td><%= current_user.cod_fiscale.to_s %></td>
+            <td><%= @moderable_booking.user.cod_fiscale.to_s %></td>
           </tr>
           </tbody>
         </table>

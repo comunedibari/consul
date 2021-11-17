@@ -27,9 +27,9 @@ class Admin::BookingManager::ModerableBookingsController < Admin::BookingManager
       if  @moderable_booking.status == 3
         BookingManager::Booking.delete(@moderable_booking.booking_id)
       end
-      redirect_to  admin_moderable_bookings_path , notice: t("admin.asset.edit.update_success")
+      redirect_to  admin_moderable_bookings_path , notice: t("admin.moderable_bookings.update.update_successde")
     else
-      flash.now[:error] = t('admin.asset.create.error')
+      flash.now[:error] = t('admin.moderable_bookings.update.error')
       #altrimenti ritorno alla pagina di modifica
       render :edit
     end

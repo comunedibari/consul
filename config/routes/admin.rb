@@ -220,13 +220,13 @@ namespace :admin, path: 'amministrazione' do
   resource :stats, only: :show, :path => 'statistiche' do
     get :proposal_notifications, on: :collection, path: 'notifiche_' + Rails.application.config.route_proposals
     get :direct_messages, on: :collection, path: 'messaggi_diretti'
-    get :polls, on: :collection, path: 'consultazioni'
+#    get :polls, on: :collection, path: 'consultazioni'
   end
 
   resource :stats, only: :show, :path => 'statistiche' do
     get :crowdfunding_notifications, on: :collection, path: 'notifiche_' + Rails.application.config.route_crowdfundings
     get :direct_messages, on: :collection, path: 'messaggi_diretti'
-    get :polls, on: :collection, path: 'consultazioni'
+#    get :polls, on: :collection, path: 'consultazioni'
   end
 
 

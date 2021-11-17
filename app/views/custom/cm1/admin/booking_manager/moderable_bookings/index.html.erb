@@ -61,7 +61,11 @@
             <%= link_to moderable_booking.user.username, user_path(moderable_booking.booker_id) %>
           </td>
           <td class="small-12 medium-8 large-3">
-            <%= link_to moderable_booking.asset.name, admin_asset_path(moderable_booking.bookable_id) %>
+            <% if asset_deleted(moderable_booking.bookable_id) %>
+              <%= link_to moderable_booking.asset.name, admin_asset_path(moderable_booking.bookable_id) %>
+            <% else %>
+              <%= moderable_booking.asset.name %>
+            <% end %>
           </td>
           <td class="small-12 medium-8 large-3">
             <%= moderable_booking.time_end.strftime("%d-%m-%Y") %>
@@ -75,9 +79,11 @@
 
           <% if moderable_booking.status == 1 %>
             <td>     
+              <% if moderable_booking.time_start >=  Time.now %>
               <%= link_to t("admin.moderable_bookings.index.table.approve"),
                             edit_admin_moderable_booking_path(moderable_booking, approved: true), class: "button success hollow"
-            %>
+              %>
+              <% end %>
            </td>
            <td>
             <%= link_to t("admin.moderable_bookings.index.table.disapprove"),
@@ -86,8 +92,10 @@
           <% end %>
           <% if moderable_booking.status == 2 %>
            <td>
+            <% if moderable_booking.time_start >=  Time.now %>
             <%= link_to t("admin.moderable_bookings.index.table.disapprove"),
                             edit_admin_moderable_booking_path(moderable_booking, approved: false), class: "button alert hollow" %>
+            <% end %>
           </td>
           <% end %>                         
         </tr>

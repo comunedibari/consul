@@ -23,6 +23,10 @@ class Admin::CrowdfundingRewardsController < Admin::BaseController
       flash[:error] =  I18n.t('verification.residence.new.error_crowdfunding_reward_too_low')
       redirect_to :back
       return
+    #elsif @crowdfunding.crowdfunding_rewards.where(min_investment: crowdfunding_reward_params[:min_investment].to_f).count > 0
+    #  flash[:error] =  I18n.t('verification.residence.new.error_crowdfunding_reward_already_present')
+    #  redirect_to :back
+    #  return
     elsif crowdfunding_reward_params[:description].to_s == '' || WYSIWYGSanitizer.new.sanitize_all(crowdfunding_reward_params[:description]).length < 10
       flash[:error] =  I18n.t('verification.residence.new.error_too_short_reward_description')
       redirect_to :back

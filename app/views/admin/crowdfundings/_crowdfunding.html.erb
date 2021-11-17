@@ -256,8 +256,16 @@
 
 
   <div class="actions small-12 column mt-3">
+    <% if @crowdfunding.user_investments.count == 0 %>
+      <%= f.submit(class: "button", value: t("crowdfundings.#{action_name}.form.submit_button"))
+      %>
+    <% else %>
+      <%= f.submit(class: "button",
+                   value: t("crowdfundings.#{action_name}.form.submit_button"),
+                   data: { confirm: 'Attenzione, stai richiedendo di modificare un Crowdfunding che ha già ricevuto dei finanziamenti, sei sicuro di voler procedere?' })
+      %>
+    <% end %>
 
-    <%= f.submit(class: "button", value: t("crowdfundings.#{action_name}.form.submit_button")) %>
   </div>
 </div>
 <% end %>
@@ -272,12 +280,12 @@
 
           jQuery(function(){
             jQuery('#end_date').datetimepicker({
-              format:'d-m-Y',
+              format:'d/m/Y',
               lang: 'it',
               onShow:function( ct ){
                 if (jQuery('#start_date').val()){
-                  val=jQuery('#start_date').val().slice(0, 10).split("-");
-                  dat_s = val[2]+"-"+val[1]+"-"+val[0];}
+                  val=jQuery('#start_date').val().slice(0, 10).split("/");
+                  dat_s = val[2]+"/"+val[1]+"/"+val[0];}
                 else
                   {dat_s = false;
                   }
@@ -288,12 +296,12 @@
               timepicker:false
             });
             jQuery('#start_date').datetimepicker({
-              format:'d-m-Y',
+              format:'d/m/Y',
               lang: 'it',
               onShow:function( ct ){
                 if (jQuery('#end_date').val()){
-                  val=jQuery('#end_date').val().slice(0, 10).split("-");
-                  dat_s = val[2]+"-"+val[1]+"-"+val[0];}
+                  val=jQuery('#end_date').val().slice(0, 10).split("/");
+                  dat_s = val[2]+"/"+val[1]+"/"+val[0];}
                 else
                   {dat_s = false;
                   }
